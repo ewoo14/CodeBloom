@@ -22,11 +22,17 @@ public class Location extends BaseEntity { // 지역
     private String description;
 
     @Builder
+<<<<<<< HEAD
     public Location(String name, String description) {
+=======
+    public Location(String locationId, String name, String description) {
+        this.locationId = locationId;
+>>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
         this.name = name;
         this.description = description;
     }
 
+<<<<<<< HEAD
     public static Location create(String name, String description) {
         return Location.builder()
                 .name(name)
@@ -42,4 +48,6 @@ public class Location extends BaseEntity { // 지역
             this.description = description;
         }
     }
+=======
+>>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
 }

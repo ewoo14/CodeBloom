@@ -37,7 +37,12 @@ public class Review extends BaseEntity { // 리뷰
 	private Integer score;
 
 	@Builder
+<<<<<<< HEAD
 	public Review(User user, Store store, Order order, String content, Integer score) {
+=======
+	public Review(String reviewId, User user, Store store, Order order, String content, Integer score) {
+		this.reviewId = reviewId;
+>>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
 		this.user = user;
 		this.store = store;
 		this.order = order;
@@ -45,6 +50,7 @@ public class Review extends BaseEntity { // 리뷰
 		this.score = score;
 	}
 
+<<<<<<< HEAD
 	public static Review create(User user, Store store, Order order, String content, Integer score) {
 		return Review.builder()
 				.user(user)
@@ -63,4 +69,6 @@ public class Review extends BaseEntity { // 리뷰
 			this.score = score;
 		}
 	}
+=======
+>>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
 }

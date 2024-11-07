@@ -37,6 +37,7 @@ public class Address extends BaseEntity { // 배송지
 	@Column(name="is_default") // 메인 주소지 여부
 	private Boolean isDefault;
 
+<<<<<<< HEAD
 	public void updateDefault(Boolean isDefault) {
 		this.isDefault = isDefault;
 	}
@@ -54,6 +55,11 @@ public class Address extends BaseEntity { // 배송지
 	@Builder
 	private Address(User user, String city, String district, String streetName,
 					String streetNumber, String detail, Boolean isDefault) {
+=======
+	@Builder
+	public Address(String addressId, User user, String city, String district, String streetName, Integer streetNumber, String detail, Boolean isDefault) {
+		this.addressId = addressId;
+>>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
 		this.user = user;
 		this.city = city;
 		this.district = district;
@@ -63,6 +69,7 @@ public class Address extends BaseEntity { // 배송지
 		this.isDefault = isDefault;
 	}
 
+<<<<<<< HEAD
 	public static Address create(User user, String city, String district,
 								 String streetName, String streetNumber, String detail, Boolean isDefault) {
 		return Address.builder()
@@ -76,4 +83,6 @@ public class Address extends BaseEntity { // 배송지
 				.build();
 	}
 
+=======
+>>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
 }

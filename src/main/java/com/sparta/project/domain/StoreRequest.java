@@ -47,6 +47,7 @@ public class StoreRequest extends BaseEntity { // 음식점 허가 요청
 	@JoinColumn(name="location_id", nullable=false)
 	private Location location;
 
+<<<<<<< HEAD
 
 	@PrePersist
 	public void setPrePersist() {
@@ -73,10 +74,17 @@ public class StoreRequest extends BaseEntity { // 음식점 허가 요청
 	@Builder
 	private StoreRequest(String id, String name, String description, String address, User owner, StoreCategory category, Location location) {
 		this.storeRequestId = id;
+=======
+	@Builder
+	public StoreRequest(String storeRequestId, String name, String description, String address, User owner, Category category, Location location) {
+		this.storeRequestId = storeRequestId;
+		this.isApproved = false;
+>>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
 		this.name = name;
 		this.description = description;
 		this.address = address;
 		this.owner = owner;
+<<<<<<< HEAD
 		this.storeCategory = category;
 		this.location = location;
 	}
@@ -92,4 +100,9 @@ public class StoreRequest extends BaseEntity { // 음식점 허가 요청
 				.location(location)
 				.build();
 	}
+=======
+		this.category = category;
+		this.location = location;
+	}
+>>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
 }

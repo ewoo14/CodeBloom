@@ -7,11 +7,16 @@ import com.sparta.project.exception.ErrorCode;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+<<<<<<< HEAD
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+=======
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+>>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,9 +40,16 @@ public class Order extends BaseEntity { // 주문
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
+<<<<<<< HEAD
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
+=======
+	@Column(name="status", nullable=false) // 주문 상태 (대기/승인/취소)
+	@Enumerated(EnumType.STRING)
+	@ColumnDefault("'WAITING'")
+	private OrderStatus status;
+>>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
 
     @Column(name = "type", nullable = false) // 주문 유형 (온라인/오프라인)
     @Enumerated(EnumType.STRING)
@@ -102,5 +114,14 @@ public class Order extends BaseEntity { // 주문
 
 	@OneToMany(mappedBy="order")
 	private List<OrderFood> orderFoods = new ArrayList<>();
+
+	@Builder
+	public Order(String orderId, User user, OrderType type, Integer orderPrice) {
+		this.orderId = orderId;
+		this.user = user;
+		this.type = type;
+		this.status = OrderStatus.WAITING;
+		this.orderPrice = orderPrice;
+	}
 
 }

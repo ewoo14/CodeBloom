@@ -31,6 +31,7 @@ public class Payment extends BaseEntity { // 결제
 	@Column(name="payment_price", nullable=false) // 결제 가격
 	private Integer paymentPrice;
 
+<<<<<<< HEAD
 	@Column(name="pg_name", length=100) // PG사 이름 (NHN KCP/KG이니시스/토스페이먼츠)
 	@Enumerated(EnumType.STRING)
 	private PgName pgName;
@@ -57,6 +58,14 @@ public class Payment extends BaseEntity { // 결제
 				.pgName(pgName)
 				.pgKey(pgName.getPgKey())
 				.build();
+=======
+	@Builder
+	public Payment(String paymentId, Order order, PaymentType type, Integer paymentPrice) {
+		this.paymentId = paymentId;
+		this.order = order;
+		this.type = type;
+		this.paymentPrice = paymentPrice;
+>>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
 	}
 
 }

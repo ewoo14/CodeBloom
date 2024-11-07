@@ -34,6 +34,7 @@ public class User extends BaseEntity { // 유저
     @Enumerated(EnumType.STRING)
     private Role role;
 
+<<<<<<< HEAD
     public void update(String username, String password, String nickname) {
         if(username!=null) this.username = username;
         if(password!=null) this.password = password;
@@ -42,11 +43,16 @@ public class User extends BaseEntity { // 유저
 
     @Builder
     private User(String username, String password, String nickname, Role role) {
+=======
+    @Builder
+    public User(String username, String password, String nickname, Role role) {
+>>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
         this.username = username;
         this.password = password;
         this.nickname = nickname;
         this.role = role;
     }
+<<<<<<< HEAD
 
     public static User create(String username, String password, String nickname, Role role) {
         return User.builder()
@@ -56,5 +62,9 @@ public class User extends BaseEntity { // 유저
                 .role(role)
                 .build();
     }
+=======
+    // 만약 닉네임 초기값을 여기서 설정하고 싶다면, 파라미터에 nickname 지우고, this.nickname = "{defaultName}" 으로 설정하면 됩니다.
+    // 닉네임 초기값을 통일한다고 하면, @Builder.Default 활용해도 됩니다.
+>>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
 
 }

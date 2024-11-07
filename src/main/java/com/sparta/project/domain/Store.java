@@ -35,6 +35,7 @@ public class Store extends BaseEntity { // 음식점
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
 
+<<<<<<< HEAD
     @Column(name = "score") // 음식점 리뷰 평균 평점
     private Double score; // 빌더에 넣지 않았습니다.
 
@@ -80,4 +81,17 @@ public class Store extends BaseEntity { // 음식점
         if (storeCategory != null) this.storeCategory = storeCategory;
 
     }
+=======
+	@Builder
+	public Store(String storeId, String name, String description, String address, User owner, Category category, Location location) {
+		this.storeId = storeId;
+		this.name = name;
+		this.description = description;
+		this.address = address;
+		this.owner = owner;
+		this.category = category;
+		this.location = location;
+	}
+
+>>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
 }
