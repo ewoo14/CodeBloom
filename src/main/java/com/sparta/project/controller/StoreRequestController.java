@@ -130,17 +130,17 @@ public class StoreRequestController {
 import com.sparta.project.dto.storerequest.StoreRequestCreateRequest;
 import com.sparta.project.dto.storerequest.StoreRequestResponse;
 import com.sparta.project.service.StoreRequestService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/store-requests")
 public class StoreRequestController {
 
-    @Autowired
     private StoreRequestService storeRequestService;
 
     // 자신의 요청 목록 조회

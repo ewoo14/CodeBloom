@@ -107,16 +107,16 @@ import com.sparta.project.dto.user.UserRegisterRequest;
 import com.sparta.project.dto.user.UserUpdateRequest;
 import com.sparta.project.dto.user.UserResponse;
 import com.sparta.project.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
 
-    @Autowired
     private UserService userService;
 
     // 회원가입

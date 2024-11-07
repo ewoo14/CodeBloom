@@ -56,14 +56,14 @@ import com.sparta.project.dto.ai.AIChatResponse;
 import com.sparta.project.dto.ai.AIDescRequest;
 import com.sparta.project.dto.ai.AIDescResponse;
 import com.sparta.project.service.AIService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;ㄴ
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/ai")
 public class AIController {
 
-    @Autowired
     private AIService aiService;
 
     // 챗봇 질문에 대한 답변 요청

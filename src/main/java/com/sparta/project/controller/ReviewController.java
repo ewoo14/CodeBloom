@@ -99,16 +99,16 @@ public class ReviewController {
 import com.sparta.project.dto.review.ReviewRequest;
 import com.sparta.project.dto.review.ReviewResponse;
 import com.sparta.project.service.ReviewService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/reviews")
 public class ReviewController {
 
-    @Autowired
     private ReviewService reviewService;
 
     // 리뷰 상세 조회

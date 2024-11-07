@@ -104,16 +104,16 @@ public class OrderController {
 import com.sparta.project.dto.order.OrderRequest;
 import com.sparta.project.dto.order.OrderResponse;
 import com.sparta.project.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/orders")
 public class OrderController {
 
-    @Autowired
     private OrderService orderService;
 
     // 자신의 주문내역 목록 조회

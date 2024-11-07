@@ -78,16 +78,16 @@ public class StoreController {
 import com.sparta.project.dto.store.StoreUpdateRequest;
 import com.sparta.project.dto.store.StoreResponse;
 import com.sparta.project.service.StoreService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/stores")
 public class StoreController {
 
-    @Autowired
     private StoreService storeService;
 
     // 자신의 음식점 조회

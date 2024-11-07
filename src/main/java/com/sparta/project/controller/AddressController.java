@@ -24,13 +24,18 @@ import org.springframework.security.core.Authentication;
 import com.sparta.project.dto.address.AddressRequest;
 import com.sparta.project.dto.address.AddressResponse;
 import com.sparta.project.service.AddressService;
+<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;
 >>>>>>> c220516 ([Feat] : 컨트롤러 초안 작성)
+=======
+import lombok.RequiredArgsConstructor;
+>>>>>>> 92aac64 ([Fix] : Autowired -> ReqArgsCons 변경)
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+<<<<<<< HEAD
 <<<<<<< HEAD
 @RequiredArgsConstructor
 @RequestMapping("/addresses")
@@ -106,10 +111,12 @@ public class AddressController {
     }
 
 =======
+=======
+@RequiredArgsConstructor
+>>>>>>> 92aac64 ([Fix] : Autowired -> ReqArgsCons 변경)
 @RequestMapping("/users/address")
 public class AddressController {
 
-    @Autowired
     private AddressService addressService;
 
     // 전체 배송지 정보 불러오기

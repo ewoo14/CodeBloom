@@ -3,16 +3,16 @@ package com.sparta.project.controller;
 import com.sparta.project.dto.category.CategoryRequest;
 import com.sparta.project.dto.category.CategoryResponse;
 import com.sparta.project.service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/categories")
 public class CategoryController {
 
-    @Autowired
     private CategoryService categoryService;
 
     // 음식점 카테고리 목록 조회

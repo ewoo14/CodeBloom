@@ -101,16 +101,16 @@ public class PaymentController {
 import com.sparta.project.dto.payment.PaymentRequest;
 import com.sparta.project.dto.payment.PaymentResponse;
 import com.sparta.project.service.PaymentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/payments")
 public class PaymentController {
 
-    @Autowired
     private PaymentService paymentService;
 
     // 자신의 결제 내역 목록 조회
