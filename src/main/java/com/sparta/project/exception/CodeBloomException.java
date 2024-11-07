@@ -12,4 +12,8 @@ public class CodeBloomException extends RuntimeException {
         this.httpStatus = errorCode.getHttpStatus();
         this.message = errorCode.getMessage();
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> ccc565e ([Feat] 프로젝트 커스텀 익셉션 추가)
