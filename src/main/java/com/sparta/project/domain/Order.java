@@ -13,6 +13,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
@@ -96,5 +99,8 @@ public class Order extends BaseEntity { // 주문
         this.status = OrderStatus.CANCELED;
         deleteBase(String.valueOf(userId));
     }
+
+	@OneToMany(mappedBy="order")
+	private List<OrderFood> orderFoods = new ArrayList<>();
 
 }
