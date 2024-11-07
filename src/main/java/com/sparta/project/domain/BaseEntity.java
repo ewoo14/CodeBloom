@@ -16,7 +16,11 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 @MappedSuperclass
+<<<<<<< HEAD
 public abstract class BaseEntity {
+=======
+public class BaseEntity {
+>>>>>>> 6ddac12 ([Fix] createdAt 컬럼 옵션에 "nullable=true" 제거)
     @Column(name="is_deleted") // 삭제 여부
     @ColumnDefault("false")
     private Boolean isDeleted;
