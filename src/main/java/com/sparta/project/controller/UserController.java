@@ -1,6 +1,7 @@
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.common.ApiResponse;
@@ -106,6 +107,12 @@ import com.sparta.project.dto.user.UserLoginRequest;
 import com.sparta.project.dto.user.UserRegisterRequest;
 import com.sparta.project.dto.user.UserUpdateRequest;
 import com.sparta.project.dto.user.UserResponse;
+=======
+import com.sparta.project.dto.UserLoginRequest;
+import com.sparta.project.dto.UserRegisterRequest;
+import com.sparta.project.dto.UserUpdateRequest;
+import com.sparta.project.dto.UserResponse;
+>>>>>>> d0a8147 ([Fix] controller 내 dto 경로 수정)
 import com.sparta.project.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

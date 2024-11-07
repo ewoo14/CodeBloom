@@ -1,6 +1,7 @@
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.address.AddressAdminResponse;
@@ -23,6 +24,10 @@ import org.springframework.security.core.Authentication;
 =======
 import com.sparta.project.dto.address.AddressRequest;
 import com.sparta.project.dto.address.AddressResponse;
+=======
+import com.sparta.project.dto.AddressRequest;
+import com.sparta.project.dto.AddressResponse;
+>>>>>>> d0a8147 ([Fix] controller 내 dto 경로 수정)
 import com.sparta.project.service.AddressService;
 <<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Autowired;

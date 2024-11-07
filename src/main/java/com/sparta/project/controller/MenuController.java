@@ -1,6 +1,7 @@
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
@@ -80,6 +81,10 @@ public class MenuController {
 =======
 import com.sparta.project.dto.menu.MenuRequest;
 import com.sparta.project.dto.menu.MenuResponse;
+=======
+import com.sparta.project.dto.MenuRequest;
+import com.sparta.project.dto.MenuResponse;
+>>>>>>> d0a8147 ([Fix] controller 내 dto 경로 수정)
 import com.sparta.project.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

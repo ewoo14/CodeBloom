@@ -1,6 +1,7 @@
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.common.ApiResponse;
@@ -77,6 +78,10 @@ public class StoreController {
 =======
 import com.sparta.project.dto.store.StoreUpdateRequest;
 import com.sparta.project.dto.store.StoreResponse;
+=======
+import com.sparta.project.dto.StoreUpdateRequest;
+import com.sparta.project.dto.StoreResponse;
+>>>>>>> d0a8147 ([Fix] controller 내 dto 경로 수정)
 import com.sparta.project.service.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,7 @@
 package com.sparta.project.controller;
 
-import com.sparta.project.dto.category.CategoryRequest;
-import com.sparta.project.dto.category.CategoryResponse;
+import com.sparta.project.dto.CategoryRequest;
+import com.sparta.project.dto.CategoryResponse;
 import com.sparta.project.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

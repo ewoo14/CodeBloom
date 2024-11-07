@@ -1,6 +1,7 @@
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
@@ -98,6 +99,10 @@ public class ReviewController {
 =======
 import com.sparta.project.dto.review.ReviewRequest;
 import com.sparta.project.dto.review.ReviewResponse;
+=======
+import com.sparta.project.dto.ReviewRequest;
+import com.sparta.project.dto.ReviewResponse;
+>>>>>>> d0a8147 ([Fix] controller 내 dto 경로 수정)
 import com.sparta.project.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

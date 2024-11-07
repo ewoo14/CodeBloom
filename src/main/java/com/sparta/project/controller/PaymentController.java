@@ -1,6 +1,7 @@
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
@@ -100,6 +101,10 @@ public class PaymentController {
 =======
 import com.sparta.project.dto.payment.PaymentRequest;
 import com.sparta.project.dto.payment.PaymentResponse;
+=======
+import com.sparta.project.dto.PaymentRequest;
+import com.sparta.project.dto.PaymentResponse;
+>>>>>>> d0a8147 ([Fix] controller 내 dto 경로 수정)
 import com.sparta.project.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

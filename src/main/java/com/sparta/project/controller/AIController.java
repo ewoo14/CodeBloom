@@ -1,6 +1,7 @@
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.ai.AIRequest;
 import com.sparta.project.dto.ai.AIResponse;
@@ -55,6 +56,12 @@ import com.sparta.project.dto.ai.AIChatRequest;
 import com.sparta.project.dto.ai.AIChatResponse;
 import com.sparta.project.dto.ai.AIDescRequest;
 import com.sparta.project.dto.ai.AIDescResponse;
+=======
+import com.sparta.project.dto.AIChatRequest;
+import com.sparta.project.dto.AIChatResponse;
+import com.sparta.project.dto.AIDescRequest;
+import com.sparta.project.dto.AIDescResponse;
+>>>>>>> d0a8147 ([Fix] controller 내 dto 경로 수정)
 import com.sparta.project.service.AIService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
