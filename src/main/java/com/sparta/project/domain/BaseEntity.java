@@ -55,7 +55,7 @@ public abstract class BaseEntity {
     public void deleteBase(String username) {
 =======
 //    @CreatedBy
-    @Column(name="created_by", length=10, updatable = false)
+    @Column(name="created_by", length=10)
     private String createdBy;
 
 //    @LastModifiedBy
