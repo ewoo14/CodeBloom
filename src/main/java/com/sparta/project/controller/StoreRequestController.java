@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
@@ -185,3 +186,87 @@ public class StoreRequestController {
     }
 >>>>>>> c220516 ([Feat] : 컨트롤러 초안 작성)
 }
+=======
+//package com.sparta.project.controller;
+//
+//import com.sparta.project.dto.StoreRequestRequest;
+//import com.sparta.project.dto.StoreRequestResponse;
+//import com.sparta.project.dto.ApiResponse;
+//import com.sparta.project.dto.PageResponse;
+//import com.sparta.project.service.StoreRequestService;
+//import lombok.RequiredArgsConstructor;
+//import org.springframework.web.bind.annotation.*;
+//
+//@RestController
+//@RequiredArgsConstructor
+//@RequestMapping("/store-requests")
+//public class StoreRequestController {
+//
+//    private final StoreRequestService storeRequestService;
+//
+//    // 자신의 요청 목록 조회(OWNER)
+//    @GetMapping("/my")
+//    public ApiResponse<PageResponse<StoreRequestResponse>> getMyStoreRequests(
+//            @RequestParam("page") int page,
+//            @RequestParam("size") int size,
+//            @RequestParam("sortBy") String sortBy) {
+//        Page<StoreRequestResponse> myRequests = storeRequestService.getMyStoreRequests(page, size, sortBy);
+//        return ApiResponse.of("message", PageResponse.of(myRequests));
+//    }
+//
+//    // 음식점 생성 요청 상세 조회(OWNER)
+//    @GetMapping("/my/{request_id}")
+//    public ApiResponse<PageResponse<StoreRequestResponse>> getStoreRequestById(
+//            @PathVariable String request_id,
+//            @RequestParam("page") int page,
+//            @RequestParam("size") int size,
+//            @RequestParam("sortBy") String sortBy) {
+//        Page<StoreRequestResponse> myRequest = storeRequestService.getStoreRequestById(request_id, page, size, sortBy);
+//        return ApiResponse.of("message", PageResponse.of(myRequest));
+//    }
+//
+//    // 음식점 생성 요청 목록 조회(MANAGER, MASTER)
+//    @GetMapping
+//    public ApiResponse<PageResponse<StoreRequestResponse>> getAllStoreRequests(
+//            @RequestParam("page") int page,
+//            @RequestParam("size") int size,
+//            @RequestParam("sortBy") String sortBy) {
+//        Page<StoreRequestResponse> storeRequests = storeRequestService.getAllStoreRequests(page, size, sortBy);
+//        return ApiResponse.of("message", PageResponse.of(storeRequests));
+//    }
+//
+//    // 음식점 생성 요청 상세 조회(MANAGER, MASTER)
+//    @GetMapping("/{request_id}")
+//    public ApiResponse<PageResponse<StoreRequestResponse>> getStoreRequestById(
+//            @PathVariable String request_id,
+//            @RequestParam("page") int page,
+//            @RequestParam("size") int size,
+//            @RequestParam("sortBy") String sortBy) {
+//        Page<StoreRequestResponse> storeRequest = storeRequestService.getStoreRequestById(request_id, page, size, sortBy);
+//        return ApiResponse.of("message", PageResponse.of(storeRequest));
+//    }
+//
+//    // 음식점 생성 요청(OWNER)
+//    @PostMapping
+//    public ApiResponse<StoreRequestResponse> createStoreRequest(@RequestBody StoreRequestRequest storeRequestRequest) {
+//        StoreRequestResponse madeRequest = storeRequestService.createStoreRequest(storeRequestRequest);
+//        return ApiResponse.of("message", madeRequest);
+//    }
+//
+//    // 음식점 생성 요청 승인(MANAGER, MASTER)
+//    @PostMapping("/{request_id}")
+//    public ApiResponse<StoreRequestResponse> updateStoreRequest(
+//            @PathVariable String request_id,
+//            @RequestBody StoreRequestRequest storeRequestRequest) {
+//        StoreRequestResponse approvedRequest = storeRequestService.updateStoreRequest(request_id, storeRequestRequest);
+//        return ApiResponse.of("message", approvedRequest);
+//    }
+//
+//    // 음식점 생성 요청 반려(MANAGER, MASTER)
+//    @DeleteMapping("/{request_id}")
+//    public ApiResponse<Void> deleteStoreRequest(@PathVariable String request_id) {
+//        storeRequestService.deleteStoreRequest(request_id);
+//        return ApiResponse.of("message", null);
+//    }
+//}
+>>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
