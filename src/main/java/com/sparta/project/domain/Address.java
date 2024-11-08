@@ -57,7 +57,7 @@ public class Address extends BaseEntity { // 배송지
 					String streetNumber, String detail, Boolean isDefault) {
 =======
 	@Builder
-	public Address(String addressId, User user, String city, String district, String streetName, Integer streetNumber, String detail, Boolean isDefault) {
+	public Address(String addressId, User user, String city, String district, String streetName, String streetNumber, String detail, Boolean isDefault) {
 		this.addressId = addressId;
 >>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
 		this.user = user;
