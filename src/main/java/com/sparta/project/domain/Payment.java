@@ -1,5 +1,6 @@
 package com.sparta.project.domain;
 
+import com.sparta.project.domain.enums.OrderType;
 import com.sparta.project.domain.enums.PaymentType;
 import com.sparta.project.domain.enums.PgName;
 import jakarta.persistence.*;
@@ -32,6 +33,9 @@ public class Payment extends BaseEntity { // 결제
 	private Integer paymentPrice;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b1c6552 ([Feat] Payment에 PG사 이름, PG사 결제 코드 추가)
 	@Column(name="pg_name", length=100) // PG사 이름 (NHN KCP/KG이니시스/토스페이먼츠)
 	@Enumerated(EnumType.STRING)
 	private PgName pgName;
@@ -39,6 +43,7 @@ public class Payment extends BaseEntity { // 결제
 	@Column(name="pg_key", length=255) // PG사 결제 코드
 	private String pgKey;
 
+<<<<<<< HEAD
 	@Builder
 	private Payment(Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName, String pgKey) {
 		this.order = order;
@@ -59,13 +64,20 @@ public class Payment extends BaseEntity { // 결제
 				.pgKey(pgName.getPgKey())
 				.build();
 =======
+=======
+>>>>>>> b1c6552 ([Feat] Payment에 PG사 이름, PG사 결제 코드 추가)
 	@Builder
-	public Payment(String paymentId, Order order, PaymentType type, Integer paymentPrice) {
+	public Payment(String paymentId, Order order, PaymentType type, Integer paymentPrice, PgName pgName, String pgKey) {
 		this.paymentId = paymentId;
 		this.order = order;
 		this.type = type;
 		this.paymentPrice = paymentPrice;
+<<<<<<< HEAD
 >>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
+=======
+		this.pgName = pgName;
+		this.pgKey = pgKey;
+>>>>>>> b1c6552 ([Feat] Payment에 PG사 이름, PG사 결제 코드 추가)
 	}
 
 }
