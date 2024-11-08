@@ -24,9 +24,12 @@ public class Payment extends BaseEntity { // 결제
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id", nullable=false)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	@OnDelete(action = OnDeleteAction.CASCADE)
 >>>>>>> 6ad0ce7 ([Feat] Order FK로 Address, Store 추가, Payment FK로 User 추가)
+=======
+>>>>>>> 699e908 ([Feat] @OnDelete 설정 제거)
 	private User user;
 
 	@Column(name="type", nullable=false) // 결제 방식 (카드)

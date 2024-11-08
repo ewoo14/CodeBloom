@@ -23,6 +23,7 @@ public class Store extends BaseEntity { // 음식점
     @Column(name = "address", length = 255) // 음식점 주소
     private String address;
 
+<<<<<<< HEAD
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
@@ -34,6 +35,19 @@ public class Store extends BaseEntity { // 음식점
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", nullable = false)
     private Location location;
+=======
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="owner_id", nullable=false)
+	private User owner;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="category_id", nullable=false)
+	private Category category;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="location_id", nullable=false)
+	private Location location;
+>>>>>>> 699e908 ([Feat] @OnDelete 설정 제거)
 
 <<<<<<< HEAD
     @Column(name = "score") // 음식점 리뷰 평균 평점

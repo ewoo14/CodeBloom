@@ -28,9 +28,12 @@ public class Menu extends BaseEntity { // 메뉴
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="store_id", nullable=false)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	@OnDelete(action = OnDeleteAction.CASCADE)
 >>>>>>> 0ac8d3c ([Style] Food -> Menu 이름 변경)
+=======
+>>>>>>> 699e908 ([Feat] @OnDelete 설정 제거)
 	private Store store;
 
 	@Column(name="name", length=50, nullable=false) // 이름

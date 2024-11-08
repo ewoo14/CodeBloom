@@ -27,19 +27,26 @@ public class OrderMenu extends BaseEntity { // 주문-메뉴
 	private String orderMenuId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
+<<<<<<< HEAD
 	@JoinColumn(name="menu_id", nullable=false)
 <<<<<<< HEAD
 =======
 	@OnDelete(action = OnDeleteAction.CASCADE)
 >>>>>>> 0ac8d3c ([Style] Food -> Menu 이름 변경)
+=======
+	@JoinColumn(name="menu_id")
+>>>>>>> 699e908 ([Feat] @OnDelete 설정 제거)
 	private Menu menu;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="order_id", nullable=false)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	@OnDelete(action = OnDeleteAction.CASCADE)
 >>>>>>> 0ac8d3c ([Style] Food -> Menu 이름 변경)
+=======
+>>>>>>> 699e908 ([Feat] @OnDelete 설정 제거)
 	private Order order;
 
 	@Column(name="count", nullable=false) // 해당 메뉴 주문 개수

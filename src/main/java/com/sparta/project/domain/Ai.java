@@ -28,9 +28,12 @@ public class Ai extends BaseEntity { // 채팅 기록
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id", nullable=false)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	@OnDelete(action = OnDeleteAction.CASCADE)
 >>>>>>> 55abe9a ([Style] "Chat" -> "Ai" 이름 변경)
+=======
+>>>>>>> 699e908 ([Feat] @OnDelete 설정 제거)
 	private User user;
 
 	@Column(name="question", columnDefinition = "TEXT") // 질문
