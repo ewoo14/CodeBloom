@@ -19,8 +19,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 =======
 import com.sparta.project.config.jwt.TokenProvider;
+import com.sparta.project.config.jwt.UserAuthentication;
 import com.sparta.project.domain.User;
+import com.sparta.project.dto.user.UserLoginRequest;
 import com.sparta.project.dto.user.UserSignupRequest;
+import com.sparta.project.exception.CodeBloomException;
+import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 >>>>>>> 2470ae3 ([Feat] 회원가입 API)
@@ -122,5 +126,18 @@ public class UserService {
         );
     }
 
+<<<<<<< HEAD
 >>>>>>> 2470ae3 ([Feat] 회원가입 API)
+=======
+    public String login(final UserLoginRequest request) {
+        User user = userRepository.findByUsername(request.username()).orElseThrow(()->
+                new CodeBloomException(ErrorCode.USER_NOT_FOUND));
+        if (!passwordEncoder.matches(request.password(), user.getPassword())) {
+            throw new CodeBloomException(ErrorCode.INVALID_PASSWORD);
+        }
+        UserAuthentication userAuthentication = new UserAuthentication(user.getUserId(), null, null);
+        return tokenProvider.generateToken(userAuthentication);
+    }
+
+>>>>>>> 4bb355b ([Feat] 로그인 API)
 }
