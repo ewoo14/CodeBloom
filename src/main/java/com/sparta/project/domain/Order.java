@@ -112,16 +112,20 @@ public class Order extends BaseEntity { // 주문
         deleteBase(String.valueOf(userId));
     }
 
+	@Column(name="demand", length=50) // 요청 사항
+	private String demand;
+
 	@OneToMany(mappedBy="order")
 	private List<OrderMenu> orderMenus = new ArrayList<>();
 
 	@Builder
-	public Order(String orderId, User user, OrderType type, Integer orderPrice) {
+	public Order(String orderId, User user, OrderType type, Integer orderPrice, String demand) {
 		this.orderId = orderId;
 		this.user = user;
 		this.type = type;
 		this.status = OrderStatus.WAITING;
 		this.orderPrice = orderPrice;
+		this.demand = demand;
 	}
 
 }
