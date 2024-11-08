@@ -23,6 +23,10 @@ public class Payment extends BaseEntity { // 결제
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="user_id", nullable=false)
+<<<<<<< HEAD
+=======
+	@OnDelete(action = OnDeleteAction.CASCADE)
+>>>>>>> 6ad0ce7 ([Feat] Order FK로 Address, Store 추가, Payment FK로 User 추가)
 	private User user;
 
 	@Column(name="type", nullable=false) // 결제 방식 (카드)
@@ -45,7 +49,12 @@ public class Payment extends BaseEntity { // 결제
 
 <<<<<<< HEAD
 	@Builder
+<<<<<<< HEAD
 	private Payment(Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName, String pgKey) {
+=======
+	public Payment(String paymentId, Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName, String pgKey) {
+		this.paymentId = paymentId;
+>>>>>>> 6ad0ce7 ([Feat] Order FK로 Address, Store 추가, Payment FK로 User 추가)
 		this.order = order;
 		this.user = user;
 		this.type = type;

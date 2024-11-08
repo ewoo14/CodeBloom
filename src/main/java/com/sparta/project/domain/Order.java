@@ -36,9 +36,25 @@ public class Order extends BaseEntity { // 주문
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+<<<<<<< HEAD
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", nullable = false)
     private Address address;
+=======
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="address_id", nullable=false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Address address;
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="store_id", nullable=false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+	private Store store;
+
+	@Column(name="type", nullable=false) // 주문 유형 (온라인/오프라인)
+	@Enumerated(EnumType.STRING)
+	private OrderType type;
+>>>>>>> 6ad0ce7 ([Feat] Order FK로 Address, Store 추가, Payment FK로 User 추가)
 
 <<<<<<< HEAD
     @ManyToOne(fetch = FetchType.LAZY)
@@ -119,9 +135,11 @@ public class Order extends BaseEntity { // 주문
 	private List<OrderMenu> orderMenus = new ArrayList<>();
 
 	@Builder
-	public Order(String orderId, User user, OrderType type, Integer orderPrice, String demand) {
+	public Order(String orderId, User user, Address address, Store store, OrderType type, Integer orderPrice, String demand) {
 		this.orderId = orderId;
 		this.user = user;
+		this.address = address;
+		this.store = store;
 		this.type = type;
 		this.status = OrderStatus.WAITING;
 		this.orderPrice = orderPrice;
