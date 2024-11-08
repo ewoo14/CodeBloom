@@ -38,7 +38,7 @@ public class Order extends BaseEntity { // 주문
     private User user;
 =======
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="user_id")
+	@JoinColumn(name="user_id", nullable=false)
 	private User user;
 >>>>>>> 699e908 ([Feat] @OnDelete 설정 제거)
 
@@ -48,11 +48,11 @@ public class Order extends BaseEntity { // 주문
     private Address address;
 =======
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="address_id")
+	@JoinColumn(name="address_id", nullable=false)
 	private Address address;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="store_id")
+	@JoinColumn(name="store_id", nullable=false)
 	private Store store;
 
 	@Column(name="type", nullable=false) // 주문 유형 (온라인/오프라인)

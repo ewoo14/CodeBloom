@@ -28,6 +28,7 @@ public class OrderMenu extends BaseEntity { // 주문-메뉴
 
 	@ManyToOne(fetch = FetchType.LAZY)
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@JoinColumn(name="menu_id", nullable=false)
 <<<<<<< HEAD
 =======
@@ -36,6 +37,9 @@ public class OrderMenu extends BaseEntity { // 주문-메뉴
 =======
 	@JoinColumn(name="menu_id")
 >>>>>>> 699e908 ([Feat] @OnDelete 설정 제거)
+=======
+	@JoinColumn(name="menu_id", nullable=false)
+>>>>>>> 1b91b61 ([Fix] 조인 컬럼 nullable=false 설정)
 	private Menu menu;
 
 	@ManyToOne(fetch = FetchType.LAZY)
