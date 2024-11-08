@@ -50,6 +50,7 @@ public class Store extends BaseEntity { // 음식점
 >>>>>>> 699e908 ([Feat] @OnDelete 설정 제거)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @Column(name = "score") // 음식점 리뷰 평균 평점
     private Double score; // 빌더에 넣지 않았습니다.
 
@@ -96,6 +97,11 @@ public class Store extends BaseEntity { // 음식점
 
     }
 =======
+=======
+	@Column(name="score") // 음식점 리뷰 평균 평점
+	private Double score; // 빌더에 넣지 않았습니다.
+
+>>>>>>> aed210c ([Feat] 음식점 평균 평점 필드(score) 추가)
 	@Builder
 	public Store(String storeId, String name, String description, String address, User owner, StoreCategory storeCategory, Location location) {
 		this.storeId = storeId;
@@ -107,5 +113,12 @@ public class Store extends BaseEntity { // 음식점
 		this.location = location;
 	}
 
+<<<<<<< HEAD
 >>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
+=======
+	public void updateScore(Double score) {
+		this.score = score;
+	}
+
+>>>>>>> aed210c ([Feat] 음식점 평균 평점 필드(score) 추가)
 }
