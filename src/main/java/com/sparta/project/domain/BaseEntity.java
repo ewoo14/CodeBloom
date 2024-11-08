@@ -70,8 +70,12 @@ public abstract class BaseEntity {
     참고: https://javacpro.tistory.com/85
      */
 
+<<<<<<< HEAD
     public void delete(String username) {
 >>>>>>> f6a68d0 ([Fix] BaseEntity 컬럼 수정)
+=======
+    public void deleteBase(String username) {
+>>>>>>> b5fceb5 ([Style] BaseEntity.delete() -> BaseEntity.deleteBase() 이름 변경)
         this.isDeleted = true;
         this.deletedAt = LocalDateTime.now();
         this.deletedBy = username;
