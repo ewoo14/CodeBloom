@@ -113,7 +113,7 @@ public class Order extends BaseEntity { // 주문
     }
 
 	@OneToMany(mappedBy="order")
-	private List<OrderFood> orderFoods = new ArrayList<>();
+	private List<OrderMenu> orderMenus = new ArrayList<>();
 
 	@Builder
 	public Order(String orderId, User user, OrderType type, Integer orderPrice) {
