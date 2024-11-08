@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
@@ -21,12 +22,26 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+=======
+package com.sparta.project.controller;
+
+
+import com.sparta.project.dto.user.UserSignupRequest;
+import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.service.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+>>>>>>> 2470ae3 ([Feat] 회원가입 API)
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
 
+<<<<<<< HEAD
     private final PermissionValidator permissionValidator;
     private final UserService userService;
 
@@ -229,3 +244,14 @@ public class UserController {
 //    }
 //}
 >>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
+=======
+    private final UserService userService;
+
+    @PostMapping("/signup")
+    public ApiResponse<Void> signup(@RequestBody UserSignupRequest request) {
+        userService.createUser(request);
+        return ApiResponse.success("회원가입 성공");
+    }
+
+}
+>>>>>>> 2470ae3 ([Feat] 회원가입 API)

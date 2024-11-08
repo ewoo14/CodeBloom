@@ -2,6 +2,7 @@ package com.sparta.project.dto.user;
 
 import com.sparta.project.domain.enums.Role;
 import jakarta.validation.constraints.NotBlank;
+<<<<<<< HEAD
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -23,5 +24,13 @@ public record UserSignupRequest(
 
         @NotNull
         Role role
+=======
+
+public record UserSignupRequest(
+        @NotBlank String username,
+        @NotBlank String password,
+        @NotBlank String nickname,
+        @NotBlank Role role
+>>>>>>> 2470ae3 ([Feat] 회원가입 API)
 ) {
 }

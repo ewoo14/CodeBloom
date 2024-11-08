@@ -1,6 +1,7 @@
 package com.sparta.project.service;
 
 
+<<<<<<< HEAD
 import com.sparta.project.config.jwt.JwtUtil;
 import com.sparta.project.domain.User;
 import com.sparta.project.domain.enums.Role;
@@ -16,6 +17,13 @@ import com.sparta.project.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+=======
+import com.sparta.project.config.jwt.TokenProvider;
+import com.sparta.project.domain.User;
+import com.sparta.project.dto.user.UserSignupRequest;
+import com.sparta.project.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+>>>>>>> 2470ae3 ([Feat] 회원가입 API)
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserService {
 
+<<<<<<< HEAD
     private final JwtUtil jwtUtil;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -96,4 +105,22 @@ public class UserService {
         user.deleteBase(String.valueOf(adminId));
     }
 
+=======
+    private final TokenProvider tokenProvider;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+
+    @Transactional
+    public void createUser(final UserSignupRequest request) {
+        // TODO : 유효성 검사, 정적 메서드 사용 수정 필요
+        userRepository.save(User.builder()
+                .username(request.username())
+                .nickname(request.nickname())
+                .password(passwordEncoder.encode(request.password()))
+                .role(request.role())
+                .build()
+        );
+    }
+
+>>>>>>> 2470ae3 ([Feat] 회원가입 API)
 }
