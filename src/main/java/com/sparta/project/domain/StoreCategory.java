@@ -2,8 +2,11 @@ package com.sparta.project.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+<<<<<<< HEAD
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+=======
+>>>>>>> 94cacd4 ([Style] category -> store_category로 변경)
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
@@ -16,7 +19,10 @@ import lombok.*;
 public class StoreCategory extends BaseEntity { // 음식점 카테고리
 
     @Id
+<<<<<<< HEAD
     @GeneratedValue(strategy = GenerationType.UUID)
+=======
+>>>>>>> 94cacd4 ([Style] category -> store_category로 변경)
     @Column(name="store_category_id", length=36, nullable=false, updatable=false)
     private String storeCategoryId;
 
@@ -26,6 +32,7 @@ public class StoreCategory extends BaseEntity { // 음식점 카테고리
     @Column(name="description", length=50) // 설명
     private String description;
 
+<<<<<<< HEAD
     public void update(String name, String description) {
         if(name!=null) this.name = name;
         if(description!=null) this.description = description;
@@ -33,10 +40,16 @@ public class StoreCategory extends BaseEntity { // 음식점 카테고리
 
     @Builder
     private StoreCategory(String name, String description) {
+=======
+    @Builder
+    public StoreCategory(String storeCategoryId, String name, String description) {
+        this.storeCategoryId = storeCategoryId;
+>>>>>>> 94cacd4 ([Style] category -> store_category로 변경)
         this.name = name;
         this.description = description;
     }
 
+<<<<<<< HEAD
     public static StoreCategory create(String name, String description) {
         return StoreCategory.builder()
                 .name(name)
@@ -44,4 +57,6 @@ public class StoreCategory extends BaseEntity { // 음식점 카테고리
                 .build();
     }
 
+=======
+>>>>>>> 94cacd4 ([Style] category -> store_category로 변경)
 }

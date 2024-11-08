@@ -41,8 +41,8 @@ public class Store extends BaseEntity { // 음식점
 	private User owner;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="category_id", nullable=false)
-	private Category category;
+	@JoinColumn(name="store_category_id", nullable=false)
+	private StoreCategory storeCategory;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="location_id", nullable=false)
@@ -97,13 +97,13 @@ public class Store extends BaseEntity { // 음식점
     }
 =======
 	@Builder
-	public Store(String storeId, String name, String description, String address, User owner, Category category, Location location) {
+	public Store(String storeId, String name, String description, String address, User owner, StoreCategory storeCategory, Location location) {
 		this.storeId = storeId;
 		this.name = name;
 		this.description = description;
 		this.address = address;
 		this.owner = owner;
-		this.category = category;
+		this.storeCategory = storeCategory;
 		this.location = location;
 	}
 

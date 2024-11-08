@@ -41,12 +41,17 @@ public class StoreRequest extends BaseEntity { // 음식점 허가 요청
 
 	@ManyToOne(fetch = FetchType.LAZY)
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@JoinColumn(name="store_category_id", nullable=false)
 	private StoreCategory storeCategory;
 =======
 	@JoinColumn(name="category_id", nullable=false)
 	private Category category;
 >>>>>>> 699e908 ([Feat] @OnDelete 설정 제거)
+=======
+	@JoinColumn(name="store_category_id", nullable=false)
+	private StoreCategory storeCategory;
+>>>>>>> 94cacd4 ([Style] category -> store_category로 변경)
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="location_id", nullable=false)
@@ -81,7 +86,7 @@ public class StoreRequest extends BaseEntity { // 음식점 허가 요청
 		this.storeRequestId = id;
 =======
 	@Builder
-	public StoreRequest(String storeRequestId, String name, String description, String address, User owner, Category category, Location location) {
+	public StoreRequest(String storeRequestId, String name, String description, String address, User owner, StoreCategory storeCategory, Location location) {
 		this.storeRequestId = storeRequestId;
 		this.isApproved = false;
 >>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
@@ -89,6 +94,7 @@ public class StoreRequest extends BaseEntity { // 음식점 허가 요청
 		this.description = description;
 		this.address = address;
 		this.owner = owner;
+<<<<<<< HEAD
 <<<<<<< HEAD
 		this.storeCategory = category;
 		this.location = location;
@@ -107,6 +113,9 @@ public class StoreRequest extends BaseEntity { // 음식점 허가 요청
 	}
 =======
 		this.category = category;
+=======
+		this.storeCategory = storeCategory;
+>>>>>>> 94cacd4 ([Style] category -> store_category로 변경)
 		this.location = location;
 	}
 >>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
