@@ -35,11 +35,20 @@ public class User extends BaseEntity { // 유저
     private Role role;
 
     @Builder
-    public User(String username, String password, String nickname, Role role) {
+    private User(String username, String password, String nickname, Role role) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
         this.role = role;
+    }
+
+    public static User create(String username, String password, String nickname, Role role) {
+        return User.builder()
+                .username(username)
+                .password(password)
+                .nickname(nickname)
+                .role(role)
+                .build();
     }
     // 만약 닉네임 초기값을 여기서 설정하고 싶다면, 파라미터에 nickname 지우고, this.nickname = "{defaultName}" 으로 설정하면 됩니다.
     // 닉네임 초기값을 통일한다고 하면, @Builder.Default 활용해도 됩니다.
