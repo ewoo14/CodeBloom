@@ -28,8 +28,8 @@ public class Address extends BaseEntity { // 배송지
 	@Column(name="street_name", length=20) // 도로명
 	private String streetName;
 
-	@Column(name="street_number") // 도로명 코드
-	private Integer streetNumber;
+	@Column(name="street_number", length=20) // 도로명 코드
+	private String streetNumber;
 
 	@Column(name="detail") // 상세 주소
 	private String detail;
@@ -38,7 +38,7 @@ public class Address extends BaseEntity { // 배송지
 	private Boolean isDefault;
 
 	@Builder
-	public Address(String addressId, User user, String city, String district, String streetName, Integer streetNumber, String detail, Boolean isDefault) {
+	public Address(String addressId, User user, String city, String district, String streetName, String streetNumber, String detail, Boolean isDefault) {
 		this.addressId = addressId;
 		this.user = user;
 		this.city = city;
