@@ -116,13 +116,10 @@ public class UserService {
 
     @Transactional
     public void createUser(final UserSignupRequest request) {
-        // TODO : 유효성 검사, 정적 메서드 사용 수정 필요
-        userRepository.save(User.builder()
-                .username(request.username())
-                .nickname(request.nickname())
-                .password(passwordEncoder.encode(request.password()))
-                .role(request.role())
-                .build()
+        // TODO : 유효성 검사 필요
+        userRepository.save(User.create(
+                request.username(), passwordEncoder.encode(request.password()),
+                request.nickname(), request.role())
         );
     }
 
