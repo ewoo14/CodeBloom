@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
@@ -20,6 +21,19 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
+=======
+package com.sparta.project.controller;
+
+import com.sparta.project.dto.menu.MenuRequest;
+import com.sparta.project.dto.menu.MenuResponse;
+import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.dto.common.PageResponse;
+import com.sparta.project.service.MenuService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+>>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -28,11 +42,15 @@ import org.springframework.web.bind.annotation.*;
 public class MenuController {
 
     private final MenuService menuService;
+<<<<<<< HEAD
     private final PermissionValidator permissionValidator;
+=======
+>>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
 
     // 음식점 메뉴 조회(ALL)
     @GetMapping
     public ApiResponse<PageResponse<MenuResponse>> getAllMenus(
+<<<<<<< HEAD
             @RequestParam(value = "storeId") String storeId,
             @RequestParam(value = "storeName") String storeName,
             @SortDefault.SortDefaults({
@@ -40,6 +58,14 @@ public class MenuController {
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
             }) Pageable pageable) {
         Page<MenuResponse> menus = menuService.getAllMenus(storeId, storeName, pageable);
+=======
+            @RequestParam("storeId") String storeId,
+            @RequestParam("storeName") String storeName,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size,
+            @RequestParam("sortBy") String sortBy) {
+        Page<MenuResponse> menus = menuService.getAllMenus(storeId, storeName, page, size, sortBy);
+>>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
         return ApiResponse.success(PageResponse.of(menus));
     }
 
@@ -52,27 +78,40 @@ public class MenuController {
 
     // 메뉴 추가(OWNER, MANAGER, MASTER)
     @PostMapping
+<<<<<<< HEAD
     public ApiResponse<String> createMenu(
             @Valid @RequestBody MenuCreateRequest menuCreateRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.OWNER.name(), Role.MANAGER.name(), Role.MASTER.name());
         String newMenu = menuService.createMenu(menuCreateRequest);
+=======
+    public ApiResponse<MenuResponse> createMenu(@RequestBody MenuRequest menuRequest) {
+        MenuResponse newMenu = menuService.createMenu(menuRequest);
+>>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
         return ApiResponse.success(newMenu);
     }
 
     // 메뉴 수정(OWNER, MANAGER, MASTER)
     @PatchMapping("/{menu_id}")
+<<<<<<< HEAD
     public ApiResponse<String> updateMenu(
             @PathVariable String menu_id,
             @NotNull @RequestBody MenuUpdateRequest menuUpdateRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.OWNER.name(), Role.MANAGER.name(), Role.MASTER.name());
         String updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest);
+=======
+    public ApiResponse<MenuResponse> updateMenu(
+            @PathVariable String menu_id,
+            @RequestBody MenuRequest menuRequest) {
+        MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuRequest);
+>>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
         return ApiResponse.success(updatedMenu);
     }
 
     // 메뉴 삭제(OWNER, MANAGER, MASTER)
     @DeleteMapping("/{menu_id}")
+<<<<<<< HEAD
     public ApiResponse<Void> deleteMenu(
             @PathVariable String menu_id,
             Authentication authentication) {
@@ -191,3 +230,12 @@ public class MenuController {
 //    }
 //}
 >>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
+=======
+    public ApiResponse<Void> deleteMenu(@PathVariable String menu_id) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        menuService.deleteMenu(menu_id, username);
+        return ApiResponse.success();
+    }
+}
+>>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)

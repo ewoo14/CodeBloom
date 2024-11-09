@@ -75,6 +75,7 @@ public enum ErrorCode {
 =======
     // NOT FOUND
 <<<<<<< HEAD
+<<<<<<< HEAD
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다.")
 >>>>>>> 4bb355b ([Feat] 로그인 API)
 =======
@@ -87,6 +88,10 @@ public enum ErrorCode {
     // NOT FOUND
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다.");
 >>>>>>> 1c2a362 ([Style] ErrorCode 도메인 별로 위치 분리)
+=======
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다."),
+    MENU_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 메뉴 정보가 존재하지 않습니다.")
+>>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
 
     ;
 

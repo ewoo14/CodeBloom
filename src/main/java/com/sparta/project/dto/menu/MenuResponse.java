@@ -1,7 +1,10 @@
 package com.sparta.project.dto.menu;
 
+<<<<<<< HEAD
 import com.sparta.project.domain.Menu;
 
+=======
+>>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
 public record MenuResponse(
         String menuId,
         String storeId,
@@ -9,6 +12,7 @@ public record MenuResponse(
         String description,
         Integer price,
         Boolean isClosed
+<<<<<<< HEAD
 ) {
     public static MenuResponse from(Menu menu) {
         return new MenuResponse(
@@ -21,3 +25,6 @@ public record MenuResponse(
         );
     }
 }
+=======
+) {}
+>>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)

@@ -12,6 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 >>>>>>> 0ac8d3c ([Style] Food -> Menu 이름 변경)
 
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 @Entity
