@@ -37,3 +37,10 @@ application.yml
 
 ### VS Code ###
 .vscode/
+
+### http files ###
+*.http
+
+### Q Class ###
+# 특정 Q 클래스 무시
+/src/main/generated/com/sparta/project/domain/Q*.java
