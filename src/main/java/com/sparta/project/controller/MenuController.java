@@ -133,10 +133,10 @@ public class MenuController {
 =======
 //package com.sparta.project.controller;
 //
-//import com.sparta.project.dto.MenuRequest;
-//import com.sparta.project.dto.MenuResponse;
-//import com.sparta.project.dto.ApiResponse;
-//import com.sparta.project.dto.PageResponse;
+//import com.sparta.project.dto.menu.MenuRequest;
+//import com.sparta.project.dto.menu.MenuResponse;
+//import com.sparta.project.dto.common.ApiResponse;
+//import com.sparta.project.dto.common.PageResponse;
 //import com.sparta.project.service.MenuService;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.web.bind.annotation.*;
@@ -157,21 +157,21 @@ public class MenuController {
 //            @RequestParam("size") int size,
 //            @RequestParam("sortBy") String sortBy) {
 //        Page<MenuResponse> menus = menuService.getAllMenus(storeId, storeName, page, size, sortBy);
-//        return ApiResponse.of("message", PageResponse.of(menus));
+//        return ApiResponse.success(PageResponse.of(menus));
 //    }
 //
 //    // 메뉴 단건 조회(ALL)
 //    @GetMapping("/{menu_id}")
 //    public ApiResponse<MenuResponse> getMenuById(@PathVariable String menu_id) {
 //        MenuResponse menu = menuService.getMenuById(menu_id);
-//        return ApiResponse.of("message", menu);
+//        return ApiResponse.success(menu);
 //    }
 //
 //    // 메뉴 추가(OWNER, MANAGER, MASTER)
 //    @PostMapping
 //    public ApiResponse<MenuResponse> createMenu(@RequestBody MenuRequest menuRequest) {
 //        MenuResponse newMenu = menuService.createMenu(menuRequest);
-//        return ApiResponse.of("message", newMenu);
+//        return ApiResponse.success(newMenu);
 //    }
 //
 //    // 메뉴 수정(OWNER, MANAGER, MASTER)
@@ -180,14 +180,14 @@ public class MenuController {
 //            @PathVariable Long menu_id,
 //            @RequestBody MenuRequest menuRequest) {
 //        MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuRequest);
-//        return ApiResponse.of("message", updatedMenu);
+//        return ApiResponse.success(updatedMenu);
 //    }
 //
 //    // 메뉴 삭제(OWNER, MANAGER, MASTER)
 //    @DeleteMapping("/{menu_id}")
 //    public ApiResponse<Void> deleteMenu(@PathVariable String menu_id) {
 //        menuService.deleteMenu(menu_id);
-//        return ApiResponse.of("message", null);
+//        return ApiResponse.success();
 //    }
 //}
 >>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)

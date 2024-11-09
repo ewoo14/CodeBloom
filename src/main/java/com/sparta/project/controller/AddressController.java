@@ -158,10 +158,10 @@ public class AddressController {
 =======
 //package com.sparta.project.controller;
 //
-//import com.sparta.project.dto.AddressRequest;
-//import com.sparta.project.dto.AddressResponse;
-//import com.sparta.project.dto.ApiResponse;
-//import com.sparta.project.dto.PageResponse;
+//import com.sparta.project.dto.address.AddressRequest;
+//import com.sparta.project.dto.address.AddressResponse;
+//import com.sparta.project.dto.common.ApiResponse;
+//import com.sparta.project.dto.common.PageResponse;
 //import com.sparta.project.service.AddressService;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.web.bind.annotation.*;
@@ -182,21 +182,21 @@ public class AddressController {
 //            @RequestParam("size") int size,
 //            @RequestParam("sortBy") String sortBy) {
 //        Page<AddressResponse> addresses = addressService.getAllAddresses(page, size, sortBy);
-//        return ApiResponse.of("message", PageResponse.of(addresses));
+//        return ApiResponse.success(PageResponse.of(addresses));
 //    }
 //
 //    // 배송지 상세 조회(CUSTOMER)
 //    @GetMapping("/{address_id}")
 //    public ApiResponse<AddressResponse> getAddressById(@PathVariable String address_id) {
 //        AddressResponse address = addressService.getAddressById(address_id);
-//        return ApiResponse.of("message", address);
+//        return ApiResponse.success(address);
 //    }
 //
 //    // 배송지 등록(CUSTOMER)
 //    @PostMapping
 //    public ApiResponse<AddressResponse> createAddress(@RequestBody AddressRequest addressRequest) {
 //        AddressResponse madeAddress = addressService.createAddress(addressRequest);
-//        return ApiResponse.of("message", madeAddress);
+//        return ApiResponse.success(madeAddress);
 //    }
 //
 //    // 배송지 수정(CUSTOMER)
@@ -205,14 +205,14 @@ public class AddressController {
 //            @PathVariable String address_id,
 //            @RequestBody AddressRequest addressRequest) {
 //        AddressResponse updatedAddress = addressService.updateAddress(address_id, addressRequest);
-//        return ApiResponse.of("message", updatedAddress);
+//        return ApiResponse.success(updatedAddress);
 //    }
 //
 //    // 배송지 삭제(CUSTOMER)
 //    @DeleteMapping("/{address_id}")
 //    public ApiResponse<Void> deleteAddress(@PathVariable String address_id) {
 //        addressService.deleteAddress(address_id);
-//        return ApiResponse.of("message", null);
+//        return ApiResponse.success();
 //    }
 //}
 >>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
