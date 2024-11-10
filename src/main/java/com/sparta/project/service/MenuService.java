@@ -1,6 +1,7 @@
 package com.sparta.project.service;
 
 import com.sparta.project.domain.Menu;
+import com.sparta.project.domain.QMenu;
 import com.sparta.project.dto.menu.MenuRequest;
 import com.sparta.project.dto.menu.MenuResponse;
 import com.sparta.project.exception.CodeBloomException;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.querydsl.core.types.dsl.BooleanExpression;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +25,12 @@ public class MenuService {
     @Transactional(readOnly = true)
     public Page<MenuResponse> getAllMenus(String storeId, String storeName, int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page - 1, size);
-        return menuRepository.findAllByStoreStoreIdAndStoreName(storeId, storeName, pageable)
+        QMenu qMenu = QMenu.menu;
+        // storeId : 전체일치, storeName : 부분일치
+        BooleanExpression predicate = qMenu.store.storeId.eq(storeId)
+                .and(qMenu.store.name.containsIgnoreCase(storeName));
+
+        return menuRepository.findAll(predicate, pageable)
                 .map(MenuResponse::from);
     }
 
