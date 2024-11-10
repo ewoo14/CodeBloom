@@ -2,11 +2,15 @@ package com.sparta.project.service;
 
 import com.sparta.project.domain.Menu;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.sparta.project.domain.QMenu;
 import com.sparta.project.domain.Store;
 import com.sparta.project.dto.menu.MenuCreateRequest;
 import com.sparta.project.dto.menu.MenuUpdateRequest;
 =======
+=======
+import com.sparta.project.domain.QMenu;
+>>>>>>> dc05aea ([Fix] 전체 메뉴 조회에 queryDSL 적용)
 import com.sparta.project.dto.menu.MenuRequest;
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
 import com.sparta.project.dto.menu.MenuResponse;
@@ -32,7 +36,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+<<<<<<< HEAD
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
+=======
+import com.querydsl.core.types.dsl.BooleanExpression;
+>>>>>>> dc05aea ([Fix] 전체 메뉴 조회에 queryDSL 적용)
 
 @Service
 @RequiredArgsConstructor
@@ -58,11 +66,20 @@ public class MenuService {
     @Transactional(readOnly = true)
     public Page<MenuResponse> getAllMenus(String storeId, String storeName, int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page - 1, size);
+<<<<<<< HEAD
         return menuRepository.findAllByStoreStoreIdAndStoreName(storeId, storeName, pageable)
 <<<<<<< HEAD
                 .map(this::toMenuResponse);
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
 =======
+=======
+        QMenu qMenu = QMenu.menu;
+        // storeId : 전체일치, storeName : 부분일치
+        BooleanExpression predicate = qMenu.store.storeId.eq(storeId)
+                .and(qMenu.store.name.containsIgnoreCase(storeName));
+
+        return menuRepository.findAll(predicate, pageable)
+>>>>>>> dc05aea ([Fix] 전체 메뉴 조회에 queryDSL 적용)
                 .map(MenuResponse::from);
 >>>>>>> 679a9be ([Fix] 정적 팩토리 메서드 방식 적용)
     }
