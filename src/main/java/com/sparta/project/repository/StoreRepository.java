@@ -1,6 +1,7 @@
 package com.sparta.project.repository;
 
 import com.sparta.project.domain.Store;
+<<<<<<< HEAD
 import com.sparta.project.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,4 +26,9 @@ public interface StoreRepository extends JpaRepository<Store, String> {
     @Modifying
     @Query("UPDATE Store s SET s.score = :score WHERE s.storeId = :storeId")
     void updateScore(@Param("storeId") String storeId, @Param("score") Double score);
+=======
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface StoreRepository extends JpaRepository<Store, String> {
+>>>>>>> 3e6f9c4 (더미 데이터)
 }
