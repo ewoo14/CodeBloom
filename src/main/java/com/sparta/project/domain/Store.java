@@ -103,7 +103,8 @@ public class Store extends BaseEntity { // 음식점
 
 >>>>>>> aed210c ([Feat] 음식점 평균 평점 필드(score) 추가)
 	@Builder
-	public Store(String storeId, String name, String description, String address, User owner, StoreCategory storeCategory, Location location) {
+	public Store(String storeId, String name, String description, String address,
+				 User owner, StoreCategory storeCategory, Location location, Double score) {
 		this.storeId = storeId;
 		this.name = name;
 		this.description = description;
@@ -111,6 +112,21 @@ public class Store extends BaseEntity { // 음식점
 		this.owner = owner;
 		this.storeCategory = storeCategory;
 		this.location = location;
+		this.score = score;
+	}
+
+	public static Store create(String storeId, String name, String description, String address,
+							   User owner, StoreCategory storeCategory, Location location, Double score) {
+		return Store.builder()
+				.storeId(storeId)
+				.name(name)
+				.description(description)
+				.address(address)
+				.owner(owner)
+				.storeCategory(storeCategory)
+				.location(location)
+				.score(score)
+				.build();
 	}
 
 <<<<<<< HEAD

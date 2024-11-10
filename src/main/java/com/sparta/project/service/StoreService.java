@@ -1,6 +1,7 @@
 package com.sparta.project.service;
 
 import com.sparta.project.domain.Store;
+<<<<<<< HEAD
 import com.sparta.project.dto.store.StoreCreateData;
 import com.sparta.project.dto.store.StoreResponse;
 import com.sparta.project.dto.store.StoreUpdateRequest;
@@ -74,4 +75,27 @@ public class StoreService {
         store.deleteBase(String.valueOf(userId));
     }
 
+=======
+import com.sparta.project.dto.store.StoreResponse;
+import com.sparta.project.exception.CodeBloomException;
+import com.sparta.project.exception.ErrorCode;
+import com.sparta.project.repository.StoreRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@Transactional(readOnly=true)
+@RequiredArgsConstructor
+public class StoreService {
+
+    private final StoreRepository storeRepository;
+
+    public StoreResponse getStoreById(String storeId) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
+
+        return StoreResponse.from(store);
+    }
+>>>>>>> b8d01e9 ([Feat] 음식점 상세 조회 기능 Service 및 ServiceTest)
 }
