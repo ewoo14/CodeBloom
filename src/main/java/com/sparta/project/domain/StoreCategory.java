@@ -50,13 +50,22 @@ public class StoreCategory extends BaseEntity { // 음식점 카테고리
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static StoreCategory create(String name, String description) {
         return StoreCategory.builder()
+=======
+    public static StoreCategory create(String storeCategoryId, String name, String description) {
+        return StoreCategory.builder()
+                .storeCategoryId(storeCategoryId)
+>>>>>>> 4d314db ([Build] Store를 생성하기 위한 Location, StoreCategory 정적팩토리 메서드 + ErrorCode 추가)
                 .name(name)
                 .description(description)
                 .build();
     }
+<<<<<<< HEAD
 
 =======
 >>>>>>> 94cacd4 ([Style] category -> store_category로 변경)
+=======
+>>>>>>> 4d314db ([Build] Store를 생성하기 위한 Location, StoreCategory 정적팩토리 메서드 + ErrorCode 추가)
 }

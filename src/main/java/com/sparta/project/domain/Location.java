@@ -33,12 +33,19 @@ public class Location extends BaseEntity { // 지역
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static Location create(String name, String description) {
         return Location.builder()
+=======
+    public static Location create(String locationId, String name, String description) {
+        return Location.builder()
+                .locationId(locationId)
+>>>>>>> 4d314db ([Build] Store를 생성하기 위한 Location, StoreCategory 정적팩토리 메서드 + ErrorCode 추가)
                 .name(name)
                 .description(description)
                 .build();
     }
+<<<<<<< HEAD
 
     public void update(String name, String description) {
         if (name != null) {
@@ -50,4 +57,6 @@ public class Location extends BaseEntity { // 지역
     }
 =======
 >>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
+=======
+>>>>>>> 4d314db ([Build] Store를 생성하기 위한 Location, StoreCategory 정적팩토리 메서드 + ErrorCode 추가)
 }
