@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
@@ -19,6 +20,21 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+=======
+package com.sparta.project.controller;
+
+import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.dto.payment.PaymentCreateRequest;
+import com.sparta.project.dto.payment.PaymentCreateResponse;
+import com.sparta.project.service.PaymentService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+>>>>>>> 07367c2 (결제 기능 Controller)
 
 @RestController
 @RequiredArgsConstructor
@@ -26,6 +42,7 @@ import org.springframework.web.bind.annotation.*;
 public class PaymentController {
 
     private final PaymentService paymentService;
+<<<<<<< HEAD
     private final PermissionValidator permissionValidator;
 
     // 자신의 결제 내역 목록 조회(CUSTOMER)
@@ -168,6 +185,9 @@ public class PaymentController {
 //
 //    private final PaymentService paymentService;
 //
+=======
+
+>>>>>>> 07367c2 (결제 기능 Controller)
 //    // 자신의 결제 내역 목록 조회(CUSTOMER, OWNER)
 //    @GetMapping("/my")
 //    public ApiResponse<PageResponse<PaymentResponse>> getMyPayments(
@@ -197,12 +217,16 @@ public class PaymentController {
 //        return ApiResponse.success(payment);
 //    }
 //
-//    // 결제 요청(CUSTOMER)
-//    @PostMapping
-//    public ApiResponse<PaymentResponse> createPayment(@RequestBody PaymentRequest paymentRequest) {
-//        PaymentResponse requestedPayment = paymentService.createPayment(paymentRequest);
-//        return ApiResponse.success(requestedPayment);
-//    }
+    // 결제 요청(CUSTOMER)
+    @PostMapping
+    public ApiResponse<PaymentCreateResponse> createPayment(@RequestBody PaymentCreateRequest paymentRequest) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        PaymentCreateResponse response
+                = paymentService.createPayment(paymentRequest.orderId(),
+                paymentRequest.type(), paymentRequest.paymentPrice(), paymentRequest.pgName(), username);
+        return ApiResponse.success(response);
+    }
 //
 //    // 결제 취소(CUSTOMER)
 //    @DeleteMapping("/{payment_id}")
@@ -210,5 +234,9 @@ public class PaymentController {
 //        paymentService.deletePayment(payment_id);
 //        return ApiResponse.success();
 //    }
+<<<<<<< HEAD
 //}
 >>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
+=======
+}
+>>>>>>> 07367c2 (결제 기능 Controller)

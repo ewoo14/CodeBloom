@@ -122,16 +122,24 @@ class PaymentServiceTest {
         String type = "CARD";
         int paymentPrice = 10000;
         String pgName = "TOSS";
+<<<<<<< HEAD
 >>>>>>> 3c3b367 (서비스 테스트)
+=======
+        String username = "griotold";
+>>>>>>> 07367c2 (결제 기능 Controller)
 
         when(pgClient.requestPayment(any(Payment.class))).thenReturn(true);
 
         // when
 <<<<<<< HEAD
+<<<<<<< HEAD
         PaymentResponse response = paymentService.createPayment(paymentRequest, testUser.getUserId());
 =======
         PaymentCreateResponse response = paymentService.createPayment(orderId, type, paymentPrice, pgName, testUser);
 >>>>>>> 3c3b367 (서비스 테스트)
+=======
+        PaymentCreateResponse response = paymentService.createPayment(orderId, type, paymentPrice, pgName, username);
+>>>>>>> 07367c2 (결제 기능 Controller)
 
         // then
         assertThat(response).isNotNull();
