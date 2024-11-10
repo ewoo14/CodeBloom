@@ -2,8 +2,6 @@ package com.sparta.project.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -40,7 +38,8 @@ public class Store extends BaseEntity { // 음식점
 	private Double score; // 빌더에 넣지 않았습니다.
 
 	@Builder
-	public Store(String storeId, String name, String description, String address, User owner, StoreCategory storeCategory, Location location) {
+	public Store(String storeId, String name, String description, String address,
+				 User owner, StoreCategory storeCategory, Location location, Double score) {
 		this.storeId = storeId;
 		this.name = name;
 		this.description = description;
@@ -48,6 +47,21 @@ public class Store extends BaseEntity { // 음식점
 		this.owner = owner;
 		this.storeCategory = storeCategory;
 		this.location = location;
+		this.score = score;
+	}
+
+	public static Store create(String storeId, String name, String description, String address,
+							   User owner, StoreCategory storeCategory, Location location, Double score) {
+		return Store.builder()
+				.storeId(storeId)
+				.name(name)
+				.description(description)
+				.address(address)
+				.owner(owner)
+				.storeCategory(storeCategory)
+				.location(location)
+				.score(score)
+				.build();
 	}
 
 	public void updateScore(Double score) {
