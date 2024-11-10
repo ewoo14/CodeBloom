@@ -1,6 +1,7 @@
 package com.sparta.project.domain;
 
 import com.sparta.project.domain.enums.StoreRequestStatus;
+import com.sparta.project.util.UuidGenerator;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -42,15 +43,32 @@ public class StoreRequest extends BaseEntity { // 음식점 허가 요청
 	@JoinColumn(name="location_id", nullable=false)
 	private Location location;
 
+
+	@PrePersist
+	public void setPrePersist() {
+		this.status = StoreRequestStatus.WAITING;
+	}
+
 	@Builder
-	public StoreRequest(String storeRequestId, String name, String description, String address, User owner, StoreCategory storeCategory, Location location) {
-		this.storeRequestId = storeRequestId;
-		this.isApproved = false;
+	private StoreRequest(String id, String name, String description, String address, User owner, StoreCategory category, Location location) {
+		this.storeRequestId = id;
 		this.name = name;
 		this.description = description;
 		this.address = address;
 		this.owner = owner;
-		this.storeCategory = storeCategory;
+		this.storeCategory = category;
 		this.location = location;
+	}
+
+	public static StoreRequest create(String name, String description, String address, User owner, StoreCategory storeCategory, Location location) {
+		return StoreRequest.builder()
+				.id(UuidGenerator.generateUuid())
+				.name(name)
+				.description(description)
+				.address(address)
+				.owner(owner)
+				.category(storeCategory)
+				.location(location)
+				.build();
 	}
 }
