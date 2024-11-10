@@ -134,5 +134,16 @@ public class StoreService {
         // StoreUpdateResponse 생성 및 반환 로직
         return StoreUpdateResponse.from(store);
     }
+<<<<<<< HEAD
 >>>>>>> f337ba7 ([Feat] 음식점 정보 수정 기능 Service)
+=======
+
+    @Transactional
+    public void deleteStore(String storeId, String username) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
+
+        store.deleteBase(username);
+    }
+>>>>>>> 2150278 ([Feat] 음식점 정보 삭제 기능 Service)
 }

@@ -222,6 +222,25 @@ class StoreServiceTest {
         assertThat(storeUpdateResponse.storeCategoryId()).isEqualTo(storeCategoryIdForUpdate);
     }
 
+    @DisplayName("삭제하면 isDeleted 는 true가 된다.")
+    @Test
+    void test() {
+        // given
+        String storeId = "storeId";
+        String name = "착한중식당";
+        Double score = 5.0;
+        Store store = createStore(storeId, name, testUser, testStoreCategory, testLocation, score);
+        storeRepository.save(store);
+
+        // when
+        storeService.deleteStore(storeId, testUser.getUsername());
+
+        // then
+        Store deletedStore = storeRepository.findById(storeId).get();
+        assertThat(deletedStore.getIsDeleted()).isTrue();
+        assertThat(deletedStore.getDeletedBy()).isEqualTo(testUser.getUsername());
+    }
+
     private User createUser(String username) {
         return User.create(username, "1234", "닉네임", Role.CUSTOMER);
     }
