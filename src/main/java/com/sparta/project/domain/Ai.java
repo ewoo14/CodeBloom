@@ -26,11 +26,18 @@ public class Ai extends BaseEntity { // 채팅 기록
 	private String answer;
 
 	@Builder
-	public Ai(String aiId, User user, String question, String answer) {
+	private Ai(String aiId, User user, String question, String answer) {
 		this.aiId = aiId;
 		this.user = user;
 		this.question = question;
 		this.answer = answer;
 	}
 
+	public static Ai create(User user, String question, String answer) {
+		return Ai.builder()
+				.user(user)
+				.question(question)
+				.answer(answer)
+				.build();
+	}
 }

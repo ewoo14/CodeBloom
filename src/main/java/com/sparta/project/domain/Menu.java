@@ -41,7 +41,7 @@ public class Menu extends BaseEntity { // 메뉴
 		this.isClosed = isClosed;
 	}
 
-	public static Menu create(String name, Store store,String description, Integer price, Boolean isClosed) {
+	public static Menu create(String name, Store store, String description, Integer price, Boolean isClosed) {
 		return Menu.builder()
 				.name(name)
 				.store(store)
@@ -49,7 +49,6 @@ public class Menu extends BaseEntity { // 메뉴
 				.price(price)
 				.isClosed(isClosed)
 				.build();
-
 	}
 
 	public void update(String name, String description, Integer price, Boolean isClosed) {
