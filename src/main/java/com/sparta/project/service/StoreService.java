@@ -1,6 +1,8 @@
 package com.sparta.project.service;
 
+import com.sparta.project.domain.Location;
 import com.sparta.project.domain.Store;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import com.sparta.project.dto.store.StoreCreateData;
 import com.sparta.project.dto.store.StoreResponse;
@@ -76,9 +78,15 @@ public class StoreService {
     }
 
 =======
+=======
+import com.sparta.project.domain.StoreCategory;
+>>>>>>> f337ba7 ([Feat] 음식점 정보 수정 기능 Service)
 import com.sparta.project.dto.store.StoreResponse;
+import com.sparta.project.dto.store.StoreUpdateResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
+import com.sparta.project.repository.LocationRepository;
+import com.sparta.project.repository.StoreCategoryRepository;
 import com.sparta.project.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -90,6 +98,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class StoreService {
 
     private final StoreRepository storeRepository;
+    private final LocationRepository locationRepository;
+    private final StoreCategoryRepository storeCategoryRepository;
 
     public StoreResponse getStoreById(String storeId) {
         Store store = storeRepository.findById(storeId)
@@ -97,5 +107,32 @@ public class StoreService {
 
         return StoreResponse.from(store);
     }
+<<<<<<< HEAD
 >>>>>>> b8d01e9 ([Feat] 음식점 상세 조회 기능 Service 및 ServiceTest)
+=======
+
+    @Transactional
+    public StoreUpdateResponse updateStore(String storeId, String storeName, String description,
+                                           String locationId, String categoryId) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
+
+        Location location = null;
+        if (locationId != null) {
+            location = locationRepository.findById(locationId)
+                    .orElseThrow(() -> new CodeBloomException(ErrorCode.LOCATION_NOT_FOUND));
+        }
+
+        StoreCategory storeCategory = null;
+        if (categoryId != null) {
+            storeCategory = storeCategoryRepository.findById(categoryId)
+                    .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_CATEGROY_NOT_FOUND));
+        }
+
+        store.update(storeName, description, location, storeCategory);
+
+        // StoreUpdateResponse 생성 및 반환 로직
+        return StoreUpdateResponse.from(store);
+    }
+>>>>>>> f337ba7 ([Feat] 음식점 정보 수정 기능 Service)
 }

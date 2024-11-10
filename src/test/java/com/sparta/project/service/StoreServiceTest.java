@@ -7,12 +7,16 @@ import com.sparta.project.domain.User;
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.store.StoreResponse;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.sparta.project.dto.store.StoreUpdateRequest;
 import com.sparta.project.repository.LocationRepository;
 import com.sparta.project.repository.StoreRepository;
 import com.sparta.project.repository.storecategory.StoreCategoryRepository;
 import com.sparta.project.repository.user.UserRepository;
 =======
+=======
+import com.sparta.project.dto.store.StoreUpdateResponse;
+>>>>>>> f337ba7 ([Feat] 음식점 정보 수정 기능 Service)
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.repository.LocationRepository;
 import com.sparta.project.repository.StoreCategoryRepository;
@@ -26,6 +30,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 <<<<<<< HEAD
@@ -136,16 +142,22 @@ class StoreServiceTest {
 
     private User testUser;
     private StoreCategory testStoreCategory;
+    private StoreCategory testStoreCategory2;
     private Location testLocation;
+    private Location testLocation2;
 
     @BeforeEach
     void setUp() {
         testUser = createUser("griotold");
         userRepository.save(testUser);
-        testStoreCategory = createStoreCategory("중식", "중식 전문점");
-        storeCategoryRepository.save(testStoreCategory);
-        testLocation = createLocation("서울", "서울의 상세한 설명");
-        locationRepository.save(testLocation);
+
+        testStoreCategory = createStoreCategory("storeCategoryId", "중식", "중식 전문점");
+        testStoreCategory2 = createStoreCategory("storeCategoryId2", "양식", "양식 전문점");
+        storeCategoryRepository.saveAll(List.of(testStoreCategory, testStoreCategory2));
+
+        testLocation = createLocation("locationId", "서울", "서울의 상세한 설명");
+        testLocation2 = createLocation("locationId2", "인천", "인천의 상세한 설명");
+        locationRepository.saveAll(List.of(testLocation, testLocation2));
     }
 
     @DisplayName("storeId를 입력해서 상세 조회하기")
@@ -184,16 +196,42 @@ class StoreServiceTest {
                 .hasMessage("일치하는 가게 정보가 존재하지 않습니다.");
     }
 
+    @DisplayName("수정 - storeName, description, locationId, storeCategoryId")
+    @Test
+    void updateStore() {
+        // given
+        String storeId = "storeId";
+        String name = "착한중식당";
+        Double score = 5.0;
+        Store store = createStore(storeId, name, testUser, testStoreCategory, testLocation, score);
+        storeRepository.save(store);
+
+        String storeNameForUpdate = "나쁜레스토랑";
+        String descriptionForUpdate = "수정한 상세 설명";
+        String locationIdForUpdate = "locationId2";
+        String storeCategoryIdForUpdate = "storeCategoryId2";
+
+        // when
+        StoreUpdateResponse storeUpdateResponse
+                = storeService.updateStore(storeId, storeNameForUpdate, descriptionForUpdate, locationIdForUpdate, storeCategoryIdForUpdate);
+
+        // then
+        assertThat(storeUpdateResponse.storeName()).isEqualTo(storeNameForUpdate);
+        assertThat(storeUpdateResponse.description()).isEqualTo(descriptionForUpdate);
+        assertThat(storeUpdateResponse.locationId()).isEqualTo(locationIdForUpdate);
+        assertThat(storeUpdateResponse.storeCategoryId()).isEqualTo(storeCategoryIdForUpdate);
+    }
+
     private User createUser(String username) {
         return User.create(username, "1234", "닉네임", Role.CUSTOMER);
     }
 
-    private StoreCategory createStoreCategory(String name, String description) {
-        return StoreCategory.create("storeCategoryId", name, description);
+    private StoreCategory createStoreCategory(String storeCategoryId, String name, String description) {
+        return StoreCategory.create(storeCategoryId, name, description);
     }
 
-    private Location createLocation(String name, String description) {
-        return Location.create("locationId", name, description);
+    private Location createLocation(String locationId, String name, String description) {
+        return Location.create(locationId, name, description);
     }
 
     private Store createStore(String storeId, String name, User owner, StoreCategory storeCategory, Location location, Double score) {

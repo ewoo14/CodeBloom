@@ -136,5 +136,15 @@ public class Store extends BaseEntity { // 음식점
 		this.score = score;
 	}
 
+<<<<<<< HEAD
 >>>>>>> aed210c ([Feat] 음식점 평균 평점 필드(score) 추가)
+=======
+	public void update(String storeName, String description, Location location, StoreCategory storeCategory) {
+		if (storeName != null) this.name = storeName;
+		if (description != null) this.description = description;
+		if (location != null) this.location = location;
+		if (storeCategory != null) this.storeCategory = storeCategory;
+
+	}
+>>>>>>> f337ba7 ([Feat] 음식점 정보 수정 기능 Service)
 }
