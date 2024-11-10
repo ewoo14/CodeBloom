@@ -12,7 +12,6 @@ import org.hibernate.annotations.OnDeleteAction;
 >>>>>>> 0ac8d3c ([Style] Food -> Menu 이름 변경)
 
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 @Entity
@@ -51,9 +50,13 @@ public class Menu extends BaseEntity { // 메뉴
 
 	@Builder
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private Menu(Store store, String name, String description, Integer price, Boolean isClosed) {
 =======
 	public Menu(String menuId, Store store, String name, String description, Integer price, Boolean isClosed) {
+=======
+	private Menu(String menuId, Store store, String name, String description, Integer price, Boolean isClosed) {
+>>>>>>> 679a9be ([Fix] 정적 팩토리 메서드 방식 적용)
 		this.menuId = menuId;
 >>>>>>> 0ac8d3c ([Style] Food -> Menu 이름 변경)
 		this.store = store;
@@ -64,14 +67,25 @@ public class Menu extends BaseEntity { // 메뉴
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public static Menu create(String name, Store store, String description, Integer price, Boolean isClosed) {
 		return Menu.builder()
 				.store(store)
 				.name(name)
+=======
+	public static Menu create(String name, Store store,String description, Integer price, Boolean isClosed) {
+		return Menu.builder()
+				.name(name)
+				.store(store)
+>>>>>>> 679a9be ([Fix] 정적 팩토리 메서드 방식 적용)
 				.description(description)
 				.price(price)
 				.isClosed(isClosed)
 				.build();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 679a9be ([Fix] 정적 팩토리 메서드 방식 적용)
 	}
 
 	public void update(String name, String description, Integer price, Boolean isClosed) {
@@ -88,6 +102,9 @@ public class Menu extends BaseEntity { // 메뉴
 			this.isClosed = isClosed;
 		}
 	}
+<<<<<<< HEAD
 =======
 >>>>>>> 0ac8d3c ([Style] Food -> Menu 이름 변경)
+=======
+>>>>>>> 679a9be ([Fix] 정적 팩토리 메서드 방식 적용)
 }

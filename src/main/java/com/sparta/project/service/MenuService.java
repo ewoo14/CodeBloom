@@ -59,8 +59,12 @@ public class MenuService {
     public Page<MenuResponse> getAllMenus(String storeId, String storeName, int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page - 1, size);
         return menuRepository.findAllByStoreStoreIdAndStoreName(storeId, storeName, pageable)
+<<<<<<< HEAD
                 .map(this::toMenuResponse);
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
+=======
+                .map(MenuResponse::from);
+>>>>>>> 679a9be ([Fix] 정적 팩토리 메서드 방식 적용)
     }
 
     // 단일 메뉴 조회
@@ -72,8 +76,12 @@ public class MenuService {
 =======
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
+<<<<<<< HEAD
         return toMenuResponse(menu);
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
+=======
+        return MenuResponse.from(menu);
+>>>>>>> 679a9be ([Fix] 정적 팩토리 메서드 방식 적용)
     }
 
     // 새로운 메뉴 생성
@@ -106,8 +114,12 @@ public class MenuService {
                 .isClosed(menuRequest.isClosed())
                 .build();
         menuRepository.save(menu);
+<<<<<<< HEAD
         return toMenuResponse(menu);
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
+=======
+        return MenuResponse.from(menu);
+>>>>>>> 679a9be ([Fix] 정적 팩토리 메서드 방식 적용)
     }
 
     // 메뉴 정보 수정
@@ -132,12 +144,24 @@ public class MenuService {
     public MenuResponse updateMenu(String menuId, MenuRequest menuRequest) {
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
+<<<<<<< HEAD
         menu.setName(menuRequest.name());
         menu.setDescription(menuRequest.description());
         menu.setPrice(menuRequest.price());
         menu.setIsClosed(menuRequest.isClosed());
         return toMenuResponse(menu);
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
+=======
+
+        menu.update(
+                menuRequest.name(),
+                menuRequest.description(),
+                menuRequest.price(),
+                menuRequest.isClosed()
+        );
+        menuRepository.save(menu);
+        return MenuResponse.from(menu);
+>>>>>>> 679a9be ([Fix] 정적 팩토리 메서드 방식 적용)
     }
 
     // 메뉴 삭제
@@ -159,6 +183,7 @@ public class MenuService {
         menu.deleteBase(username); // is_deleted를 true로 변경
         menuRepository.save(menu);
     }
+<<<<<<< HEAD
 
     // MenuResponse DTO 변환
     private MenuResponse toMenuResponse(Menu menu) {
@@ -172,4 +197,6 @@ public class MenuService {
         );
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
     }
+=======
+>>>>>>> 679a9be ([Fix] 정적 팩토리 메서드 방식 적용)
 }
