@@ -19,11 +19,15 @@ import org.hibernate.annotations.OnDeleteAction;
 public class OrderMenu extends BaseEntity { // 주문-메뉴
 	@Id
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name="order_menu_id", length=36, nullable=false, updatable=false)
 =======
 	@Column(name="order_menu", length=36, nullable=false, updatable=false)
 >>>>>>> 0ac8d3c ([Style] Food -> Menu 이름 변경)
+=======
+	@Column(name="order_menu_id", length=36, nullable=false, updatable=false)
+>>>>>>> a091ce4 ([Fix] OrderMenu.orderMenuId @Column(name) 수정)
 	private String orderMenuId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
