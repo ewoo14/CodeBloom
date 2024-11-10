@@ -7,9 +7,13 @@ import lombok.*;
 =======
 import jakarta.persistence.*;
 import lombok.*;
+<<<<<<< HEAD
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 >>>>>>> 0ac8d3c ([Style] Food -> Menu 이름 변경)
+=======
+import java.util.UUID;
+>>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -51,6 +55,7 @@ public class Menu extends BaseEntity { // 메뉴
 	@Builder
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private Menu(Store store, String name, String description, Integer price, Boolean isClosed) {
 =======
 	public Menu(String menuId, Store store, String name, String description, Integer price, Boolean isClosed) {
@@ -59,6 +64,10 @@ public class Menu extends BaseEntity { // 메뉴
 >>>>>>> 679a9be ([Fix] 정적 팩토리 메서드 방식 적용)
 		this.menuId = menuId;
 >>>>>>> 0ac8d3c ([Style] Food -> Menu 이름 변경)
+=======
+	private Menu(Store store, String name, String description, Integer price, Boolean isClosed) {
+		this.menuId = UUID.randomUUID().toString();
+>>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
 		this.store = store;
 		this.name = name;
 		this.description = description;
@@ -71,6 +80,7 @@ public class Menu extends BaseEntity { // 메뉴
 <<<<<<< HEAD
 	public static Menu create(String name, Store store, String description, Integer price, Boolean isClosed) {
 		return Menu.builder()
+<<<<<<< HEAD
 				.store(store)
 				.name(name)
 =======
@@ -82,6 +92,10 @@ public class Menu extends BaseEntity { // 메뉴
 				.name(name)
 				.store(store)
 >>>>>>> 679a9be ([Fix] 정적 팩토리 메서드 방식 적용)
+=======
+				.store(store)
+				.name(name)
+>>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
 				.description(description)
 				.price(price)
 				.isClosed(isClosed)

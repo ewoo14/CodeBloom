@@ -4,6 +4,7 @@ import com.sparta.project.domain.Menu;
 <<<<<<< HEAD
 <<<<<<< HEAD
 import com.sparta.project.domain.QMenu;
+<<<<<<< HEAD
 import com.sparta.project.domain.Store;
 import com.sparta.project.dto.menu.MenuCreateRequest;
 import com.sparta.project.dto.menu.MenuUpdateRequest;
@@ -13,7 +14,11 @@ import com.sparta.project.domain.QMenu;
 >>>>>>> dc05aea ([Fix] 전체 메뉴 조회에 queryDSL 적용)
 import com.sparta.project.dto.menu.MenuRequest;
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
+=======
+import com.sparta.project.dto.menu.MenuCreateRequest;
+>>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
 import com.sparta.project.dto.menu.MenuResponse;
+import com.sparta.project.dto.menu.MenuUpdateRequest;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.MenuRepository;
@@ -31,6 +36,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.querydsl.core.types.dsl.BooleanExpression;
 =======
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -49,6 +56,15 @@ public class MenuService {
     private final MenuRepository menuRepository;
 <<<<<<< HEAD
     private final StoreRepository storeRepository;
+
+    // 권한 확인
+    private void checkPermission(Authentication authentication, String... roles) {
+        for (String role : roles) {
+            if (!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_" + role))) {
+                throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
+            }
+        }
+    }
 
     // 모든 메뉴 조회
     @Transactional(readOnly = true)
@@ -104,6 +120,7 @@ public class MenuService {
     // 새로운 메뉴 생성
     @Transactional
 <<<<<<< HEAD
+<<<<<<< HEAD
     public String createMenu(MenuCreateRequest menuCreateRequest) {
         Store store = storeRepository.findById(menuCreateRequest.storeId())
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
@@ -124,11 +141,15 @@ public class MenuService {
         return menu.getMenuId();
 =======
     public MenuResponse createMenu(MenuRequest menuRequest) {
+=======
+    public MenuResponse createMenu(MenuCreateRequest menuCreateRequest, Authentication authentication) {
+        checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
+>>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
         Menu menu = Menu.builder()
-                .name(menuRequest.name())
-                .description(menuRequest.description())
-                .price(menuRequest.price())
-                .isClosed(menuRequest.isClosed())
+                .name(menuCreateRequest.name())
+                .description(menuCreateRequest.description())
+                .price(menuCreateRequest.price())
+                .isClosed(menuCreateRequest.isClosed())
                 .build();
         menuRepository.save(menu);
 <<<<<<< HEAD
@@ -141,6 +162,7 @@ public class MenuService {
 
     // 메뉴 정보 수정
     @Transactional
+<<<<<<< HEAD
 <<<<<<< HEAD
     public String updateMenu(String menuId, MenuUpdateRequest menuUpdateRequest) {
         Menu menu = getMenuOrException(menuId);
@@ -159,6 +181,10 @@ public class MenuService {
         return menu.getMenuId();
 =======
     public MenuResponse updateMenu(String menuId, MenuRequest menuRequest) {
+=======
+    public MenuResponse updateMenu(String menuId, MenuUpdateRequest menuUpdateRequest, Authentication authentication) {
+        checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
+>>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
 <<<<<<< HEAD
@@ -171,10 +197,10 @@ public class MenuService {
 =======
 
         menu.update(
-                menuRequest.name(),
-                menuRequest.description(),
-                menuRequest.price(),
-                menuRequest.isClosed()
+                menuUpdateRequest.name(),
+                menuUpdateRequest.description(),
+                menuUpdateRequest.price(),
+                menuUpdateRequest.isClosed()
         );
         menuRepository.save(menu);
         return MenuResponse.from(menu);
@@ -183,6 +209,7 @@ public class MenuService {
 
     // 메뉴 삭제
     @Transactional
+<<<<<<< HEAD
 <<<<<<< HEAD
     public void deleteMenu(String menuId, Authentication authentication) {
         Menu menu = getMenuOrException(menuId);
@@ -195,9 +222,13 @@ public class MenuService {
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
 =======
     public void deleteMenu(String menuId, String username) {
+=======
+    public void deleteMenu(String menuId, Authentication authentication) {
+        checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
+>>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
-        menu.deleteBase(username); // is_deleted를 true로 변경
+        menu.deleteBase(authentication.getName()); // is_deleted를 true로 변경
         menuRepository.save(menu);
     }
 <<<<<<< HEAD

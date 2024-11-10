@@ -24,16 +24,21 @@ import org.springframework.security.core.Authentication;
 =======
 package com.sparta.project.controller;
 
-import com.sparta.project.dto.menu.MenuRequest;
+import com.sparta.project.dto.menu.MenuCreateRequest;
+import com.sparta.project.dto.menu.MenuUpdateRequest;
 import com.sparta.project.dto.menu.MenuResponse;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
+<<<<<<< HEAD
 import org.springframework.security.core.context.SecurityContextHolder;
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
+=======
+>>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -79,6 +84,7 @@ public class MenuController {
     // 메뉴 추가(OWNER, MANAGER, MASTER)
     @PostMapping
 <<<<<<< HEAD
+<<<<<<< HEAD
     public ApiResponse<String> createMenu(
             @Valid @RequestBody MenuCreateRequest menuCreateRequest,
             Authentication authentication) {
@@ -88,6 +94,12 @@ public class MenuController {
     public ApiResponse<MenuResponse> createMenu(@RequestBody MenuRequest menuRequest) {
         MenuResponse newMenu = menuService.createMenu(menuRequest);
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
+=======
+    public ApiResponse<MenuResponse> createMenu(
+            @RequestBody MenuCreateRequest menuCreateRequest,
+            Authentication authentication) {
+        MenuResponse newMenu = menuService.createMenu(menuCreateRequest, authentication);
+>>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
         return ApiResponse.success(newMenu);
     }
 
@@ -103,14 +115,21 @@ public class MenuController {
 =======
     public ApiResponse<MenuResponse> updateMenu(
             @PathVariable String menu_id,
+<<<<<<< HEAD
             @RequestBody MenuRequest menuRequest) {
         MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuRequest);
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
+=======
+            @RequestBody MenuUpdateRequest menuUpdateRequest,
+            Authentication authentication) {
+        MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest, authentication);
+>>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
         return ApiResponse.success(updatedMenu);
     }
 
     // 메뉴 삭제(OWNER, MANAGER, MASTER)
     @DeleteMapping("/{menu_id}")
+<<<<<<< HEAD
 <<<<<<< HEAD
     public ApiResponse<Void> deleteMenu(
             @PathVariable String menu_id,
@@ -235,6 +254,12 @@ public class MenuController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         menuService.deleteMenu(menu_id, username);
+=======
+    public ApiResponse<Void> deleteMenu(
+            @PathVariable String menu_id,
+            Authentication authentication) {
+        menuService.deleteMenu(menu_id, authentication);
+>>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
         return ApiResponse.success();
     }
 }
