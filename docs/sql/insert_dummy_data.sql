@@ -165,6 +165,7 @@ INSERT INTO p_menu (menu_id, store_id, name, description, price, is_closed, is_d
 
 INSERT INTO p_order (order_id, user_id, address_id, store_id, type, status, order_price, demand, is_deleted, created_at, created_by, updated_at, updated_by, deleted_at, deleted_by) VALUES
 -- 교촌치킨 마린시티점 레드콤보 1개
+<<<<<<< HEAD
 ('8214df5a-846c-4ece-9392-79d3d20aeb2e', 23, '3d6eb26a-5cb2-47a7-8322-b599cea55d29', '4d8e7f37-b235-409c-8ab9-c3531627c11f', 'ONLINE', 'APPROVED', 23000, '일회용 수저 X', false, '2024-09-27 19:27:46', 'firstman', '2024-09-27 19:28:17', 'gyogyo3', null, null),
 -- 썬더치킨 연산5호점 크리스피치킨(한마리 (뼈)) 1개, 간장치킨(한마리 (뼈)) 1개
 ('e93874ec-b37c-4b65-ae3c-8305a46ce690', 23, '29626d8f-fc31-4071-8f7b-8e95ad1bde1f', 'c3716f27-e2ec-482d-b028-1dd3f9a2e20b', 'ONLINE', 'APPROVED', 35800, '초인종 누르고 문 앞에 놓아주세요', false, '2024-09-29 18:30:25', 'firstman', '2024-09-27 18:31:00', 'thunderbol', null, null),
@@ -180,6 +181,23 @@ INSERT INTO p_order (order_id, user_id, address_id, store_id, type, status, orde
 ('ec93f54b-d74d-4470-866c-170ab182c3a8', 23, '701575a0-e51d-4d1d-ad3b-795db2381fc5', 'ea156e21-133b-496d-855a-ec3863216a4f', 'ONLINE', 'APPROVED', 24500, '일회용 수저 O', false, '2024-10-18 20:00:35', 'firstman', '2024-10-18 20:01:00', 'bbqstar5', null, null),
 -- 여빈 짬뽕 3개, 짜장 2개, 등심탕수육 1개
 ('4dae22d4-1c84-4a15-a2fe-74d01db103fe', 23, 'd18af435-ef43-454b-9168-1f04bcbe7b9f', 'ce9aa567-32cb-405b-bc71-ca1892b5db55', 'ONLINE', 'APPROVED', 79000, '일회용 수저 O, 리뷰이벤트 사이다', false, '2024-10-21 11:52:00', 'firstman', '2024-10-21 11:52:27', 'zzambbong2', null, null)
+=======
+('8214df5a-846c-4ece-9392-79d3d20aeb2e', 23, '3d6eb26a-5cb2-47a7-8322-b599cea55d29', '4d8e7f37-b235-409c-8ab9-c3531627c11f', 'ONLINE', 'APPROVED', 23000, '일회용 수저 X', false, '2024-09-27 19:27:46', 'firstman', '2024-09-27 19:28:07', 'gyogyo3', null, null),
+-- 썬더치킨 연산5호점 크리스피치킨(한마리 (뼈)) 1개, 간장치킨(한마리 (뼈)) 1개
+('e93874ec-b37c-4b65-ae3c-8305a46ce690', 23, '29626d8f-fc31-4071-8f7b-8e95ad1bde1f', 'c3716f27-e2ec-482d-b028-1dd3f9a2e20b', 'ONLINE', 'APPROVED', 35800, '초인종 누르고 문 앞에 놓아주세요', false, '2024-09-29 18:30:25', 'firstman', '2024-09-27 18:30:50', 'thunderbol', null, null),
+-- 호식이두마리치킨 해운대우동점 두마리메뉴 취소
+('c89adbe9-bb64-4585-b995-693c641dfca8', 23, '3d6eb26a-5cb2-47a7-8322-b599cea55d29', '3f18d8ac-50f1-466b-860a-78d9a073b0a9', 'ONLINE', 'CANCELED', 25000, '치킨무 빼고 주세요', false, '2024-10-07 23:47:12', 'firstman', '2024-10-07 23:48:55', 'siuuuuu2', null, null),
+-- 7번가피자 우동점 페스티벌(R) 1개
+('5b05825b-597f-41c4-82f6-c163a076d496', 23, '3d6eb26a-5cb2-47a7-8322-b599cea55d29', '87e7b574-a9ba-4034-9358-9898f9954b03', 'ONLINE', 'APPROVED', 25900, '피클 빼고 주세요', false, '2024-10-07 23:58:10', 'firstman', '2024-10-07 23:58:26', 'street77', null, null),
+-- 여빈 짬뽕 3개, 짜장 1개
+('5c3b2d40-140e-441b-b321-9e9e42d1514e', 23, '871c9048-90f3-40e6-9acc-0e593d444844', 'ce9aa567-32cb-405b-bc71-ca1892b5db55', 'ONLINE', 'APPROVED', 44000, '일회용 수저 O', false, '2024-10-10 11:30:13', 'firstman', '2024-10-10 11:30:30', 'zzambbong2', null, null),
+-- 교촌치킨 마린시티점 허니콤보 1개
+('2019fd61-05f0-4ce3-b476-854588c17a0a', 23, 'c18db69e-cfa3-486f-9057-958b2215f36a', '4d8e7f37-b235-409c-8ab9-c3531627c11f', 'ONLINE', 'APPROVED', 23000, '리뷰이벤트 1번', false, '2024-10-12 19:45:15', 'firstman', '2024-10-12 19:45:25', 'gyogyo3', null, null),
+-- BBQ치킨 부산서면스타점 황금올리브치킨 양념 1개
+('ec93f54b-d74d-4470-866c-170ab182c3a8', 23, '701575a0-e51d-4d1d-ad3b-795db2381fc5', 'ea156e21-133b-496d-855a-ec3863216a4f', 'ONLINE', 'APPROVED', 24500, '일회용 수저 O', false, '2024-10-18 20:00:35', 'firstman', '2024-10-18 20:00:50', 'bbqstar5', null, null),
+-- 여빈 짬뽕 3개, 짜장 2개, 등심탕수육 1개
+('4dae22d4-1c84-4a15-a2fe-74d01db103fe', 23, 'd18af435-ef43-454b-9168-1f04bcbe7b9f', 'ce9aa567-32cb-405b-bc71-ca1892b5db55', 'ONLINE', 'APPROVED', 79000, '일회용 수저 O, 리뷰이벤트 사이다', false, '2024-10-21 11:52:00', 'firstman', '2024-10-21 11:52:17', 'zzambbong2', null, null)
+>>>>>>> 63567dc ([Docs] 더미 데이터 INSERT sql 파일)
 ;
 
 INSERT INTO p_order_menu (order_menu_id, menu_id, order_id, count, is_deleted, created_at, created_by, updated_at, updated_by, deleted_at, deleted_by) VALUES
@@ -204,6 +222,7 @@ INSERT INTO p_order_menu (order_menu_id, menu_id, order_id, count, is_deleted, c
 ('6a17a45d-bd3e-4bc1-a4fa-9d9459c7e0e5', 'a76066f9-4b54-4cca-902d-d0386a50420f', '4dae22d4-1c84-4a15-a2fe-74d01db103fe', 2, false, '2024-10-21 11:52:00', 'firstman', '2024-10-21 11:52:00', 'firstman', null, null),
 ('b51e6727-146f-4232-8daa-997beeb9be5f', '8d671fa6-3818-4321-a47e-d706f2a4d698', '4dae22d4-1c84-4a15-a2fe-74d01db103fe', 1, false, '2024-10-21 11:52:00', 'firstman', '2024-10-21 11:52:00', 'firstman', null, null)
 ;
+<<<<<<< HEAD
 
 INSERT INTO p_payment (payment_id, order_id, user_id, type, payment_price, pg_name, pg_key, is_deleted, created_at, created_by, updated_at, updated_by, deleted_at, deleted_by) VALUES
 ('1382f7a8-a59b-4822-8feb-1a57add1151f', '8214df5a-846c-4ece-9392-79d3d20aeb2e', 23, 'CARD', 23000, 'TOSS', '5EnN2RJGvaBX7zk2SK203JS6X6vaAOH2P2B79roHEHoSrSN5', false, '2024-09-27 19:27:56', 'firstman', '2024-09-27 19:27:56', 'firstman', null, null),
@@ -215,3 +234,5 @@ INSERT INTO p_payment (payment_id, order_id, user_id, type, payment_price, pg_na
 ('36099fe7-edb9-4090-be83-73b0b1d2f2b7', 'ec93f54b-d74d-4470-866c-170ab182c3a8', 23, 'CARD', 24500, 'TOSS', 'Apzjd2l3s0rKxZfXPki4wiVSZvK9mI1kkNdJQDDAf1JBUubB', false, '2024-10-18 20:00:45', 'firstman', '2024-10-18 20:00:45', 'firstman', null, null),
 ('1f5cee46-4ec6-440e-ac31-ac5e098693f3', '4dae22d4-1c84-4a15-a2fe-74d01db103fe', 23, 'CARD', 79000, 'TOSS', 'Z5KQy3LOHQBri2usWQT7CD5uhNQVp94glWxmKwDv02EXsR2w', false, '2024-10-21 11:52:10', 'firstman', '2024-10-21 11:52:10', 'firstman', null, null)
 ;
+=======
+>>>>>>> 63567dc ([Docs] 더미 데이터 INSERT sql 파일)
