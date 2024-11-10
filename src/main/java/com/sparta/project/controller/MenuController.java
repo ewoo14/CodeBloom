@@ -1,14 +1,15 @@
 package com.sparta.project.controller;
 
-import com.sparta.project.dto.menu.MenuRequest;
+import com.sparta.project.dto.menu.MenuCreateRequest;
+import com.sparta.project.dto.menu.MenuUpdateRequest;
 import com.sparta.project.dto.menu.MenuResponse;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -39,8 +40,10 @@ public class MenuController {
 
     // 메뉴 추가(OWNER, MANAGER, MASTER)
     @PostMapping
-    public ApiResponse<MenuResponse> createMenu(@RequestBody MenuRequest menuRequest) {
-        MenuResponse newMenu = menuService.createMenu(menuRequest);
+    public ApiResponse<MenuResponse> createMenu(
+            @RequestBody MenuCreateRequest menuCreateRequest,
+            Authentication authentication) {
+        MenuResponse newMenu = menuService.createMenu(menuCreateRequest, authentication);
         return ApiResponse.success(newMenu);
     }
 
@@ -48,17 +51,18 @@ public class MenuController {
     @PatchMapping("/{menu_id}")
     public ApiResponse<MenuResponse> updateMenu(
             @PathVariable String menu_id,
-            @RequestBody MenuRequest menuRequest) {
-        MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuRequest);
+            @RequestBody MenuUpdateRequest menuUpdateRequest,
+            Authentication authentication) {
+        MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest, authentication);
         return ApiResponse.success(updatedMenu);
     }
 
     // 메뉴 삭제(OWNER, MANAGER, MASTER)
     @DeleteMapping("/{menu_id}")
-    public ApiResponse<Void> deleteMenu(@PathVariable String menu_id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        menuService.deleteMenu(menu_id, username);
+    public ApiResponse<Void> deleteMenu(
+            @PathVariable String menu_id,
+            Authentication authentication) {
+        menuService.deleteMenu(menu_id, authentication);
         return ApiResponse.success();
     }
 }

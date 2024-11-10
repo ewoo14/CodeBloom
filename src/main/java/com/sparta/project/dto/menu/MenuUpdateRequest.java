@@ -1,7 +1,6 @@
 package com.sparta.project.dto.menu;
 
-public record MenuRequest(
-        String storeId,
+public record MenuUpdateRequest(
         String name,
         String description,
         Integer price,

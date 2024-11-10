@@ -2,12 +2,15 @@ package com.sparta.project.service;
 
 import com.sparta.project.domain.Menu;
 import com.sparta.project.domain.QMenu;
-import com.sparta.project.dto.menu.MenuRequest;
+import com.sparta.project.dto.menu.MenuCreateRequest;
 import com.sparta.project.dto.menu.MenuResponse;
+import com.sparta.project.dto.menu.MenuUpdateRequest;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.MenuRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +23,15 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 public class MenuService {
 
     private final MenuRepository menuRepository;
+
+    // 권한 확인
+    private void checkPermission(Authentication authentication, String... roles) {
+        for (String role : roles) {
+            if (!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_" + role))) {
+                throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
+            }
+        }
+    }
 
     // 모든 메뉴 조회
     @Transactional(readOnly = true)
@@ -44,12 +56,13 @@ public class MenuService {
 
     // 새로운 메뉴 생성
     @Transactional
-    public MenuResponse createMenu(MenuRequest menuRequest) {
+    public MenuResponse createMenu(MenuCreateRequest menuCreateRequest, Authentication authentication) {
+        checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
         Menu menu = Menu.builder()
-                .name(menuRequest.name())
-                .description(menuRequest.description())
-                .price(menuRequest.price())
-                .isClosed(menuRequest.isClosed())
+                .name(menuCreateRequest.name())
+                .description(menuCreateRequest.description())
+                .price(menuCreateRequest.price())
+                .isClosed(menuCreateRequest.isClosed())
                 .build();
         menuRepository.save(menu);
         return MenuResponse.from(menu);
@@ -57,15 +70,16 @@ public class MenuService {
 
     // 메뉴 정보 수정
     @Transactional
-    public MenuResponse updateMenu(String menuId, MenuRequest menuRequest) {
+    public MenuResponse updateMenu(String menuId, MenuUpdateRequest menuUpdateRequest, Authentication authentication) {
+        checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
 
         menu.update(
-                menuRequest.name(),
-                menuRequest.description(),
-                menuRequest.price(),
-                menuRequest.isClosed()
+                menuUpdateRequest.name(),
+                menuUpdateRequest.description(),
+                menuUpdateRequest.price(),
+                menuUpdateRequest.isClosed()
         );
         menuRepository.save(menu);
         return MenuResponse.from(menu);
@@ -73,10 +87,11 @@ public class MenuService {
 
     // 메뉴 삭제
     @Transactional
-    public void deleteMenu(String menuId, String username) {
+    public void deleteMenu(String menuId, Authentication authentication) {
+        checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
-        menu.deleteBase(username); // is_deleted를 true로 변경
+        menu.deleteBase(authentication.getName()); // is_deleted를 true로 변경
         menuRepository.save(menu);
     }
 }
