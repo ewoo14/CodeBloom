@@ -30,4 +30,11 @@ public class Location extends BaseEntity { // 지역
         this.description = description;
     }
 
+    public static Location create(String locationId, String name, String description) {
+        return Location.builder()
+                .locationId(locationId)
+                .name(name)
+                .description(description)
+                .build();
+    }
 }
