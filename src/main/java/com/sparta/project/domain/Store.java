@@ -68,4 +68,11 @@ public class Store extends BaseEntity { // 음식점
 		this.score = score;
 	}
 
+	public void update(String storeName, String description, Location location, StoreCategory storeCategory) {
+		if (storeName != null) this.name = storeName;
+		if (description != null) this.description = description;
+		if (location != null) this.location = location;
+		if (storeCategory != null) this.storeCategory = storeCategory;
+
+	}
 }

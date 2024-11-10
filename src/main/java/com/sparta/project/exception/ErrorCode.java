@@ -22,7 +22,13 @@ public enum ErrorCode {
     PAYMENT_FAILED(HttpStatus.BAD_REQUEST, "결제가 실패하였습니다." ),
 
     // Store
-    STORE_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 가게 정보가 존재하지 않습니다.")
+    STORE_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 가게 정보가 존재하지 않습니다."),
+
+    // Location
+    LOCATION_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 위치 정보가 존재하지 않습니다."),
+
+    // StoreCategory
+    STORE_CATEGROY_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 음식점 카테고리 정보가 존재하지 않습니다."),
 
     ;
 
