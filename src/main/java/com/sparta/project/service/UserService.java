@@ -21,6 +21,11 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    public User getUserOrException(long userId) {
+        return userRepository.findById(userId).orElseThrow(()->
+                new CodeBloomException(ErrorCode.USER_NOT_FOUND));
+    }
+
     @Transactional
     public void createUser(final UserSignupRequest request) {
         // TODO : 유효성 검사 필요
