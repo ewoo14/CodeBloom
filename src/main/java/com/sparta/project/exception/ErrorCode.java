@@ -14,6 +14,7 @@ public enum ErrorCode {
 
     // NOT FOUND
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다.")
+    LOCATION_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 지역 정보가 존재하지 않습니다.")
 
     ;
     private final HttpStatus httpStatus;
