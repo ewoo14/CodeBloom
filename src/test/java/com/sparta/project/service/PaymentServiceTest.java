@@ -62,11 +62,12 @@ class PaymentServiceTest {
         String type = "CARD";
         int paymentPrice = 10000;
         String pgName = "TOSS";
+        String username = "griotold";
 
         when(pgClient.requestPayment(any(Payment.class))).thenReturn(true);
 
         // when
-        PaymentCreateResponse response = paymentService.createPayment(orderId, type, paymentPrice, pgName, testUser);
+        PaymentCreateResponse response = paymentService.createPayment(orderId, type, paymentPrice, pgName, username);
 
         // then
         assertThat(response).isNotNull();
