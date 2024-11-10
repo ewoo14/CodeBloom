@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 public enum ErrorCode {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // API CALL FAILED
     API_CALL_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "API 호출이 실패했습니다."),
 
@@ -18,6 +19,11 @@ public enum ErrorCode {
 
 =======
 >>>>>>> 4bb355b ([Feat] 로그인 API)
+=======
+    // API CALL FAILED
+    API_CALL_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "API 호출이 실패했습니다."),
+
+>>>>>>> fea02e7 ([Feat] AI Dto 및 service 구현)
     // UNAUTHORIZED & FORBIDDEN
     FORBIDDEN_ACCESS(HttpStatus.FORBIDDEN, "접근 권한이 존재하지 않습니다."),
     INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, "비밀번호 정보가 일치하지 않습니다."),
@@ -90,8 +96,16 @@ public enum ErrorCode {
 >>>>>>> 1c2a362 ([Style] ErrorCode 도메인 별로 위치 분리)
 =======
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다."),
+<<<<<<< HEAD
     MENU_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 메뉴 정보가 존재하지 않습니다.")
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
+=======
+    MENU_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 메뉴 정보가 존재하지 않습니다."),
+    AIDESCRIPTION_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 AI설명 정보가 존재하지 않습니다."),
+
+    // Response Parsing Error
+    RESPONSE_PARSING_ERROR(HttpStatus.BAD_REQUEST, "응답 파싱 오류가 발생했습니다.")
+>>>>>>> fea02e7 ([Feat] AI Dto 및 service 구현)
 
     ;
 

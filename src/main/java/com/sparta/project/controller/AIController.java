@@ -1,13 +1,19 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
 import com.sparta.project.domain.enums.Role;
+=======
+package com.sparta.project.controller;
+
+>>>>>>> fea02e7 ([Feat] AI Dto 및 service 구현)
 import com.sparta.project.dto.ai.AIRequest;
 import com.sparta.project.dto.ai.AIResponse;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
+<<<<<<< HEAD
 import com.sparta.project.permission.PermissionValidator;
 import com.sparta.project.service.AIService;
 import jakarta.validation.Valid;
@@ -22,12 +28,20 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
 
+=======
+import com.sparta.project.service.AIService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
+
+>>>>>>> fea02e7 ([Feat] AI Dto 및 service 구현)
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/ai")
 public class AIController {
 
     private final AIService aiService;
+<<<<<<< HEAD
     private final PermissionValidator permissionValidator;
 
     // 생성한 설명 목록 조회(OWNER)
@@ -124,3 +138,24 @@ public class AIController {
 //    }
 //}
 >>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
+=======
+
+    // 메뉴 설명 생성
+    @PostMapping("/menu-description")
+    public ApiResponse<AIResponse> createMenuDescription(@RequestBody AIRequest aiRequest) {
+        AIResponse madeDescription = aiService.createMenuDescription(aiRequest);
+        return ApiResponse.success(madeDescription);
+    }
+
+    // 생성한 설명 목록 조회
+    @GetMapping("/menu-description")
+    public ApiResponse<PageResponse<AIResponse>> getMenuDescriptions(
+            @RequestParam String menuId,
+            @RequestParam("page") int page,
+            @RequestParam("size") int size,
+            @RequestParam("sortBy") String sortBy) {
+        Page<AIResponse> descriptions = aiService.getMenuDescriptions(menuId, page, size, sortBy);
+        return ApiResponse.success(PageResponse.of(descriptions));
+    }
+}
+>>>>>>> fea02e7 ([Feat] AI Dto 및 service 구현)

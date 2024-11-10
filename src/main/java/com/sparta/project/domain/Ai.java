@@ -44,9 +44,13 @@ public class Ai extends BaseEntity { // 채팅 기록
 
 	@Builder
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private Ai(User user, String question, String answer) {
 =======
 	public Ai(String aiId, User user, String question, String answer) {
+=======
+	private Ai(String aiId, User user, String question, String answer) {
+>>>>>>> fea02e7 ([Feat] AI Dto 및 service 구현)
 		this.aiId = aiId;
 >>>>>>> 55abe9a ([Style] "Chat" -> "Ai" 이름 변경)
 		this.user = user;
@@ -55,6 +59,9 @@ public class Ai extends BaseEntity { // 채팅 기록
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fea02e7 ([Feat] AI Dto 및 service 구현)
 	public static Ai create(User user, String question, String answer) {
 		return Ai.builder()
 				.user(user)
@@ -62,6 +69,9 @@ public class Ai extends BaseEntity { // 채팅 기록
 				.answer(answer)
 				.build();
 	}
+<<<<<<< HEAD
 =======
 >>>>>>> 55abe9a ([Style] "Chat" -> "Ai" 이름 변경)
+=======
+>>>>>>> fea02e7 ([Feat] AI Dto 및 service 구현)
 }

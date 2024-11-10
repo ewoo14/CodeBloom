@@ -68,12 +68,16 @@ public class Menu extends BaseEntity { // 메뉴
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public static Menu create(String name, Store store, String description, Integer price, Boolean isClosed) {
 		return Menu.builder()
 				.store(store)
 				.name(name)
 =======
 	public static Menu create(String name, Store store,String description, Integer price, Boolean isClosed) {
+=======
+	public static Menu create(String name, Store store, String description, Integer price, Boolean isClosed) {
+>>>>>>> fea02e7 ([Feat] AI Dto 및 service 구현)
 		return Menu.builder()
 				.name(name)
 				.store(store)
@@ -83,9 +87,12 @@ public class Menu extends BaseEntity { // 메뉴
 				.isClosed(isClosed)
 				.build();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> 679a9be ([Fix] 정적 팩토리 메서드 방식 적용)
+=======
+>>>>>>> fea02e7 ([Feat] AI Dto 및 service 구현)
 	}
 
 	public void update(String name, String description, Integer price, Boolean isClosed) {
