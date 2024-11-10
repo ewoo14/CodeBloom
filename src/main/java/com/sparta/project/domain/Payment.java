@@ -1,8 +1,8 @@
 package com.sparta.project.domain;
 
-import com.sparta.project.domain.enums.OrderType;
 import com.sparta.project.domain.enums.PaymentType;
 import com.sparta.project.domain.enums.PgName;
+import com.sparta.project.util.UuidGenerator;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -53,9 +53,13 @@ public class Payment extends BaseEntity { // 결제
 <<<<<<< HEAD
 	@Builder
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private Payment(Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName, String pgKey) {
 =======
 	public Payment(String paymentId, Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName, String pgKey) {
+=======
+	private Payment(String paymentId, Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName, String pgKey) {
+>>>>>>> 054108d (결제 기능 구현 Service)
 		this.paymentId = paymentId;
 >>>>>>> 6ad0ce7 ([Feat] Order FK로 Address, Store 추가, Payment FK로 User 추가)
 		this.order = order;
@@ -66,15 +70,25 @@ public class Payment extends BaseEntity { // 결제
 		this.pgKey = pgKey;
 	}
 
+<<<<<<< HEAD
 	public static Payment create(Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName) {
 		return Payment.builder()
 				.order(order)
 				.user(user)
 				.type(type)
+=======
+	public static Payment create(Order order, User user, String type, Integer paymentPrice, PgName pgName) {
+		return Payment.builder()
+				.paymentId(UuidGenerator.generateUuid())
+				.order(order)
+				.user(user)
+				.type(PaymentType.valueOf(type))
+>>>>>>> 054108d (결제 기능 구현 Service)
 				.paymentPrice(paymentPrice)
 				.pgName(pgName)
 				.pgKey(pgName.getPgKey())
 				.build();
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> b1c6552 ([Feat] Payment에 PG사 이름, PG사 결제 코드 추가)
@@ -90,6 +104,8 @@ public class Payment extends BaseEntity { // 결제
 		this.pgName = pgName;
 		this.pgKey = pgKey;
 >>>>>>> b1c6552 ([Feat] Payment에 PG사 이름, PG사 결제 코드 추가)
+=======
+>>>>>>> 054108d (결제 기능 구현 Service)
 	}
 
 }

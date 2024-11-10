@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -17,6 +18,8 @@ import java.util.List;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 >>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
+=======
+>>>>>>> 054108d (결제 기능 구현 Service)
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,7 +142,7 @@ public class Order extends BaseEntity { // 주문
 	private List<OrderMenu> orderMenus = new ArrayList<>();
 
 	@Builder
-	public Order(String orderId, User user, Address address, Store store, OrderType type, Integer orderPrice, String demand) {
+	private Order(String orderId, User user, Address address, Store store, OrderType type, Integer orderPrice, String demand) {
 		this.orderId = orderId;
 		this.user = user;
 		this.address = address;
@@ -148,6 +151,18 @@ public class Order extends BaseEntity { // 주문
 		this.status = OrderStatus.WAITING;
 		this.orderPrice = orderPrice;
 		this.demand = demand;
+	}
+
+	public static Order create(String orderId, User user, Address address, Store store, OrderType type, Integer orderPrice, String demand) {
+		return Order.builder()
+				.orderId(orderId)
+				.user(user)
+				.address(address)
+				.store(store)
+				.type(type)
+				.orderPrice(orderPrice)
+				.demand(demand)
+				.build();
 	}
 
 }

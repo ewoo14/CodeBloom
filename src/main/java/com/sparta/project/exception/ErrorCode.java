@@ -73,11 +73,22 @@ public enum ErrorCode {
     PAYMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 결제 정보가 존재하지 않습니다.")
 =======
     // NOT FOUND
+<<<<<<< HEAD
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다.")
 >>>>>>> 4bb355b ([Feat] 로그인 API)
 
     ;
 
+=======
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다."),
+    ORDER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 주문 정보가 존재하지 않습니다."),
+
+    // Payment
+    UNSUPPORTED_PAYMENT_TYPE(HttpStatus.BAD_REQUEST, "지원하지 않는 결제 방식입니다."),
+    UNSUPPORTED_PG_NAME(HttpStatus.BAD_REQUEST, "지원하지 않는 PG사입니다."),
+    PAYMENT_FAILED(HttpStatus.BAD_REQUEST, "결제가 실패하였습니다." );
+
+>>>>>>> 054108d (결제 기능 구현 Service)
     private final HttpStatus httpStatus;
     private final String message;
 

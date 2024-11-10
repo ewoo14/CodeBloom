@@ -1,6 +1,7 @@
 package com.sparta.project.repository;
 
 import com.sparta.project.domain.Order;
+<<<<<<< HEAD
 import com.sparta.project.domain.Store;
 import com.sparta.project.domain.User;
 import org.springframework.data.domain.Page;
@@ -24,4 +25,9 @@ public interface OrderRepository extends JpaRepository<Order, String> {
             @Param("user") User user,
             Pageable pageable
     );
+=======
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface OrderRepository extends JpaRepository<Order, String> {
+>>>>>>> 054108d (결제 기능 구현 Service)
 }

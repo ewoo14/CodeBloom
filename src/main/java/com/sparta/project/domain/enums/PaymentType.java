@@ -16,6 +16,7 @@ public enum PaymentType {
 
     private final String description;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     public static PaymentType of(String request) {
         return switch (request) {
@@ -26,4 +27,15 @@ public enum PaymentType {
     }
 =======
 >>>>>>> af1c170 ([Refactor] Enum 타입에 description 추가)
+=======
+
+    public static boolean isPaymentTypeSupported(String type) {
+        for (PaymentType paymentType : PaymentType.values()) {
+            if (paymentType.name().equals(type)) {
+                return true;
+            }
+        }
+        return false;
+    }
+>>>>>>> 054108d (결제 기능 구현 Service)
 }
