@@ -24,7 +24,7 @@ public class MenuService {
     public Page<MenuResponse> getAllMenus(String storeId, String storeName, int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page - 1, size);
         return menuRepository.findAllByStoreStoreIdAndStoreName(storeId, storeName, pageable)
-                .map(this::toMenuResponse);
+                .map(MenuResponse::from);
     }
 
     // 단일 메뉴 조회
@@ -32,7 +32,7 @@ public class MenuService {
     public MenuResponse getMenuById(String menuId) {
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
-        return toMenuResponse(menu);
+        return MenuResponse.from(menu);
     }
 
     // 새로운 메뉴 생성
@@ -45,7 +45,7 @@ public class MenuService {
                 .isClosed(menuRequest.isClosed())
                 .build();
         menuRepository.save(menu);
-        return toMenuResponse(menu);
+        return MenuResponse.from(menu);
     }
 
     // 메뉴 정보 수정
@@ -53,11 +53,15 @@ public class MenuService {
     public MenuResponse updateMenu(String menuId, MenuRequest menuRequest) {
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
-        menu.setName(menuRequest.name());
-        menu.setDescription(menuRequest.description());
-        menu.setPrice(menuRequest.price());
-        menu.setIsClosed(menuRequest.isClosed());
-        return toMenuResponse(menu);
+
+        menu.update(
+                menuRequest.name(),
+                menuRequest.description(),
+                menuRequest.price(),
+                menuRequest.isClosed()
+        );
+        menuRepository.save(menu);
+        return MenuResponse.from(menu);
     }
 
     // 메뉴 삭제
@@ -67,17 +71,5 @@ public class MenuService {
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
         menu.deleteBase(username); // is_deleted를 true로 변경
         menuRepository.save(menu);
-    }
-
-    // MenuResponse DTO 변환
-    private MenuResponse toMenuResponse(Menu menu) {
-        return new MenuResponse(
-                menu.getMenuId(),
-                menu.getStore().getStoreId(),
-                menu.getName(),
-                menu.getDescription(),
-                menu.getPrice(),
-                menu.getIsClosed()
-        );
     }
 }
