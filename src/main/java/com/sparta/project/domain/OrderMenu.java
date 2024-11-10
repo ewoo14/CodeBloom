@@ -11,7 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name="p_order_menu")
 public class OrderMenu extends BaseEntity { // 주문-메뉴
 	@Id
-	@Column(name="order_menu", length=36, nullable=false, updatable=false)
+	@Column(name="order_menu_id", length=36, nullable=false, updatable=false)
 	private String orderMenuId;
 
 	@ManyToOne(fetch = FetchType.LAZY)
