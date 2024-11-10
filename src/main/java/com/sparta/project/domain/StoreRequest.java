@@ -1,5 +1,6 @@
 package com.sparta.project.domain;
 
+import com.sparta.project.domain.enums.StoreRequestStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -16,9 +17,9 @@ public class StoreRequest extends BaseEntity { // 음식점 허가 요청
 	@Column(name="store_request_id", length=36, nullable=false, updatable=false)
 	private String storeRequestId;
 
-	@Column(name="is_approved", nullable=false) // 승인 여부
-	@ColumnDefault("false")
-	private Boolean isApproved;
+	@Column(name="status", nullable=false) // 승인 여부
+	@Enumerated(EnumType.STRING)
+	private StoreRequestStatus status;
 
 	@Column(name="name", length=50, nullable=false) // 음식점 이름
 	private String name;
