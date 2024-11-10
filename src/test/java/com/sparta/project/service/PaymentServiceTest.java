@@ -1,6 +1,7 @@
 package com.sparta.project.service;
 
 import com.sparta.project.client.PgClient;
+<<<<<<< HEAD
 import com.sparta.project.domain.*;
 import com.sparta.project.domain.enums.OrderType;
 import com.sparta.project.domain.enums.Role;
@@ -16,6 +17,18 @@ import com.sparta.project.repository.storecategory.StoreCategoryRepository;
 import com.sparta.project.repository.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+=======
+import com.sparta.project.domain.Order;
+import com.sparta.project.domain.Payment;
+import com.sparta.project.domain.User;
+import com.sparta.project.domain.enums.OrderType;
+import com.sparta.project.domain.enums.Role;
+import com.sparta.project.dto.payment.PaymentCreateResponse;
+import com.sparta.project.repository.OrderRepository;
+import com.sparta.project.repository.PaymentRepository;
+import com.sparta.project.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
+>>>>>>> 3c3b367 (서비스 테스트)
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,7 +39,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+<<<<<<< HEAD
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+=======
+>>>>>>> 3c3b367 (서비스 테스트)
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -47,6 +63,7 @@ class PaymentServiceTest {
     @Autowired
     UserRepository userRepository;
 
+<<<<<<< HEAD
     @Autowired
     AddressRepository addressRepository;
 
@@ -59,6 +76,8 @@ class PaymentServiceTest {
     @Autowired
     StoreRepository storeRepository;
 
+=======
+>>>>>>> 3c3b367 (서비스 테스트)
     @MockBean
     PgClient pgClient;
 
@@ -69,6 +88,7 @@ class PaymentServiceTest {
     void setUp() {
         testUser = createUser("griotold");
         userRepository.save(testUser);
+<<<<<<< HEAD
         Address address = createAddress(testUser);
         addressRepository.save(address);
         StoreCategory storeCategory = StoreCategory.create("중식", "중식 상세 설명");
@@ -90,11 +110,28 @@ class PaymentServiceTest {
                 10000,
                 "TOSS"
         );
+=======
+        testOrder = createOrder(testUser); // Order 객체 생성 로직 추가
+        orderRepository.save(testOrder);
+    }
+
+    @Test
+    void createPayment_Success() {
+        // given
+        String orderId = testOrder.getOrderId();
+        String type = "CARD";
+        int paymentPrice = 10000;
+        String pgName = "TOSS";
+>>>>>>> 3c3b367 (서비스 테스트)
 
         when(pgClient.requestPayment(any(Payment.class))).thenReturn(true);
 
         // when
+<<<<<<< HEAD
         PaymentResponse response = paymentService.createPayment(paymentRequest, testUser.getUserId());
+=======
+        PaymentCreateResponse response = paymentService.createPayment(orderId, type, paymentPrice, pgName, testUser);
+>>>>>>> 3c3b367 (서비스 테스트)
 
         // then
         assertThat(response).isNotNull();
@@ -104,6 +141,7 @@ class PaymentServiceTest {
         assertThat(testOrder.getOrderId()).isEqualTo(savedPayment.get().getOrder().getOrderId());
     }
 
+<<<<<<< HEAD
     @DisplayName("없는 주문을 결제하려고하면 결제 실패한다.")
     @Test
     void createPayment_fail_1() {
@@ -205,10 +243,13 @@ class PaymentServiceTest {
                 .hasMessage("지원하지 않는 PG사입니다.");
     }
 
+=======
+>>>>>>> 3c3b367 (서비스 테스트)
     private User createUser(String username) {
         return User.create(username, "1234", "닉네임", Role.CUSTOMER);
     }
 
+<<<<<<< HEAD
     private Order createOrder(User user, Address address, Store store) {
         return Order.create(user, address, store, OrderType.ONLINE, 10_000, "요구사항");
     }
@@ -219,5 +260,9 @@ class PaymentServiceTest {
 
     private Store createStore(User user, StoreCategory storeCategory, Location location) {
         return Store.create("중식당1", "중식당1 상세", "주소지", user, storeCategory, location);
+=======
+    private Order createOrder(User user) {
+        return Order.create("UUID", user, null, null, OrderType.ONLINE, 10_000, "요구사항");
+>>>>>>> 3c3b367 (서비스 테스트)
     }
 }
