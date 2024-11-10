@@ -41,6 +41,7 @@ public abstract class BaseEntity {
     private LocalDateTime deletedAt;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @CreatedBy
     @Column(name="created_by", length=2048)
     private String createdBy;
@@ -55,10 +56,13 @@ public abstract class BaseEntity {
     public void deleteBase(String username) {
 =======
 //    @CreatedBy
+=======
+    @CreatedBy
+>>>>>>> 279b3b6 (AuditorAware 적용)
     @Column(name="created_by", length=10)
     private String createdBy;
 
-//    @LastModifiedBy
+    @LastModifiedBy
     @Column(name="updated_by", length=10)
     private String updatedBy;
 
