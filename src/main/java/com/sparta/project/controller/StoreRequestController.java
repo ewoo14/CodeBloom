@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
@@ -21,6 +22,20 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+=======
+package com.sparta.project.controller;
+
+import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.dto.storerequest.StoreCreateRequest;
+import com.sparta.project.service.StoreRequestService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+>>>>>>> 4f6677d ([Feat] 가게 생성을 요청하는 기능)
 
 
 @RestController
@@ -28,17 +43,24 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/store-requests")
 public class StoreRequestController {
 
+<<<<<<< HEAD
     private final PermissionValidator permissionValidator;
+=======
+>>>>>>> 4f6677d ([Feat] 가게 생성을 요청하는 기능)
     private final StoreRequestService storeRequestService;
 
     @PostMapping
     public ApiResponse<Void> createStoreRequest(Authentication authentication,
                                                 @Valid @RequestBody StoreCreateRequest request) {
+<<<<<<< HEAD
         permissionValidator.checkPermission(authentication, Role.OWNER.name());
+=======
+>>>>>>> 4f6677d ([Feat] 가게 생성을 요청하는 기능)
         storeRequestService.createStoreRequest(Long.parseLong(authentication.getName()), request);
         return ApiResponse.success();
     }
 
+<<<<<<< HEAD
     // 음식점 생성 요청 수정 (OWNER)
     @PatchMapping("/{request_id}")
     public ApiResponse<Void> updateStoreRequest(Authentication authentication,
@@ -203,6 +225,8 @@ public class StoreRequestController {
 //public class StoreRequestController {
 //
 //    private final StoreRequestService storeRequestService;
+=======
+>>>>>>> 4f6677d ([Feat] 가게 생성을 요청하는 기능)
 //
 //    // 자신의 요청 목록 조회(OWNER)
 //    @GetMapping("/my")
@@ -244,12 +268,6 @@ public class StoreRequestController {
 //        return ApiResponse.success(PageResponse.of(storeRequest));
 //    }
 //
-//    // 음식점 생성 요청(OWNER)
-//    @PostMapping
-//    public ApiResponse<StoreRequestResponse> createStoreRequest(@RequestBody StoreRequestRequest storeRequestRequest) {
-//        StoreRequestResponse madeRequest = storeRequestService.createStoreRequest(storeRequestRequest);
-//        return ApiResponse.success(madeRequest);
-//    }
 //
 //    // 음식점 생성 요청 승인(MANAGER, MASTER)
 //    @PostMapping("/{request_id}")
@@ -266,5 +284,9 @@ public class StoreRequestController {
 //        storeRequestService.deleteStoreRequest(request_id);
 //        return ApiResponse.success();
 //    }
+<<<<<<< HEAD
 //}
 >>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
+=======
+}
+>>>>>>> 4f6677d ([Feat] 가게 생성을 요청하는 기능)
