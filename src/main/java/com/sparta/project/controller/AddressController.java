@@ -1,19 +1,36 @@
-//package com.sparta.project.controller;
-//
-//import com.sparta.project.dto.address.AddressRequest;
-//import com.sparta.project.dto.address.AddressResponse;
-//import com.sparta.project.dto.common.ApiResponse;
-//import com.sparta.project.dto.common.PageResponse;
-//import com.sparta.project.service.AddressService;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.web.bind.annotation.*;
-//
-//import java.util.List;
-//
-//@RestController
-//@RequiredArgsConstructor
-//@RequestMapping("/addresses")
-//public class AddressController {
+package com.sparta.project.controller;
+
+
+import com.sparta.project.domain.Address;
+import com.sparta.project.dto.address.AddressCreateRequest;
+import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.service.AddressService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/addresses")
+public class AddressController {
+
+    private final AddressService addressService;
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public ApiResponse<Void> createAddress(Authentication authentication,
+                                              @Valid @RequestBody AddressCreateRequest request) {
+        addressService.createAddress(Long.parseLong(authentication.getName()), request);
+        return ApiResponse.success();
+    }
+
+
 //
 //    private final AddressService addressService;
 //
@@ -56,4 +73,4 @@
 //        addressService.deleteAddress(address_id);
 //        return ApiResponse.success();
 //    }
-//}
+}

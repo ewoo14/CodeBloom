@@ -2,8 +2,7 @@ package com.sparta.project.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -26,11 +25,18 @@ public class Ai extends BaseEntity { // 채팅 기록
 	private String answer;
 
 	@Builder
-	public Ai(String aiId, User user, String question, String answer) {
-		this.aiId = aiId;
+	private Ai(User user, String question, String answer) {
+		this.aiId = UUID.randomUUID().toString();
 		this.user = user;
 		this.question = question;
 		this.answer = answer;
 	}
 
+	public static Ai create(User user, String question, String answer) {
+		return Ai.builder()
+				.user(user)
+				.question(question)
+				.answer(answer)
+				.build();
+	}
 }
