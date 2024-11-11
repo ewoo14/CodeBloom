@@ -4,9 +4,9 @@ import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.payment.PaymentCreateRequest;
 import com.sparta.project.dto.payment.PaymentCreateResponse;
 import com.sparta.project.service.PaymentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,12 +50,12 @@ public class PaymentController {
 //
     // 결제 요청(CUSTOMER)
     @PostMapping
-    public ApiResponse<PaymentCreateResponse> createPayment(@RequestBody PaymentCreateRequest paymentRequest) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
+    public ApiResponse<PaymentCreateResponse> createPayment(@Valid @RequestBody PaymentCreateRequest paymentRequest,
+                                                            Authentication authentication) {
+        Long userId = Long.parseLong(authentication.getName());
         PaymentCreateResponse response
                 = paymentService.createPayment(paymentRequest.orderId(),
-                paymentRequest.type(), paymentRequest.paymentPrice(), paymentRequest.pgName(), username);
+                paymentRequest.type(), paymentRequest.paymentPrice(), paymentRequest.pgName(), userId);
         return ApiResponse.success(response);
     }
 //
