@@ -9,9 +9,7 @@ import com.sparta.project.domain.enums.PgName;
 import com.sparta.project.dto.payment.PaymentCreateResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
-import com.sparta.project.repository.OrderRepository;
 import com.sparta.project.repository.PaymentRepository;
-import com.sparta.project.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,27 +18,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class PaymentService {
+    private final UserService userService;
+    private final OrderService orderService;
     private final PaymentRepository paymentRepository;
-    private final OrderRepository orderRepository;
-    private final UserRepository userRepository;
     private final PgClient pgClient;
 
     @Transactional
-    public PaymentCreateResponse createPayment(String orderId, String type, int paymentPrice, String pgName, String username) {
-         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new CodeBloomException(ErrorCode.USER_NOT_FOUND));
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new CodeBloomException(ErrorCode.ORDER_NOT_FOUND));
+    public PaymentCreateResponse createPayment(String orderId, String type, int paymentPrice, String pgName, Long userId) {
+         User user = userService.getUserOrException(userId);
+        Order order = orderService.getUserOrException(orderId);
 
-        if (isPaymentTypeNotSupported(type)) {
-            throw new CodeBloomException(ErrorCode.UNSUPPORTED_PAYMENT_TYPE);
-        }
+        validateUserOrderMatch(order, userId);
 
-        if (isPgNameNtoSupported(pgName)) {
-            throw new CodeBloomException(ErrorCode.UNSUPPORTED_PAYMENT_TYPE);
-        }
-
-        Payment payment = Payment.create(order, user, type, paymentPrice, PgName.valueOf(pgName));
+        Payment payment = Payment.create(order, user, PaymentType.of(type), paymentPrice, PgName.of(pgName));
 
         boolean isSuccess = pgClient.requestPayment(payment);
 
@@ -51,12 +41,9 @@ public class PaymentService {
         return PaymentCreateResponse.from(paymentRepository.save(payment));
     }
 
-    // todo paymetType, pgName 검사하는 클래스를 분리해서 단일 책임 원칙을 지키는 게 객체지향스러울 것 같다.
-    private boolean isPaymentTypeNotSupported(String type) {
-        return !PaymentType.isPaymentTypeSupported(type);
-    }
-
-    private boolean isPgNameNtoSupported(String pgName) {
-        return !PgName.isPgNameSupported(pgName);
+    private void validateUserOrderMatch(Order order, Long userId) {
+        if (!order.getUser().getUserId().equals(userId)) {
+            throw new CodeBloomException(ErrorCode.USER_ORDER_MISMATCH);
+        }
     }
 }

@@ -1,5 +1,7 @@
 package com.sparta.project.domain.enums;
 
+import com.sparta.project.exception.CodeBloomException;
+import com.sparta.project.exception.ErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -11,12 +13,11 @@ public enum PaymentType {
 
     private final String description;
 
-    public static boolean isPaymentTypeSupported(String type) {
-        for (PaymentType paymentType : PaymentType.values()) {
-            if (paymentType.name().equals(type)) {
-                return true;
-            }
-        }
-        return false;
+    public static PaymentType of(String request) {
+        return switch (request) {
+            case "CARD" -> CARD;
+            case "CASH" -> CASH;
+            default -> throw new CodeBloomException(ErrorCode.UNSUPPORTED_PAYMENT_TYPE);
+        };
     }
 }

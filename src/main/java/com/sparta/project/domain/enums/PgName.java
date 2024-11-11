@@ -1,5 +1,7 @@
 package com.sparta.project.domain.enums;
 
+import com.sparta.project.exception.CodeBloomException;
+import com.sparta.project.exception.ErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,12 +15,12 @@ public enum PgName {
     private final String description;
     private final String pgKey;
 
-    public static boolean isPgNameSupported(String pgName) {
-        for (PgName pg : PgName.values()) {
-            if (pg.name().equalsIgnoreCase(pgName)) {
-                return true;
-            }
-        }
-        return false;
+    public static PgName of(String request) {
+        return switch (request) {
+            case "NHN" -> NHN;
+            case "KG" -> KG;
+            case "TOSS" -> TOSS;
+            default -> throw new CodeBloomException(ErrorCode.UNSUPPORTED_PG_NAME);
+        };
     }
 }

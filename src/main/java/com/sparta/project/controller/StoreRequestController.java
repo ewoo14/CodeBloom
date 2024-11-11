@@ -1,19 +1,34 @@
-//package com.sparta.project.controller;
-//
-//import com.sparta.project.dto.storeRequest.StoreRequestRequest;
-//import com.sparta.project.dto.storeRequest.StoreRequestResponse;
-//import com.sparta.project.dto.common.ApiResponse;
-//import com.sparta.project.dto.common.PageResponse;
-//import com.sparta.project.service.StoreRequestService;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.web.bind.annotation.*;
-//
-//@RestController
-//@RequiredArgsConstructor
-//@RequestMapping("/store-requests")
-//public class StoreRequestController {
-//
-//    private final StoreRequestService storeRequestService;
+package com.sparta.project.controller;
+
+import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.dto.storerequest.StoreCreateRequest;
+import com.sparta.project.service.StoreRequestService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/store-requests")
+public class StoreRequestController {
+
+    private final StoreRequestService storeRequestService;
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public ApiResponse<Void> createStoreRequest(Authentication authentication,
+                                                @Valid @RequestBody StoreCreateRequest request) {
+        storeRequestService.createStoreRequest(Long.parseLong(authentication.getName()), request);
+        return ApiResponse.success();
+    }
+
 //
 //    // 자신의 요청 목록 조회(OWNER)
 //    @GetMapping("/my")
@@ -55,12 +70,6 @@
 //        return ApiResponse.success(PageResponse.of(storeRequest));
 //    }
 //
-//    // 음식점 생성 요청(OWNER)
-//    @PostMapping
-//    public ApiResponse<StoreRequestResponse> createStoreRequest(@RequestBody StoreRequestRequest storeRequestRequest) {
-//        StoreRequestResponse madeRequest = storeRequestService.createStoreRequest(storeRequestRequest);
-//        return ApiResponse.success(madeRequest);
-//    }
 //
 //    // 음식점 생성 요청 승인(MANAGER, MASTER)
 //    @PostMapping("/{request_id}")
@@ -77,4 +86,4 @@
 //        storeRequestService.deleteStoreRequest(request_id);
 //        return ApiResponse.success();
 //    }
-//}
+}

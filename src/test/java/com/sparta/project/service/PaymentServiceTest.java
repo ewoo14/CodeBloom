@@ -62,12 +62,11 @@ class PaymentServiceTest {
         String type = "CARD";
         int paymentPrice = 10000;
         String pgName = "TOSS";
-        String username = "griotold";
 
         when(pgClient.requestPayment(any(Payment.class))).thenReturn(true);
 
         // when
-        PaymentCreateResponse response = paymentService.createPayment(orderId, type, paymentPrice, pgName, username);
+        PaymentCreateResponse response = paymentService.createPayment(orderId, type, paymentPrice, pgName, testUser.getUserId());
 
         // then
         assertThat(response).isNotNull();
@@ -82,6 +81,6 @@ class PaymentServiceTest {
     }
 
     private Order createOrder(User user) {
-        return Order.create("UUID", user, null, null, OrderType.ONLINE, 10_000, "요구사항");
+        return Order.create(user, null, null, OrderType.ONLINE, 10_000, "요구사항");
     }
 }

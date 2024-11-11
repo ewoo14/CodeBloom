@@ -2,7 +2,6 @@ package com.sparta.project.domain;
 
 import com.sparta.project.domain.enums.PaymentType;
 import com.sparta.project.domain.enums.PgName;
-import com.sparta.project.util.UuidGenerator;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,6 +12,7 @@ import lombok.*;
 @Table(name="p_payment")
 public class Payment extends BaseEntity { // 결제
 	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name="payment_id", length=36, nullable=false, updatable=false)
 	private String paymentId;
 
@@ -39,8 +39,7 @@ public class Payment extends BaseEntity { // 결제
 	private String pgKey;
 
 	@Builder
-	private Payment(String paymentId, Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName, String pgKey) {
-		this.paymentId = paymentId;
+	private Payment(Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName, String pgKey) {
 		this.order = order;
 		this.user = user;
 		this.type = type;
@@ -49,12 +48,11 @@ public class Payment extends BaseEntity { // 결제
 		this.pgKey = pgKey;
 	}
 
-	public static Payment create(Order order, User user, String type, Integer paymentPrice, PgName pgName) {
+	public static Payment create(Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName) {
 		return Payment.builder()
-				.paymentId(UuidGenerator.generateUuid())
 				.order(order)
 				.user(user)
-				.type(PaymentType.valueOf(type))
+				.type(type)
 				.paymentPrice(paymentPrice)
 				.pgName(pgName)
 				.pgKey(pgName.getPgKey())
