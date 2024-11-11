@@ -19,6 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/categories")
 public class StoreCategoryController {
+
+    private final StoreCategoryService storeCategoryService;
+
+
+    @PostMapping
+    public ApiResponse<Void> createStoreCategory(Authentication authentication,
+                                                 @Valid @RequestBody StoreCategoryCreateRequest request) {
+        checkStoreCategoryAuth(authentication.getAuthorities());
+        storeCategoryService.createStoreCategory(request);
+        return ApiResponse.success();
+    }
+
     private void checkStoreCategoryAuth(Collection<? extends GrantedAuthority> authorities) {
         String role = authorities.toArray()[0].toString();
         if(!role.equals("MANAGER") && !role.equals("MASTER")) {
