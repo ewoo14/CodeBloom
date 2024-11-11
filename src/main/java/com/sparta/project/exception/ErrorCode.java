@@ -23,6 +23,7 @@ public enum ErrorCode {
     INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, "비밀번호 정보가 일치하지 않습니다."),
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // User
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다."),
     DUPLICATE_USERNAME(HttpStatus.CONFLICT, "유저 이름이 이미 존재합니다."),
@@ -76,6 +77,16 @@ public enum ErrorCode {
 <<<<<<< HEAD
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다.")
 >>>>>>> 4bb355b ([Feat] 로그인 API)
+=======
+    // Location
+    LOCATION_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 지역 정보가 존재하지 않습니다."),
+
+    // Store-category
+    CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 카테고리 정보가 존재하지 않습니다."),
+
+    // NOT FOUND
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다.");
+>>>>>>> 1c2a362 ([Style] ErrorCode 도메인 별로 위치 분리)
 
     ;
 
