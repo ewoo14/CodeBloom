@@ -1,16 +1,15 @@
 package com.sparta.project.config;
 
-import com.sparta.project.config.jwt.UserDetail;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Optional;
 
-public class AuditorAwareImpl implements AuditorAware<String> {
+public class AuditorAwareImpl implements AuditorAware<Long> {
 
     @Override
-    public Optional<String> getCurrentAuditor() {
+    public Optional<Long> getCurrentAuditor() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if(null == authentication || !authentication.isAuthenticated()) {
@@ -18,9 +17,8 @@ public class AuditorAwareImpl implements AuditorAware<String> {
         }
 
         //사용자 환경에 맞게 로그인한 사용자의 정보를 불러온다.
-        UserDetail userDetail = (UserDetail) authentication.getPrincipal();
 
-        return Optional.of(userDetail.userId());
+        return Optional.of(Long.parseLong(authentication.getName()));
     }
 
 }
