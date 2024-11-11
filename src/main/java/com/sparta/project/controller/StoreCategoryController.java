@@ -24,16 +24,32 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/categories")
 public class StoreCategoryController {
 
+<<<<<<< HEAD
     private final PermissionValidator permissionValidator;
+=======
+>>>>>>> e165460 ([Feat] 가게 카테고리 생성 API)
     private final StoreCategoryService storeCategoryService;
 
 
     @PostMapping
     public ApiResponse<Void> createStoreCategory(Authentication authentication,
                                                  @Valid @RequestBody StoreCategoryCreateRequest request) {
+<<<<<<< HEAD
         permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
         storeCategoryService.createStoreCategory(request);
         return ApiResponse.success();
+=======
+        checkStoreCategoryAuth(authentication.getAuthorities());
+        storeCategoryService.createStoreCategory(request);
+        return ApiResponse.success();
+    }
+
+    private void checkStoreCategoryAuth(Collection<? extends GrantedAuthority> authorities) {
+        String role = authorities.toArray()[0].toString();
+        if(!role.equals("MANAGER") && !role.equals("MASTER")) {
+            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
+        }
+>>>>>>> e165460 ([Feat] 가게 카테고리 생성 API)
     }
 
     @PatchMapping("/{category_id}")
