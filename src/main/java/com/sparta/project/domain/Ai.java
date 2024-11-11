@@ -7,9 +7,13 @@ import lombok.*;
 =======
 import jakarta.persistence.*;
 import lombok.*;
+<<<<<<< HEAD
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 >>>>>>> 55abe9a ([Style] "Chat" -> "Ai" 이름 변경)
+=======
+import java.util.UUID;
+>>>>>>> 787c0ab ([Minor] ai_id UUID 정적 부여)
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -45,6 +49,7 @@ public class Ai extends BaseEntity { // 채팅 기록
 	@Builder
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private Ai(User user, String question, String answer) {
 =======
 	public Ai(String aiId, User user, String question, String answer) {
@@ -53,6 +58,10 @@ public class Ai extends BaseEntity { // 채팅 기록
 >>>>>>> fea02e7 ([Feat] AI Dto 및 service 구현)
 		this.aiId = aiId;
 >>>>>>> 55abe9a ([Style] "Chat" -> "Ai" 이름 변경)
+=======
+	private Ai(User user, String question, String answer) {
+		this.aiId = UUID.randomUUID().toString();
+>>>>>>> 787c0ab ([Minor] ai_id UUID 정적 부여)
 		this.user = user;
 		this.question = question;
 		this.answer = answer;
