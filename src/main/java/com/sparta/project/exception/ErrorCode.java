@@ -23,6 +23,7 @@ public enum ErrorCode {
 
     // Store-category
     CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 카테고리 정보가 존재하지 않습니다."),
+    CATEGORY_ALREADY_EXIST(HttpStatus.CONFLICT, "카테고리가 이미 존재합니다."),
 
     // NOT FOUND
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다."),

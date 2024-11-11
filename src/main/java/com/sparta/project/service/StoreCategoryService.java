@@ -29,4 +29,11 @@ public class StoreCategoryService {
                 .build()
         );
     }
+
+    private void checkNameDuplication(String newName) {
+        if(storeCategoryRepository.existsByName(newName)) {
+            throw new CodeBloomException(ErrorCode.CATEGORY_ALREADY_EXIST);
+        }
+    }
+
 }
