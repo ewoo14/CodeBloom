@@ -16,6 +16,7 @@ import java.util.Optional;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 @Slf4j
 =======
 >>>>>>> 279b3b6 (AuditorAware 적용)
@@ -23,9 +24,12 @@ public class AuditorAwareImpl implements AuditorAware<String> {
 =======
 public class AuditorAwareImpl implements AuditorAware<Long> {
 >>>>>>> 980f191 ([Fix] AuditorAwareImpl<String> -> AuditorAwareImpl<Long> 으로 수정)
+=======
+public class AuditorAwareImpl implements AuditorAware<String> {
+>>>>>>> 7a7528d ([Fix] AuditorAware 진짜 완료)
 
     @Override
-    public Optional<Long> getCurrentAuditor() {
+    public Optional<String> getCurrentAuditor() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
 <<<<<<< HEAD
@@ -52,8 +56,12 @@ public class AuditorAwareImpl implements AuditorAware<Long> {
 >>>>>>> 279b3b6 (AuditorAware 적용)
 =======
 
+<<<<<<< HEAD
         return Optional.of(Long.parseLong(authentication.getName()));
 >>>>>>> 980f191 ([Fix] AuditorAwareImpl<String> -> AuditorAwareImpl<Long> 으로 수정)
+=======
+        return Optional.of(authentication.getName());
+>>>>>>> 7a7528d ([Fix] AuditorAware 진짜 완료)
     }
 
 }
