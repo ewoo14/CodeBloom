@@ -71,6 +71,7 @@ public class Payment extends BaseEntity { // 결제
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public static Payment create(Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName) {
 		return Payment.builder()
 				.order(order)
@@ -78,12 +79,19 @@ public class Payment extends BaseEntity { // 결제
 				.type(type)
 =======
 	public static Payment create(Order order, User user, String type, Integer paymentPrice, PgName pgName) {
+=======
+	public static Payment create(Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName) {
+>>>>>>> edbb19b ([Refactor] PgName, PaymentType of 메서드 만들어서 유효성검증과 생성 한꺼번에)
 		return Payment.builder()
 				.paymentId(UuidGenerator.generateUuid())
 				.order(order)
 				.user(user)
+<<<<<<< HEAD
 				.type(PaymentType.valueOf(type))
 >>>>>>> 054108d (결제 기능 구현 Service)
+=======
+				.type(type)
+>>>>>>> edbb19b ([Refactor] PgName, PaymentType of 메서드 만들어서 유효성검증과 생성 한꺼번에)
 				.paymentPrice(paymentPrice)
 				.pgName(pgName)
 				.pgKey(pgName.getPgKey())

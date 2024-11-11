@@ -1,10 +1,15 @@
 package com.sparta.project.domain.enums;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 =======
 >>>>>>> b1c6552 ([Feat] Payment에 PG사 이름, PG사 결제 코드 추가)
+=======
+import com.sparta.project.exception.CodeBloomException;
+import com.sparta.project.exception.ErrorCode;
+>>>>>>> edbb19b ([Refactor] PgName, PaymentType of 메서드 만들어서 유효성검증과 생성 한꺼번에)
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -43,13 +48,13 @@ public enum PgName {
     private final String description;
     private final String pgKey;
 
-    public static boolean isPgNameSupported(String pgName) {
-        for (PgName pg : PgName.values()) {
-            if (pg.name().equalsIgnoreCase(pgName)) {
-                return true;
-            }
-        }
-        return false;
+    public static PgName of(String request) {
+        return switch (request) {
+            case "NHN" -> NHN;
+            case "KG" -> KG;
+            case "TOSS" -> TOSS;
+            default -> throw new CodeBloomException(ErrorCode.UNSUPPORTED_PG_NAME);
+        };
     }
 >>>>>>> 054108d (결제 기능 구현 Service)
 }

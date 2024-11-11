@@ -81,12 +81,20 @@ public enum ErrorCode {
 
 =======
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다."),
+
+    // Order,
     ORDER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 주문 정보가 존재하지 않습니다."),
 
     // Payment
     UNSUPPORTED_PAYMENT_TYPE(HttpStatus.BAD_REQUEST, "지원하지 않는 결제 방식입니다."),
     UNSUPPORTED_PG_NAME(HttpStatus.BAD_REQUEST, "지원하지 않는 PG사입니다."),
+<<<<<<< HEAD
     PAYMENT_FAILED(HttpStatus.BAD_REQUEST, "결제가 실패하였습니다." ),
+=======
+    PAYMENT_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "결제가 실패하였습니다." )
+
+    ;
+>>>>>>> edbb19b ([Refactor] PgName, PaymentType of 메서드 만들어서 유효성검증과 생성 한꺼번에)
 
     // Store
     STORE_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 가게 정보가 존재하지 않습니다."),

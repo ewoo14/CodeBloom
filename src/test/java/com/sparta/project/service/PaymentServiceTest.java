@@ -133,6 +133,7 @@ class PaymentServiceTest {
         // when
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         PaymentResponse response = paymentService.createPayment(paymentRequest, testUser.getUserId());
 =======
         PaymentCreateResponse response = paymentService.createPayment(orderId, type, paymentPrice, pgName, testUser);
@@ -140,6 +141,9 @@ class PaymentServiceTest {
 =======
         PaymentCreateResponse response = paymentService.createPayment(orderId, type, paymentPrice, pgName, username);
 >>>>>>> 07367c2 (결제 기능 Controller)
+=======
+        PaymentCreateResponse response = paymentService.createPayment(orderId, type, paymentPrice, pgName, 1L);
+>>>>>>> edbb19b ([Refactor] PgName, PaymentType of 메서드 만들어서 유효성검증과 생성 한꺼번에)
 
         // then
         assertThat(response).isNotNull();
