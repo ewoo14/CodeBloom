@@ -64,10 +64,14 @@ public class StoreCategory extends BaseEntity { // 음식점 카테고리
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public static StoreCategory create(String name, String description) {
         return StoreCategory.builder()
 =======
     public static StoreCategory create(String storeCategoryId, String name, String description) {
+=======
+    public static StoreCategory create(String name, String description) {
+>>>>>>> 3a1c1e0 ([Feat] 음식점 상세 조회 기능)
         return StoreCategory.builder()
 <<<<<<< HEAD
                 .storeCategoryId(storeCategoryId)

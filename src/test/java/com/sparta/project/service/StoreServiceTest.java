@@ -1,12 +1,16 @@
 package com.sparta.project.service;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3a1c1e0 ([Feat] 음식점 상세 조회 기능)
 import com.sparta.project.domain.Location;
 import com.sparta.project.domain.Store;
 import com.sparta.project.domain.StoreCategory;
 import com.sparta.project.domain.User;
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.store.StoreResponse;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 import com.sparta.project.dto.store.StoreUpdateRequest;
@@ -19,16 +23,24 @@ import com.sparta.project.repository.user.UserRepository;
 import com.sparta.project.dto.store.StoreUpdateResponse;
 >>>>>>> f337ba7 ([Feat] 음식점 정보 수정 기능 Service)
 import com.sparta.project.exception.CodeBloomException;
+=======
+>>>>>>> 3a1c1e0 ([Feat] 음식점 상세 조회 기능)
 import com.sparta.project.repository.LocationRepository;
 import com.sparta.project.repository.StoreCategoryRepository;
 import com.sparta.project.repository.StoreRepository;
 import com.sparta.project.repository.UserRepository;
+<<<<<<< HEAD
 >>>>>>> b8d01e9 ([Feat] 음식점 상세 조회 기능 Service 및 ServiceTest)
 import org.junit.jupiter.api.BeforeEach;
 =======
 >>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
+=======
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+>>>>>>> 3a1c1e0 ([Feat] 음식점 상세 조회 기능)
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,11 +62,17 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 class StoreServiceTest {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3a1c1e0 ([Feat] 음식점 상세 조회 기능)
     @Autowired
     private StoreService storeService;
 
     @Autowired
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3a1c1e0 ([Feat] 음식점 상세 조회 기능)
     private UserRepository userRepository;
 
     @Autowired
@@ -83,6 +101,7 @@ class StoreServiceTest {
     }
 
     @DisplayName("storeId를 입력해서 가게 정보를 받는다.")
+<<<<<<< HEAD
     @Test
     void getStoreById() {
         // given
@@ -232,13 +251,19 @@ class StoreServiceTest {
 =======
     @DisplayName("테스트")
 >>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
+=======
+>>>>>>> 3a1c1e0 ([Feat] 음식점 상세 조회 기능)
     @Test
-    void test() {
+    void getStoreById() {
         // given
+        Store store = Store.create("착한중식점", "가격이 착한 중식당", "서울시 ...", owner, storeCategory, location, 5.0);
+        storeRepository.save(store);
 
         // when
+        StoreResponse storeResponse = storeService.getStoreById(store.getStoreId());
 
         // then
+        Assertions.assertThat(storeResponse).isNotNull();
     }
 <<<<<<< HEAD
 
