@@ -32,6 +32,7 @@ import java.util.Arrays;
 import com.sparta.project.service.AIService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 >>>>>>> fea02e7 ([Feat] AI Dto 및 service 구현)
@@ -140,22 +141,22 @@ public class AIController {
 >>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
 =======
 
-    // 메뉴 설명 생성
-    @PostMapping("/menu-description")
-    public ApiResponse<AIResponse> createMenuDescription(@RequestBody AIRequest aiRequest) {
-        AIResponse madeDescription = aiService.createMenuDescription(aiRequest);
-        return ApiResponse.success(madeDescription);
-    }
-
     // 생성한 설명 목록 조회
     @GetMapping("/menu-description")
     public ApiResponse<PageResponse<AIResponse>> getMenuDescriptions(
-            @RequestParam String menuId,
+            @RequestParam Long userId,
             @RequestParam("page") int page,
             @RequestParam("size") int size,
             @RequestParam("sortBy") String sortBy) {
-        Page<AIResponse> descriptions = aiService.getMenuDescriptions(menuId, page, size, sortBy);
+        Page<AIResponse> descriptions = aiService.getMenuDescriptions(userId, page, size, sortBy);
         return ApiResponse.success(PageResponse.of(descriptions));
+    }
+
+    // 메뉴 설명 생성
+    @PostMapping("/menu-description")
+    public ApiResponse<AIResponse> createMenuDescription(@RequestBody AIRequest aiRequest, Authentication authentication) {
+        AIResponse madeDescription = aiService.createMenuDescription(aiRequest, authentication);
+        return ApiResponse.success(madeDescription);
     }
 }
 >>>>>>> fea02e7 ([Feat] AI Dto 및 service 구현)
