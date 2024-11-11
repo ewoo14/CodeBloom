@@ -13,6 +13,7 @@ import com.sparta.project.dto.store.StoreResponse;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.sparta.project.dto.store.StoreUpdateRequest;
 import com.sparta.project.repository.LocationRepository;
 import com.sparta.project.repository.StoreRepository;
@@ -25,10 +26,15 @@ import com.sparta.project.dto.store.StoreUpdateResponse;
 import com.sparta.project.exception.CodeBloomException;
 =======
 >>>>>>> 3a1c1e0 ([Feat] 음식점 상세 조회 기능)
+=======
+import com.sparta.project.dto.store.StoreUpdateResponse;
+import com.sparta.project.exception.CodeBloomException;
+>>>>>>> 2ae41d6 ([Feat] 음식점 정보 수정 기능 service)
 import com.sparta.project.repository.LocationRepository;
 import com.sparta.project.repository.StoreCategoryRepository;
 import com.sparta.project.repository.StoreRepository;
 import com.sparta.project.repository.UserRepository;
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> b8d01e9 ([Feat] 음식점 상세 조회 기능 Service 및 ServiceTest)
 import org.junit.jupiter.api.BeforeEach;
@@ -36,6 +42,8 @@ import org.junit.jupiter.api.BeforeEach;
 >>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
 =======
 import org.assertj.core.api.Assertions;
+=======
+>>>>>>> 2ae41d6 ([Feat] 음식점 정보 수정 기능 service)
 import org.junit.jupiter.api.BeforeEach;
 >>>>>>> 3a1c1e0 ([Feat] 음식점 상세 조회 기능)
 import org.junit.jupiter.api.DisplayName;
@@ -45,6 +53,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 import java.util.List;
 
@@ -56,6 +65,11 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 =======
 >>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
+=======
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+>>>>>>> 2ae41d6 ([Feat] 음식점 정보 수정 기능 service)
 @Transactional
 @ActiveProfiles("test")
 @SpringBootTest
@@ -263,7 +277,51 @@ class StoreServiceTest {
         StoreResponse storeResponse = storeService.getStoreById(store.getStoreId());
 
         // then
-        Assertions.assertThat(storeResponse).isNotNull();
+        assertThat(storeResponse).isNotNull();
+    }
+
+    @DisplayName("storeName 과 categoryId를 수정한다.")
+    @Test
+    void updateStore() {
+        // given
+        Store store = Store.create("착한중식점", "가격이 착한 중식당", "서울시 ...", owner, storeCategory, location, 5.0);
+        storeRepository.save(store);
+
+        String storeNameForUpdate = "나쁜양식점";
+        StoreCategory storeCategory2 = StoreCategory.create("양식", "양식 전문점");
+        storeCategoryRepository.save(storeCategory2);
+
+        // when
+        StoreUpdateResponse storeUpdateResponse = storeService.updateStore(
+                        store.getStoreId(),
+                storeNameForUpdate, null, null,
+                storeCategory2.getStoreCategoryId(), owner.getUserId());
+        // then
+        assertThat(storeUpdateResponse).isNotNull();
+        assertThat(storeUpdateResponse.storeName()).isEqualTo(storeNameForUpdate);
+        assertThat(storeUpdateResponse.storeCategoryId()).isEqualTo(storeCategory2.getStoreCategoryId());
+    }
+
+    @DisplayName("Customer 가 수정하려고 하면 예외 발생")
+    @Test
+    void updateStoreWithCustomer() {
+        // given
+        Store store = Store.create("착한중식점", "가격이 착한 중식당", "서울시 ...", owner, storeCategory, location, 5.0);
+        storeRepository.save(store);
+
+        String storeNameForUpdate = "나쁜양식점";
+        StoreCategory storeCategory2 = StoreCategory.create("양식", "양식 전문점");
+        storeCategoryRepository.save(storeCategory2);
+
+        User customer = User.create("customer1", "1234", "nicknick", Role.CUSTOMER);
+        userRepository.save(customer);
+        // when
+        assertThatThrownBy(() -> storeService.updateStore(
+                store.getStoreId(),
+                storeNameForUpdate, null, null,
+                storeCategory2.getStoreCategoryId(), customer.getUserId()))
+                .isInstanceOf(CodeBloomException.class);
+
     }
 <<<<<<< HEAD
 
