@@ -27,11 +27,12 @@ public class StoreService {
 
     }
 
-    public StoreResponse getStoreById(String storeId) {
-        Store store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
+    public Store getStoreOrException(String storeId) {
+        return storeRepository.findById(storeId).orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
+    }
 
-        return StoreResponse.from(store);
+    public StoreResponse getStoreById(String storeId) {
+        return StoreResponse.from(getStoreOrException(storeId));
     }
 
     @Transactional

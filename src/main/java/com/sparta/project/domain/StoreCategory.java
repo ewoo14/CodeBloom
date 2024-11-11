@@ -27,7 +27,7 @@ public class StoreCategory extends BaseEntity { // 음식점 카테고리
         this.description = description;
     }
 
-    public static StoreCategory create(String storeCategoryId, String name, String description) {
+    public static StoreCategory create(String name, String description) {
         return StoreCategory.builder()
                 .name(name)
                 .description(description)
