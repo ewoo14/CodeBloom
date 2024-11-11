@@ -2,7 +2,6 @@ package com.sparta.project.domain;
 
 import com.sparta.project.domain.enums.PaymentType;
 import com.sparta.project.domain.enums.PgName;
-import com.sparta.project.util.UuidGenerator;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -74,6 +73,7 @@ public class Payment extends BaseEntity { // 결제
 <<<<<<< HEAD
 	public static Payment create(Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName) {
 		return Payment.builder()
+<<<<<<< HEAD
 				.order(order)
 				.user(user)
 				.type(type)
@@ -84,6 +84,8 @@ public class Payment extends BaseEntity { // 결제
 >>>>>>> edbb19b ([Refactor] PgName, PaymentType of 메서드 만들어서 유효성검증과 생성 한꺼번에)
 		return Payment.builder()
 				.paymentId(UuidGenerator.generateUuid())
+=======
+>>>>>>> 23607d5 ([Refactor] UuidGenerator 삭제, Payment 엔티티에 @GeneratedValue(strategy = GenerationType.UUID) 추가)
 				.order(order)
 				.user(user)
 <<<<<<< HEAD
