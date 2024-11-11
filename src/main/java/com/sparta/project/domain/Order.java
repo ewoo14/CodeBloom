@@ -30,10 +30,17 @@ import java.util.List;
 @Entity
 @Table(name = "p_order")
 public class Order extends BaseEntity { // 주문
+<<<<<<< HEAD
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "order_id", length = 36, nullable = false, updatable = false)
     private String orderId;
+=======
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name="order_id", length=36, nullable=false, updatable=false)
+	private String orderId;
+>>>>>>> f1fe45f ([Fix] Order, Payment 엔티티의 빌더에 id를 넣는 부분 삭제)
 
 <<<<<<< HEAD
     @ManyToOne(fetch = FetchType.LAZY)
@@ -142,8 +149,7 @@ public class Order extends BaseEntity { // 주문
 	private List<OrderMenu> orderMenus = new ArrayList<>();
 
 	@Builder
-	private Order(String orderId, User user, Address address, Store store, OrderType type, Integer orderPrice, String demand) {
-		this.orderId = orderId;
+	private Order(User user, Address address, Store store, OrderType type, Integer orderPrice, String demand) {
 		this.user = user;
 		this.address = address;
 		this.store = store;
@@ -153,9 +159,8 @@ public class Order extends BaseEntity { // 주문
 		this.demand = demand;
 	}
 
-	public static Order create(String orderId, User user, Address address, Store store, OrderType type, Integer orderPrice, String demand) {
+	public static Order create(User user, Address address, Store store, OrderType type, Integer orderPrice, String demand) {
 		return Order.builder()
-				.orderId(orderId)
 				.user(user)
 				.address(address)
 				.store(store)

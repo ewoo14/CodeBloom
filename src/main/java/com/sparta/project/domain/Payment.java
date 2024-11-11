@@ -53,6 +53,7 @@ public class Payment extends BaseEntity { // 결제
 	@Builder
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	private Payment(Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName, String pgKey) {
 =======
 	public Payment(String paymentId, Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName, String pgKey) {
@@ -61,6 +62,9 @@ public class Payment extends BaseEntity { // 결제
 >>>>>>> 054108d (결제 기능 구현 Service)
 		this.paymentId = paymentId;
 >>>>>>> 6ad0ce7 ([Feat] Order FK로 Address, Store 추가, Payment FK로 User 추가)
+=======
+	private Payment(Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName, String pgKey) {
+>>>>>>> f1fe45f ([Fix] Order, Payment 엔티티의 빌더에 id를 넣는 부분 삭제)
 		this.order = order;
 		this.user = user;
 		this.type = type;
