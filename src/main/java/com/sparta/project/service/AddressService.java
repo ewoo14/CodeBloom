@@ -1,0 +1,35 @@
+package com.sparta.project.service;
+
+
+import com.sparta.project.domain.Address;
+import com.sparta.project.domain.User;
+import com.sparta.project.domain.enums.Role;
+import com.sparta.project.dto.address.AddressCreateRequest;
+import com.sparta.project.exception.CodeBloomException;
+import com.sparta.project.exception.ErrorCode;
+import com.sparta.project.repository.AddressRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class AddressService {
+
+    private final UserService userService;
+    private final AddressRepository addressRepository;
+
+
+    @Transactional
+    public void createAddress(final long userId, final AddressCreateRequest request) {
+        User user = userService.getUserOrException(userId);
+        if(user.getRole() != Role.CUSTOMER) {
+            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
+        }
+        addressRepository.save(Address.create(
+                user, request.city(), request.district(), request.streetName(),
+                request.streetNumber(), request.detail(), request.isDefault()
+        ));
+    }
+
+}

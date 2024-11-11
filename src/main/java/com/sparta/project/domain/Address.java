@@ -38,8 +38,7 @@ public class Address extends BaseEntity { // 배송지
 	private Boolean isDefault;
 
 	@Builder
-	public Address(String addressId, User user, String city, String district, String streetName, String streetNumber, String detail, Boolean isDefault) {
-		this.addressId = addressId;
+	private Address(User user, String city, String district, String streetName, String streetNumber, String detail, Boolean isDefault) {
 		this.user = user;
 		this.city = city;
 		this.district = district;
@@ -47,6 +46,18 @@ public class Address extends BaseEntity { // 배송지
 		this.streetNumber = streetNumber;
 		this.detail = detail;
 		this.isDefault = isDefault;
+	}
+
+	public static Address create(User user, String city, String district, String streetName, String streetNumber, String detail, Boolean isDefault) {
+		return Address.builder()
+				.user(user)
+				.city(city)
+				.district(district)
+				.streetName(streetName)
+				.streetNumber(streetNumber)
+				.detail(detail)
+				.isDefault(isDefault)
+				.build();
 	}
 
 }
