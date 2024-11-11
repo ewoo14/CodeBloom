@@ -3,6 +3,8 @@ package com.sparta.project.service;
 import com.sparta.project.domain.Location;
 import com.sparta.project.domain.Store;
 import com.sparta.project.domain.StoreCategory;
+import com.sparta.project.domain.User;
+import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.store.StoreResponse;
 import com.sparta.project.dto.store.StoreUpdateResponse;
 import com.sparta.project.exception.CodeBloomException;
@@ -19,6 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class StoreService {
 
+    private final UserService userService;
+    private final StoreLocationService storeLocationService;
+    private final StoreCategoryService storeCategoryService;
     private final StoreRepository storeRepository;
     private final LocationRepository locationRepository;
     private final StoreCategoryRepository storeCategoryRepository;
@@ -37,20 +42,21 @@ public class StoreService {
 
     @Transactional
     public StoreUpdateResponse updateStore(String storeId, String storeName, String description,
-                                           String locationId, String categoryId) {
+                                           String locationId, String categoryId, Long userId) {
+        User user = userService.getUserOrException(userId);
+        checkPermission(user);
+
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
 
         Location location = null;
         if (locationId != null) {
-            location = locationRepository.findById(locationId)
-                    .orElseThrow(() -> new CodeBloomException(ErrorCode.LOCATION_NOT_FOUND));
+            location = storeLocationService.getStoreLocationOrException(locationId);
         }
 
         StoreCategory storeCategory = null;
         if (categoryId != null) {
-            storeCategory = storeCategoryRepository.findById(categoryId)
-                    .orElseThrow(() -> new CodeBloomException(ErrorCode.CATEGORY_NOT_FOUND));
+            storeCategory = storeCategoryService.getStoreCategoryOrException(categoryId);
         }
 
         store.update(storeName, description, location, storeCategory);
@@ -65,5 +71,12 @@ public class StoreService {
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
 
         store.deleteBase(username);
+    }
+
+    // 권한 확인
+    private void checkPermission(User user) {
+        if (user.getRole() == Role.CUSTOMER) {
+            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
+        }
     }
 }
