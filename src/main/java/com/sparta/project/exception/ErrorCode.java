@@ -8,6 +8,9 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ErrorCode {
 
+    // API CALL FAILED
+    API_CALL_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "API 호출이 실패했습니다."),
+
     // UNAUTHORIZED & FORBIDDEN
     FORBIDDEN_ACCESS(HttpStatus.FORBIDDEN, "접근 권한이 존재하지 않습니다."),
     INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, "비밀번호 정보가 일치하지 않습니다."),
@@ -20,6 +23,11 @@ public enum ErrorCode {
 
     // NOT FOUND
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다.");
+    MENU_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 메뉴 정보가 존재하지 않습니다."),
+    AIDESCRIPTION_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 AI설명 정보가 존재하지 않습니다."),
+
+    // Response Parsing Error
+    RESPONSE_PARSING_ERROR(HttpStatus.BAD_REQUEST, "응답 파싱 오류가 발생했습니다.")
 
     ;
     private final HttpStatus httpStatus;
