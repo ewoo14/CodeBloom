@@ -1,38 +1,34 @@
 package com.sparta.project.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 @Entity
-@Table(name="p_location")
+@Table(name = "p_location")
 public class Location extends BaseEntity { // 지역
 
     @Id
-    @Column(name="location_id", length=36, nullable=false, updatable=false)
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "location_id", length = 36, nullable = false, updatable = false)
     private String locationId;
 
-    @Column(name="name", length=20, nullable=false) // 이름
+    @Column(name = "name", length = 20, nullable = false) // 이름
     private String name;
 
-    @Column(name="description", length=50) // 설명
+    @Column(name = "description", length = 50) // 설명
     private String description;
 
     @Builder
-    public Location(String locationId, String name, String description) {
-        this.locationId = locationId;
+    public Location(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
-    public static Location create(String locationId, String name, String description) {
+    public static Location create(String name, String description) {
         return Location.builder()
-                .locationId(locationId)
                 .name(name)
                 .description(description)
                 .build();

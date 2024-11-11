@@ -25,8 +25,8 @@ public class PaymentService {
 
     @Transactional
     public PaymentCreateResponse createPayment(String orderId, String type, int paymentPrice, String pgName, Long userId) {
-         User user = userService.getUserOrException(userId);
-        Order order = orderService.getUserOrException(orderId);
+        User user = userService.getUserOrException(userId);
+        Order order = orderService.getOrderOrException(orderId);
 
         validateUserOrderMatch(order, userId);
 

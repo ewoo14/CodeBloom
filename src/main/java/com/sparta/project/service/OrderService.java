@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderService {
     private final OrderRepository orderRepository;
 
-    public Order getUserOrException(String orderId) {
-        return orderRepository.findById(orderId).orElseThrow(()->
+    public Order getOrderOrException(String orderId) {
+        return orderRepository.findById(orderId).orElseThrow(() ->
                 new CodeBloomException(ErrorCode.ORDER_NOT_FOUND));
     }
 }

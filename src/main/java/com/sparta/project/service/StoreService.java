@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional(readOnly=true)
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class StoreService {
 
@@ -49,7 +49,7 @@ public class StoreService {
         StoreCategory storeCategory = null;
         if (categoryId != null) {
             storeCategory = storeCategoryRepository.findById(categoryId)
-                    .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_CATEGROY_NOT_FOUND));
+                    .orElseThrow(() -> new CodeBloomException(ErrorCode.CATEGORY_NOT_FOUND));
         }
 
         store.update(storeName, description, location, storeCategory);
