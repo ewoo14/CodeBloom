@@ -15,6 +15,9 @@ public enum ErrorCode {
     FORBIDDEN_ACCESS(HttpStatus.FORBIDDEN, "접근 권한이 존재하지 않습니다."),
     INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, "비밀번호 정보가 일치하지 않습니다."),
 
+    // Address
+    EXCEED_MAXIMUM_ADDRESS(HttpStatus.CONFLICT, "등록할 수 있는 최대 배송지 수를 초과했습니다."),
+
     // Location
     LOCATION_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 지역 정보가 존재하지 않습니다."),
 
