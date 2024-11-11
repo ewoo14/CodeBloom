@@ -1,12 +1,9 @@
 package com.sparta.project.domain;
 
-import com.sparta.project.domain.enums.OrderType;
 import com.sparta.project.domain.enums.PaymentType;
 import com.sparta.project.domain.enums.PgName;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -15,6 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name="p_payment")
 public class Payment extends BaseEntity { // 결제
 	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name="payment_id", length=36, nullable=false, updatable=false)
 	private String paymentId;
 
@@ -41,14 +39,24 @@ public class Payment extends BaseEntity { // 결제
 	private String pgKey;
 
 	@Builder
-	public Payment(String paymentId, Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName, String pgKey) {
-		this.paymentId = paymentId;
+	private Payment(Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName, String pgKey) {
 		this.order = order;
 		this.user = user;
 		this.type = type;
 		this.paymentPrice = paymentPrice;
 		this.pgName = pgName;
 		this.pgKey = pgKey;
+	}
+
+	public static Payment create(Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName) {
+		return Payment.builder()
+				.order(order)
+				.user(user)
+				.type(type)
+				.paymentPrice(paymentPrice)
+				.pgName(pgName)
+				.pgKey(pgName.getPgKey())
+				.build();
 	}
 
 }
