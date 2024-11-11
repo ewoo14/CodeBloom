@@ -11,8 +11,13 @@ import lombok.*;
 public class Location extends BaseEntity { // 지역
 
     @Id
+<<<<<<< HEAD
     @GeneratedValue(strategy=GenerationType.UUID)
     @Column(name="location_id", length=36, nullable=false, updatable=false)
+=======
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "location_id", length = 36, nullable = false, updatable = false)
+>>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
     private String locationId;
 
     @Column(name = "name", length = 20, nullable = false) // 이름
@@ -23,15 +28,20 @@ public class Location extends BaseEntity { // 지역
 
     @Builder
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Location(String name, String description) {
 =======
     public Location(String locationId, String name, String description) {
         this.locationId = locationId;
 >>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
+=======
+    public Location(String name, String description) {
+>>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
         this.name = name;
         this.description = description;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     public static Location create(String name, String description) {
@@ -41,6 +51,10 @@ public class Location extends BaseEntity { // 지역
         return Location.builder()
                 .locationId(locationId)
 >>>>>>> 4d314db ([Build] Store를 생성하기 위한 Location, StoreCategory 정적팩토리 메서드 + ErrorCode 추가)
+=======
+    public static Location create(String name, String description) {
+        return Location.builder()
+>>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
                 .name(name)
                 .description(description)
                 .build();

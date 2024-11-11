@@ -135,8 +135,8 @@ public class OrderService {
 =======
     private final OrderRepository orderRepository;
 
-    public Order getUserOrException(String orderId) {
-        return orderRepository.findById(orderId).orElseThrow(()->
+    public Order getOrderOrException(String orderId) {
+        return orderRepository.findById(orderId).orElseThrow(() ->
                 new CodeBloomException(ErrorCode.ORDER_NOT_FOUND));
     }
 >>>>>>> 09c755a ([Refactor] OrderService 와 UserService의 getXxxOrException() 메서드 호출로 대체)

@@ -24,6 +24,7 @@ public class Store extends BaseEntity { // 음식점
     private String address;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
@@ -39,11 +40,17 @@ public class Store extends BaseEntity { // 음식점
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="owner_id", nullable=false)
 	private User owner;
+=======
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id", nullable = false)
+    private User owner;
+>>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="store_category_id", nullable=false)
-	private StoreCategory storeCategory;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_category_id", nullable = false)
+    private StoreCategory storeCategory;
 
+<<<<<<< HEAD
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="location_id", nullable=false)
 	private Location location;
@@ -114,21 +121,41 @@ public class Store extends BaseEntity { // 음식점
 		this.location = location;
 		this.score = score;
 	}
+=======
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "location_id", nullable = false)
+    private Location location;
 
-	public static Store create(String storeId, String name, String description, String address,
-							   User owner, StoreCategory storeCategory, Location location, Double score) {
-		return Store.builder()
-				.storeId(storeId)
-				.name(name)
-				.description(description)
-				.address(address)
-				.owner(owner)
-				.storeCategory(storeCategory)
-				.location(location)
-				.score(score)
-				.build();
-	}
+    @Column(name = "score") // 음식점 리뷰 평균 평점
+    private Double score; // 빌더에 넣지 않았습니다.
 
+    @Builder
+    public Store(String name, String description, String address,
+                 User owner, StoreCategory storeCategory, Location location, Double score) {
+        this.name = name;
+        this.description = description;
+        this.address = address;
+        this.owner = owner;
+        this.storeCategory = storeCategory;
+        this.location = location;
+        this.score = score;
+    }
+>>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
+
+    public static Store create(String name, String description, String address,
+                               User owner, StoreCategory storeCategory, Location location, Double score) {
+        return Store.builder()
+                .name(name)
+                .description(description)
+                .address(address)
+                .owner(owner)
+                .storeCategory(storeCategory)
+                .location(location)
+                .score(score)
+                .build();
+    }
+
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
 =======
@@ -147,4 +174,17 @@ public class Store extends BaseEntity { // 음식점
 
 	}
 >>>>>>> f337ba7 ([Feat] 음식점 정보 수정 기능 Service)
+=======
+    public void updateScore(Double score) {
+        this.score = score;
+    }
+
+    public void update(String storeName, String description, Location location, StoreCategory storeCategory) {
+        if (storeName != null) this.name = storeName;
+        if (description != null) this.description = description;
+        if (location != null) this.location = location;
+        if (storeCategory != null) this.storeCategory = storeCategory;
+
+    }
+>>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
 }

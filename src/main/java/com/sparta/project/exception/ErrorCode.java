@@ -121,6 +121,7 @@ public enum ErrorCode {
     UNSUPPORTED_PG_NAME(HttpStatus.BAD_REQUEST, "지원하지 않는 PG사입니다."),
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     PAYMENT_FAILED(HttpStatus.BAD_REQUEST, "결제가 실패하였습니다." ),
 =======
     PAYMENT_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "결제가 실패하였습니다." )
@@ -131,15 +132,26 @@ public enum ErrorCode {
     PAYMENT_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "결제가 실패하였습니다." );
 
 >>>>>>> 1bccd96 ([Feat] 주문자 정보와 결제자 정보가 일치 않으면 USER_ORDER_MISMATCH 예외 발생)
+=======
+    PAYMENT_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "결제가 실패하였습니다."),
+
+    // Store
+    STORE_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 가게 정보가 존재하지 않습니다."),
+>>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
 
     // Store
     STORE_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 가게 정보가 존재하지 않습니다."),
 
+<<<<<<< HEAD
     // Location
     LOCATION_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 위치 정보가 존재하지 않습니다."),
 
     // StoreCategory
     STORE_CATEGROY_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 음식점 카테고리 정보가 존재하지 않습니다."),
+=======
+    // Response Parsing Error
+    RESPONSE_PARSING_ERROR(HttpStatus.BAD_REQUEST, "응답 파싱 오류가 발생했습니다.");
+>>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
 
     ;
 

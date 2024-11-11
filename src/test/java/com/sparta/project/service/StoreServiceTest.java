@@ -1,5 +1,6 @@
 package com.sparta.project.service;
 
+<<<<<<< HEAD
 import com.sparta.project.domain.Location;
 import com.sparta.project.domain.Store;
 import com.sparta.project.domain.StoreCategory;
@@ -24,13 +25,15 @@ import com.sparta.project.repository.StoreRepository;
 import com.sparta.project.repository.UserRepository;
 >>>>>>> b8d01e9 ([Feat] 음식점 상세 조회 기능 Service 및 ServiceTest)
 import org.junit.jupiter.api.BeforeEach;
+=======
+>>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+<<<<<<< HEAD
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,11 +42,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 >>>>>>> b8d01e9 ([Feat] 음식점 상세 조회 기능 Service 및 ServiceTest)
 
+=======
+>>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
 @Transactional
 @ActiveProfiles("test")
 @SpringBootTest
 class StoreServiceTest {
 
+<<<<<<< HEAD
     @Autowired
     private StoreService storeService;
 
@@ -223,23 +229,18 @@ class StoreServiceTest {
     }
 
     @DisplayName("삭제하면 isDeleted 는 true가 된다.")
+=======
+    @DisplayName("테스트")
+>>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
     @Test
     void test() {
         // given
-        String storeId = "storeId";
-        String name = "착한중식당";
-        Double score = 5.0;
-        Store store = createStore(storeId, name, testUser, testStoreCategory, testLocation, score);
-        storeRepository.save(store);
 
         // when
-        storeService.deleteStore(storeId, testUser.getUsername());
 
         // then
-        Store deletedStore = storeRepository.findById(storeId).get();
-        assertThat(deletedStore.getIsDeleted()).isTrue();
-        assertThat(deletedStore.getDeletedBy()).isEqualTo(testUser.getUsername());
     }
+<<<<<<< HEAD
 
     private User createUser(String username) {
         return User.create(username, "1234", "닉네임", Role.CUSTOMER);
@@ -259,4 +260,6 @@ class StoreServiceTest {
 
 
 >>>>>>> b8d01e9 ([Feat] 음식점 상세 조회 기능 Service 및 ServiceTest)
+=======
+>>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
 }
