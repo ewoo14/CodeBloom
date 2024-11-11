@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
@@ -43,10 +44,31 @@ import java.util.List;
 @RestController
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+package com.sparta.project.controller;
+
+
+import com.sparta.project.domain.Address;
+import com.sparta.project.dto.address.AddressCreateRequest;
+import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.service.AddressService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+>>>>>>> 79fb384 ([Feat] 배송지 생성 API)
 @RequiredArgsConstructor
 @RequestMapping("/addresses")
 public class AddressController {
 
+<<<<<<< HEAD
     private final PermissionValidator permissionValidator;
     private final AddressService addressService;
 
@@ -55,10 +77,19 @@ public class AddressController {
     public ApiResponse<Void> createAddress(Authentication authentication,
                                            @Valid @RequestBody AddressCreateRequest request) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
+=======
+    private final AddressService addressService;
+
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping
+    public ApiResponse<Void> createAddress(Authentication authentication,
+                                              @Valid @RequestBody AddressCreateRequest request) {
+>>>>>>> 79fb384 ([Feat] 배송지 생성 API)
         addressService.createAddress(Long.parseLong(authentication.getName()), request);
         return ApiResponse.success();
     }
 
+<<<<<<< HEAD
     @GetMapping("/my")
     public ApiResponse<ListResponse<AddressResponse>> getUserAddresses(Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
@@ -172,6 +203,9 @@ public class AddressController {
 //@RequiredArgsConstructor
 //@RequestMapping("/addresses")
 //public class AddressController {
+=======
+
+>>>>>>> 79fb384 ([Feat] 배송지 생성 API)
 //
 //    private final AddressService addressService;
 //
@@ -214,5 +248,9 @@ public class AddressController {
 //        addressService.deleteAddress(address_id);
 //        return ApiResponse.success();
 //    }
+<<<<<<< HEAD
 //}
 >>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
+=======
+}
+>>>>>>> 79fb384 ([Feat] 배송지 생성 API)
