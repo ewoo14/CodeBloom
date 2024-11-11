@@ -16,4 +16,8 @@ public record PageResponse<T> (
                 page.getContent()
         );
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6c799da ([Feat] 음식점 조회용 querydsl 미완)
