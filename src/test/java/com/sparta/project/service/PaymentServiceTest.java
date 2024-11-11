@@ -123,10 +123,13 @@ class PaymentServiceTest {
         int paymentPrice = 10000;
         String pgName = "TOSS";
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 3c3b367 (서비스 테스트)
 =======
         String username = "griotold";
 >>>>>>> 07367c2 (결제 기능 Controller)
+=======
+>>>>>>> 1bccd96 ([Feat] 주문자 정보와 결제자 정보가 일치 않으면 USER_ORDER_MISMATCH 예외 발생)
 
         when(pgClient.requestPayment(any(Payment.class))).thenReturn(true);
 

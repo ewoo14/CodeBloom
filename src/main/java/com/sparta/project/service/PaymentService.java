@@ -144,6 +144,8 @@ public class PaymentService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.ORDER_NOT_FOUND));
 
+        validateUserOrderMatch(order, userId);
+
         Payment payment = Payment.create(order, user, PaymentType.of(type), paymentPrice, PgName.of(pgName));
 
         boolean isSuccess = pgClient.requestPayment(payment);
@@ -154,6 +156,7 @@ public class PaymentService {
 
         return PaymentCreateResponse.from(paymentRepository.save(payment));
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
     // todo paymetType, pgName 검사하는 클래스를 분리해서 단일 책임 원칙을 지키는 게 객체지향스러울 것 같다.
@@ -167,4 +170,12 @@ public class PaymentService {
     }
 =======
 >>>>>>> edbb19b ([Refactor] PgName, PaymentType of 메서드 만들어서 유효성검증과 생성 한꺼번에)
+=======
+
+    private void validateUserOrderMatch(Order order, Long userId) {
+        if (!order.getUser().getUserId().equals(userId)) {
+            throw new CodeBloomException(ErrorCode.USER_ORDER_MISMATCH);
+        }
+    }
+>>>>>>> 1bccd96 ([Feat] 주문자 정보와 결제자 정보가 일치 않으면 USER_ORDER_MISMATCH 예외 발생)
 }
