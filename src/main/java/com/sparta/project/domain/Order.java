@@ -5,8 +5,6 @@ import com.sparta.project.domain.enums.OrderType;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +16,7 @@ import java.util.List;
 @Table(name="p_order")
 public class Order extends BaseEntity { // 주문
 	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name="order_id", length=36, nullable=false, updatable=false)
 	private String orderId;
 
@@ -52,8 +51,7 @@ public class Order extends BaseEntity { // 주문
 	private List<OrderMenu> orderMenus = new ArrayList<>();
 
 	@Builder
-	public Order(String orderId, User user, Address address, Store store, OrderType type, Integer orderPrice, String demand) {
-		this.orderId = orderId;
+	private Order(User user, Address address, Store store, OrderType type, Integer orderPrice, String demand) {
 		this.user = user;
 		this.address = address;
 		this.store = store;
@@ -61,6 +59,17 @@ public class Order extends BaseEntity { // 주문
 		this.status = OrderStatus.WAITING;
 		this.orderPrice = orderPrice;
 		this.demand = demand;
+	}
+
+	public static Order create(User user, Address address, Store store, OrderType type, Integer orderPrice, String demand) {
+		return Order.builder()
+				.user(user)
+				.address(address)
+				.store(store)
+				.type(type)
+				.orderPrice(orderPrice)
+				.demand(demand)
+				.build();
 	}
 
 }
