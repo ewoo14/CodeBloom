@@ -1,9 +1,8 @@
 package com.sparta.project.domain;
 
+
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -12,6 +11,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name="p_address")
 public class Address extends BaseEntity { // 배송지
 	@Id
+	@GeneratedValue(strategy=GenerationType.UUID)
 	@Column(name="address_id", length=36, nullable=false, updatable=false)
 	private String addressId;
 
