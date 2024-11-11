@@ -1,5 +1,6 @@
 package com.sparta.project.service;
 
+<<<<<<< HEAD
 import com.sparta.project.domain.*;
 import com.sparta.project.domain.enums.OrderType;
 import com.sparta.project.dto.order.OrderCreateRequest;
@@ -18,10 +19,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+=======
+import com.sparta.project.domain.Order;
+import com.sparta.project.exception.CodeBloomException;
+import com.sparta.project.exception.ErrorCode;
+import com.sparta.project.repository.OrderRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+>>>>>>> 09c755a ([Refactor] OrderService 와 UserService의 getXxxOrException() 메서드 호출로 대체)
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class OrderService {
+<<<<<<< HEAD
     private final UserService userService;
     private final AddressService addressService;
     private final MenuService menuService;
@@ -120,4 +132,12 @@ public class OrderService {
                         pageable)
                 .map(OrderResponse::from);
     }
+=======
+    private final OrderRepository orderRepository;
+
+    public Order getUserOrException(String orderId) {
+        return orderRepository.findById(orderId).orElseThrow(()->
+                new CodeBloomException(ErrorCode.ORDER_NOT_FOUND));
+    }
+>>>>>>> 09c755a ([Refactor] OrderService 와 UserService의 getXxxOrException() 메서드 호출로 대체)
 }

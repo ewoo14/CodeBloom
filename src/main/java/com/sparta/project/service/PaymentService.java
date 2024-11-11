@@ -121,9 +121,7 @@ import com.sparta.project.domain.enums.PgName;
 import com.sparta.project.dto.payment.PaymentCreateResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
-import com.sparta.project.repository.OrderRepository;
 import com.sparta.project.repository.PaymentRepository;
-import com.sparta.project.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -132,17 +130,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class PaymentService {
+    private final UserService userService;
+    private final OrderService orderService;
     private final PaymentRepository paymentRepository;
-    private final OrderRepository orderRepository;
-    private final UserRepository userRepository;
     private final PgClient pgClient;
 
     @Transactional
     public PaymentCreateResponse createPayment(String orderId, String type, int paymentPrice, String pgName, Long userId) {
-         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new CodeBloomException(ErrorCode.USER_NOT_FOUND));
-        Order order = orderRepository.findById(orderId)
-                .orElseThrow(() -> new CodeBloomException(ErrorCode.ORDER_NOT_FOUND));
+         User user = userService.getUserOrException(userId);
+        Order order = orderService.getUserOrException(orderId);
 
         validateUserOrderMatch(order, userId);
 
