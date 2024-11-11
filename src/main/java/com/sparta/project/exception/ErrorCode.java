@@ -92,6 +92,7 @@ public enum ErrorCode {
     CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 카테고리 정보가 존재하지 않습니다."),
 
     // NOT FOUND
+<<<<<<< HEAD
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다.");
 >>>>>>> 1c2a362 ([Style] ErrorCode 도메인 별로 위치 분리)
 =======
@@ -100,8 +101,12 @@ public enum ErrorCode {
     MENU_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 메뉴 정보가 존재하지 않습니다.")
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
 =======
+=======
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다."),
+>>>>>>> 9863864 ([Fix] Menu Service 메서드별 테스트 완성)
     MENU_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 메뉴 정보가 존재하지 않습니다."),
     AIDESCRIPTION_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 AI설명 정보가 존재하지 않습니다."),
+    STORE_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 가게 정보가 존재하지 않습니다."),
 
     // Response Parsing Error
     RESPONSE_PARSING_ERROR(HttpStatus.BAD_REQUEST, "응답 파싱 오류가 발생했습니다.")
@@ -109,6 +114,7 @@ public enum ErrorCode {
 
     ;
 
+<<<<<<< HEAD
 =======
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다."),
 
@@ -156,6 +162,8 @@ public enum ErrorCode {
     ;
 
 >>>>>>> 054108d (결제 기능 구현 Service)
+=======
+>>>>>>> 9863864 ([Fix] Menu Service 메서드별 테스트 완성)
     private final HttpStatus httpStatus;
     private final String message;
 

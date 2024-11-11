@@ -32,7 +32,6 @@ import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.service.MenuService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 <<<<<<< HEAD
 import org.springframework.security.core.context.SecurityContextHolder;

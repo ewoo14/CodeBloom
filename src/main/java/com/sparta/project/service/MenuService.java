@@ -5,6 +5,9 @@ import com.sparta.project.domain.Menu;
 <<<<<<< HEAD
 import com.sparta.project.domain.QMenu;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9863864 ([Fix] Menu Service 메서드별 테스트 완성)
 import com.sparta.project.domain.Store;
 import com.sparta.project.dto.menu.MenuCreateRequest;
 import com.sparta.project.dto.menu.MenuUpdateRequest;
@@ -23,6 +26,7 @@ import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.MenuRepository;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.sparta.project.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -35,6 +39,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.querydsl.core.types.dsl.BooleanExpression;
 =======
+=======
+import com.sparta.project.repository.StoreRepository;
+>>>>>>> 9863864 ([Fix] Menu Service 메서드별 테스트 완성)
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -47,7 +54,14 @@ import org.springframework.transaction.annotation.Transactional;
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
 =======
 import com.querydsl.core.types.dsl.BooleanExpression;
+<<<<<<< HEAD
 >>>>>>> dc05aea ([Fix] 전체 메뉴 조회에 queryDSL 적용)
+=======
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Arrays;
+>>>>>>> 9863864 ([Fix] Menu Service 메서드별 테스트 완성)
 
 @Service
 @RequiredArgsConstructor
@@ -55,14 +69,23 @@ public class MenuService {
 
     private final MenuRepository menuRepository;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private final StoreRepository storeRepository;
+=======
+    private final StoreRepository storeRepository;
+
+    private static final Logger log = LoggerFactory.getLogger(MenuService.class);
+>>>>>>> 9863864 ([Fix] Menu Service 메서드별 테스트 완성)
 
     // 권한 확인
     private void checkPermission(Authentication authentication, String... roles) {
-        for (String role : roles) {
-            if (!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_" + role))) {
-                throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
-            }
+        log.info("권한 검사: {}", (Object[]) roles);
+        boolean hasPermission = Arrays.stream(roles)
+                .anyMatch(role -> authentication.getAuthorities()
+                        .contains(new SimpleGrantedAuthority(role)));
+        if (!hasPermission) {
+            log.info("액세스가 거부되었습니다. 현재 유저의 권한: {}", authentication.getAuthorities());
+            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
         }
     }
 
@@ -144,6 +167,7 @@ public class MenuService {
 =======
     public MenuResponse createMenu(MenuCreateRequest menuCreateRequest, Authentication authentication) {
         checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
+<<<<<<< HEAD
 >>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
         Menu menu = Menu.builder()
                 .name(menuCreateRequest.name())
@@ -151,6 +175,18 @@ public class MenuService {
                 .price(menuCreateRequest.price())
                 .isClosed(menuCreateRequest.isClosed())
                 .build();
+=======
+        Store store = storeRepository.findById(menuCreateRequest.storeId())
+                .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
+
+        Menu menu = Menu.create(
+                menuCreateRequest.name(),
+                store,
+                menuCreateRequest.description(),
+                menuCreateRequest.price(),
+                menuCreateRequest.isClosed()
+        );
+>>>>>>> 9863864 ([Fix] Menu Service 메서드별 테스트 완성)
         menuRepository.save(menu);
 <<<<<<< HEAD
         return toMenuResponse(menu);
