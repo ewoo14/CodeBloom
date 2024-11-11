@@ -49,12 +49,12 @@ public class Payment extends BaseEntity { // 결제
 		this.pgKey = pgKey;
 	}
 
-	public static Payment create(Order order, User user, String type, Integer paymentPrice, PgName pgName) {
+	public static Payment create(Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName) {
 		return Payment.builder()
 				.paymentId(UuidGenerator.generateUuid())
 				.order(order)
 				.user(user)
-				.type(PaymentType.valueOf(type))
+				.type(type)
 				.paymentPrice(paymentPrice)
 				.pgName(pgName)
 				.pgKey(pgName.getPgKey())

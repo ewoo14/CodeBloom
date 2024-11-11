@@ -67,7 +67,7 @@ class PaymentServiceTest {
         when(pgClient.requestPayment(any(Payment.class))).thenReturn(true);
 
         // when
-        PaymentCreateResponse response = paymentService.createPayment(orderId, type, paymentPrice, pgName, username);
+        PaymentCreateResponse response = paymentService.createPayment(orderId, type, paymentPrice, pgName, 1L);
 
         // then
         assertThat(response).isNotNull();

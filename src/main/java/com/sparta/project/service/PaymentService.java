@@ -26,21 +26,13 @@ public class PaymentService {
     private final PgClient pgClient;
 
     @Transactional
-    public PaymentCreateResponse createPayment(String orderId, String type, int paymentPrice, String pgName, String username) {
-         User user = userRepository.findByUsername(username)
+    public PaymentCreateResponse createPayment(String orderId, String type, int paymentPrice, String pgName, Long userId) {
+         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.USER_NOT_FOUND));
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.ORDER_NOT_FOUND));
 
-        if (isPaymentTypeNotSupported(type)) {
-            throw new CodeBloomException(ErrorCode.UNSUPPORTED_PAYMENT_TYPE);
-        }
-
-        if (isPgNameNtoSupported(pgName)) {
-            throw new CodeBloomException(ErrorCode.UNSUPPORTED_PAYMENT_TYPE);
-        }
-
-        Payment payment = Payment.create(order, user, type, paymentPrice, PgName.valueOf(pgName));
+        Payment payment = Payment.create(order, user, PaymentType.of(type), paymentPrice, PgName.of(pgName));
 
         boolean isSuccess = pgClient.requestPayment(payment);
 
@@ -49,14 +41,5 @@ public class PaymentService {
         }
 
         return PaymentCreateResponse.from(paymentRepository.save(payment));
-    }
-
-    // todo paymetType, pgName 검사하는 클래스를 분리해서 단일 책임 원칙을 지키는 게 객체지향스러울 것 같다.
-    private boolean isPaymentTypeNotSupported(String type) {
-        return !PaymentType.isPaymentTypeSupported(type);
-    }
-
-    private boolean isPgNameNtoSupported(String pgName) {
-        return !PgName.isPgNameSupported(pgName);
     }
 }
