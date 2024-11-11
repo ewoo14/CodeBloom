@@ -39,8 +39,7 @@ public class Payment extends BaseEntity { // 결제
 	private String pgKey;
 
 	@Builder
-	private Payment(String paymentId, Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName, String pgKey) {
-		this.paymentId = paymentId;
+	private Payment(Order order, User user, PaymentType type, Integer paymentPrice, PgName pgName, String pgKey) {
 		this.order = order;
 		this.user = user;
 		this.type = type;
