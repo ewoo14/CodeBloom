@@ -32,6 +32,8 @@ public class PaymentService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.ORDER_NOT_FOUND));
 
+        validateUserOrderMatch(order, userId);
+
         Payment payment = Payment.create(order, user, PaymentType.of(type), paymentPrice, PgName.of(pgName));
 
         boolean isSuccess = pgClient.requestPayment(payment);
@@ -41,5 +43,11 @@ public class PaymentService {
         }
 
         return PaymentCreateResponse.from(paymentRepository.save(payment));
+    }
+
+    private void validateUserOrderMatch(Order order, Long userId) {
+        if (!order.getUser().getUserId().equals(userId)) {
+            throw new CodeBloomException(ErrorCode.USER_ORDER_MISMATCH);
+        }
     }
 }
