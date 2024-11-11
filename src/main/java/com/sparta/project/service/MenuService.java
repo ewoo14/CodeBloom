@@ -2,12 +2,14 @@ package com.sparta.project.service;
 
 import com.sparta.project.domain.Menu;
 import com.sparta.project.domain.QMenu;
+import com.sparta.project.domain.Store;
 import com.sparta.project.dto.menu.MenuCreateRequest;
 import com.sparta.project.dto.menu.MenuResponse;
 import com.sparta.project.dto.menu.MenuUpdateRequest;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.MenuRepository;
+import com.sparta.project.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,19 +19,29 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Arrays;
 
 @Service
 @RequiredArgsConstructor
 public class MenuService {
 
     private final MenuRepository menuRepository;
+    private final StoreRepository storeRepository;
+
+    private static final Logger log = LoggerFactory.getLogger(MenuService.class);
 
     // 권한 확인
     private void checkPermission(Authentication authentication, String... roles) {
-        for (String role : roles) {
-            if (!authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_" + role))) {
-                throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
-            }
+        log.info("권한 검사: {}", (Object[]) roles);
+        boolean hasPermission = Arrays.stream(roles)
+                .anyMatch(role -> authentication.getAuthorities()
+                        .contains(new SimpleGrantedAuthority(role)));
+        if (!hasPermission) {
+            log.info("액세스가 거부되었습니다. 현재 유저의 권한: {}", authentication.getAuthorities());
+            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
         }
     }
 
@@ -58,12 +70,16 @@ public class MenuService {
     @Transactional
     public MenuResponse createMenu(MenuCreateRequest menuCreateRequest, Authentication authentication) {
         checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
-        Menu menu = Menu.builder()
-                .name(menuCreateRequest.name())
-                .description(menuCreateRequest.description())
-                .price(menuCreateRequest.price())
-                .isClosed(menuCreateRequest.isClosed())
-                .build();
+        Store store = storeRepository.findById(menuCreateRequest.storeId())
+                .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
+
+        Menu menu = Menu.create(
+                menuCreateRequest.name(),
+                store,
+                menuCreateRequest.description(),
+                menuCreateRequest.price(),
+                menuCreateRequest.isClosed()
+        );
         menuRepository.save(menu);
         return MenuResponse.from(menu);
     }
