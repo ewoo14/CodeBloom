@@ -6,10 +6,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Optional;
 
-public class AuditorAwareImpl implements AuditorAware<Long> {
+public class AuditorAwareImpl implements AuditorAware<String> {
 
     @Override
-    public Optional<Long> getCurrentAuditor() {
+    public Optional<String> getCurrentAuditor() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if(null == authentication || !authentication.isAuthenticated()) {
@@ -18,7 +18,7 @@ public class AuditorAwareImpl implements AuditorAware<Long> {
 
         //사용자 환경에 맞게 로그인한 사용자의 정보를 불러온다.
 
-        return Optional.of(Long.parseLong(authentication.getName()));
+        return Optional.of(authentication.getName());
     }
 
 }
