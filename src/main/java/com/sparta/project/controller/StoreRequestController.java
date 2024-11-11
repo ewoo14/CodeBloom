@@ -5,10 +5,12 @@ import com.sparta.project.dto.storerequest.StoreCreateRequest;
 import com.sparta.project.service.StoreRequestService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -19,6 +21,7 @@ public class StoreRequestController {
 
     private final StoreRequestService storeRequestService;
 
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public ApiResponse<Void> createStoreRequest(Authentication authentication,
                                                 @Valid @RequestBody StoreCreateRequest request) {
