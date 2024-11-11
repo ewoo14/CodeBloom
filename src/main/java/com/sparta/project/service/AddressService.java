@@ -26,10 +26,20 @@ public class AddressService {
         if(user.getRole() != Role.CUSTOMER) {
             throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
         }
+
+        if(request.isDefault() && alreadyExistDefault(user)) {
+            Address defaultAddress = addressRepository.findByUserAndIsDefault(user, true);
+            defaultAddress.updateDefault(false);
+        }
+
         addressRepository.save(Address.create(
                 user, request.city(), request.district(), request.streetName(),
                 request.streetNumber(), request.detail(), request.isDefault()
         ));
+    }
+
+    private boolean alreadyExistDefault(final User user) {
+        return addressRepository.existsByUserAndIsDefault(user, true);
     }
 
 }

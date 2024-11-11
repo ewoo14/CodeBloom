@@ -37,6 +37,10 @@ public class Address extends BaseEntity { // 배송지
 	@Column(name="is_default") // 메인 주소지 여부
 	private Boolean isDefault;
 
+	public void updateDefault(Boolean isDefault) {
+		this.isDefault = isDefault;
+	}
+
 	@Builder
 	private Address(User user, String city, String district, String streetName, String streetNumber, String detail, Boolean isDefault) {
 		this.user = user;
