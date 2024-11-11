@@ -137,6 +137,7 @@ class PaymentServiceTest {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         PaymentResponse response = paymentService.createPayment(paymentRequest, testUser.getUserId());
 =======
         PaymentCreateResponse response = paymentService.createPayment(orderId, type, paymentPrice, pgName, testUser);
@@ -147,6 +148,9 @@ class PaymentServiceTest {
 =======
         PaymentCreateResponse response = paymentService.createPayment(orderId, type, paymentPrice, pgName, 1L);
 >>>>>>> edbb19b ([Refactor] PgName, PaymentType of 메서드 만들어서 유효성검증과 생성 한꺼번에)
+=======
+        PaymentCreateResponse response = paymentService.createPayment(orderId, type, paymentPrice, pgName, testUser.getUserId());
+>>>>>>> 6db7bcf ([Fix] TestDataRunner.java 삭제, PaymentServiceTest 디버깅)
 
         // then
         assertThat(response).isNotNull();
@@ -277,7 +281,11 @@ class PaymentServiceTest {
         return Store.create("중식당1", "중식당1 상세", "주소지", user, storeCategory, location);
 =======
     private Order createOrder(User user) {
+<<<<<<< HEAD
         return Order.create("UUID", user, null, null, OrderType.ONLINE, 10_000, "요구사항");
 >>>>>>> 3c3b367 (서비스 테스트)
+=======
+        return Order.create(user, null, null, OrderType.ONLINE, 10_000, "요구사항");
+>>>>>>> 6db7bcf ([Fix] TestDataRunner.java 삭제, PaymentServiceTest 디버깅)
     }
 }
