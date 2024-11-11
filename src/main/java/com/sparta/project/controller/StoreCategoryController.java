@@ -1,17 +1,31 @@
-//package com.sparta.project.controller;
-//
-//import com.sparta.project.dto.storeCategory.StoreCategoryRequest;
-//import com.sparta.project.dto.storeCategory.StoreCategoryResponse;
-//import com.sparta.project.dto.common.ApiResponse;
-//import com.sparta.project.dto.common.PageResponse;
-//import com.sparta.project.service.StoreCategoryService;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.web.bind.annotation.*;
-//
-//@RestController
-//@RequiredArgsConstructor
-//@RequestMapping("/categories")
-//public class StoreCategoryController {
+package com.sparta.project.controller;
+
+import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.dto.storecategory.StoreCategoryCreateRequest;
+import com.sparta.project.exception.CodeBloomException;
+import com.sparta.project.exception.ErrorCode;
+import com.sparta.project.service.StoreCategoryService;
+import jakarta.validation.Valid;
+import java.util.Collection;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/categories")
+public class StoreCategoryController {
+    private void checkStoreCategoryAuth(Collection<? extends GrantedAuthority> authorities) {
+        String role = authorities.toArray()[0].toString();
+        if(!role.equals("MANAGER") && !role.equals("MASTER")) {
+            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
+        }
+    }
+
 //
 //    private final StoreCategoryService storeCategoryService;
 //
@@ -55,4 +69,4 @@
 //        storeCategoryService.deleteStoreCategory(category_id);
 //        return ApiResponse.success();
 //    }
-//}
+}
