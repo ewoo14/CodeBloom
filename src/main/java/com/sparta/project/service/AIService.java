@@ -70,9 +70,12 @@ public class AIService {
         Pageable pageable = PageRequest.of(page - 1, size, Sort.by(sortBy));
 
         BooleanExpression predicate = qAi.user.userId.eq(userId);
+        Page<Ai> results = aiRepository.findAll(predicate, pageable);
+        if (results.isEmpty()) {
+            throw new CodeBloomException(ErrorCode.AIDESCRIPTION_NOT_FOUND);
+        }
 
-        return aiRepository.findAll(predicate, pageable)
-                .map(AIResponse::from);
+        return results.map(AIResponse::from);
     }
 
     // 새로운 메뉴 설명 생성
