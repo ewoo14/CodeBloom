@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface AddressRepository extends JpaRepository<Address, String> {
     Address findByUserAndIsDefault(User user, boolean isDefault);
     boolean existsByUserAndIsDefault(User user, boolean isDefault);
+    int countByUser(User user);
 }
