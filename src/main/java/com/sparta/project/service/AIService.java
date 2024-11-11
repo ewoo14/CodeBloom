@@ -131,9 +131,12 @@ public class AIService {
         Pageable pageable = PageRequest.of(page - 1, size, Sort.by(sortBy));
 
         BooleanExpression predicate = qAi.user.userId.eq(userId);
+        Page<Ai> results = aiRepository.findAll(predicate, pageable);
+        if (results.isEmpty()) {
+            throw new CodeBloomException(ErrorCode.AIDESCRIPTION_NOT_FOUND);
+        }
 
-        return aiRepository.findAll(predicate, pageable)
-                .map(AIResponse::from);
+        return results.map(AIResponse::from);
     }
 
 >>>>>>> 580553e ([Minor] Ai 메서드 테스트 추가)
