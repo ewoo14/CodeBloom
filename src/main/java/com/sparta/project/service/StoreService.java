@@ -23,6 +23,10 @@ public class StoreService {
     private final LocationRepository locationRepository;
     private final StoreCategoryRepository storeCategoryRepository;
 
+    public void getMyStores(String username, int page, int size, int sortBy) {
+
+    }
+
     public StoreResponse getStoreById(String storeId) {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
