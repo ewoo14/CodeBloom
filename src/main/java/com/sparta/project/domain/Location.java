@@ -6,6 +6,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
 
+import java.util.UUID;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
@@ -24,10 +26,25 @@ public class Location extends BaseEntity { // 지역
     private String description;
 
     @Builder
-    public Location(String locationId, String name, String description) {
-        this.locationId = locationId;
+    public Location(String name, String description) {
+        this.locationId = UUID.randomUUID().toString();
         this.name = name;
         this.description = description;
     }
 
+    public static Location create(String name, String description) {
+        return Location.builder()
+                .name(name)
+                .description(description)
+                .build();
+    }
+
+    public void update(String name, String description) {
+        if (name != null) {
+            this.name = name;
+        }
+        if (description != null) {
+            this.description = description;
+        }
+    }
 }

@@ -5,7 +5,6 @@ import com.sparta.project.domain.QAi;
 import com.sparta.project.domain.User;
 import com.sparta.project.dto.ai.AIRequest;
 import com.sparta.project.dto.ai.AIResponse;
-import com.sparta.project.dto.menu.MenuResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.AIRepository;
@@ -14,19 +13,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.*;
 import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -51,18 +47,6 @@ public class AIService {
         this.objectMapper = objectMapper;
     }
 
-    // 권한 확인
-    private void checkPermission(Authentication authentication, String... roles) {
-        log.info("권한 검사: {}", (Object[]) roles);
-        boolean hasPermission = Arrays.stream(roles)
-                .anyMatch(role -> authentication.getAuthorities()
-                        .contains(new SimpleGrantedAuthority(role)));
-        if (!hasPermission) {
-            log.info("액세스가 거부되었습니다. 현재 유저의 권한: {}", authentication.getAuthorities());
-            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
-        }
-    }
-
     // 생성한 설명 목록 조회
     @Transactional(readOnly = true)
     public Page<AIResponse> getMenuDescriptions(Long userId, int page, int size, String sortBy) {
@@ -80,8 +64,7 @@ public class AIService {
 
     // 새로운 메뉴 설명 생성
     @Transactional
-    public AIResponse createMenuDescription(AIRequest aiRequest, Authentication authentication) {
-        checkPermission(authentication, "OWNER");
+    public AIResponse createMenuDescription(AIRequest aiRequest) {
         User user = userRepository.findById(aiRequest.userId())
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.USER_NOT_FOUND));
         String response = sendPostRequest(aiRequest.prompt(), 150);
