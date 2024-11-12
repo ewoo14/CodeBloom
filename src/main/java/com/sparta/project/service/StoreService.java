@@ -87,11 +87,10 @@ import com.sparta.project.domain.User;
 import com.sparta.project.domain.enums.Role;
 >>>>>>> 2ae41d6 ([Feat] 음식점 정보 수정 기능 service)
 import com.sparta.project.dto.store.StoreResponse;
+import com.sparta.project.dto.store.StoreUpdateRequest;
 import com.sparta.project.dto.store.StoreUpdateResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
-import com.sparta.project.repository.LocationRepository;
-import com.sparta.project.repository.StoreCategoryRepository;
 import com.sparta.project.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -106,12 +105,6 @@ public class StoreService {
     private final StoreLocationService storeLocationService;
     private final StoreCategoryService storeCategoryService;
     private final StoreRepository storeRepository;
-    private final LocationRepository locationRepository;
-    private final StoreCategoryRepository storeCategoryRepository;
-
-    public void getMyStores(String username, int page, int size, int sortBy) {
-
-    }
 
     public Store getStoreOrException(String storeId) {
         return storeRepository.findById(storeId).orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
@@ -125,25 +118,20 @@ public class StoreService {
 =======
 
     @Transactional
-    public StoreUpdateResponse updateStore(String storeId, String storeName, String description,
-                                           String locationId, String categoryId, Long userId) {
-        User user = userService.getUserOrException(userId);
-        checkPermission(user);
-
-        Store store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
+    public StoreUpdateResponse updateStore(String storeId, StoreUpdateRequest storeUpdateRequest) {
+        Store store = getStoreOrException(storeId);
 
         Location location = null;
-        if (locationId != null) {
-            location = storeLocationService.getStoreLocationOrException(locationId);
+        if (storeUpdateRequest.locationId() != null) {
+            location = storeLocationService.getStoreLocationOrException(storeUpdateRequest.locationId());
         }
 
         StoreCategory storeCategory = null;
-        if (categoryId != null) {
-            storeCategory = storeCategoryService.getStoreCategoryOrException(categoryId);
+        if (storeUpdateRequest.categoryId() != null) {
+            storeCategory = storeCategoryService.getStoreCategoryOrException(storeUpdateRequest.categoryId());
         }
 
-        store.update(storeName, description, location, storeCategory);
+        store.update(storeUpdateRequest.storeName(), storeUpdateRequest.description(), location, storeCategory);
 
         // StoreUpdateResponse 생성 및 반환 로직
         return StoreUpdateResponse.from(store);

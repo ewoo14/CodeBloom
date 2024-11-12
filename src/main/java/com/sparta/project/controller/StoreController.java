@@ -26,14 +26,21 @@ package com.sparta.project.controller;
 
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.store.StoreResponse;
+import com.sparta.project.dto.store.StoreUpdateRequest;
+import com.sparta.project.dto.store.StoreUpdateResponse;
 import com.sparta.project.service.StoreService;
 import com.sparta.project.util.PermissionValidator;
 import lombok.RequiredArgsConstructor;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 >>>>>>> 552931a ([Feat] 음식점 상세 조회 완료)
+=======
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+>>>>>>> 5bd2e4b ([Feat] 음식점 정보 수정 완료)
 
 @RestController
 @RequiredArgsConstructor
@@ -174,8 +181,13 @@ public class StoreController {
 //    private final StoreService storeService;
 =======
     private PermissionValidator permissionValidator;
+<<<<<<< HEAD
 >>>>>>> 552931a ([Feat] 음식점 상세 조회 완료)
 //
+=======
+
+    //
+>>>>>>> 5bd2e4b ([Feat] 음식점 정보 수정 완료)
 //    // 자신의 음식점 조회(OWNER)
 //    @GetMapping("/my")
 //    public ApiResponse<PageResponse<StoreResponse>> getMyStores(
@@ -205,15 +217,17 @@ public class StoreController {
         StoreResponse store = storeService.getStoreById(store_id);
         return ApiResponse.success(store);
     }
-//
-//    // 음식점 정보 수정(OWNER, MANAGER, MASTER)
-//    @PatchMapping("/{store_id}")
-//    public ApiResponse<StoreResponse> updateStore(
-//            @PathVariable String store_id,
-//            @RequestBody StoreRequest storeRequest) {
-//        StoreResponse updatedStore = storeService.updateStore(store_id, storeRequest);
-//        return ApiResponse.success(updatedStore);
-//    }
+
+    // 음식점 정보 수정(OWNER, MANAGER, MASTER)
+    @PatchMapping("/{store_id}")
+    public ApiResponse<StoreUpdateResponse> updateStore(
+            @PathVariable String store_id,
+            @RequestBody StoreUpdateRequest storeUpdateRequest,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
+        StoreUpdateResponse updatedStore = storeService.updateStore(store_id, storeUpdateRequest);
+        return ApiResponse.success(updatedStore);
+    }
 //
 //    // 음식점 삭제(OWNER, MANAGER, MASTER)
 //    @DeleteMapping("/{store_id}")

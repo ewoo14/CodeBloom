@@ -14,6 +14,7 @@ import com.sparta.project.dto.store.StoreResponse;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.sparta.project.dto.store.StoreUpdateRequest;
 import com.sparta.project.repository.LocationRepository;
 import com.sparta.project.repository.StoreRepository;
@@ -30,6 +31,10 @@ import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.dto.store.StoreUpdateResponse;
 import com.sparta.project.exception.CodeBloomException;
 >>>>>>> 2ae41d6 ([Feat] 음식점 정보 수정 기능 service)
+=======
+import com.sparta.project.dto.store.StoreUpdateRequest;
+import com.sparta.project.dto.store.StoreUpdateResponse;
+>>>>>>> 5bd2e4b ([Feat] 음식점 정보 수정 완료)
 import com.sparta.project.repository.LocationRepository;
 import com.sparta.project.repository.StoreCategoryRepository;
 import com.sparta.project.repository.StoreRepository;
@@ -67,7 +72,6 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 >>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
 =======
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 >>>>>>> 2ae41d6 ([Feat] 음식점 정보 수정 기능 service)
 @Transactional
@@ -291,17 +295,18 @@ class StoreServiceTest {
         StoreCategory storeCategory2 = StoreCategory.create("양식", "양식 전문점");
         storeCategoryRepository.save(storeCategory2);
 
+        StoreUpdateRequest storeUpdateRequest =
+                new StoreUpdateRequest("나쁜양식점", null, null, storeCategory2.getStoreCategoryId());
         // when
-        StoreUpdateResponse storeUpdateResponse = storeService.updateStore(
-                        store.getStoreId(),
-                storeNameForUpdate, null, null,
-                storeCategory2.getStoreCategoryId(), owner.getUserId());
+        StoreUpdateResponse storeUpdateResponse = storeService.updateStore(store.getStoreId(), storeUpdateRequest);
+
         // then
         assertThat(storeUpdateResponse).isNotNull();
         assertThat(storeUpdateResponse.storeName()).isEqualTo(storeNameForUpdate);
         assertThat(storeUpdateResponse.storeCategoryId()).isEqualTo(storeCategory2.getStoreCategoryId());
     }
 
+<<<<<<< HEAD
     @DisplayName("Customer 가 수정하려고 하면 예외 발생")
     @Test
     void updateStoreWithCustomer() {
@@ -345,4 +350,6 @@ class StoreServiceTest {
 >>>>>>> b8d01e9 ([Feat] 음식점 상세 조회 기능 Service 및 ServiceTest)
 =======
 >>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
+=======
+>>>>>>> 5bd2e4b ([Feat] 음식점 정보 수정 완료)
 }
