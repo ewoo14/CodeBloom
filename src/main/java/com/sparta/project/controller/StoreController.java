@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
@@ -19,6 +20,20 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+=======
+package com.sparta.project.controller;
+
+
+import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.dto.store.StoreResponse;
+import com.sparta.project.service.StoreService;
+import com.sparta.project.util.PermissionValidator;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+>>>>>>> 552931a ([Feat] 음식점 상세 조회 완료)
 
 @RestController
 @RequiredArgsConstructor
@@ -26,6 +41,7 @@ import org.springframework.web.bind.annotation.*;
 public class StoreController {
 
     private final StoreService storeService;
+<<<<<<< HEAD
     private final PermissionValidator permissionValidator;
 
     // 자신의 음식점 조회(OWNER)
@@ -156,6 +172,9 @@ public class StoreController {
 //public class StoreController {
 //
 //    private final StoreService storeService;
+=======
+    private PermissionValidator permissionValidator;
+>>>>>>> 552931a ([Feat] 음식점 상세 조회 완료)
 //
 //    // 자신의 음식점 조회(OWNER)
 //    @GetMapping("/my")
@@ -180,12 +199,12 @@ public class StoreController {
 //        return ApiResponse.success(PageResponse.of(stores));
 //    }
 //
-//    // 음식점 상세 조회(ALL)
-//    @GetMapping("/{store_id}")
-//    public ApiResponse<StoreResponse> getStoreById(@PathVariable String store_id) {
-//        StoreResponse store = storeService.getStoreById(store_id);
-//        return ApiResponse.success(store);
-//    }
+    // 음식점 상세 조회(ALL)
+    @GetMapping("/{store_id}")
+    public ApiResponse<StoreResponse> getStoreById(@PathVariable() String store_id) {
+        StoreResponse store = storeService.getStoreById(store_id);
+        return ApiResponse.success(store);
+    }
 //
 //    // 음식점 정보 수정(OWNER, MANAGER, MASTER)
 //    @PatchMapping("/{store_id}")
@@ -202,5 +221,9 @@ public class StoreController {
 //        storeService.deleteStore(store_id);
 //        return ApiResponse.success();
 //    }
+<<<<<<< HEAD
 //}
 >>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
+=======
+}
+>>>>>>> 552931a ([Feat] 음식점 상세 조회 완료)

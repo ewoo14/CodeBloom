@@ -70,6 +70,9 @@ INSERT INTO p_location (location_id, name, description, is_deleted, created_at, 
 ;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 552931a ([Feat] 음식점 상세 조회 완료)
 INSERT INTO p_store_request (store_request_id,name, description, address, owner_id, store_category_id, location_id, is_deleted, created_at, created_by, updated_at, updated_by, deleted_at, deleted_by) VALUES
 ('ce6ae142-ab8c-4c2c-9c25-06c3497b890f',  '치킨킹 강남점', '강남에서 가장 인기 있는 치킨집!\n신선한 재료와 독특한 양념을 체험해보세요', '서울 강남구 테헤란로1길 28-5', 7, '18352dc9-6260-47c0-bf37-5e2b1a3835ab', 'e36b87a7-26ee-472e-a062-e5bc13ec8be0', true, '2024-09-20 08:05:52', 'chickeng1', '2024-09-20 10:05:26', 'manager001', '2024-09-20 10:05:26', 'manager001'),
 ('d2f3e46c-8311-4a11-aab0-fdd8238ef963',  '버거킹 해운대우동점', '버거킹! 해운대에서 맛 볼 수 있습니다!', '부산 해운대구 해운대로452번길 16', 8, '02a0a155-8404-404a-9f4c-d5b7eb17a7f7', 'a11fd4dc-fbf2-4d72-950a-e96915961a29', true, '2024-09-20 08:16:26', 'bgk051', '2024-09-20 10:07:08', 'manager002', '2024-09-20 10:07:08', 'manager002'),
@@ -90,6 +93,7 @@ INSERT INTO p_store_request (store_request_id,name, description, address, owner_
 ('987026a1-65f3-43f5-a903-347a7152084f',  'BHC치킨 해운대우동점', 'BHC 해운대우동점을 찾아주셔서 진심으로 감사드립니다.', '부산 해운대구 해운대로483번가길 5', 24, '18352dc9-6260-47c0-bf37-5e2b1a3835ab', 'a11fd4dc-fbf2-4d72-950a-e96915961a29', true, '2024-09-21 09:25:09', 'bhcudong', '2024-09-21 10:05:50', 'manager001', '2024-09-21 10:05:50', 'manager001'),
 ('4ef91780-ae21-44e4-97de-beee6018a158',  '피자스쿨 마린시티점', '안녕하세요 피자스쿨 마린시티점입니다.', '부산 해운대구 마린시티3로 1 116호', 25, '88950c47-1d62-4138-967e-84fabefadc7b', 'a11fd4dc-fbf2-4d72-950a-e96915961a29', true, '2024-09-23 13:17:36', 'afterp1zza', '2024-09-23 13:35:50', 'manager004', '2024-09-23 13:35:50', 'manager004'),
 ('da4f1a66-588a-499f-83b4-a7a480e68264',  '피자킹 강남점', '피자킹 강남점 오픈 예정입니다.', '서울 강남구 논현로102길 12 2층 215호', 31, '88950c47-1d62-4138-967e-84fabefadc7b', 'e36b87a7-26ee-472e-a062-e5bc13ec8be0', false, '2024-10-03 12:35:50', 'pizzking', '2024-09-20 14:35:50', 'manager001', null, null)
+<<<<<<< HEAD
 =======
 INSERT INTO p_store_request (store_request_id, is_approved, name, description, address, owner_id, store_category_id, location_id, is_deleted, created_at, created_by, updated_at, updated_by, deleted_at, deleted_by) VALUES
 ('ce6ae142-ab8c-4c2c-9c25-06c3497b890f', true, '치킨킹 강남점', '강남에서 가장 인기 있는 치킨집!\n신선한 재료와 독특한 양념을 체험해보세요', '서울 강남구 테헤란로1길 28-5', 7, '18352dc9-6260-47c0-bf37-5e2b1a3835ab', 'e36b87a7-26ee-472e-a062-e5bc13ec8be0', true, '2024-09-20 08:05:52', 'chickeng1', '2024-09-20 10:05:26', 'manager001', '2024-09-20 10:05:26', 'manager001'),
@@ -112,6 +116,8 @@ INSERT INTO p_store_request (store_request_id, is_approved, name, description, a
 ('4ef91780-ae21-44e4-97de-beee6018a158', true, '피자스쿨 마린시티점', '안녕하세요 피자스쿨 마린시티점입니다.', '부산 해운대구 마린시티3로 1 116호', 25, '88950c47-1d62-4138-967e-84fabefadc7b', 'a11fd4dc-fbf2-4d72-950a-e96915961a29', true, '2024-09-23 13:17:36', 'afterp1zza', '2024-09-23 13:35:50', 'manager004', '2024-09-23 13:35:50', 'manager004'),
 ('da4f1a66-588a-499f-83b4-a7a480e68264', false, '피자킹 강남점', '피자킹 강남점 오픈 예정입니다.', '서울 강남구 논현로102길 12 2층 215호', 31, '88950c47-1d62-4138-967e-84fabefadc7b', 'e36b87a7-26ee-472e-a062-e5bc13ec8be0', false, '2024-10-03 12:35:50', 'pizzking', '2024-09-20 14:35:50', 'manager001', null, null)
 >>>>>>> 9863864 ([Fix] Menu Service 메서드별 테스트 완성)
+=======
+>>>>>>> 552931a ([Feat] 음식점 상세 조회 완료)
 ;
 
 INSERT INTO p_store (store_id, name, description, address, owner_id, store_category_id, location_id, score, is_deleted, created_at, created_by, updated_at, updated_by, deleted_at, deleted_by) VALUES
