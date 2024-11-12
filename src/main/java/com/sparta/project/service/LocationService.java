@@ -31,8 +31,7 @@ public class LocationService {
 
     // 운영 지역 상세 조회
     public LocationResponse getLocation(String locationId) {
-        Location location = locationRepository.findById(locationId)
-                .orElseThrow(() -> new CodeBloomException(ErrorCode.LOCATION_NOT_FOUND));
+        Location location = findLocationById(locationId);
         return LocationResponse.from(location);
     }
 
@@ -49,8 +48,7 @@ public class LocationService {
 
     // 운영 지역 수정
     public LocationResponse updateLocation(String locationId, LocationRequest locationRequest) {
-        Location location = locationRepository.findById(locationId)
-                .orElseThrow(() -> new CodeBloomException(ErrorCode.LOCATION_NOT_FOUND));
+        Location location = findLocationById(locationId);
         boolean exists = locationRepository.existsByName(locationRequest.locationName());
         if (exists) {
             throw new CodeBloomException(ErrorCode.LOCATION_ALREADY_EXIST);
@@ -62,9 +60,14 @@ public class LocationService {
 
     // 운영 지역 삭제
     public void deleteLocation(String locationId, Authentication authentication) {
-        Location location = locationRepository.findById(locationId)
-                .orElseThrow(() -> new CodeBloomException(ErrorCode.LOCATION_NOT_FOUND));
+        Location location = findLocationById(locationId);
         location.deleteBase(authentication.getName());
         locationRepository.save(location);
+    }
+
+    // locationId 공통 활용
+    private Location findLocationById(String locationId) {
+        return locationRepository.findById(locationId)
+                .orElseThrow(() -> new CodeBloomException(ErrorCode.LOCATION_NOT_FOUND));
     }
 }
