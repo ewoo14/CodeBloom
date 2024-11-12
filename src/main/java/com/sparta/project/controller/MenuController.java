@@ -127,6 +127,7 @@ public class MenuController {
             @PathVariable String menu_id,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             @RequestBody MenuRequest menuRequest) {
         MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuRequest);
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
@@ -135,6 +136,9 @@ public class MenuController {
 =======
             @Valid@RequestBody MenuUpdateRequest menuUpdateRequest,
 >>>>>>> 05ce6cb ([Fix] Valid 어노테이션 컨트롤러 이동, 권한 주석 수정)
+=======
+            @Valid @RequestBody MenuUpdateRequest menuUpdateRequest,
+>>>>>>> 1630357 ([Minor] 띄어쓰기 수정)
             Authentication authentication) {
 <<<<<<< HEAD
         MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest, authentication);
