@@ -94,4 +94,19 @@ class StoreServiceTest {
         assertThat(storeUpdateResponse.storeCategoryId()).isEqualTo(storeCategory2.getStoreCategoryId());
     }
 
+    @DisplayName("storeId 와 userId를 받아서 ")
+    @Test
+    void deleteStore() {
+        // given
+        Store store = Store.create("착한중식점", "가격이 착한 중식당", "서울시 ...", owner, storeCategory, location, 5.0);
+        storeRepository.save(store);
+
+        // when
+        storeService.deleteStore(store.getStoreId(), owner.getUserId());
+
+        // then
+        assertThat(store.getIsDeleted()).isTrue();
+        assertThat(store.getDeletedBy()).isEqualTo(owner.getUsername());
+    }
+
 }

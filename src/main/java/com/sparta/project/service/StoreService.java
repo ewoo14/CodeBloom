@@ -4,7 +4,6 @@ import com.sparta.project.domain.Location;
 import com.sparta.project.domain.Store;
 import com.sparta.project.domain.StoreCategory;
 import com.sparta.project.domain.User;
-import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.store.StoreResponse;
 import com.sparta.project.dto.store.StoreUpdateRequest;
 import com.sparta.project.dto.store.StoreUpdateResponse;
@@ -54,17 +53,10 @@ public class StoreService {
     }
 
     @Transactional
-    public void deleteStore(String storeId, String username) {
-        Store store = storeRepository.findById(storeId)
-                .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
-
-        store.deleteBase(username);
+    public void deleteStore(String storeId, Long userId) {
+        Store store = getStoreOrException(storeId);
+        User user = userService.getUserOrException(userId);
+        store.deleteBase(user.getUsername());
     }
 
-    // 권한 확인
-    private void checkPermission(User user) {
-        if (user.getRole() == Role.CUSTOMER) {
-            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
-        }
-    }
 }

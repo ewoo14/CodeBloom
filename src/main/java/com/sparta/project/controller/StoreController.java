@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class StoreController {
 
     private final StoreService storeService;
-    private PermissionValidator permissionValidator;
+    private final PermissionValidator permissionValidator;
 
     //
 //    // 자신의 음식점 조회(OWNER)
@@ -60,11 +60,12 @@ public class StoreController {
         StoreUpdateResponse updatedStore = storeService.updateStore(store_id, storeUpdateRequest);
         return ApiResponse.success(updatedStore);
     }
-//
-//    // 음식점 삭제(OWNER, MANAGER, MASTER)
-//    @DeleteMapping("/{store_id}")
-//    public ApiResponse<Void> deleteStore(@PathVariable String store_id) {
-//        storeService.deleteStore(store_id);
-//        return ApiResponse.success();
-//    }
+
+    // 음식점 삭제(OWNER, MANAGER, MASTER)
+    @DeleteMapping("/{store_id}")
+    public ApiResponse<Void> deleteStore(@PathVariable String store_id, Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
+        storeService.deleteStore(store_id, Long.parseLong(authentication.getName()));
+        return ApiResponse.success();
+    }
 }
