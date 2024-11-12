@@ -27,8 +27,7 @@ public class AddressService {
             throw new CodeBloomException(ErrorCode.EXCEED_MAXIMUM_ADDRESS);
         }
         if(request.isDefault() && alreadyExistDefault(user)) {
-            Address defaultAddress = addressRepository.findByUserAndIsDefault(user, true);
-            defaultAddress.updateDefault(false);
+            changeDefaultAddress(user);
         }
         addressRepository.save(Address.create(
                 user, request.city(), request.district(), request.streetName(),
@@ -41,6 +40,9 @@ public class AddressService {
         User user = userService.getUserOrException(userId);
         Address address = getAddressOrException(addressId);
         checkAddressOwner(user, address.getUser());
+        if(request.isDefault() && alreadyExistDefault(user)) {
+            changeDefaultAddress(user);
+        }
         address.update(request.city(), request.district(), request.streetName(),
                 request.streetNumber(), request.detail(), request.isDefault()
         );
@@ -54,6 +56,10 @@ public class AddressService {
         return addressRepository.existsByUserAndIsDefault(user, true);
     }
 
+    private void changeDefaultAddress(User user) {
+        Address defaultAddress = addressRepository.findByUserAndIsDefault(user, true);
+        defaultAddress.updateDefault(false);
+    }
 
     private void checkAddressOwner(User requestUser, User ownerUser) {
         if(requestUser != ownerUser) {
