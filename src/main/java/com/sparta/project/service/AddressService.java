@@ -44,6 +44,7 @@ public class AddressService {
     public void updateAddress(long userId, String addressId, AddressUpdateRequest request) {
         User user = userService.getUserOrException(userId);
         Address address = getAddressOrException(addressId);
+        checkAddressOwner(user, address.getUser());
         address.update(request.city(), request.district(), request.streetName(),
                 request.streetNumber(), request.detail(), request.isDefault()
         );
@@ -57,6 +58,12 @@ public class AddressService {
         return addressRepository.existsByUserAndIsDefault(user, true);
     }
 
+
+    private void checkAddressOwner(User requestUser, User ownerUser) {
+        if(requestUser != ownerUser) {
+            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
+        }
+    }
 
     private Address getAddressOrException(final String addressId) {
         return addressRepository.findById(addressId).orElseThrow(()->
