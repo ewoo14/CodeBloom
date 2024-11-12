@@ -19,6 +19,7 @@ import jakarta.validation.constraints.NotNull;
 =======
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+<<<<<<< HEAD
 >>>>>>> 1fca099 ([Fix] @Valid 어노테이션 추가 및 @NotBlank 변경)
 
 @Valid
@@ -29,6 +30,13 @@ public record AIRequest(
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
 =======
         @NotBlank Long userId,
+=======
+import jakarta.validation.constraints.NotNull;
+
+@Valid
+public record AIRequest(
+        @NotNull Long userId,
+>>>>>>> 6d81f05 ([Fix] Long 타입 user_id §@NotBlank§ -> §@NotNull§ 변경)
         @NotBlank String menuId,
 >>>>>>> 1fca099 ([Fix] @Valid 어노테이션 추가 및 @NotBlank 변경)
         String prompt
