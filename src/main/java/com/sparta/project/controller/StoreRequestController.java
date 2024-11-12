@@ -25,12 +25,15 @@ import org.springframework.web.bind.annotation.*;
 =======
 package com.sparta.project.controller;
 
+import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.storerequest.StoreCreateRequest;
 import com.sparta.project.service.StoreRequestService;
+import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,9 +47,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class StoreRequestController {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private final PermissionValidator permissionValidator;
 =======
 >>>>>>> 4f6677d ([Feat] 가게 생성을 요청하는 기능)
+=======
+    private final PermissionValidator permissionValidator;
+>>>>>>> f50415c ([Feat] 가게 요청 승인 API)
     private final StoreRequestService storeRequestService;
 
     @PostMapping
@@ -61,6 +68,7 @@ public class StoreRequestController {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // 음식점 생성 요청 수정 (OWNER)
     @PatchMapping("/{request_id}")
     public ApiResponse<Void> updateStoreRequest(Authentication authentication,
@@ -74,11 +82,17 @@ public class StoreRequestController {
     @PostMapping("/{request_id}")
     public ApiResponse<Void> approveStoreRequest(Authentication authentication,
                                                  @PathVariable String request_id) {
+=======
+    @PostMapping("/{request_id}")
+    public ApiResponse<Void> updateStoreRequest(Authentication authentication,
+                                                @PathVariable String request_id) {
+>>>>>>> f50415c ([Feat] 가게 요청 승인 API)
         permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
         storeRequestService.approveStoreRequest(request_id);
         return ApiResponse.success();
     }
 
+<<<<<<< HEAD
     // 음식점 생성 요청 반려(MANAGER, MASTER)
     @DeleteMapping("/{request_id}")
     public ApiResponse<Void> rejectStoreRequest(Authentication authentication,
@@ -227,6 +241,16 @@ public class StoreRequestController {
 //    private final StoreRequestService storeRequestService;
 =======
 >>>>>>> 4f6677d ([Feat] 가게 생성을 요청하는 기능)
+=======
+//
+//    // 음식점 생성 요청 반려(MANAGER, MASTER)
+//    @DeleteMapping("/{request_id}")
+//    public ApiResponse<Void> deleteStoreRequest(@PathVariable String request_id) {
+//        storeRequestService.deleteStoreRequest(request_id);
+//        return ApiResponse.success();
+//    }
+
+>>>>>>> f50415c ([Feat] 가게 요청 승인 API)
 //
 //    // 자신의 요청 목록 조회(OWNER)
 //    @GetMapping("/my")
@@ -269,6 +293,7 @@ public class StoreRequestController {
 //    }
 //
 //
+<<<<<<< HEAD
 //    // 음식점 생성 요청 승인(MANAGER, MASTER)
 //    @PostMapping("/{request_id}")
 //    public ApiResponse<StoreRequestResponse> updateStoreRequest(
@@ -288,5 +313,8 @@ public class StoreRequestController {
 //}
 >>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
 =======
+=======
+
+>>>>>>> f50415c ([Feat] 가게 요청 승인 API)
 }
 >>>>>>> 4f6677d ([Feat] 가게 생성을 요청하는 기능)
