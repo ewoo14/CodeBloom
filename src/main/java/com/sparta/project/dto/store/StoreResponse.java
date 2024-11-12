@@ -1,9 +1,8 @@
 package com.sparta.project.dto.store;
 
 import com.sparta.project.domain.Store;
-import lombok.Builder;
 
-@Builder
+
 public record StoreResponse(
         String storeId,
         String storeName,
@@ -15,15 +14,15 @@ public record StoreResponse(
         Double score
 ) {
     public static StoreResponse from(Store store) {
-        return StoreResponse.builder()
-                .storeId(store.getStoreId())
-                .storeName(store.getName())
-                .ownerId(store.getOwner().getUsername())
-                .storeAddress(store.getAddress())
-                .description(store.getDescription())
-                .categoryId(store.getStoreCategory().getStoreCategoryId())
-                .locationId(store.getLocation().getLocationId())
-                .score(store.getScore())
-                .build();
+        return new StoreResponse(
+                store.getStoreId(),
+                store.getName(),
+                String.valueOf(store.getOwner().getUserId()),
+                store.getAddress(),
+                store.getDescription(),
+                store.getStoreCategory().getStoreCategoryId(),
+                store.getLocation().getLocationId(),
+                store.getScore()
+        );
     }
 }

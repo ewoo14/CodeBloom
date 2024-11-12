@@ -1,8 +1,6 @@
 package com.sparta.project.service;
 
-import com.sparta.project.domain.Location;
 import com.sparta.project.domain.Store;
-import com.sparta.project.domain.StoreCategory;
 import com.sparta.project.domain.User;
 import com.sparta.project.dto.store.StoreCreateData;
 import com.sparta.project.dto.store.StoreResponse;
@@ -44,19 +42,11 @@ public class StoreService {
     public StoreUpdateResponse updateStore(String storeId, StoreUpdateRequest storeUpdateRequest) {
         Store store = getStoreOrException(storeId);
 
-        Location location = null;
-        if (storeUpdateRequest.locationId() != null) {
-            location = storeLocationService.getStoreLocationOrException(storeUpdateRequest.locationId());
-        }
+        store.update(storeUpdateRequest.storeName(),
+                storeUpdateRequest.description(),
+                storeUpdateRequest.locationId() != null ? storeLocationService.getStoreLocationOrException(storeUpdateRequest.locationId()) : null,
+                storeUpdateRequest.categoryId() != null ? storeCategoryService.getStoreCategoryOrException(storeUpdateRequest.categoryId()) : null);
 
-        StoreCategory storeCategory = null;
-        if (storeUpdateRequest.categoryId() != null) {
-            storeCategory = storeCategoryService.getStoreCategoryOrException(storeUpdateRequest.categoryId());
-        }
-
-        store.update(storeUpdateRequest.storeName(), storeUpdateRequest.description(), location, storeCategory);
-
-        // StoreUpdateResponse 생성 및 반환 로직
         return StoreUpdateResponse.from(store);
     }
 
