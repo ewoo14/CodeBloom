@@ -1,6 +1,9 @@
 package com.sparta.project.domain;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8965f75 ([Fix] UuidGenerator 활용 -> Menu, Ai, Location)
 import com.sparta.project.util.UuidGenerator;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,12 +30,15 @@ public class Menu extends BaseEntity { // 메뉴
 	@Id
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@GeneratedValue(strategy=GenerationType.UUID)
 =======
 >>>>>>> 0ac8d3c ([Style] Food -> Menu 이름 변경)
 =======
 	@GeneratedValue(strategy = GenerationType.AUTO)
 >>>>>>> a76aa9b ([Fix] UUID DB 자동 할당 방식으로 변경)
+=======
+>>>>>>> 8965f75 ([Fix] UuidGenerator 활용 -> Menu, Ai, Location)
 	@Column(name="menu_id", length=36, nullable=false, updatable=false)
 	private String menuId;
 
@@ -64,6 +70,7 @@ public class Menu extends BaseEntity { // 메뉴
 <<<<<<< HEAD
 <<<<<<< HEAD
 	private Menu(Store store, String name, String description, Integer price, Boolean isClosed) {
+<<<<<<< HEAD
 =======
 	public Menu(String menuId, Store store, String name, String description, Integer price, Boolean isClosed) {
 =======
@@ -78,6 +85,9 @@ public class Menu extends BaseEntity { // 메뉴
 >>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
 =======
 >>>>>>> a76aa9b ([Fix] UUID DB 자동 할당 방식으로 변경)
+=======
+		this.menuId = UuidGenerator.generateUuid();
+>>>>>>> 8965f75 ([Fix] UuidGenerator 활용 -> Menu, Ai, Location)
 		this.store = store;
 		this.name = name;
 		this.description = description;

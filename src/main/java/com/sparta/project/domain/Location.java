@@ -1,5 +1,6 @@
 package com.sparta.project.domain;
 
+import com.sparta.project.util.UuidGenerator;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,6 +36,7 @@ public class Location extends BaseEntity { // 지역
 <<<<<<< HEAD
 <<<<<<< HEAD
     public Location(String name, String description) {
+<<<<<<< HEAD
 =======
     public Location(String locationId, String name, String description) {
         this.locationId = locationId;
@@ -49,6 +51,9 @@ public class Location extends BaseEntity { // 지역
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
 =======
 >>>>>>> a76aa9b ([Fix] UUID DB 자동 할당 방식으로 변경)
+=======
+        this.locationId = UuidGenerator.generateUuid();
+>>>>>>> 8965f75 ([Fix] UuidGenerator 활용 -> Menu, Ai, Location)
         this.name = name;
         this.description = description;
     }

@@ -1,6 +1,9 @@
 package com.sparta.project.domain;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8965f75 ([Fix] UuidGenerator 활용 -> Menu, Ai, Location)
 import com.sparta.project.util.UuidGenerator;
 import jakarta.persistence.*;
 import lombok.*;
@@ -58,6 +61,7 @@ public class Ai extends BaseEntity { // 채팅 기록
 <<<<<<< HEAD
 <<<<<<< HEAD
 	private Ai(User user, String question, String answer) {
+<<<<<<< HEAD
 =======
 	public Ai(String aiId, User user, String question, String answer) {
 =======
@@ -72,6 +76,9 @@ public class Ai extends BaseEntity { // 채팅 기록
 >>>>>>> 787c0ab ([Minor] ai_id UUID 정적 부여)
 =======
 >>>>>>> a76aa9b ([Fix] UUID DB 자동 할당 방식으로 변경)
+=======
+		this.aiId = UuidGenerator.generateUuid();
+>>>>>>> 8965f75 ([Fix] UuidGenerator 활용 -> Menu, Ai, Location)
 		this.user = user;
 		this.question = question;
 		this.answer = answer;
