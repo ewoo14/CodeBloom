@@ -12,6 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name="p_store")
 public class Store extends BaseEntity { // 음식점
 	@Id
+	@GeneratedValue(strategy=GenerationType.UUID)
 	@Column(name="store_id", length=36, nullable=false, updatable=false)
 	private String storeId;
 
