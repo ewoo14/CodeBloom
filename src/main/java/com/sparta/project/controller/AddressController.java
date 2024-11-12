@@ -24,7 +24,7 @@ public class AddressController {
     private final PermissionValidator permissionValidator;
     private final AddressService addressService;
 
-    @ResponseStatus(HttpStatus.CREATED)
+
     @PostMapping
     public ApiResponse<Void> createAddress(Authentication authentication,
                                            @Valid @RequestBody AddressCreateRequest request) {
