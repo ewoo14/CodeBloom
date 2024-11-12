@@ -49,13 +49,17 @@ package com.sparta.project.controller;
 
 
 import com.sparta.project.domain.Address;
+import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.address.AddressCreateRequest;
+import com.sparta.project.dto.address.AddressUpdateRequest;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.service.AddressService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -90,12 +94,23 @@ public class AddressController {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @GetMapping("/my")
     public ApiResponse<ListResponse<AddressResponse>> getUserAddresses(Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         List<AddressResponse> responses = addressService.getUserAddresses(Long.parseLong(authentication.getName()));
         return ApiResponse.success(ListResponse.of(responses));
     }
+=======
+    @PatchMapping("/{address_id}")
+    public ApiResponse<Void> updateAddress(Authentication authentication,
+                                           @PathVariable String address_id,
+                                           @RequestBody AddressUpdateRequest request) {
+        addressService.updateAddress(Long.parseLong(authentication.getName()), address_id, request);
+        return ApiResponse.success();
+    }
+
+>>>>>>> c2e8bda ([Feat] 배송지 수정 API)
 
     // 로그인 된 유저의 자신의 배송지 조회 (CUSTOMER)
     @GetMapping("/my/{address_id}")
