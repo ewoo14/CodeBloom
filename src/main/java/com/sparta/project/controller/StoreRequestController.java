@@ -21,7 +21,6 @@ public class StoreRequestController {
 
     private final StoreRequestService storeRequestService;
 
-    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public ApiResponse<Void> createStoreRequest(Authentication authentication,
                                                 @Valid @RequestBody StoreCreateRequest request) {
