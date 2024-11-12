@@ -6,8 +6,8 @@ import com.sparta.project.domain.StoreCategory;
 import com.sparta.project.domain.User;
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.store.StoreResponse;
+import com.sparta.project.dto.store.StoreUpdateRequest;
 import com.sparta.project.dto.store.StoreUpdateResponse;
-import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.repository.LocationRepository;
 import com.sparta.project.repository.StoreCategoryRepository;
 import com.sparta.project.repository.StoreRepository;
@@ -21,7 +21,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Transactional
 @ActiveProfiles("test")
@@ -84,36 +83,15 @@ class StoreServiceTest {
         StoreCategory storeCategory2 = StoreCategory.create("양식", "양식 전문점");
         storeCategoryRepository.save(storeCategory2);
 
+        StoreUpdateRequest storeUpdateRequest =
+                new StoreUpdateRequest("나쁜양식점", null, null, storeCategory2.getStoreCategoryId());
         // when
-        StoreUpdateResponse storeUpdateResponse = storeService.updateStore(
-                        store.getStoreId(),
-                storeNameForUpdate, null, null,
-                storeCategory2.getStoreCategoryId(), owner.getUserId());
+        StoreUpdateResponse storeUpdateResponse = storeService.updateStore(store.getStoreId(), storeUpdateRequest);
+
         // then
         assertThat(storeUpdateResponse).isNotNull();
         assertThat(storeUpdateResponse.storeName()).isEqualTo(storeNameForUpdate);
         assertThat(storeUpdateResponse.storeCategoryId()).isEqualTo(storeCategory2.getStoreCategoryId());
     }
 
-    @DisplayName("Customer 가 수정하려고 하면 예외 발생")
-    @Test
-    void updateStoreWithCustomer() {
-        // given
-        Store store = Store.create("착한중식점", "가격이 착한 중식당", "서울시 ...", owner, storeCategory, location, 5.0);
-        storeRepository.save(store);
-
-        String storeNameForUpdate = "나쁜양식점";
-        StoreCategory storeCategory2 = StoreCategory.create("양식", "양식 전문점");
-        storeCategoryRepository.save(storeCategory2);
-
-        User customer = User.create("customer1", "1234", "nicknick", Role.CUSTOMER);
-        userRepository.save(customer);
-        // when
-        assertThatThrownBy(() -> storeService.updateStore(
-                store.getStoreId(),
-                storeNameForUpdate, null, null,
-                storeCategory2.getStoreCategoryId(), customer.getUserId()))
-                .isInstanceOf(CodeBloomException.class);
-
-    }
 }
