@@ -1,12 +1,7 @@
 package com.sparta.project.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -16,6 +11,7 @@ import java.util.UUID;
 public class Location extends BaseEntity { // 지역
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="location_id", length=36, nullable=false, updatable=false)
     private String locationId;
 
@@ -27,7 +23,6 @@ public class Location extends BaseEntity { // 지역
 
     @Builder
     public Location(String name, String description) {
-        this.locationId = UUID.randomUUID().toString();
         this.name = name;
         this.description = description;
     }

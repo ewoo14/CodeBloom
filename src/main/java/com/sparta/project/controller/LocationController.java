@@ -42,7 +42,7 @@ public class LocationController {
     public ApiResponse<LocationResponse> createLocation(
             @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "OWNER");
+        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
         LocationResponse response = locationService.createLocation(locationRequest);
         return ApiResponse.success(response);
     }
@@ -53,7 +53,7 @@ public class LocationController {
             @PathVariable String locationId,
             @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "OWNER");
+        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
         LocationResponse response = locationService.updateLocation(locationId, locationRequest);
         return ApiResponse.success(response);
     }
@@ -63,7 +63,7 @@ public class LocationController {
     public ApiResponse<Void> deleteLocation(
             @PathVariable String locationId,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "OWNER");
+        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
         locationService.deleteLocation(locationId, authentication);
         return ApiResponse.success();
     }

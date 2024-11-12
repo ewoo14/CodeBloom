@@ -2,7 +2,6 @@ package com.sparta.project.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -11,6 +10,7 @@ import java.util.UUID;
 @Table(name="p_menu")
 public class Menu extends BaseEntity { // 메뉴
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="menu_id", length=36, nullable=false, updatable=false)
 	private String menuId;
 
@@ -32,7 +32,6 @@ public class Menu extends BaseEntity { // 메뉴
 
 	@Builder
 	private Menu(Store store, String name, String description, Integer price, Boolean isClosed) {
-		this.menuId = UUID.randomUUID().toString();
 		this.store = store;
 		this.name = name;
 		this.description = description;
