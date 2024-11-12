@@ -41,6 +41,7 @@ public class StoreRequestService {
     public void approveStoreRequest(String storeRequestId) {
         StoreRequest storeRequest = getStoreRequestOrException(storeRequestId);
         checkAlreadyChanged(storeRequest.getStatus(), StoreRequestStatus.APPROVE);
+        storeRequest.updateStatus(StoreRequestStatus.APPROVE);
         storeService.createStore(StoreCreateData.from(storeRequest));
     }
 

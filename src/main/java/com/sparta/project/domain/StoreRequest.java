@@ -50,6 +50,10 @@ public class StoreRequest extends BaseEntity { // 음식점 허가 요청
 		this.status = StoreRequestStatus.WAITING;
 	}
 
+	public void updateStatus(StoreRequestStatus status) {
+		this.status = status;
+	}
+
 	@Builder
 	private StoreRequest(String id, String name, String description, String address, User owner, StoreCategory category, Location location) {
 		this.storeRequestId = id;
