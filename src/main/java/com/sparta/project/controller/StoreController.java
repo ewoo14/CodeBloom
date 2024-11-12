@@ -46,7 +46,7 @@ public class StoreController {
 //
     // 음식점 상세 조회(ALL)
     @GetMapping("/{store_id}")
-    public ApiResponse<StoreResponse> getStoreById(@PathVariable() String store_id) {
+    public ApiResponse<StoreResponse> getStoreById(@PathVariable("store_id") String store_id) {
         StoreResponse store = storeService.getStoreById(store_id);
         return ApiResponse.success(store);
     }
@@ -54,7 +54,7 @@ public class StoreController {
     // 음식점 정보 수정(OWNER, MANAGER, MASTER)
     @PatchMapping("/{store_id}")
     public ApiResponse<StoreUpdateResponse> updateStore(
-            @PathVariable String store_id,
+            @PathVariable("store_id") String store_id,
             @RequestBody @NotNull StoreUpdateRequest storeUpdateRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
@@ -64,7 +64,7 @@ public class StoreController {
 
     // 음식점 삭제(OWNER, MANAGER, MASTER)
     @DeleteMapping("/{store_id}")
-    public ApiResponse<Void> deleteStore(@PathVariable String store_id, Authentication authentication) {
+    public ApiResponse<Void> deleteStore(@PathVariable("store_id") String store_id, Authentication authentication) {
         permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
         storeService.deleteStore(store_id, Long.parseLong(authentication.getName()));
         return ApiResponse.success();
