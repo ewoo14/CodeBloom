@@ -54,7 +54,7 @@ public class MenuController {
     @PatchMapping("/{menu_id}")
     public ApiResponse<MenuResponse> updateMenu(
             @PathVariable String menu_id,
-            @Valid@RequestBody MenuUpdateRequest menuUpdateRequest,
+            @Valid @RequestBody MenuUpdateRequest menuUpdateRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
         MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest);
