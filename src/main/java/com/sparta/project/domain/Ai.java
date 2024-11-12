@@ -4,6 +4,7 @@ package com.sparta.project.domain;
 import com.sparta.project.util.UuidGenerator;
 import jakarta.persistence.*;
 import lombok.*;
+<<<<<<< HEAD
 =======
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,6 +15,8 @@ import org.hibernate.annotations.OnDeleteAction;
 =======
 import java.util.UUID;
 >>>>>>> 787c0ab ([Minor] ai_id UUID 정적 부여)
+=======
+>>>>>>> a76aa9b ([Fix] UUID DB 자동 할당 방식으로 변경)
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,9 +26,13 @@ import java.util.UUID;
 public class Ai extends BaseEntity { // 채팅 기록
 	@Id
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@GeneratedValue(strategy=GenerationType.UUID)
 =======
 >>>>>>> 55abe9a ([Style] "Chat" -> "Ai" 이름 변경)
+=======
+	@GeneratedValue(strategy = GenerationType.AUTO)
+>>>>>>> a76aa9b ([Fix] UUID DB 자동 할당 방식으로 변경)
 	@Column(name="ai_id", length=36, nullable=false, updatable=false)
 	private String aiId;
 
@@ -60,8 +67,11 @@ public class Ai extends BaseEntity { // 채팅 기록
 >>>>>>> 55abe9a ([Style] "Chat" -> "Ai" 이름 변경)
 =======
 	private Ai(User user, String question, String answer) {
+<<<<<<< HEAD
 		this.aiId = UUID.randomUUID().toString();
 >>>>>>> 787c0ab ([Minor] ai_id UUID 정적 부여)
+=======
+>>>>>>> a76aa9b ([Fix] UUID DB 자동 할당 방식으로 변경)
 		this.user = user;
 		this.question = question;
 		this.answer = answer;

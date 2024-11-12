@@ -3,8 +3,6 @@ package com.sparta.project.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.UUID;
-
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
@@ -14,7 +12,11 @@ public class Location extends BaseEntity { // 지역
 
     @Id
 <<<<<<< HEAD
+<<<<<<< HEAD
     @GeneratedValue(strategy=GenerationType.UUID)
+=======
+    @GeneratedValue(strategy = GenerationType.AUTO)
+>>>>>>> a76aa9b ([Fix] UUID DB 자동 할당 방식으로 변경)
     @Column(name="location_id", length=36, nullable=false, updatable=false)
 =======
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -42,8 +44,11 @@ public class Location extends BaseEntity { // 지역
 >>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
 =======
     public Location(String name, String description) {
+<<<<<<< HEAD
         this.locationId = UUID.randomUUID().toString();
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
+=======
+>>>>>>> a76aa9b ([Fix] UUID DB 자동 할당 방식으로 변경)
         this.name = name;
         this.description = description;
     }

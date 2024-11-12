@@ -4,6 +4,7 @@ package com.sparta.project.domain;
 import com.sparta.project.util.UuidGenerator;
 import jakarta.persistence.*;
 import lombok.*;
+<<<<<<< HEAD
 =======
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,6 +15,8 @@ import org.hibernate.annotations.OnDeleteAction;
 =======
 import java.util.UUID;
 >>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
+=======
+>>>>>>> a76aa9b ([Fix] UUID DB 자동 할당 방식으로 변경)
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,9 +26,13 @@ import java.util.UUID;
 public class Menu extends BaseEntity { // 메뉴
 	@Id
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@GeneratedValue(strategy=GenerationType.UUID)
 =======
 >>>>>>> 0ac8d3c ([Style] Food -> Menu 이름 변경)
+=======
+	@GeneratedValue(strategy = GenerationType.AUTO)
+>>>>>>> a76aa9b ([Fix] UUID DB 자동 할당 방식으로 변경)
 	@Column(name="menu_id", length=36, nullable=false, updatable=false)
 	private String menuId;
 
@@ -66,8 +73,11 @@ public class Menu extends BaseEntity { // 메뉴
 >>>>>>> 0ac8d3c ([Style] Food -> Menu 이름 변경)
 =======
 	private Menu(Store store, String name, String description, Integer price, Boolean isClosed) {
+<<<<<<< HEAD
 		this.menuId = UUID.randomUUID().toString();
 >>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
+=======
+>>>>>>> a76aa9b ([Fix] UUID DB 자동 할당 방식으로 변경)
 		this.store = store;
 		this.name = name;
 		this.description = description;

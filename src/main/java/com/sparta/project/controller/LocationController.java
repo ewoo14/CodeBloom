@@ -106,7 +106,7 @@ public class LocationController {
     public ApiResponse<LocationResponse> createLocation(
             @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "OWNER");
+        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
         LocationResponse response = locationService.createLocation(locationRequest);
         return ApiResponse.success(response);
     }
@@ -117,7 +117,7 @@ public class LocationController {
             @PathVariable String locationId,
             @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "OWNER");
+        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
         LocationResponse response = locationService.updateLocation(locationId, locationRequest);
         return ApiResponse.success(response);
     }
@@ -129,10 +129,14 @@ public class LocationController {
             @PathVariable String locationId,
             Authentication authentication) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
 =======
         permissionValidator.checkPermission(authentication, "OWNER");
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
+=======
+        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
+>>>>>>> a76aa9b ([Fix] UUID DB 자동 할당 방식으로 변경)
         locationService.deleteLocation(locationId, authentication);
         return ApiResponse.success();
     }
