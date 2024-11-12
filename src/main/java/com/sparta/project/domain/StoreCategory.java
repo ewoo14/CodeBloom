@@ -26,9 +26,13 @@ public class StoreCategory extends BaseEntity { // 음식점 카테고리
     @Column(name="description", length=50) // 설명
     private String description;
 
+    public void update(String name, String description) {
+        if(name!=null) this.name = name;
+        if(description!=null) this.description = description;
+    }
+
     @Builder
-    private StoreCategory(String storeCategoryId, String name, String description) {
-        this.storeCategoryId = storeCategoryId;
+    private StoreCategory(String name, String description) {
         this.name = name;
         this.description = description;
     }
