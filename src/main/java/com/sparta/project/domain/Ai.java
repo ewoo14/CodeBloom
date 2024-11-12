@@ -30,12 +30,16 @@ public class Ai extends BaseEntity { // 채팅 기록
 	@Id
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@GeneratedValue(strategy=GenerationType.UUID)
 =======
 >>>>>>> 55abe9a ([Style] "Chat" -> "Ai" 이름 변경)
 =======
 	@GeneratedValue(strategy = GenerationType.AUTO)
 >>>>>>> a76aa9b ([Fix] UUID DB 자동 할당 방식으로 변경)
+=======
+	@GeneratedValue(strategy=GenerationType.UUID)
+>>>>>>> 71226d8 ([Fix] UUID generationType 변경)
 	@Column(name="ai_id", length=36, nullable=false, updatable=false)
 	private String aiId;
 
@@ -62,6 +66,7 @@ public class Ai extends BaseEntity { // 채팅 기록
 <<<<<<< HEAD
 	private Ai(User user, String question, String answer) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 	public Ai(String aiId, User user, String question, String answer) {
 =======
@@ -79,6 +84,8 @@ public class Ai extends BaseEntity { // 채팅 기록
 =======
 		this.aiId = UuidGenerator.generateUuid();
 >>>>>>> 8965f75 ([Fix] UuidGenerator 활용 -> Menu, Ai, Location)
+=======
+>>>>>>> 71226d8 ([Fix] UUID generationType 변경)
 		this.user = user;
 		this.question = question;
 		this.answer = answer;

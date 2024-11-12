@@ -14,10 +14,14 @@ public class Location extends BaseEntity { // 지역
     @Id
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     @GeneratedValue(strategy=GenerationType.UUID)
 =======
     @GeneratedValue(strategy = GenerationType.AUTO)
 >>>>>>> a76aa9b ([Fix] UUID DB 자동 할당 방식으로 변경)
+=======
+    @GeneratedValue(strategy=GenerationType.UUID)
+>>>>>>> 71226d8 ([Fix] UUID generationType 변경)
     @Column(name="location_id", length=36, nullable=false, updatable=false)
 =======
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -37,6 +41,7 @@ public class Location extends BaseEntity { // 지역
 <<<<<<< HEAD
     public Location(String name, String description) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     public Location(String locationId, String name, String description) {
         this.locationId = locationId;
@@ -54,6 +59,8 @@ public class Location extends BaseEntity { // 지역
 =======
         this.locationId = UuidGenerator.generateUuid();
 >>>>>>> 8965f75 ([Fix] UuidGenerator 활용 -> Menu, Ai, Location)
+=======
+>>>>>>> 71226d8 ([Fix] UUID generationType 변경)
         this.name = name;
         this.description = description;
     }
