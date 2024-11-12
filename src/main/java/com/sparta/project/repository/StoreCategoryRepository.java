@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 
 public interface StoreCategoryRepository extends JpaRepository<StoreCategory, String> {
+    boolean existsByName(String name);
 }

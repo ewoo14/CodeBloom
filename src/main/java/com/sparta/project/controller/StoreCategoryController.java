@@ -1,17 +1,34 @@
-//package com.sparta.project.controller;
-//
-//import com.sparta.project.dto.storeCategory.StoreCategoryRequest;
-//import com.sparta.project.dto.storeCategory.StoreCategoryResponse;
-//import com.sparta.project.dto.common.ApiResponse;
-//import com.sparta.project.dto.common.PageResponse;
-//import com.sparta.project.service.StoreCategoryService;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.web.bind.annotation.*;
-//
-//@RestController
-//@RequiredArgsConstructor
-//@RequestMapping("/categories")
-//public class StoreCategoryController {
+package com.sparta.project.controller;
+
+import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.dto.storecategory.StoreCategoryCreateRequest;
+import com.sparta.project.service.StoreCategoryService;
+import com.sparta.project.util.PermissionValidator;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/categories")
+public class StoreCategoryController {
+
+    private final PermissionValidator permissionValidator;
+    private final StoreCategoryService storeCategoryService;
+
+
+    @PostMapping
+    public ApiResponse<Void> createStoreCategory(Authentication authentication,
+                                                 @Valid @RequestBody StoreCategoryCreateRequest request) {
+        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
+        storeCategoryService.createStoreCategory(request);
+        return ApiResponse.success();
+    }
+
 //
 //    private final StoreCategoryService storeCategoryService;
 //
@@ -55,4 +72,4 @@
 //        storeCategoryService.deleteStoreCategory(category_id);
 //        return ApiResponse.success();
 //    }
-//}
+}
