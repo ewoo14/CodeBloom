@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,12 +43,15 @@ public class StoreCategoryController {
         return ApiResponse.success();
     }
 
+    @DeleteMapping("/{category_id}")
+    public ApiResponse<Void> deleteStoreCategory(Authentication authentication,
+                                                 @PathVariable String category_id) {
+        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
+        storeCategoryService.deleteStoreCategory(authentication.getName(), category_id);
+        return ApiResponse.success();
+    }
 
-
-//
-//    private final StoreCategoryService storeCategoryService;
-//
-//    // 음식점 카테고리 목록 조회(ALL)
+//    음식점 카테고리 목록 조회(ALL)
 //    @GetMapping
 //    public ApiResponse<PageResponse<StoreCategoryResponse>> getAllStoreCategories(
 //            @RequestParam("name") String name,
@@ -64,19 +68,5 @@ public class StoreCategoryController {
 //        StoreCategoryResponse storeCategory = storeCategoryService.getStoreCategoryById(category_id);
 //        return ApiResponse.success(storeCategory);
 //    }
-//
-//    // 음식점 카테고리 생성(MANAGER, MASTER)
-//    @PostMapping
-//    public ApiResponse<StoreCategoryResponse> createStoreCategory(@RequestBody StoreCategoryRequest storeCategoryRequest) {
-//        StoreCategoryResponse madeStoreCategory = storeCategoryService.createStoreCategory(storeCategoryRequest);
-//        return ApiResponse.success(madeStoreCategory);
-//    }
-//
-//
-//    // 음식점 카테고리 삭제(MANAGER, MASTER)
-//    @DeleteMapping("/{category_id}")
-//    public ApiResponse<Void> deleteStoreCategory(@PathVariable String category_id) {
-//        storeCategoryService.deleteStoreCategory(category_id);
-//        return ApiResponse.success();
-//    }
+
 }
