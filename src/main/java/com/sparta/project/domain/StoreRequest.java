@@ -15,6 +15,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name="p_store_request")
 public class StoreRequest extends BaseEntity { // 음식점 허가 요청
 	@Id
+	@GeneratedValue(strategy=GenerationType.UUID)
 	@Column(name="store_request_id", length=36, nullable=false, updatable=false)
 	private String storeRequestId;
 
@@ -47,6 +48,10 @@ public class StoreRequest extends BaseEntity { // 음식점 허가 요청
 	@PrePersist
 	public void setPrePersist() {
 		this.status = StoreRequestStatus.WAITING;
+	}
+
+	public void updateStatus(StoreRequestStatus status) {
+		this.status = status;
 	}
 
 	@Builder
