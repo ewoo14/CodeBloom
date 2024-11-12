@@ -44,9 +44,13 @@ public class LocationService {
         Location location = getLocationOrException(locationId);
 =======
     public LocationResponse getLocation(String locationId) {
+<<<<<<< HEAD
         Location location = locationRepository.findById(locationId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.LOCATION_NOT_FOUND));
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
+=======
+        Location location = findLocationById(locationId);
+>>>>>>> 1d1c51a ([Fix] MenuService&LocationService id 공통 검색 메서드 추가)
         return LocationResponse.from(location);
     }
 
@@ -77,9 +81,13 @@ public class LocationService {
 
     // 운영 지역 수정
     public LocationResponse updateLocation(String locationId, LocationRequest locationRequest) {
+<<<<<<< HEAD
         Location location = locationRepository.findById(locationId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.LOCATION_NOT_FOUND));
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
+=======
+        Location location = findLocationById(locationId);
+>>>>>>> 1d1c51a ([Fix] MenuService&LocationService id 공통 검색 메서드 추가)
         boolean exists = locationRepository.existsByName(locationRequest.locationName());
         if (exists) {
             throw new CodeBloomException(ErrorCode.LOCATION_ALREADY_EXIST);
@@ -107,10 +115,15 @@ public class LocationService {
 
     // 운영 지역 삭제
     public void deleteLocation(String locationId, Authentication authentication) {
-        Location location = locationRepository.findById(locationId)
-                .orElseThrow(() -> new CodeBloomException(ErrorCode.LOCATION_NOT_FOUND));
+        Location location = findLocationById(locationId);
         location.deleteBase(authentication.getName());
         locationRepository.save(location);
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
+    }
+
+    // locationId 공통 활용
+    private Location findLocationById(String locationId) {
+        return locationRepository.findById(locationId)
+                .orElseThrow(() -> new CodeBloomException(ErrorCode.LOCATION_NOT_FOUND));
     }
 }
