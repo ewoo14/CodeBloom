@@ -39,7 +39,7 @@ public class AddressService {
     public void updateAddress(long userId, String addressId, AddressUpdateRequest request) {
         User user = userService.getUserOrException(userId);
         Address address = getAddressOrException(addressId);
-        checkAddressOwner(user, address.getUser());
+        checkAddressOwner(userId, address.getUser().getUserId());
         if(request.isDefault() && alreadyExistDefault(user)) {
             changeDefaultAddress(user);
         }
@@ -50,9 +50,8 @@ public class AddressService {
 
     @Transactional
     public void deleteAddress(long userId, String addressId) {
-        User user = userService.getUserOrException(userId);
         Address address = getAddressOrException(addressId);
-        checkAddressOwner(user, address.getUser());
+        checkAddressOwner(userId, address.getUser().getUserId());
         address.deleteBase(String.valueOf(userId));
     }
 
@@ -69,8 +68,8 @@ public class AddressService {
         defaultAddress.updateDefault(false);
     }
 
-    private void checkAddressOwner(User requestUser, User ownerUser) {
-        if(requestUser != ownerUser) {
+    private void checkAddressOwner(long requestUserId, long ownerUserId) {
+        if(requestUserId != ownerUserId) {
             throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
         }
     }
