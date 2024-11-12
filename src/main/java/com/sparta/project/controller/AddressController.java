@@ -5,6 +5,7 @@ import com.sparta.project.domain.Address;
 import com.sparta.project.dto.address.AddressCreateRequest;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.service.AddressService;
+import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,12 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/addresses")
 public class AddressController {
 
+    private final PermissionValidator permissionValidator;
     private final AddressService addressService;
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public ApiResponse<Void> createAddress(Authentication authentication,
-                                              @Valid @RequestBody AddressCreateRequest request) {
+                                           @Valid @RequestBody AddressCreateRequest request) {
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         addressService.createAddress(Long.parseLong(authentication.getName()), request);
         return ApiResponse.success();
     }

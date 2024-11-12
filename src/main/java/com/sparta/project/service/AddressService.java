@@ -3,7 +3,6 @@ package com.sparta.project.service;
 
 import com.sparta.project.domain.Address;
 import com.sparta.project.domain.User;
-import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.address.AddressCreateRequest;
 import com.sparta.project.dto.address.AddressUpdateRequest;
 import com.sparta.project.exception.CodeBloomException;
@@ -24,9 +23,6 @@ public class AddressService {
     @Transactional
     public void createAddress(final long userId, final AddressCreateRequest request) {
         User user = userService.getUserOrException(userId);
-        if(user.getRole() != Role.CUSTOMER) {
-            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
-        }
         if(overMaxAddress(user)) {
             throw new CodeBloomException(ErrorCode.EXCEED_MAXIMUM_ADDRESS);
         }
