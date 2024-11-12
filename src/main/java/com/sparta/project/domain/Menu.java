@@ -1,5 +1,6 @@
 package com.sparta.project.domain;
 
+import com.sparta.project.util.UuidGenerator;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -10,7 +11,6 @@ import lombok.*;
 @Table(name="p_menu")
 public class Menu extends BaseEntity { // 메뉴
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="menu_id", length=36, nullable=false, updatable=false)
 	private String menuId;
 
@@ -32,6 +32,7 @@ public class Menu extends BaseEntity { // 메뉴
 
 	@Builder
 	private Menu(Store store, String name, String description, Integer price, Boolean isClosed) {
+		this.menuId = UuidGenerator.generateUuid();
 		this.store = store;
 		this.name = name;
 		this.description = description;

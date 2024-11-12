@@ -1,5 +1,6 @@
 package com.sparta.project.domain;
 
+import com.sparta.project.util.UuidGenerator;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +27,7 @@ public class Ai extends BaseEntity { // 채팅 기록
 
 	@Builder
 	private Ai(User user, String question, String answer) {
+		this.aiId = UuidGenerator.generateUuid();
 		this.user = user;
 		this.question = question;
 		this.answer = answer;

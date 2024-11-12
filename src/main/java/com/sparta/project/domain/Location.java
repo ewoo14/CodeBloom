@@ -1,5 +1,6 @@
 package com.sparta.project.domain;
 
+import com.sparta.project.util.UuidGenerator;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,7 @@ public class Location extends BaseEntity { // 지역
 
     @Builder
     public Location(String name, String description) {
+        this.locationId = UuidGenerator.generateUuid();
         this.name = name;
         this.description = description;
     }
