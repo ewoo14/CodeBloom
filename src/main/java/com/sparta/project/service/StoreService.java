@@ -1,9 +1,12 @@
 package com.sparta.project.service;
 
-import com.sparta.project.domain.Location;
 import com.sparta.project.domain.Store;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import com.sparta.project.domain.User;
+>>>>>>> 86dbdff ([Refactor] Store.update() 안에 파라미터 삼항연산자로 대체, StoreResponse 빌더 제거하고 생성자로 대체)
 import com.sparta.project.dto.store.StoreCreateData;
 import com.sparta.project.dto.store.StoreResponse;
 import com.sparta.project.dto.store.StoreUpdateRequest;
@@ -135,19 +138,11 @@ public class StoreService {
     public StoreUpdateResponse updateStore(String storeId, StoreUpdateRequest storeUpdateRequest) {
         Store store = getStoreOrException(storeId);
 
-        Location location = null;
-        if (storeUpdateRequest.locationId() != null) {
-            location = storeLocationService.getStoreLocationOrException(storeUpdateRequest.locationId());
-        }
+        store.update(storeUpdateRequest.storeName(),
+                storeUpdateRequest.description(),
+                storeUpdateRequest.locationId() != null ? storeLocationService.getStoreLocationOrException(storeUpdateRequest.locationId()) : null,
+                storeUpdateRequest.categoryId() != null ? storeCategoryService.getStoreCategoryOrException(storeUpdateRequest.categoryId()) : null);
 
-        StoreCategory storeCategory = null;
-        if (storeUpdateRequest.categoryId() != null) {
-            storeCategory = storeCategoryService.getStoreCategoryOrException(storeUpdateRequest.categoryId());
-        }
-
-        store.update(storeUpdateRequest.storeName(), storeUpdateRequest.description(), location, storeCategory);
-
-        // StoreUpdateResponse 생성 및 반환 로직
         return StoreUpdateResponse.from(store);
     }
 <<<<<<< HEAD
