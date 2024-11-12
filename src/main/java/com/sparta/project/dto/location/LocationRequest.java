@@ -1,8 +1,10 @@
 package com.sparta.project.dto.location;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 
+@Valid
 public record LocationRequest (
-        @NotNull String locationName,
+        @NotBlank String locationName,
         String description
 ) {}

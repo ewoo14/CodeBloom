@@ -1,9 +1,11 @@
 package com.sparta.project.dto.ai;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 
+@Valid
 public record AIRequest(
-        @NotNull Long userId,
-        @NotNull String menuId,
+        @NotBlank Long userId,
+        @NotBlank String menuId,
         String prompt
 ) {}
