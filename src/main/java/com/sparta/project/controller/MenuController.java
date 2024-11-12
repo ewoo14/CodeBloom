@@ -6,6 +6,7 @@ import com.sparta.project.dto.menu.MenuResponse;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.service.MenuService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -42,7 +43,7 @@ public class MenuController {
     // 메뉴 추가(OWNER, MANAGER, MASTER)
     @PostMapping
     public ApiResponse<MenuResponse> createMenu(
-            @RequestBody MenuCreateRequest menuCreateRequest,
+            @Valid @RequestBody MenuCreateRequest menuCreateRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
         MenuResponse newMenu = menuService.createMenu(menuCreateRequest);
@@ -53,7 +54,7 @@ public class MenuController {
     @PatchMapping("/{menu_id}")
     public ApiResponse<MenuResponse> updateMenu(
             @PathVariable String menu_id,
-            @RequestBody MenuUpdateRequest menuUpdateRequest,
+            @Valid@RequestBody MenuUpdateRequest menuUpdateRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
         MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest);
