@@ -41,8 +41,19 @@ public class Address extends BaseEntity { // 배송지
 		this.isDefault = isDefault;
 	}
 
+	public void update(String city, String district, String streetName,
+					   String streetNumber, String detail, Boolean isDefault) {
+		if(city!=null) this.city = city;
+		if(district!=null) this.district = district;
+		if(streetName!=null) this.streetName = streetName;
+		if(streetNumber!=null) this.streetNumber = streetNumber;
+		if(detail!=null) this.detail = detail;
+		if(isDefault!=null) this.isDefault = isDefault;
+	}
+
 	@Builder
-	private Address(User user, String city, String district, String streetName, String streetNumber, String detail, Boolean isDefault) {
+	private Address(User user, String city, String district, String streetName,
+					String streetNumber, String detail, Boolean isDefault) {
 		this.user = user;
 		this.city = city;
 		this.district = district;
@@ -52,7 +63,8 @@ public class Address extends BaseEntity { // 배송지
 		this.isDefault = isDefault;
 	}
 
-	public static Address create(User user, String city, String district, String streetName, String streetNumber, String detail, Boolean isDefault) {
+	public static Address create(User user, String city, String district,
+								 String streetName, String streetNumber, String detail, Boolean isDefault) {
 		return Address.builder()
 				.user(user)
 				.city(city)
