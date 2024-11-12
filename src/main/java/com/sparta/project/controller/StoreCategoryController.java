@@ -17,7 +17,17 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.*;
+=======
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+>>>>>>> ec2081e ([Feat] 가게 카테고리 삭제 API)
 
 @RestController
 @RequiredArgsConstructor
@@ -69,6 +79,7 @@ public class StoreCategoryController {
         return ApiResponse.success();
     }
 
+<<<<<<< HEAD
     // 음식점 카테고리 상세 조회(ALL)
     @GetMapping("/{category_id}")
     public ApiResponse<StoreCategoryResponse> getStoreCategoryById(Authentication authentication,
@@ -117,6 +128,9 @@ public class StoreCategoryController {
 //    private final StoreCategoryService storeCategoryService;
 //
 //    // 음식점 카테고리 목록 조회(ALL)
+=======
+//    음식점 카테고리 목록 조회(ALL)
+>>>>>>> ec2081e ([Feat] 가게 카테고리 삭제 API)
 //    @GetMapping
 //    public ApiResponse<PageResponse<StoreCategoryResponse>> getAllStoreCategories(
 //            @RequestParam("name") String name,
@@ -133,6 +147,7 @@ public class StoreCategoryController {
 //        StoreCategoryResponse storeCategory = storeCategoryService.getStoreCategoryById(category_id);
 //        return ApiResponse.success(storeCategory);
 //    }
+<<<<<<< HEAD
 //
 //    // 음식점 카테고리 생성(MANAGER, MASTER)
 //    @PostMapping
@@ -158,3 +173,7 @@ public class StoreCategoryController {
 //    }
 //}
 >>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
+=======
+
+}
+>>>>>>> ec2081e ([Feat] 가게 카테고리 삭제 API)
