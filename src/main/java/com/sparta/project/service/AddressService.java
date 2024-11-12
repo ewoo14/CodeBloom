@@ -91,9 +91,17 @@ public class AddressService {
         );
     }
 
+<<<<<<< HEAD
     public void deleteAddress(long userId, String addressId) {
         Address address = getAddressOrException(addressId);
         checkAddressOwner(userId, address.getUser().getUserId());
+=======
+    @Transactional
+    public void deleteAddress(long userId, String addressId) {
+        User user = userService.getUserOrException(userId);
+        Address address = getAddressOrException(addressId);
+        checkAddressOwner(user, address.getUser());
+>>>>>>> 18c83f1 ([Feat] 배송지 삭제 API)
         address.deleteBase(String.valueOf(userId));
     }
 
