@@ -23,11 +23,8 @@ public class StoreCategoryService {
     @Transactional
     public void createStoreCategory(final StoreCategoryCreateRequest request) {
         checkNameDuplication(request.name());
-        storeCategoryRepository.save(StoreCategory.builder()
-                .name(request.name())
-                .description(request.description())
-                .build()
-        );
+        storeCategoryRepository.save(StoreCategory.create(request.name(), request.description()));
+    }
     }
 
     private void checkNameDuplication(String newName) {
