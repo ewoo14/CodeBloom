@@ -49,6 +49,7 @@ public class StoreController {
 
     private final StoreService storeService;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private final PermissionValidator permissionValidator;
 
     // 자신의 음식점 조회(OWNER)
@@ -185,6 +186,9 @@ public class StoreController {
 >>>>>>> 552931a ([Feat] 음식점 상세 조회 완료)
 //
 =======
+=======
+    private final PermissionValidator permissionValidator;
+>>>>>>> c80f876 ([Feat] 음식점 정보 삭제 완료)
 
     //
 >>>>>>> 5bd2e4b ([Feat] 음식점 정보 수정 완료)
@@ -228,6 +232,7 @@ public class StoreController {
         StoreUpdateResponse updatedStore = storeService.updateStore(store_id, storeUpdateRequest);
         return ApiResponse.success(updatedStore);
     }
+<<<<<<< HEAD
 //
 //    // 음식점 삭제(OWNER, MANAGER, MASTER)
 //    @DeleteMapping("/{store_id}")
@@ -239,5 +244,15 @@ public class StoreController {
 //}
 >>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
 =======
+=======
+
+    // 음식점 삭제(OWNER, MANAGER, MASTER)
+    @DeleteMapping("/{store_id}")
+    public ApiResponse<Void> deleteStore(@PathVariable String store_id, Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
+        storeService.deleteStore(store_id, Long.parseLong(authentication.getName()));
+        return ApiResponse.success();
+    }
+>>>>>>> c80f876 ([Feat] 음식점 정보 삭제 완료)
 }
 >>>>>>> 552931a ([Feat] 음식점 상세 조회 완료)

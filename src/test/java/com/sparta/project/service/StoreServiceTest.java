@@ -307,13 +307,20 @@ class StoreServiceTest {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @DisplayName("Customer 가 수정하려고 하면 예외 발생")
     @Test
     void updateStoreWithCustomer() {
+=======
+    @DisplayName("storeId 와 userId를 받아서 ")
+    @Test
+    void deleteStore() {
+>>>>>>> c80f876 ([Feat] 음식점 정보 삭제 완료)
         // given
         Store store = Store.create("착한중식점", "가격이 착한 중식당", "서울시 ...", owner, storeCategory, location, 5.0);
         storeRepository.save(store);
 
+<<<<<<< HEAD
         String storeNameForUpdate = "나쁜양식점";
         StoreCategory storeCategory2 = StoreCategory.create("양식", "양식 전문점");
         storeCategoryRepository.save(storeCategory2);
@@ -352,4 +359,14 @@ class StoreServiceTest {
 >>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
 =======
 >>>>>>> 5bd2e4b ([Feat] 음식점 정보 수정 완료)
+=======
+        // when
+        storeService.deleteStore(store.getStoreId(), owner.getUserId());
+
+        // then
+        assertThat(store.getIsDeleted()).isTrue();
+        assertThat(store.getDeletedBy()).isEqualTo(owner.getUsername());
+    }
+
+>>>>>>> c80f876 ([Feat] 음식점 정보 삭제 완료)
 }
