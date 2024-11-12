@@ -30,6 +30,7 @@ import com.sparta.project.dto.store.StoreUpdateRequest;
 import com.sparta.project.dto.store.StoreUpdateResponse;
 import com.sparta.project.service.StoreService;
 import com.sparta.project.util.PermissionValidator;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 <<<<<<< HEAD
 import org.springframework.web.bind.annotation.GetMapping;
@@ -226,7 +227,7 @@ public class StoreController {
     @PatchMapping("/{store_id}")
     public ApiResponse<StoreUpdateResponse> updateStore(
             @PathVariable String store_id,
-            @RequestBody StoreUpdateRequest storeUpdateRequest,
+            @RequestBody @NotNull StoreUpdateRequest storeUpdateRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
         StoreUpdateResponse updatedStore = storeService.updateStore(store_id, storeUpdateRequest);
