@@ -48,6 +48,14 @@ public class AddressService {
         );
     }
 
+    @Transactional
+    public void deleteAddress(long userId, String addressId) {
+        User user = userService.getUserOrException(userId);
+        Address address = getAddressOrException(addressId);
+        checkAddressOwner(user, address.getUser());
+        address.deleteBase(String.valueOf(userId));
+    }
+
     private boolean overMaxAddress(final User user) {
         return addressRepository.countByUser(user) > 5;
     }
