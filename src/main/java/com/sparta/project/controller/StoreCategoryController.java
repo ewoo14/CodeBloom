@@ -2,11 +2,15 @@ package com.sparta.project.controller;
 
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.storecategory.StoreCategoryCreateRequest;
+import com.sparta.project.dto.storecategory.StoreCategoryUpdateRequest;
 import com.sparta.project.service.StoreCategoryService;
 import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +32,17 @@ public class StoreCategoryController {
         storeCategoryService.createStoreCategory(request);
         return ApiResponse.success();
     }
+
+    @PatchMapping("/{category_id}")
+    public ApiResponse<Void> updateStoreCategory(Authentication authentication,
+                                                 @PathVariable String category_id,
+                                                 @NotNull @RequestBody StoreCategoryUpdateRequest request) {
+        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
+        storeCategoryService.updateStoreCategory(category_id, request);
+        return ApiResponse.success();
+    }
+
+
 
 //
 //    private final StoreCategoryService storeCategoryService;
@@ -57,14 +72,6 @@ public class StoreCategoryController {
 //        return ApiResponse.success(madeStoreCategory);
 //    }
 //
-//    // 음식점 카테고리 수정(MANAGER, MASTER)
-//    @PatchMapping("/{category_id}")
-//    public ApiResponse<StoreCategoryResponse> updateStoreCategory(
-//            @PathVariable String category_id,
-//            @RequestBody StoreCategoryRequest storeCategoryRequest) {
-//        StoreCategoryResponse updatedStoreCategory = storeCategoryService.updateStoreCategory(category_id, storeCategoryRequest);
-//        return ApiResponse.success(updatedStoreCategory);
-//    }
 //
 //    // 음식점 카테고리 삭제(MANAGER, MASTER)
 //    @DeleteMapping("/{category_id}")
