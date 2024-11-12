@@ -40,9 +40,15 @@ public class StoreRequestService {
     @Transactional
     public void approveStoreRequest(String storeRequestId) {
         StoreRequest storeRequest = getStoreRequestOrException(storeRequestId);
+        checkAlreadyChanged(storeRequest.getStatus(), StoreRequestStatus.APPROVE);
         storeService.createStore(StoreCreateData.from(storeRequest));
     }
 
+    private void checkAlreadyChanged(StoreRequestStatus before, StoreRequestStatus change) {
+        if(before==change) {
+            throw new CodeBloomException(ErrorCode.ALREADY_PROCESSED);
+        }
+    }
 
     private StoreRequest getStoreRequestOrException(String id) {
         return storeRequestRepository.findById(id).orElseThrow(()->
