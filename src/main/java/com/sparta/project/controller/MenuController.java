@@ -39,6 +39,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 =======
 >>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
 import org.springframework.web.bind.annotation.*;
+import com.sparta.project.util.PermissionValidator;
 
 @RestController
 @RequiredArgsConstructor
@@ -47,9 +48,13 @@ public class MenuController {
 
     private final MenuService menuService;
 <<<<<<< HEAD
+<<<<<<< HEAD
     private final PermissionValidator permissionValidator;
 =======
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
+=======
+    private final PermissionValidator permissionValidator;
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
 
     // 음식점 메뉴 조회(ALL)
     @GetMapping
@@ -97,8 +102,13 @@ public class MenuController {
     public ApiResponse<MenuResponse> createMenu(
             @RequestBody MenuCreateRequest menuCreateRequest,
             Authentication authentication) {
+<<<<<<< HEAD
         MenuResponse newMenu = menuService.createMenu(menuCreateRequest, authentication);
 >>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
+=======
+        permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
+        MenuResponse newMenu = menuService.createMenu(menuCreateRequest);
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
         return ApiResponse.success(newMenu);
     }
 
@@ -121,8 +131,13 @@ public class MenuController {
 =======
             @RequestBody MenuUpdateRequest menuUpdateRequest,
             Authentication authentication) {
+<<<<<<< HEAD
         MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest, authentication);
 >>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
+=======
+        permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
+        MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest);
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
         return ApiResponse.success(updatedMenu);
     }
 
@@ -257,6 +272,7 @@ public class MenuController {
     public ApiResponse<Void> deleteMenu(
             @PathVariable String menu_id,
             Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
         menuService.deleteMenu(menu_id, authentication);
 >>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
         return ApiResponse.success();

@@ -30,24 +30,33 @@ public enum ErrorCode {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     // User
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다."),
     DUPLICATE_USERNAME(HttpStatus.CONFLICT, "유저 이름이 이미 존재합니다."),
+=======
+    // User
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다."),
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
 
     // Address
     ADDRESS_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 배송지 정보가 존재하지 않습니다."),
     EXCEED_MAXIMUM_ADDRESS(HttpStatus.CONFLICT, "등록할 수 있는 최대 배송지 수를 초과했습니다."),
 
+<<<<<<< HEAD
     // Store-request
     STORE_REQUEST_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 가게 요청 정보가 존재하지 않습니다."),
     STORE_REQUEST_UNABLE_MODIFY(HttpStatus.BAD_REQUEST, "승인 대기 상태의 요청만 수정 가능합니다."),
 
+=======
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
     // Store-category
     CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 카테고리 정보가 존재하지 않습니다."),
     CATEGORY_ALREADY_EXIST(HttpStatus.CONFLICT, "카테고리가 이미 존재합니다."),
 
     // Store
     STORE_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 가게 정보가 존재하지 않습니다."),
+<<<<<<< HEAD
 
     // Order
     ORDER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 주문 정보가 존재하지 않습니다."),
@@ -117,10 +126,24 @@ public enum ErrorCode {
 <<<<<<< HEAD
 =======
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다."),
+=======
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
 
     // Order
     ORDER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 주문 정보가 존재하지 않습니다."),
     USER_ORDER_MISMATCH(HttpStatus.FORBIDDEN, "주문자 정보가 결제자와 일치하지 않습니다."),
+
+    // Menu
+    MENU_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 메뉴 정보가 존재하지 않습니다."),
+    MENU_ALREADY_EXIST(HttpStatus.CONFLICT, "메뉴가 이미 존재합니다."),
+
+    // AI
+    AIDESCRIPTION_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 AI설명 정보가 존재하지 않습니다."),
+    RESPONSE_PARSING_ERROR(HttpStatus.BAD_REQUEST, "응답 파싱 오류가 발생했습니다."),
+
+    // Location
+    LOCATION_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 지역 정보가 존재하지 않습니다."),
+    LOCATION_ALREADY_EXIST(HttpStatus.CONFLICT, "지역이 이미 존재합니다."),
 
     // Payment
     UNSUPPORTED_PAYMENT_TYPE(HttpStatus.BAD_REQUEST, "지원하지 않는 결제 방식입니다."),
@@ -149,6 +172,7 @@ public enum ErrorCode {
     // Store
 =======
     PAYMENT_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "결제가 실패하였습니다." ),
+<<<<<<< HEAD
     MENU_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 메뉴 정보가 존재하지 않습니다."),
     AIDESCRIPTION_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 AI설명 정보가 존재하지 않습니다."),
 >>>>>>> b66282a ([Minor] AI 설명생성 목록 조회 에러처리 코드 추가)
@@ -164,6 +188,8 @@ public enum ErrorCode {
     // Response Parsing Error
     RESPONSE_PARSING_ERROR(HttpStatus.BAD_REQUEST, "응답 파싱 오류가 발생했습니다.");
 >>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
+=======
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
 
     ;
 

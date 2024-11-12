@@ -3,6 +3,8 @@ package com.sparta.project.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
@@ -29,6 +31,7 @@ public class Location extends BaseEntity { // 지역
     @Builder
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Location(String name, String description) {
 =======
     public Location(String locationId, String name, String description) {
@@ -37,10 +40,15 @@ public class Location extends BaseEntity { // 지역
 =======
     public Location(String name, String description) {
 >>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
+=======
+    public Location(String name, String description) {
+        this.locationId = UUID.randomUUID().toString();
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
         this.name = name;
         this.description = description;
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -55,11 +63,18 @@ public class Location extends BaseEntity { // 지역
     public static Location create(String name, String description) {
         return Location.builder()
 >>>>>>> 377f60d ([Build] ErrorCode 정돈, Location, StoreCategory, Store 의 id 자동 생성 되도록)
+=======
+    public static Location create(String name, String description) {
+        return Location.builder()
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
                 .name(name)
                 .description(description)
                 .build();
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
 
     public void update(String name, String description) {
         if (name != null) {
@@ -69,8 +84,11 @@ public class Location extends BaseEntity { // 지역
             this.description = description;
         }
     }
+<<<<<<< HEAD
 =======
 >>>>>>> 7c82438 ([Refactor] 생성자 메서드 빌더 패턴 적용)
 =======
 >>>>>>> 4d314db ([Build] Store를 생성하기 위한 Location, StoreCategory 정적팩토리 메서드 + ErrorCode 추가)
+=======
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
 }

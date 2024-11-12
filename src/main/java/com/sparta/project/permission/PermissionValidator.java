@@ -1,4 +1,8 @@
+<<<<<<< HEAD:src/main/java/com/sparta/project/permission/PermissionValidator.java
 package com.sparta.project.permission;
+=======
+package com.sparta.project.util;
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지):src/main/java/com/sparta/project/util/PermissionValidator.java
 
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;

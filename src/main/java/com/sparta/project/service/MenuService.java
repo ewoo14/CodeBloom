@@ -44,7 +44,6 @@ import com.sparta.project.repository.StoreRepository;
 >>>>>>> 9863864 ([Fix] Menu Service 메서드별 테스트 완성)
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -55,6 +54,7 @@ import org.springframework.transaction.annotation.Transactional;
 =======
 import com.querydsl.core.types.dsl.BooleanExpression;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> dc05aea ([Fix] 전체 메뉴 조회에 queryDSL 적용)
 =======
 import org.slf4j.Logger;
@@ -62,6 +62,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 >>>>>>> 9863864 ([Fix] Menu Service 메서드별 테스트 완성)
+=======
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
 
 @Service
 @RequiredArgsConstructor
@@ -74,6 +76,7 @@ public class MenuService {
 =======
     private final StoreRepository storeRepository;
 
+<<<<<<< HEAD
     private static final Logger log = LoggerFactory.getLogger(MenuService.class);
 >>>>>>> 9863864 ([Fix] Menu Service 메서드별 테스트 완성)
 
@@ -89,6 +92,8 @@ public class MenuService {
         }
     }
 
+=======
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
     // 모든 메뉴 조회
     @Transactional(readOnly = true)
     public Page<MenuResponse> getAllMenus(String storeId, String storeName, Pageable pageable) {
@@ -144,6 +149,7 @@ public class MenuService {
     @Transactional
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public String createMenu(MenuCreateRequest menuCreateRequest) {
         Store store = storeRepository.findById(menuCreateRequest.storeId())
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
@@ -176,8 +182,16 @@ public class MenuService {
                 .isClosed(menuCreateRequest.isClosed())
                 .build();
 =======
+=======
+    public MenuResponse createMenu(MenuCreateRequest menuCreateRequest) {
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
         Store store = storeRepository.findById(menuCreateRequest.storeId())
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
+
+        boolean exists = menuRepository.existsByName(menuCreateRequest.name());
+        if (exists) {
+            throw new CodeBloomException(ErrorCode.MENU_ALREADY_EXIST);
+        }
 
         Menu menu = Menu.create(
                 menuCreateRequest.name(),
@@ -198,6 +212,7 @@ public class MenuService {
 
     // 메뉴 정보 수정
     @Transactional
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     public String updateMenu(String menuId, MenuUpdateRequest menuUpdateRequest) {
@@ -221,6 +236,9 @@ public class MenuService {
     public MenuResponse updateMenu(String menuId, MenuUpdateRequest menuUpdateRequest, Authentication authentication) {
         checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
 >>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
+=======
+    public MenuResponse updateMenu(String menuId, MenuUpdateRequest menuUpdateRequest) {
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
 <<<<<<< HEAD
@@ -231,6 +249,11 @@ public class MenuService {
         return toMenuResponse(menu);
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
 =======
+
+        boolean exists = menuRepository.existsByName(menuUpdateRequest.name());
+        if (exists) {
+            throw new CodeBloomException(ErrorCode.MENU_ALREADY_EXIST);
+        }
 
         menu.update(
                 menuUpdateRequest.name(),
@@ -260,8 +283,11 @@ public class MenuService {
     public void deleteMenu(String menuId, String username) {
 =======
     public void deleteMenu(String menuId, Authentication authentication) {
+<<<<<<< HEAD
         checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
 >>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
+=======
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
         menu.deleteBase(authentication.getName()); // is_deleted를 true로 변경

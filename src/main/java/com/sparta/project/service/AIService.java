@@ -12,7 +12,6 @@ import com.sparta.project.domain.QAi;
 import com.sparta.project.domain.User;
 import com.sparta.project.dto.ai.AIRequest;
 import com.sparta.project.dto.ai.AIResponse;
-import com.sparta.project.dto.menu.MenuResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.AIRepository;
@@ -35,7 +34,6 @@ import org.springframework.data.domain.*;
 >>>>>>> 580553e ([Minor] Ai 메서드 테스트 추가)
 import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -46,12 +44,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.querydsl.core.types.dsl.BooleanExpression;
 =======
 import com.querydsl.core.types.dsl.BooleanExpression;
+<<<<<<< HEAD
 import com.querydsl.jpa.impl.JPAQueryFactory;
 >>>>>>> 580553e ([Minor] Ai 메서드 테스트 추가)
+=======
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+<<<<<<< HEAD
 <<<<<<< HEAD
 import java.util.List;
 =======
@@ -60,6 +62,8 @@ import java.io.IOException;
 >>>>>>> fea02e7 ([Feat] AI Dto 및 service 구현)
 =======
 import java.util.Arrays;
+=======
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
 import java.util.List;
 >>>>>>> 580553e ([Minor] Ai 메서드 테스트 추가)
 import java.util.Map;
@@ -95,6 +99,7 @@ public class AIService {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     // 생성한 설명 목록 조회
     @Transactional(readOnly = true)
     public Page<AIResponse> getMenuDescriptions(Long userId, Pageable pageable) {
@@ -124,6 +129,8 @@ public class AIService {
         }
     }
 
+=======
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
     // 생성한 설명 목록 조회
     @Transactional(readOnly = true)
     public Page<AIResponse> getMenuDescriptions(Long userId, int page, int size, String sortBy) {
@@ -142,8 +149,7 @@ public class AIService {
 >>>>>>> 580553e ([Minor] Ai 메서드 테스트 추가)
     // 새로운 메뉴 설명 생성
     @Transactional
-    public AIResponse createMenuDescription(AIRequest aiRequest, Authentication authentication) {
-        checkPermission(authentication, "OWNER");
+    public AIResponse createMenuDescription(AIRequest aiRequest) {
         User user = userRepository.findById(aiRequest.userId())
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.USER_NOT_FOUND));
         String response = sendPostRequest(aiRequest.prompt(), 150);

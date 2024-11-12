@@ -30,6 +30,7 @@ import java.util.Arrays;
 
 =======
 import com.sparta.project.service.AIService;
+import com.sparta.project.util.PermissionValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -87,6 +88,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/ai")
 public class AIController {
 
+<<<<<<< HEAD
     private AIService aiService;
 
     // 챗봇 질문에 대한 답변 요청
@@ -140,6 +142,10 @@ public class AIController {
 //}
 >>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
 =======
+=======
+    private final AIService aiService;
+    private final PermissionValidator permissionValidator;
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
 
     // 생성한 설명 목록 조회
     @GetMapping("/menu-description")
@@ -155,7 +161,8 @@ public class AIController {
     // 메뉴 설명 생성
     @PostMapping("/menu-description")
     public ApiResponse<AIResponse> createMenuDescription(@RequestBody AIRequest aiRequest, Authentication authentication) {
-        AIResponse madeDescription = aiService.createMenuDescription(aiRequest, authentication);
+        permissionValidator.checkPermission(authentication, "OWNER");
+        AIResponse madeDescription = aiService.createMenuDescription(aiRequest);
         return ApiResponse.success(madeDescription);
     }
 }

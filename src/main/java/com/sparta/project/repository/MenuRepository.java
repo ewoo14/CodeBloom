@@ -3,6 +3,9 @@ package com.sparta.project.repository;
 import com.sparta.project.domain.Menu;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MenuRepository extends JpaRepository<Menu, String>, QuerydslPredicateExecutor<Menu> {
     boolean existsByName(@NotBlank String name);
+<<<<<<< HEAD
 }
 =======
 import org.springframework.data.domain.Page;
@@ -33,3 +37,6 @@ public interface MenuRepository extends JpaRepository<Menu, String> {
 public interface MenuRepository extends JpaRepository<Menu, String>, QuerydslPredicateExecutor<Menu> {
 }
 >>>>>>> dc05aea ([Fix] 전체 메뉴 조회에 queryDSL 적용)
+=======
+}
+>>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
