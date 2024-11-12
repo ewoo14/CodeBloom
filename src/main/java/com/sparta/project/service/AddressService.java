@@ -78,7 +78,11 @@ public class AddressService {
     public void updateAddress(long userId, String addressId, AddressUpdateRequest request) {
         User user = userService.getUserOrException(userId);
         Address address = getAddressOrException(addressId);
+<<<<<<< HEAD
         checkAddressOwner(userId, address.getUser().getUserId());
+=======
+        checkAddressOwner(user, address.getUser());
+>>>>>>> a896d39 ([Refactor] 기존 배송지 변경하는 메서드 분리)
         if(request.isDefault() && alreadyExistDefault(user)) {
             changeDefaultAddress(user);
         }
