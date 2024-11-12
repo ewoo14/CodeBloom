@@ -12,7 +12,7 @@ import lombok.*;
 public class Location extends BaseEntity { // 지역
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.UUID)
     @Column(name="location_id", length=36, nullable=false, updatable=false)
     private String locationId;
 
@@ -24,7 +24,6 @@ public class Location extends BaseEntity { // 지역
 
     @Builder
     public Location(String name, String description) {
-        this.locationId = UuidGenerator.generateUuid();
         this.name = name;
         this.description = description;
     }

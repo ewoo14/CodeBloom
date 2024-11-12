@@ -11,7 +11,7 @@ import lombok.*;
 @Table(name="p_ai")
 public class Ai extends BaseEntity { // 채팅 기록
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.UUID)
 	@Column(name="ai_id", length=36, nullable=false, updatable=false)
 	private String aiId;
 
@@ -27,7 +27,6 @@ public class Ai extends BaseEntity { // 채팅 기록
 
 	@Builder
 	private Ai(User user, String question, String answer) {
-		this.aiId = UuidGenerator.generateUuid();
 		this.user = user;
 		this.question = question;
 		this.answer = answer;
