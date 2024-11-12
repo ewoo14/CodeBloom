@@ -85,10 +85,14 @@ import com.sparta.project.domain.StoreCategory;
 =======
 import com.sparta.project.domain.User;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.sparta.project.domain.enums.Role;
 >>>>>>> 2ae41d6 ([Feat] 음식점 정보 수정 기능 service)
 =======
 >>>>>>> c80f876 ([Feat] 음식점 정보 삭제 완료)
+=======
+import com.sparta.project.dto.store.StoreCreateData;
+>>>>>>> 2408cc2 ([build] 가게 요청 도메인의 작업과 충돌되는 부분 해결)
 import com.sparta.project.dto.store.StoreResponse;
 import com.sparta.project.dto.store.StoreUpdateRequest;
 import com.sparta.project.dto.store.StoreUpdateResponse;
@@ -108,6 +112,13 @@ public class StoreService {
     private final StoreLocationService storeLocationService;
     private final StoreCategoryService storeCategoryService;
     private final StoreRepository storeRepository;
+
+    public void createStore(final StoreCreateData data) {
+        storeRepository.save(Store.create(
+                data.name(), data.description(), data.address(),
+                data.owner(), data.storeCategory(), data.location()
+        ));
+    }
 
     public Store getStoreOrException(String storeId) {
         return storeRepository.findById(storeId).orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
