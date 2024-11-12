@@ -63,6 +63,12 @@ public class Store extends BaseEntity { // 음식점
                 .build();
     }
 
+    public static Store create(String name, String description, String address,
+                               User owner, StoreCategory storeCategory, Location location) {
+        return Store.create(name, description, address, owner, storeCategory, location, 0.0);
+    }
+
+
     public void updateScore(Double score) {
         this.score = score;
     }
