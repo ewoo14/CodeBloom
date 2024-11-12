@@ -23,6 +23,7 @@ import com.sparta.project.dto.location.LocationResponse;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.service.LocationService;
 import com.sparta.project.util.PermissionValidator;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
@@ -37,6 +38,7 @@ public class LocationController {
     private final LocationService locationService;
     private final PermissionValidator permissionValidator;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     // 운영 지역 전체 조회(MANAGER, MASTER)
     @GetMapping("/all")
@@ -59,6 +61,9 @@ public class LocationController {
         permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
 =======
     // 운영 지역 전체 조회(OWNER, MANAGER, MASTER)
+=======
+    // 운영 지역 전체 조회(MANAGER, MASTER)
+>>>>>>> 05ce6cb ([Fix] Valid 어노테이션 컨트롤러 이동, 권한 주석 수정)
     @GetMapping("/all")
     public ApiResponse<PageResponse<LocationResponse>> getAllLocations(
             @RequestParam("page") int page,
@@ -68,7 +73,7 @@ public class LocationController {
         return ApiResponse.success(PageResponse.of(responses));
     }
 
-    // 운영 지역 상세 조회(OWNER, MANAGER, MASTER)
+    // 운영 지역 상세 조회(MANAGER, MASTER)
     @GetMapping("/{locationId}")
     public ApiResponse<LocationResponse> getLocation(
             @PathVariable String locationId) {
@@ -77,6 +82,7 @@ public class LocationController {
         return ApiResponse.success(response);
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     // 운영 지역 생성(MANAGER, MASTER)
     @PostMapping
@@ -102,28 +108,35 @@ public class LocationController {
     // 운영 지역 삭제(MANAGER, MASTER)
 =======
     // 운영 지역 생성(OWNER, MANAGER, MASTER)
+=======
+    // 운영 지역 생성(MANAGER, MASTER)
+>>>>>>> 05ce6cb ([Fix] Valid 어노테이션 컨트롤러 이동, 권한 주석 수정)
     @PostMapping
     public ApiResponse<LocationResponse> createLocation(
-            @RequestBody LocationRequest locationRequest,
+            @Valid @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
         LocationResponse response = locationService.createLocation(locationRequest);
         return ApiResponse.success(response);
     }
 
-    // 운영 지역 수정(OWNER, MANAGER, MASTER)
+    // 운영 지역 수정(MANAGER, MASTER)
     @PatchMapping("/{locationId}")
     public ApiResponse<LocationResponse> updateLocation(
             @PathVariable String locationId,
-            @RequestBody LocationRequest locationRequest,
+            @Valid @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
         LocationResponse response = locationService.updateLocation(locationId, locationRequest);
         return ApiResponse.success(response);
     }
 
+<<<<<<< HEAD
     // 운영 지역 삭제(OWNER, MANAGER, MASTER)
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
+=======
+    // 운영 지역 삭제(MANAGER, MASTER)
+>>>>>>> 05ce6cb ([Fix] Valid 어노테이션 컨트롤러 이동, 권한 주석 수정)
     @DeleteMapping("/{locationId}")
     public ApiResponse<Void> deleteLocation(
             @PathVariable String locationId,

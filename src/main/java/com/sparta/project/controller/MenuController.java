@@ -30,6 +30,7 @@ import com.sparta.project.dto.menu.MenuResponse;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.service.MenuService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -100,7 +101,7 @@ public class MenuController {
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
 =======
     public ApiResponse<MenuResponse> createMenu(
-            @RequestBody MenuCreateRequest menuCreateRequest,
+            @Valid @RequestBody MenuCreateRequest menuCreateRequest,
             Authentication authentication) {
 <<<<<<< HEAD
         MenuResponse newMenu = menuService.createMenu(menuCreateRequest, authentication);
@@ -125,11 +126,15 @@ public class MenuController {
     public ApiResponse<MenuResponse> updateMenu(
             @PathVariable String menu_id,
 <<<<<<< HEAD
+<<<<<<< HEAD
             @RequestBody MenuRequest menuRequest) {
         MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuRequest);
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
 =======
             @RequestBody MenuUpdateRequest menuUpdateRequest,
+=======
+            @Valid@RequestBody MenuUpdateRequest menuUpdateRequest,
+>>>>>>> 05ce6cb ([Fix] Valid 어노테이션 컨트롤러 이동, 권한 주석 수정)
             Authentication authentication) {
 <<<<<<< HEAD
         MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest, authentication);

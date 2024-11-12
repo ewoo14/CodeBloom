@@ -31,6 +31,7 @@ import java.util.Arrays;
 =======
 import com.sparta.project.service.AIService;
 import com.sparta.project.util.PermissionValidator;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -160,7 +161,7 @@ public class AIController {
 
     // 메뉴 설명 생성
     @PostMapping("/menu-description")
-    public ApiResponse<AIResponse> createMenuDescription(@RequestBody AIRequest aiRequest, Authentication authentication) {
+    public ApiResponse<AIResponse> createMenuDescription(@Valid @RequestBody AIRequest aiRequest, Authentication authentication) {
         permissionValidator.checkPermission(authentication, "OWNER");
         AIResponse madeDescription = aiService.createMenuDescription(aiRequest);
         return ApiResponse.success(madeDescription);
