@@ -2,14 +2,11 @@ package com.sparta.project.controller;
 
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.storecategory.StoreCategoryCreateRequest;
-import com.sparta.project.exception.CodeBloomException;
-import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.service.StoreCategoryService;
+import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
-import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,22 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/categories")
 public class StoreCategoryController {
 
+    private final PermissionValidator permissionValidator;
     private final StoreCategoryService storeCategoryService;
 
 
     @PostMapping
     public ApiResponse<Void> createStoreCategory(Authentication authentication,
                                                  @Valid @RequestBody StoreCategoryCreateRequest request) {
-        checkStoreCategoryAuth(authentication.getAuthorities());
+        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
         storeCategoryService.createStoreCategory(request);
         return ApiResponse.success();
-    }
-
-    private void checkStoreCategoryAuth(Collection<? extends GrantedAuthority> authorities) {
-        String role = authorities.toArray()[0].toString();
-        if(!role.equals("MANAGER") && !role.equals("MASTER")) {
-            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
-        }
     }
 
 //
