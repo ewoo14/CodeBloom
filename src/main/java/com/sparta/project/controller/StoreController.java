@@ -27,7 +27,6 @@ package com.sparta.project.controller;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.store.StoreResponse;
 import com.sparta.project.dto.store.StoreUpdateRequest;
-import com.sparta.project.dto.store.StoreUpdateResponse;
 import com.sparta.project.service.StoreService;
 import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.constraints.NotNull;
@@ -225,13 +224,13 @@ public class StoreController {
 
     // 음식점 정보 수정(OWNER, MANAGER, MASTER)
     @PatchMapping("/{store_id}")
-    public ApiResponse<StoreUpdateResponse> updateStore(
+    public ApiResponse<String> updateStore(
             @PathVariable("store_id") String store_id,
             @RequestBody @NotNull StoreUpdateRequest storeUpdateRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
-        StoreUpdateResponse updatedStore = storeService.updateStore(store_id, storeUpdateRequest);
-        return ApiResponse.success(updatedStore);
+        String storeId = storeService.updateStore(store_id, storeUpdateRequest);
+        return ApiResponse.success(storeId);
     }
 <<<<<<< HEAD
 //

@@ -33,8 +33,11 @@ import com.sparta.project.exception.CodeBloomException;
 >>>>>>> 2ae41d6 ([Feat] 음식점 정보 수정 기능 service)
 =======
 import com.sparta.project.dto.store.StoreUpdateRequest;
+<<<<<<< HEAD
 import com.sparta.project.dto.store.StoreUpdateResponse;
 >>>>>>> 5bd2e4b ([Feat] 음식점 정보 수정 완료)
+=======
+>>>>>>> 0db5542 ([Fix] update 시 반환값은 storeId만)
 import com.sparta.project.repository.LocationRepository;
 import com.sparta.project.repository.StoreCategoryRepository;
 import com.sparta.project.repository.StoreRepository;
@@ -298,12 +301,13 @@ class StoreServiceTest {
         StoreUpdateRequest storeUpdateRequest =
                 new StoreUpdateRequest("나쁜양식점", null, null, storeCategory2.getStoreCategoryId());
         // when
-        StoreUpdateResponse storeUpdateResponse = storeService.updateStore(store.getStoreId(), storeUpdateRequest);
+        String storeId = storeService.updateStore(store.getStoreId(), storeUpdateRequest);
 
         // then
-        assertThat(storeUpdateResponse).isNotNull();
-        assertThat(storeUpdateResponse.storeName()).isEqualTo(storeNameForUpdate);
-        assertThat(storeUpdateResponse.storeCategoryId()).isEqualTo(storeCategory2.getStoreCategoryId());
+        Store updated = storeRepository.findById(storeId).get();
+        assertThat(updated).isNotNull();
+        assertThat(updated.getName()).isEqualTo(storeNameForUpdate);
+        assertThat(updated.getStoreCategory().getName()).isEqualTo("양식");
     }
 
 <<<<<<< HEAD
