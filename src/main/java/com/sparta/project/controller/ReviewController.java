@@ -32,6 +32,7 @@ import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.service.ReviewService;
 import com.sparta.project.util.PermissionValidator;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 >>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
@@ -55,8 +56,12 @@ public class ReviewController {
 
     // 리뷰 상세 조회(ALL)
     @GetMapping("/{review_id}")
+<<<<<<< HEAD
     public ApiResponse<ReviewResponse> getReviewById(@PathVariable Long review_id) {
 >>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
+=======
+    public ApiResponse<ReviewResponse> getReviewById(@PathVariable String review_id) {
+>>>>>>> 7b0efcd ([Fix] 컨트롤러 Valid 어노테이션 추가 및 review_id String 변경)
         ReviewResponse review = reviewService.getReviewById(review_id);
         return ApiResponse.success(review);
     }
@@ -115,7 +120,7 @@ public class ReviewController {
         String review = reviewService.createReview(userId, reviewCreateRequest);
 =======
     public ApiResponse<ReviewResponse> createReview(
-            @RequestBody ReviewCreateRequest reviewCreateRequest,
+            @Valid @RequestBody ReviewCreateRequest reviewCreateRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "CUSTOMER");
         ReviewResponse review = reviewService.createReview(reviewCreateRequest);
