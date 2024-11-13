@@ -7,6 +7,8 @@ import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.service.ReviewService;
 import com.sparta.project.util.PermissionValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,7 @@ public class ReviewController {
 
     private final ReviewService reviewService;
     private final PermissionValidator permissionValidator;
+    private static final Logger log = LoggerFactory.getLogger(ReviewController.class);
 
     // 리뷰 상세 조회(ALL)
     @GetMapping("/{review_id}")
@@ -57,29 +60,30 @@ public class ReviewController {
     public ApiResponse<ReviewResponse> createReview(
             @Valid @RequestBody ReviewCreateRequest reviewCreateRequest,
             Authentication authentication) {
+        log.info("리뷰 생성 요청 수신: {}", reviewCreateRequest);
         permissionValidator.checkPermission(authentication, "CUSTOMER");
         ReviewResponse review = reviewService.createReview(reviewCreateRequest);
         return ApiResponse.success(review);
     }
 
-    // 리뷰 수정(CUSTOMER)
-    @PatchMapping("/{review_id}")
-    public ApiResponse<ReviewResponse> updateReview(
-            @PathVariable String review_id,
-            @RequestBody ReviewUpdateRequest reviewUpdateRequest,
-            Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "CUSTOMER");
-        ReviewResponse updatedReview = reviewService.updateReview(review_id, reviewUpdateRequest);
-        return ApiResponse.success(updatedReview);
-    }
-
-    // 리뷰 삭제(CUSTOMER)
-    @DeleteMapping("/{review_id}")
-    public ApiResponse<Void> deleteReview(
-            @PathVariable String review_id,
-            Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "CUSTOMER");
-        reviewService.deleteReview(review_id);
-        return ApiResponse.success();
-    }
+//    // 리뷰 수정(CUSTOMER)
+//    @PatchMapping("/{review_id}")
+//    public ApiResponse<ReviewResponse> updateReview(
+//            @PathVariable String review_id,
+//            @RequestBody ReviewUpdateRequest reviewUpdateRequest,
+//            Authentication authentication) {
+//        permissionValidator.checkPermission(authentication, "CUSTOMER");
+//        ReviewResponse updatedReview = reviewService.updateReview(review_id, reviewUpdateRequest);
+//        return ApiResponse.success(updatedReview);
+//    }
+//
+//    // 리뷰 삭제(CUSTOMER)
+//    @DeleteMapping("/{review_id}")
+//    public ApiResponse<Void> deleteReview(
+//            @PathVariable String review_id,
+//            Authentication authentication) {
+//        permissionValidator.checkPermission(authentication, "CUSTOMER");
+//        reviewService.deleteReview(review_id);
+//        return ApiResponse.success();
+//    }
 }

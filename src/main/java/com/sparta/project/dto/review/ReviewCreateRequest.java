@@ -4,8 +4,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record ReviewCreateRequest (
-    @NotBlank String orderId,
-    @NotBlank String storeId,
-    String content,
-    @NotNull Integer score
+        @NotNull Long userId,
+        @NotBlank String storeId,
+        @NotBlank String orderId,
+        String content,
+        @NotNull Integer score
 ) {}

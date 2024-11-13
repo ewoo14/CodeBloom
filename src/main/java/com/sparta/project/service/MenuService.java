@@ -1,17 +1,17 @@
 package com.sparta.project.service;
 
-import com.sparta.project.domain.Location;
 import com.sparta.project.domain.Menu;
 import com.sparta.project.domain.QMenu;
 import com.sparta.project.domain.Store;
 import com.sparta.project.dto.menu.MenuCreateRequest;
-import com.sparta.project.dto.menu.MenuResponse;
 import com.sparta.project.dto.menu.MenuUpdateRequest;
+import com.sparta.project.dto.menu.MenuResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.MenuRepository;
 import com.sparta.project.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -30,7 +30,7 @@ public class MenuService {
     // 모든 메뉴 조회
     @Transactional(readOnly = true)
     public Page<MenuResponse> getAllMenus(String storeId, String storeName, int page, int size, String sortBy) {
-        Pageable pageable = PageRequest.of(page - 1, size);
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by(sortBy));
         QMenu qMenu = QMenu.menu;
         // storeId : 전체일치, storeName : 부분일치
         BooleanExpression predicate = qMenu.store.storeId.eq(storeId)

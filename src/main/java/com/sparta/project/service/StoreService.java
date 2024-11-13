@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class StoreService {
 
     private final UserService userService;
-    private final StoreLocationService storeLocationService;
+    private final LocationService locationService;
     private final StoreCategoryService storeCategoryService;
     private final StoreRepository storeRepository;
 
@@ -42,7 +42,7 @@ public class StoreService {
 
         store.update(request.storeName(),
                 request.description(),
-                request.locationId() != null ? storeLocationService.getStoreLocationOrException(request.locationId()) : null,
+                request.locationId() != null ? locationService.getLocationOrException(request.locationId()) : null,
                 request.categoryId() != null ? storeCategoryService.getStoreCategoryOrException(request.categoryId()) : null);
 
         return storeId;

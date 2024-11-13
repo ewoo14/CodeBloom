@@ -13,12 +13,9 @@ public record ReviewResponse (
         String nickname,
         String content,
         Integer score,
-        String created_at,
-        String updated_at
+        LocalDateTime created_at,
+        LocalDateTime updated_at
 ) {
-
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-
     public static ReviewResponse from(Review review) {
         return new ReviewResponse(
                 review.getReviewId(),
@@ -28,8 +25,8 @@ public record ReviewResponse (
                 review.getUser().getNickname(),
                 review.getContent(),
                 review.getScore(),
-                review.getCreatedAt().format(formatter),
-                review.getUpdatedAt().format(formatter)
+                review.getCreatedAt(),
+                review.getUpdatedAt()
         );
     }
 }
