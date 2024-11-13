@@ -56,6 +56,10 @@ public class StoreQueryRepository {
         booleanBuilder.and(eqStoreCategory(storeCategory));
         booleanBuilder.and(likeName(name));
         booleanBuilder.and(likeMenu(menu));
+        booleanBuilder.and(isNotDeleted());
+        if (menu != null) {
+            booleanBuilder.and(isNotClosedMenu());
+        }
         return booleanBuilder;
     }
 
@@ -73,5 +77,13 @@ public class StoreQueryRepository {
             return null; // menu가 null이거나 빈 문자열일 경우 조건 무시
         }
         return QMenu.menu.name.like("%" + menu + "%");
+    }
+
+    private BooleanExpression isNotDeleted() {
+        return store.isDeleted.isFalse();
+    }
+
+    private BooleanExpression isNotClosedMenu() {
+        return QMenu.menu.isClosed.isFalse();
     }
 }
