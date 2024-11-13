@@ -1,7 +1,6 @@
 package com.sparta.project.service;
 
 import com.sparta.project.domain.Store;
-import com.sparta.project.domain.User;
 import com.sparta.project.dto.store.StoreCreateData;
 import com.sparta.project.dto.store.StoreResponse;
 import com.sparta.project.dto.store.StoreUpdateRequest;
@@ -53,8 +52,7 @@ public class StoreService {
     @Transactional
     public void deleteStore(String storeId, Long userId) {
         Store store = getStoreOrException(storeId);
-        User user = userService.getUserOrException(userId);
-        store.deleteBase(user.getUsername());
+        store.deleteBase(String.valueOf(userId));
     }
 
 }

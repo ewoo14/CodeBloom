@@ -106,7 +106,7 @@ class StoreServiceTest {
 
         // then
         assertThat(store.getIsDeleted()).isTrue();
-        assertThat(store.getDeletedBy()).isEqualTo(owner.getUsername());
+        assertThat(store.getDeletedBy()).isEqualTo(String.valueOf(owner.getUserId()));
     }
 
 }
