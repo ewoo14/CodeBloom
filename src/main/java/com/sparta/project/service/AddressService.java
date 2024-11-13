@@ -3,7 +3,9 @@ package com.sparta.project.service;
 
 import com.sparta.project.domain.Address;
 import com.sparta.project.domain.User;
+import com.sparta.project.dto.address.AddressAdminResponse;
 import com.sparta.project.dto.address.AddressCreateRequest;
+import com.sparta.project.dto.address.AddressResponse;
 import com.sparta.project.dto.address.AddressUpdateRequest;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
@@ -33,6 +35,22 @@ public class AddressService {
                 user, request.city(), request.district(), request.streetName(),
                 request.streetNumber(), request.detail(), request.isDefault()
         ));
+    }
+
+    @Transactional(readOnly = true)
+    public AddressResponse getAddressBy(long userId, String addressId) {
+        Address address = getAddressOrException(addressId);
+        checkAddressOwner(userId, address.getUser().getUserId());
+        if(address.getIsDeleted()!=null) {
+            throw new CodeBloomException(ErrorCode.ADDRESS_NOT_FOUND);
+        }
+        return AddressResponse.from(address);
+    }
+
+    @Transactional(readOnly = true)
+    public AddressAdminResponse getAdminAddressBy(String addressId) {
+        Address address = getAddressOrException(addressId);
+        return AddressAdminResponse.from(address);
     }
 
     @Transactional
