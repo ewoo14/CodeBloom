@@ -49,7 +49,7 @@ public class MenuService {
 
     // 새로운 메뉴 생성
     @Transactional
-    public MenuResponse createMenu(MenuCreateRequest menuCreateRequest) {
+    public String createMenu(MenuCreateRequest menuCreateRequest) {
         Store store = storeRepository.findById(menuCreateRequest.storeId())
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
 
@@ -66,12 +66,12 @@ public class MenuService {
                 menuCreateRequest.isClosed()
         );
         menuRepository.save(menu);
-        return MenuResponse.from(menu);
+        return menu.getMenuId();
     }
 
     // 메뉴 정보 수정
     @Transactional
-    public MenuResponse updateMenu(String menuId, MenuUpdateRequest menuUpdateRequest) {
+    public String updateMenu(String menuId, MenuUpdateRequest menuUpdateRequest) {
         Menu menu = getMenuOrException(menuId);
         boolean exists = menuRepository.existsByName(menuUpdateRequest.name());
         if (exists) {
@@ -85,7 +85,7 @@ public class MenuService {
                 menuUpdateRequest.isClosed()
         );
         menuRepository.save(menu);
-        return MenuResponse.from(menu);
+        return menu.getMenuId();
     }
 
     // 메뉴 삭제

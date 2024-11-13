@@ -44,22 +44,22 @@ public class LocationController {
 
     // 운영 지역 생성(MANAGER, MASTER)
     @PostMapping
-    public ApiResponse<LocationResponse> createLocation(
+    public ApiResponse<String> createLocation(
             @Valid @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
-        LocationResponse response = locationService.createLocation(locationRequest);
+        String response = locationService.createLocation(locationRequest);
         return ApiResponse.success(response);
     }
 
     // 운영 지역 수정(MANAGER, MASTER)
     @PatchMapping("/{locationId}")
-    public ApiResponse<LocationResponse> updateLocation(
+    public ApiResponse<String> updateLocation(
             @PathVariable String locationId,
             @Valid @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
-        LocationResponse response = locationService.updateLocation(locationId, locationRequest);
+        String response = locationService.updateLocation(locationId, locationRequest);
         return ApiResponse.success(response);
     }
 

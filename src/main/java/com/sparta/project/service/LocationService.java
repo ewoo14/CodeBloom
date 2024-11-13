@@ -36,18 +36,18 @@ public class LocationService {
     }
 
     // 운영 지역 생성
-    public LocationResponse createLocation(LocationRequest locationRequest) {
+    public String createLocation(LocationRequest locationRequest) {
         boolean exists = locationRepository.existsByName(locationRequest.locationName());
         if (exists) {
             throw new CodeBloomException(ErrorCode.LOCATION_ALREADY_EXIST);
         }
         Location location = Location.create(locationRequest.locationName(), locationRequest.description());
         location = locationRepository.save(location);
-        return LocationResponse.from(location);
+        return location.getLocationId();
     }
 
     // 운영 지역 수정
-    public LocationResponse updateLocation(String locationId, LocationRequest locationRequest) {
+    public String updateLocation(String locationId, LocationRequest locationRequest) {
         Location location = getLocationOrException(locationId);
         boolean exists = locationRepository.existsByName(locationRequest.locationName());
         if (exists) {
@@ -55,7 +55,7 @@ public class LocationService {
         }
         location.update(locationRequest.locationName(), locationRequest.description());
         location = locationRepository.save(location);
-        return LocationResponse.from(location);
+        return location.getLocationId();
     }
 
     // 운영 지역 삭제

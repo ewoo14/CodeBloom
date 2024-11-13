@@ -42,22 +42,22 @@ public class MenuController {
 
     // 메뉴 추가(OWNER, MANAGER, MASTER)
     @PostMapping
-    public ApiResponse<MenuResponse> createMenu(
+    public ApiResponse<String> createMenu(
             @Valid @RequestBody MenuCreateRequest menuCreateRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
-        MenuResponse newMenu = menuService.createMenu(menuCreateRequest);
+        String newMenu = menuService.createMenu(menuCreateRequest);
         return ApiResponse.success(newMenu);
     }
 
     // 메뉴 수정(OWNER, MANAGER, MASTER)
     @PatchMapping("/{menu_id}")
-    public ApiResponse<MenuResponse> updateMenu(
+    public ApiResponse<String> updateMenu(
             @PathVariable String menu_id,
             @Valid @RequestBody MenuUpdateRequest menuUpdateRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
-        MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest);
+        String updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest);
         return ApiResponse.success(updatedMenu);
     }
 
