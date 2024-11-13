@@ -57,33 +57,33 @@ public class ReviewController {
 
     // 리뷰 작성(CUSTOMER)
     @PostMapping
-    public ApiResponse<ReviewResponse> createReview(
+    public ApiResponse<String> createReview(
             @Valid @RequestBody ReviewCreateRequest reviewCreateRequest,
             Authentication authentication) {
         log.info("리뷰 생성 요청 수신: {}", reviewCreateRequest);
         permissionValidator.checkPermission(authentication, "CUSTOMER");
-        ReviewResponse review = reviewService.createReview(reviewCreateRequest);
+        String review = reviewService.createReview(reviewCreateRequest);
         return ApiResponse.success(review);
     }
 
-//    // 리뷰 수정(CUSTOMER)
-//    @PatchMapping("/{review_id}")
-//    public ApiResponse<ReviewResponse> updateReview(
-//            @PathVariable String review_id,
-//            @RequestBody ReviewUpdateRequest reviewUpdateRequest,
-//            Authentication authentication) {
-//        permissionValidator.checkPermission(authentication, "CUSTOMER");
-//        ReviewResponse updatedReview = reviewService.updateReview(review_id, reviewUpdateRequest);
-//        return ApiResponse.success(updatedReview);
-//    }
-//
-//    // 리뷰 삭제(CUSTOMER)
-//    @DeleteMapping("/{review_id}")
-//    public ApiResponse<Void> deleteReview(
-//            @PathVariable String review_id,
-//            Authentication authentication) {
-//        permissionValidator.checkPermission(authentication, "CUSTOMER");
-//        reviewService.deleteReview(review_id);
-//        return ApiResponse.success();
-//    }
+    // 리뷰 수정(CUSTOMER)
+    @PatchMapping("/{review_id}")
+    public ApiResponse<String> updateReview(
+            @PathVariable String review_id,
+            @RequestBody ReviewUpdateRequest reviewUpdateRequest,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "CUSTOMER");
+        String updatedReview = reviewService.updateReview(review_id, reviewUpdateRequest);
+        return ApiResponse.success(updatedReview);
+    }
+
+    // 리뷰 삭제(CUSTOMER)
+    @DeleteMapping("/{review_id}")
+    public ApiResponse<Void> deleteReview(
+            @PathVariable String review_id,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "CUSTOMER");
+        reviewService.deleteReview(review_id, authentication);
+        return ApiResponse.success();
+    }
 }
