@@ -7,6 +7,7 @@ import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.service.ReviewService;
 import com.sparta.project.util.PermissionValidator;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -22,7 +23,7 @@ public class ReviewController {
 
     // 리뷰 상세 조회(ALL)
     @GetMapping("/{review_id}")
-    public ApiResponse<ReviewResponse> getReviewById(@PathVariable Long review_id) {
+    public ApiResponse<ReviewResponse> getReviewById(@PathVariable String review_id) {
         ReviewResponse review = reviewService.getReviewById(review_id);
         return ApiResponse.success(review);
     }
@@ -54,7 +55,7 @@ public class ReviewController {
     // 리뷰 작성(CUSTOMER)
     @PostMapping
     public ApiResponse<ReviewResponse> createReview(
-            @RequestBody ReviewCreateRequest reviewCreateRequest,
+            @Valid @RequestBody ReviewCreateRequest reviewCreateRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "CUSTOMER");
         ReviewResponse review = reviewService.createReview(reviewCreateRequest);
