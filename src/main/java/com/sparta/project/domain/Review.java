@@ -14,6 +14,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name="p_review")
 public class Review extends BaseEntity { // 리뷰
 	@Id
+	@GeneratedValue(strategy=GenerationType.UUID)
 	@Column(name="review_id", length=36, nullable=false, updatable=false)
 	private String reviewId;
 
@@ -38,8 +39,7 @@ public class Review extends BaseEntity { // 리뷰
 	private Integer score;
 
 	@Builder
-	public Review(String reviewId, User user, Store store, Order order, String content, Integer score) {
-		this.reviewId = reviewId;
+	public Review(User user, Store store, Order order, String content, Integer score) {
 		this.user = user;
 		this.store = store;
 		this.order = order;
@@ -47,4 +47,22 @@ public class Review extends BaseEntity { // 리뷰
 		this.score = score;
 	}
 
+	public static Review create(User user, Store store, Order order, String content, Integer score) {
+		return Review.builder()
+				.user(user)
+				.store(store)
+				.order(order)
+				.content(content)
+				.score(score)
+				.build();
+	}
+
+	public void update(String content, Integer score) {
+		if (content != null) {
+			this.content = content;
+		}
+		if (score != null) {
+			this.score = score;
+		}
+	}
 }
