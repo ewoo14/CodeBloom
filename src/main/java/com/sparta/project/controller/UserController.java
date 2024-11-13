@@ -29,13 +29,18 @@ import java.util.Map;
 package com.sparta.project.controller;
 
 
+import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.user.UserLoginRequest;
 import com.sparta.project.dto.user.UserSignupRequest;
 import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.dto.user.UserUpdateRequest;
 import com.sparta.project.service.UserService;
+import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +53,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private final PermissionValidator permissionValidator;
+=======
+    private final PermissionValidator  permissionValidator;
+>>>>>>> a74bec8 ([Feat] 유저 정보 수정 API)
     private final UserService userService;
 
     @PostMapping("/signup")
@@ -71,6 +80,7 @@ public class UserController {
         return ApiResponse.success();
     }
 
+<<<<<<< HEAD
     // 회원 탈퇴 (CUSTOMER, OWNER)
     @DeleteMapping("/withdraw")
     public ApiResponse<Void> delete(Authentication authentication) {
@@ -122,6 +132,8 @@ public class UserController {
         return ApiResponse.success(PageResponse.of(result));
     }
 
+=======
+>>>>>>> a74bec8 ([Feat] 유저 정보 수정 API)
 }
 
 =======
@@ -139,6 +151,7 @@ import com.sparta.project.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+<<<<<<< HEAD
 import java.util.List;
 
 @RestController
@@ -212,6 +225,10 @@ public class UserController {
 //        String token = userService.loginUser(loginUserRequest);
 //        return ApiResponse.success(token);
 //    }
+=======
+
+
+>>>>>>> a74bec8 ([Feat] 유저 정보 수정 API)
 //
 //    // 전체 유저 조회(MANAGER, MASTER)
 //    @GetMapping
@@ -231,15 +248,6 @@ public class UserController {
 //    public ApiResponse<UserResponse> getUserById(@PathVariable Long user_id) {
 //        UserResponse userInfo = userService.getUserById(user_id);
 //        return ApiResponse.success(userInfo);
-//    }
-//
-//    // 회원정보 수정(ALL)
-//    @PatchMapping("/{user_id}")
-//    public ApiResponse<UserResponse> updateUser(
-//            @PathVariable Long user_id,
-//            @RequestBody UpdateUserRequest updateUserRequest) {
-//        UserResponse updatedUser = userService.updateUser(user_id, updateUserRequest);
-//        return ApiResponse.success(updatedUser);
 //    }
 //
 //    // 회원 탈퇴(ALL)

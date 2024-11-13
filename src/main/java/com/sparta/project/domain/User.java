@@ -35,6 +35,9 @@ public class User extends BaseEntity { // 유저
     private Role role;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a74bec8 ([Feat] 유저 정보 수정 API)
     public void update(String username, String password, String nickname) {
         if(username!=null) this.username = username;
         if(password!=null) this.password = password;

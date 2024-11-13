@@ -27,6 +27,7 @@ import com.sparta.project.config.jwt.JwtUtil;
 import com.sparta.project.domain.User;
 import com.sparta.project.dto.user.UserLoginRequest;
 import com.sparta.project.dto.user.UserSignupRequest;
+import com.sparta.project.dto.user.UserUpdateRequest;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.UserRepository;
@@ -81,6 +82,7 @@ public class UserService {
         );
     }
 
+<<<<<<< HEAD
     @Transactional(readOnly = true)
     public UserResponse getUserById(long userId, boolean isAdmin) {
         User user = getUserOrException(userId);
@@ -144,4 +146,6 @@ public class UserService {
     }
 
 >>>>>>> 4bb355b ([Feat] 로그인 API)
+=======
+>>>>>>> a74bec8 ([Feat] 유저 정보 수정 API)
 }
