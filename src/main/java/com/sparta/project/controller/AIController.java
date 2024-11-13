@@ -48,6 +48,7 @@ public class AIController {
     private final PermissionValidator permissionValidator;
 
     // 생성한 설명 목록 조회(OWNER)
+<<<<<<< HEAD
     @GetMapping("/menu-description")
     public ApiResponse<PageResponse<AIResponse>> getMenuDescriptions(
             @RequestParam Long userId,
@@ -149,19 +150,25 @@ public class AIController {
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
 
     // 생성한 설명 목록 조회
+=======
+>>>>>>> f88e08e ([Fix] AI 권한 조정)
     @GetMapping("/menu-description")
     public ApiResponse<PageResponse<AIResponse>> getMenuDescriptions(
             @RequestParam Long userId,
             @RequestParam("page") int page,
             @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy) {
+            @RequestParam("sortBy") String sortBy,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "OWNER");
         Page<AIResponse> descriptions = aiService.getMenuDescriptions(userId, page, size, sortBy);
         return ApiResponse.success(PageResponse.of(descriptions));
     }
 
-    // 메뉴 설명 생성
+    // 메뉴 설명 생성(OWNER)
     @PostMapping("/menu-description")
-    public ApiResponse<AIResponse> createMenuDescription(@Valid @RequestBody AIRequest aiRequest, Authentication authentication) {
+    public ApiResponse<AIResponse> createMenuDescription(
+            @Valid @RequestBody AIRequest aiRequest,
+            Authentication authentication) {
         permissionValidator.checkPermission(authentication, "OWNER");
         AIResponse madeDescription = aiService.createMenuDescription(aiRequest);
         return ApiResponse.success(madeDescription);
