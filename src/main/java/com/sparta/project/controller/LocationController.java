@@ -23,9 +23,9 @@ public class LocationController {
     // 운영 지역 전체 조회(MANAGER, MASTER)
     @GetMapping("/all")
     public ApiResponse<PageResponse<LocationResponse>> getAllLocations(
-            @RequestParam("page") int page,
-            @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy,
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @RequestParam(value = "sortBy", required = false, defaultValue = "name") String sortBy,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
         Page<LocationResponse> responses = locationService.getAllLocations(page, size, sortBy);

@@ -35,9 +35,9 @@ public class ReviewController {
     @GetMapping("/my")
     public ApiResponse<PageResponse<ReviewResponse>> getMyReviews(
             @RequestParam Long userId,
-            @RequestParam("page") int page,
-            @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy,
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @RequestParam(value = "sortBy", required = false, defaultValue = "userId") String sortBy,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "CUSTOMER");
         Page<ReviewResponse> myReviews = reviewService.getMyReviews(userId, page, size, sortBy);
@@ -48,9 +48,9 @@ public class ReviewController {
     @GetMapping
     public ApiResponse<PageResponse<ReviewResponse>> getAllReviewsByStore(
             @RequestParam String storeId,
-            @RequestParam("page") int page,
-            @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy) {
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @RequestParam(value = "sortBy", required = false, defaultValue = "storeId") String sortBy) {
         Page<ReviewResponse> storeReviews = reviewService.getReviewsByStore(storeId, page, size, sortBy);
         return ApiResponse.success(PageResponse.of(storeReviews));
     }

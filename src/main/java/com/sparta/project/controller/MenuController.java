@@ -24,11 +24,11 @@ public class MenuController {
     // 음식점 메뉴 조회(ALL)
     @GetMapping
     public ApiResponse<PageResponse<MenuResponse>> getAllMenus(
-            @RequestParam("storeId") String storeId,
-            @RequestParam("storeName") String storeName,
-            @RequestParam("page") int page,
-            @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy) {
+            @RequestParam(value = "storeId") String storeId,
+            @RequestParam(value = "storeName") String storeName,
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @RequestParam(value = "sortBy", required = false, defaultValue = "storeId") String sortBy) {
         Page<MenuResponse> menus = menuService.getAllMenus(storeId, storeName, page, size, sortBy);
         return ApiResponse.success(PageResponse.of(menus));
     }
