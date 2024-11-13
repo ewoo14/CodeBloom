@@ -32,6 +32,9 @@ public class StoreRequest extends BaseEntity { // 음식점 허가 요청
 	@Column(name="address", length=255) // 음식점 주소
 	private String address;
 
+	@Column(name="rejection_reason", length=2048)
+	private String rejectionReason;
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="owner_id", nullable=false)
 	private User owner;
