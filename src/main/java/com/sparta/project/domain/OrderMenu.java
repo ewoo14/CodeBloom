@@ -1,9 +1,10 @@
 package com.sparta.project.domain;
 
 import jakarta.persistence.*;
-import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -11,6 +12,7 @@ import org.hibernate.annotations.OnDeleteAction;
 @Table(name="p_order_menu")
 public class OrderMenu extends BaseEntity { // 주문-메뉴
 	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name="order_menu_id", length=36, nullable=false, updatable=false)
 	private String orderMenuId;
 
@@ -26,11 +28,14 @@ public class OrderMenu extends BaseEntity { // 주문-메뉴
 	private Integer count;
 
 	@Builder
-	public OrderMenu(String orderMenuId, Menu menu, Order order, Integer count) {
-		this.orderMenuId = orderMenuId;
+	public OrderMenu(Menu menu, Order order, Integer count) {
 		this.menu = menu;
 		this.order = order;
 		this.count = count;
+	}
+
+	public static OrderMenu create(Menu menu, Order order, Integer count) {
+		return OrderMenu.builder().menu(menu).order(order).count(count).build();
 	}
 
 }

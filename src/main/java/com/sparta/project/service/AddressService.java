@@ -92,7 +92,7 @@ public class AddressService {
         }
     }
 
-    private Address getAddressOrException(final String addressId) {
+    public Address getAddressOrException(final String addressId) {
         return addressRepository.findById(addressId).orElseThrow(()->
                 new CodeBloomException(ErrorCode.ADDRESS_NOT_FOUND)
         );

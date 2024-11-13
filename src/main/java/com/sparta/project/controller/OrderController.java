@@ -1,20 +1,26 @@
-//package com.sparta.project.controller;
-//
-//import com.sparta.project.dto.order.OrderRequest;
-//import com.sparta.project.dto.order.OrderResponse;
-//import com.sparta.project.dto.common.ApiResponse;
-//import com.sparta.project.dto.common.PageResponse;
-//import com.sparta.project.service.OrderService;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.web.bind.annotation.*;
-//
-//@RestController
-//@RequiredArgsConstructor
-//@RequestMapping("/orders")
-//public class OrderController {
-//
-//    private final OrderService orderService;
-//
+package com.sparta.project.controller;
+
+import com.sparta.project.domain.enums.Role;
+import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.dto.order.OrderCreateRequest;
+import com.sparta.project.service.OrderService;
+import com.sparta.project.util.PermissionValidator;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/orders")
+public class OrderController {
+
+    private final OrderService orderService;
+    private final PermissionValidator permissionValidator;
+
 //    // 자신의 주문내역 목록 조회(CUSTOMER)
 //    @GetMapping("/my")
 //    public ApiResponse<PageResponse<OrderResponse>> getMyOrders(
@@ -43,12 +49,13 @@
 //        return ApiResponse.success(PageResponse.of(orders));
 //    }
 //
-//    // 주문 요청(CUSTOMER, OWNER)
-//    @PostMapping
-//    public ApiResponse<OrderResponse> createOrder(@RequestBody OrderRequest orderRequest) {
-//        OrderResponse madeOrder = orderService.createOrder(orderRequest);
-//        return ApiResponse.success(madeOrder);
-//    }
+    // 주문 요청(CUSTOMER, OWNER)
+    @PostMapping
+    public ApiResponse<String> createOrder(@RequestBody @Validated OrderCreateRequest request,
+                                           Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name(), Role.OWNER.name());
+        return ApiResponse.success(orderService.createOrder(Long.parseLong(authentication.getName()), request));
+    }
 //
 //    // 주문 승인(OWNER)
 //    @PatchMapping("/{order_id}")
@@ -65,4 +72,4 @@
 //        orderService.deleteOrder(order_id);
 //        return ApiResponse.success();
 //    }
-//}
+}
