@@ -135,13 +135,13 @@ public class StoreService {
 =======
 
     @Transactional
-    public StoreUpdateResponse updateStore(String storeId, StoreUpdateRequest storeUpdateRequest) {
+    public StoreUpdateResponse updateStore(String storeId, StoreUpdateRequest request) {
         Store store = getStoreOrException(storeId);
 
-        store.update(storeUpdateRequest.storeName(),
-                storeUpdateRequest.description(),
-                storeUpdateRequest.locationId() != null ? storeLocationService.getStoreLocationOrException(storeUpdateRequest.locationId()) : null,
-                storeUpdateRequest.categoryId() != null ? storeCategoryService.getStoreCategoryOrException(storeUpdateRequest.categoryId()) : null);
+        store.update(request.storeName(),
+                request.description(),
+                request.locationId() != null ? storeLocationService.getStoreLocationOrException(request.locationId()) : null,
+                request.categoryId() != null ? storeCategoryService.getStoreCategoryOrException(request.categoryId()) : null);
 
         return StoreUpdateResponse.from(store);
     }
