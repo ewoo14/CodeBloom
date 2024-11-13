@@ -114,6 +114,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -128,6 +129,13 @@ public class StoreService {
     private final StoreCategoryService storeCategoryService;
     private final StoreRepository storeRepository;
     private final StoreQueryRepository storeQueryRepository;
+
+    public Page<StoreResponse> getMyStores(int page, int size, String sortBy, Long ownerId) {
+        Sort sort = Sort.by(Sort.Direction.ASC, sortBy);
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+        Page<Store> storePage = storeRepository.findAllByOwner(userService.getUserOrException(ownerId), pageable);
+        return storePage.map(StoreResponse::from);
+    }
 
     public Page<StoreResponse> getAllStores(String storeName, String cagetoryId, String menu, int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page - 1, size);

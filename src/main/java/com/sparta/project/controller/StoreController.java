@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 package com.sparta.project.controller;
 
 
+import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.dto.store.StoreResponse;
@@ -57,6 +58,7 @@ public class StoreController {
 <<<<<<< HEAD
     private final PermissionValidator permissionValidator;
 
+<<<<<<< HEAD
     // 자신의 음식점 조회(OWNER)
     @GetMapping("/my")
     public ApiResponse<PageResponse<StoreResponse>> getMyStores(
@@ -207,6 +209,21 @@ public class StoreController {
 //        return ApiResponse.success(PageResponse.of(myStores));
 //    }
 //
+=======
+
+    // 자신의 음식점 조회(OWNER)
+    @GetMapping("/my")
+    public ApiResponse<PageResponse<StoreResponse>> getMyStores(
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @RequestParam(value = "sortBy", required = false, defaultValue = "storeId") String sortBy,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.OWNER.name());
+        Page<StoreResponse> myStores = storeService.getMyStores(page, size, sortBy, Long.parseLong(authentication.getName()));
+        return ApiResponse.success(PageResponse.of(myStores));
+    }
+
+>>>>>>> 580d264 ([Feat] 자신의 가게 목록 조회)
     // 음식점 목록 조회(ALL)
     @GetMapping
     public ApiResponse<PageResponse<StoreResponse>> getAllStores(
@@ -215,7 +232,7 @@ public class StoreController {
             @RequestParam(value = "menu", required = false) String menu,
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
-            @RequestParam(value = "sortBy", required = false, defaultValue = "id") String sortBy) {
+            @RequestParam(value = "sortBy", required = false, defaultValue = "storeId") String sortBy) {
         Page<StoreResponse> stores = storeService.getAllStores(name, categoryId, menu, page, size, sortBy);
         return ApiResponse.success(PageResponse.of(stores));
     }
