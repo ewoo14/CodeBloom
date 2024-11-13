@@ -2,12 +2,14 @@ package com.sparta.project.controller;
 
 
 import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.dto.store.StoreResponse;
 import com.sparta.project.dto.store.StoreUpdateRequest;
 import com.sparta.project.service.StoreService;
 import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,19 +32,19 @@ public class StoreController {
 //        return ApiResponse.success(PageResponse.of(myStores));
 //    }
 //
-//    // 음식점 목록 조회(ALL)
-//    @GetMapping
-//    public ApiResponse<PageResponse<StoreResponse>> getAllStores(
-//            @RequestParam("name") String name,
-//            @RequestParam("categoryId") String categoryId,
-//            @RequestParam("menu") String menu,
-//            @RequestParam("page") int page,
-//            @RequestParam("size") int size,
-//            @RequestParam("sortBy") String sortBy) {
-//        Page<StoreResponse> stores = storeService.getAllStores(name, categoryId, menu, page, size, sortBy);
-//        return ApiResponse.success(PageResponse.of(stores));
-//    }
-//
+    // 음식점 목록 조회(ALL)
+    @GetMapping
+    public ApiResponse<PageResponse<StoreResponse>> getAllStores(
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "categoryId", required = false) String categoryId,
+            @RequestParam(value = "menu", required = false) String menu,
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @RequestParam(value = "sortBy", required = false, defaultValue = "id") String sortBy) {
+        Page<StoreResponse> stores = storeService.getAllStores(name, categoryId, menu, page, size, sortBy);
+        return ApiResponse.success(PageResponse.of(stores));
+    }
+
     // 음식점 상세 조회(ALL)
     @GetMapping("/{store_id}")
     public ApiResponse<StoreResponse> getStoreById(@PathVariable("store_id") String store_id) {
