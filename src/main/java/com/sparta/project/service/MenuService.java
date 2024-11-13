@@ -43,7 +43,7 @@ public class MenuService {
     // 단일 메뉴 조회
     @Transactional(readOnly = true)
     public MenuResponse getMenuById(String menuId) {
-        Menu menu = findMenuById(menuId);
+        Menu menu = getMenuOrException(menuId);
         return MenuResponse.from(menu);
     }
 
@@ -72,7 +72,7 @@ public class MenuService {
     // 메뉴 정보 수정
     @Transactional
     public MenuResponse updateMenu(String menuId, MenuUpdateRequest menuUpdateRequest) {
-        Menu menu = findMenuById(menuId);
+        Menu menu = getMenuOrException(menuId);
         boolean exists = menuRepository.existsByName(menuUpdateRequest.name());
         if (exists) {
             throw new CodeBloomException(ErrorCode.MENU_ALREADY_EXIST);
@@ -91,13 +91,13 @@ public class MenuService {
     // 메뉴 삭제
     @Transactional
     public void deleteMenu(String menuId, Authentication authentication) {
-        Menu menu = findMenuById(menuId);
+        Menu menu = getMenuOrException(menuId);
         menu.deleteBase(authentication.getName()); // is_deleted를 true로 변경
         menuRepository.save(menu);
     }
 
     // menuId 공통 활용
-    private Menu findMenuById(String menuId) {
+    private Menu getMenuOrException(String menuId) {
         return menuRepository.findById(menuId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
     }
