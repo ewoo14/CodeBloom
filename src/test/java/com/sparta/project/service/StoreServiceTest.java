@@ -365,7 +365,7 @@ class StoreServiceTest {
 
         // then
         assertThat(store.getIsDeleted()).isTrue();
-        assertThat(store.getDeletedBy()).isEqualTo(owner.getUsername());
+        assertThat(store.getDeletedBy()).isEqualTo(String.valueOf(owner.getUserId()));
     }
 
 >>>>>>> c80f876 ([Feat] 음식점 정보 삭제 완료)

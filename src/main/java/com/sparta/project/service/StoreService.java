@@ -4,9 +4,12 @@ import com.sparta.project.domain.Store;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import com.sparta.project.domain.User;
 >>>>>>> 86dbdff ([Refactor] Store.update() 안에 파라미터 삼항연산자로 대체, StoreResponse 빌더 제거하고 생성자로 대체)
+=======
+>>>>>>> dc18a1d ([Fix] deleteBase 에 username 말고 String.valueOf(userId) 로 대체)
 import com.sparta.project.dto.store.StoreCreateData;
 import com.sparta.project.dto.store.StoreResponse;
 import com.sparta.project.dto.store.StoreUpdateRequest;
@@ -152,8 +155,7 @@ public class StoreService {
     @Transactional
     public void deleteStore(String storeId, Long userId) {
         Store store = getStoreOrException(storeId);
-        User user = userService.getUserOrException(userId);
-        store.deleteBase(user.getUsername());
+        store.deleteBase(String.valueOf(userId));
     }
 <<<<<<< HEAD
 >>>>>>> 2150278 ([Feat] 음식점 정보 삭제 기능 Service)
