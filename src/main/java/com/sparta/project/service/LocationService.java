@@ -64,17 +64,22 @@ public class LocationService {
 
     // 운영 지역 생성
 <<<<<<< HEAD
+<<<<<<< HEAD
     @Transactional
     public String createLocation(LocationRequest locationRequest) {
 =======
     public LocationResponse createLocation(LocationRequest locationRequest) {
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
+=======
+    public String createLocation(LocationRequest locationRequest) {
+>>>>>>> c7f45b5 ([Fix] Location, Menu 생성 및 수정 메서드 반환 id만으로 통일)
         boolean exists = locationRepository.existsByName(locationRequest.locationName());
         if (exists) {
             throw new CodeBloomException(ErrorCode.LOCATION_ALREADY_EXIST);
         }
         Location location = Location.create(locationRequest.locationName(), locationRequest.description());
         location = locationRepository.save(location);
+<<<<<<< HEAD
 <<<<<<< HEAD
         return location.getLocationId();
     }
@@ -102,6 +107,13 @@ public class LocationService {
         Location location = storeLocationService.getStoreLocationOrException(locationId);
 >>>>>>> 25bb93c ([Fix] StoreLocationService 공통 메서드 사용으로 수정)
 =======
+=======
+        return location.getLocationId();
+    }
+
+    // 운영 지역 수정
+    public String updateLocation(String locationId, LocationRequest locationRequest) {
+>>>>>>> c7f45b5 ([Fix] Location, Menu 생성 및 수정 메서드 반환 id만으로 통일)
         Location location = getLocationOrException(locationId);
 >>>>>>> 38b9494 ([Fix] StoreLocationService 삭제 및 LocationService로의 통합)
         boolean exists = locationRepository.existsByName(locationRequest.locationName());
@@ -110,6 +122,7 @@ public class LocationService {
         }
         location.update(locationRequest.locationName(), locationRequest.description());
         location = locationRepository.save(location);
+<<<<<<< HEAD
 <<<<<<< HEAD
         return location.getLocationId();
     }
@@ -127,6 +140,9 @@ public class LocationService {
                 new CodeBloomException(ErrorCode.LOCATION_NOT_FOUND));
 =======
         return LocationResponse.from(location);
+=======
+        return location.getLocationId();
+>>>>>>> c7f45b5 ([Fix] Location, Menu 생성 및 수정 메서드 반환 id만으로 통일)
     }
 
     // 운영 지역 삭제

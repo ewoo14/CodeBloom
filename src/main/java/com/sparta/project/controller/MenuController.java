@@ -98,6 +98,7 @@ public class MenuController {
     @PostMapping
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public ApiResponse<String> createMenu(
             @Valid @RequestBody MenuCreateRequest menuCreateRequest,
             Authentication authentication) {
@@ -109,6 +110,9 @@ public class MenuController {
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
 =======
     public ApiResponse<MenuResponse> createMenu(
+=======
+    public ApiResponse<String> createMenu(
+>>>>>>> c7f45b5 ([Fix] Location, Menu 생성 및 수정 메서드 반환 id만으로 통일)
             @Valid @RequestBody MenuCreateRequest menuCreateRequest,
             Authentication authentication) {
 <<<<<<< HEAD
@@ -116,13 +120,18 @@ public class MenuController {
 >>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
 =======
         permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
+<<<<<<< HEAD
         MenuResponse newMenu = menuService.createMenu(menuCreateRequest);
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
+=======
+        String newMenu = menuService.createMenu(menuCreateRequest);
+>>>>>>> c7f45b5 ([Fix] Location, Menu 생성 및 수정 메서드 반환 id만으로 통일)
         return ApiResponse.success(newMenu);
     }
 
     // 메뉴 수정(OWNER, MANAGER, MASTER)
     @PatchMapping("/{menu_id}")
+<<<<<<< HEAD
 <<<<<<< HEAD
     public ApiResponse<String> updateMenu(
             @PathVariable String menu_id,
@@ -132,6 +141,9 @@ public class MenuController {
         String updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest);
 =======
     public ApiResponse<MenuResponse> updateMenu(
+=======
+    public ApiResponse<String> updateMenu(
+>>>>>>> c7f45b5 ([Fix] Location, Menu 생성 및 수정 메서드 반환 id만으로 통일)
             @PathVariable String menu_id,
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -153,8 +165,12 @@ public class MenuController {
 >>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
 =======
         permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
+<<<<<<< HEAD
         MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest);
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
+=======
+        String updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest);
+>>>>>>> c7f45b5 ([Fix] Location, Menu 생성 및 수정 메서드 반환 id만으로 통일)
         return ApiResponse.success(updatedMenu);
     }
 

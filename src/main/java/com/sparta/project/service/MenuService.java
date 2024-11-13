@@ -180,6 +180,9 @@ public class MenuService {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c7f45b5 ([Fix] Location, Menu 생성 및 수정 메서드 반환 id만으로 통일)
     public String createMenu(MenuCreateRequest menuCreateRequest) {
         Store store = storeRepository.findById(menuCreateRequest.storeId())
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
@@ -198,6 +201,7 @@ public class MenuService {
         );
         menuRepository.save(menu);
         return menu.getMenuId();
+<<<<<<< HEAD
 =======
     public MenuResponse createMenu(MenuRequest menuRequest) {
 =======
@@ -238,6 +242,8 @@ public class MenuService {
 =======
         return MenuResponse.from(menu);
 >>>>>>> 679a9be ([Fix] 정적 팩토리 메서드 방식 적용)
+=======
+>>>>>>> c7f45b5 ([Fix] Location, Menu 생성 및 수정 메서드 반환 id만으로 통일)
     }
 
     // 메뉴 정보 수정
@@ -245,6 +251,9 @@ public class MenuService {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c7f45b5 ([Fix] Location, Menu 생성 및 수정 메서드 반환 id만으로 통일)
     public String updateMenu(String menuId, MenuUpdateRequest menuUpdateRequest) {
         Menu menu = getMenuOrException(menuId);
         boolean exists = menuRepository.existsByName(menuUpdateRequest.name());
@@ -260,6 +269,7 @@ public class MenuService {
         );
         menuRepository.save(menu);
         return menu.getMenuId();
+<<<<<<< HEAD
 =======
     public MenuResponse updateMenu(String menuId, MenuRequest menuRequest) {
 =======
@@ -302,6 +312,8 @@ public class MenuService {
         menuRepository.save(menu);
         return MenuResponse.from(menu);
 >>>>>>> 679a9be ([Fix] 정적 팩토리 메서드 방식 적용)
+=======
+>>>>>>> c7f45b5 ([Fix] Location, Menu 생성 및 수정 메서드 반환 id만으로 통일)
     }
 
     // 메뉴 삭제

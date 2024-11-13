@@ -101,6 +101,7 @@ public class LocationController {
     // 운영 지역 생성(MANAGER, MASTER)
     @PostMapping
     public ApiResponse<String> createLocation(
+<<<<<<< HEAD
             @Valid @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
@@ -127,21 +128,23 @@ public class LocationController {
 >>>>>>> 05ce6cb ([Fix] Valid 어노테이션 컨트롤러 이동, 권한 주석 수정)
     @PostMapping
     public ApiResponse<LocationResponse> createLocation(
+=======
+>>>>>>> c7f45b5 ([Fix] Location, Menu 생성 및 수정 메서드 반환 id만으로 통일)
             @Valid @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
-        LocationResponse response = locationService.createLocation(locationRequest);
+        String response = locationService.createLocation(locationRequest);
         return ApiResponse.success(response);
     }
 
     // 운영 지역 수정(MANAGER, MASTER)
     @PatchMapping("/{locationId}")
-    public ApiResponse<LocationResponse> updateLocation(
+    public ApiResponse<String> updateLocation(
             @PathVariable String locationId,
             @Valid @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
-        LocationResponse response = locationService.updateLocation(locationId, locationRequest);
+        String response = locationService.updateLocation(locationId, locationRequest);
         return ApiResponse.success(response);
     }
 
