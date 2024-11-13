@@ -3,6 +3,7 @@ package com.sparta.project.dto.review;
 import com.sparta.project.domain.Review;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public record ReviewResponse (
         String reviewId,
@@ -12,9 +13,12 @@ public record ReviewResponse (
         String nickname,
         String content,
         Integer score,
-        LocalDateTime created_at,
-        LocalDateTime updated_at
+        String created_at,
+        String updated_at
 ) {
+
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+
     public static ReviewResponse from(Review review) {
         return new ReviewResponse(
                 review.getReviewId(),
@@ -24,8 +28,8 @@ public record ReviewResponse (
                 review.getUser().getNickname(),
                 review.getContent(),
                 review.getScore(),
-                review.getCreatedAt(),
-                review.getUpdatedAt()
+                review.getCreatedAt().format(formatter),
+                review.getUpdatedAt().format(formatter)
         );
     }
 }
