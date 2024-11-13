@@ -146,6 +146,7 @@ public class ReviewController {
         log.info("리뷰 생성 요청 수신: {}", reviewCreateRequest);
         permissionValidator.checkPermission(authentication, "CUSTOMER");
 <<<<<<< HEAD
+<<<<<<< HEAD
         ReviewResponse review = reviewService.createReview(reviewCreateRequest);
 >>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
         return ApiResponse.success(review);
@@ -171,6 +172,10 @@ public class ReviewController {
 >>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
 =======
         String review = reviewService.createReview(reviewCreateRequest);
+=======
+        Long userId = Long.parseLong(authentication.getName());
+        String review = reviewService.createReview(userId, reviewCreateRequest);
+>>>>>>> 6241521 ([Fix] ReviewCreateRequest에서 userId 삭제)
         return ApiResponse.success(review);
     }
 

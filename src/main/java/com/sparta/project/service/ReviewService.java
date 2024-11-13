@@ -163,10 +163,10 @@ public class ReviewService {
     }
 
     // 리뷰 작성
-    public String createReview(ReviewCreateRequest reviewCreateRequest) {
+    public String createReview(Long userId, ReviewCreateRequest reviewCreateRequest) {
         log.info("리뷰 생성 요청 전 storeId: {} , orderId: {}",
                 reviewCreateRequest.storeId(), reviewCreateRequest.orderId());
-        User user = userRepository.findById(reviewCreateRequest.userId())
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.USER_NOT_FOUND));
         Store store = storeRepository.findById(reviewCreateRequest.storeId())
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
