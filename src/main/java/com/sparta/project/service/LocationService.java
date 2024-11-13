@@ -24,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class LocationService {
 
     private final LocationRepository locationRepository;
-    private final StoreLocationService storeLocationService;
 
     // 운영 지역 전체 조회
 <<<<<<< HEAD
@@ -43,6 +42,7 @@ public class LocationService {
     @Transactional(readOnly = true)
     public LocationResponse getLocation(String locationId) {
 <<<<<<< HEAD
+<<<<<<< HEAD
         Location location = getLocationOrException(locationId);
 =======
     public LocationResponse getLocation(String locationId) {
@@ -56,6 +56,9 @@ public class LocationService {
 =======
         Location location = storeLocationService.getStoreLocationOrException(locationId);
 >>>>>>> 25bb93c ([Fix] StoreLocationService 공통 메서드 사용으로 수정)
+=======
+        Location location = getLocationOrException(locationId);
+>>>>>>> 38b9494 ([Fix] StoreLocationService 삭제 및 LocationService로의 통합)
         return LocationResponse.from(location);
     }
 
@@ -88,6 +91,7 @@ public class LocationService {
     public LocationResponse updateLocation(String locationId, LocationRequest locationRequest) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         Location location = locationRepository.findById(locationId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.LOCATION_NOT_FOUND));
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
@@ -97,6 +101,9 @@ public class LocationService {
 =======
         Location location = storeLocationService.getStoreLocationOrException(locationId);
 >>>>>>> 25bb93c ([Fix] StoreLocationService 공통 메서드 사용으로 수정)
+=======
+        Location location = getLocationOrException(locationId);
+>>>>>>> 38b9494 ([Fix] StoreLocationService 삭제 및 LocationService로의 통합)
         boolean exists = locationRepository.existsByName(locationRequest.locationName());
         if (exists) {
             throw new CodeBloomException(ErrorCode.LOCATION_ALREADY_EXIST);
@@ -124,9 +131,15 @@ public class LocationService {
 
     // 운영 지역 삭제
     public void deleteLocation(String locationId, Authentication authentication) {
-        Location location = storeLocationService.getStoreLocationOrException(locationId);
+        Location location = getLocationOrException(locationId);
         location.deleteBase(authentication.getName());
         locationRepository.save(location);
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
+    }
+
+    // location_id 공통 사용
+    public Location getLocationOrException(String locationId) {
+        return locationRepository.findById(locationId).orElseThrow(()->
+                new CodeBloomException(ErrorCode.LOCATION_NOT_FOUND));
     }
 }

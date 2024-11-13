@@ -37,10 +37,13 @@ public class StoreRequestService {
     private final StoreService storeService;
     private final StoreCategoryService categoryService;
     private final LocationService locationService;
+<<<<<<< HEAD
 =======
     private final StoreCategoryService categoryService;
     private final StoreLocationService locationService;
 >>>>>>> 4f6677d ([Feat] 가게 생성을 요청하는 기능)
+=======
+>>>>>>> 38b9494 ([Fix] StoreLocationService 삭제 및 LocationService로의 통합)
     private final StoreRequestRepository storeRequestRepository;
 
     @Transactional
@@ -57,6 +60,9 @@ public class StoreRequestService {
                 request.name(), request.description(), request.address(), user,
                 categoryService.getStoreCategoryOrException(request.storeCategoryId()),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 38b9494 ([Fix] StoreLocationService 삭제 및 LocationService로의 통합)
                 locationService.getLocationOrException(request.locationId())
         ));
     }
