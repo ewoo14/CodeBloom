@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 public record MenuCreateRequest(
         @NotBlank String storeId,
         @NotBlank String name,
-        @NotBlank String description,
+        String description,
         @NotNull Integer price,
         @NotNull Boolean isClosed
 ) {}
