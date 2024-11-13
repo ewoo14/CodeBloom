@@ -1,6 +1,5 @@
 package com.sparta.project.domain;
 
-import com.sparta.project.util.UuidGenerator;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 @Entity
-@Table(name="p_location")
+@Table(name = "p_location")
 public class Location extends BaseEntity { // 지역
 
     @Id
@@ -16,10 +15,10 @@ public class Location extends BaseEntity { // 지역
     @Column(name="location_id", length=36, nullable=false, updatable=false)
     private String locationId;
 
-    @Column(name="name", length=20, nullable=false) // 이름
+    @Column(name = "name", length = 20, nullable = false) // 이름
     private String name;
 
-    @Column(name="description", length=50) // 설명
+    @Column(name = "description", length = 50) // 설명
     private String description;
 
     @Builder
