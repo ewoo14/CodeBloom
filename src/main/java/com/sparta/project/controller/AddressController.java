@@ -50,6 +50,7 @@ package com.sparta.project.controller;
 
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.address.AddressCreateRequest;
+import com.sparta.project.dto.address.AddressResponse;
 import com.sparta.project.dto.address.AddressUpdateRequest;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.service.AddressService;
@@ -57,6 +58,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -93,6 +95,7 @@ public class AddressController {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     @GetMapping("/my")
     public ApiResponse<ListResponse<AddressResponse>> getUserAddresses(Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
@@ -114,10 +117,16 @@ public class AddressController {
     @GetMapping("/my/{address_id}")
     public ApiResponse<AddressResponse> getAddress(Authentication authentication,
                                                    @PathVariable String address_id) {
+=======
+    @GetMapping("/my/{address_id}")
+    public ApiResponse<AddressResponse> getAddress(Authentication authentication,
+                                                       @PathVariable String address_id) {
+>>>>>>> 94c9f8b ([Feat] 유저 배송지 상세 조회 API)
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         AddressResponse response = addressService.getAddressBy(Long.parseLong(authentication.getName()), address_id);
         return ApiResponse.success(response);
     }
+<<<<<<< HEAD
 
     // 전체 유저의 배송지 목록 조회 (MANAGER, MASTER)
     @GetMapping("")
@@ -145,6 +154,8 @@ public class AddressController {
         return ApiResponse.success(response);
     }
 
+=======
+>>>>>>> 94c9f8b ([Feat] 유저 배송지 상세 조회 API)
     @PatchMapping("/{address_id}")
     public ApiResponse<Void> updateAddress(Authentication authentication,
                                            @PathVariable String address_id,
@@ -160,6 +171,7 @@ public class AddressController {
         return ApiResponse.success();
     }
 
+<<<<<<< HEAD
 =======
 =======
 @RequiredArgsConstructor
@@ -222,6 +234,10 @@ public class AddressController {
 //
 //
 //    // 배송지 목록 조회(CUSTOMER, MANAGER, MASTER)
+=======
+
+// 배송지 목록 조회(CUSTOMER, MANAGER, MASTER)
+>>>>>>> 94c9f8b ([Feat] 유저 배송지 상세 조회 API)
 //    @GetMapping
 //    public ApiResponse<PageResponse<AddressResponse>> getAllAddresses(
 //            @RequestParam("page") int page,
@@ -229,13 +245,6 @@ public class AddressController {
 //            @RequestParam("sortBy") String sortBy) {
 //        Page<AddressResponse> addresses = addressService.getAllAddresses(page, size, sortBy);
 //        return ApiResponse.success(PageResponse.of(addresses));
-//    }
-//
-//    // 배송지 상세 조회(CUSTOMER)
-//    @GetMapping("/{address_id}")
-//    public ApiResponse<AddressResponse> getAddressById(@PathVariable String address_id) {
-//        AddressResponse address = addressService.getAddressById(address_id);
-//        return ApiResponse.success(address);
 //    }
 //
 //

@@ -41,6 +41,7 @@ public class AddressService {
     }
 
     @Transactional(readOnly = true)
+<<<<<<< HEAD
     public List<AddressResponse> getUserAddresses(final long userId) {
         User user = userService.getUserOrException(userId);
         return addressRepository.findAllByUserAndIsDeleted(user, null)
@@ -50,6 +51,8 @@ public class AddressService {
     }
 
     @Transactional(readOnly = true)
+=======
+>>>>>>> 94c9f8b ([Feat] 유저 배송지 상세 조회 API)
     public AddressResponse getAddressBy(long userId, String addressId) {
         Address address = getAddressOrException(addressId);
         checkAddressOwner(userId, address.getUser().getUserId());
@@ -58,6 +61,7 @@ public class AddressService {
         }
         return AddressResponse.from(address);
     }
+<<<<<<< HEAD
 
     @Transactional(readOnly = true)
     public Page<AddressAdminResponse> getAllAddresses(
@@ -75,6 +79,9 @@ public class AddressService {
         return AddressAdminResponse.from(address);
     }
 
+=======
+    @Transactional
+>>>>>>> 94c9f8b ([Feat] 유저 배송지 상세 조회 API)
     public void updateAddress(long userId, String addressId, AddressUpdateRequest request) {
         User user = userService.getUserOrException(userId);
         Address address = getAddressOrException(addressId);
