@@ -1,6 +1,6 @@
 package com.sparta.project.service;
 
-import com.sparta.project.domain.Location;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.sparta.project.domain.Menu;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -30,6 +30,7 @@ import com.sparta.project.repository.MenuRepository;
 <<<<<<< HEAD
 import com.sparta.project.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
+<<<<<<< HEAD
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.data.domain.Page;
@@ -45,11 +46,15 @@ import com.sparta.project.repository.StoreRepository;
 >>>>>>> 9863864 ([Fix] Menu Service 메서드별 테스트 완성)
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+=======
+>>>>>>> c1fc115 ([Feat] 주문 요청)
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
 =======
@@ -65,6 +70,8 @@ import java.util.Arrays;
 >>>>>>> 9863864 ([Fix] Menu Service 메서드별 테스트 완성)
 =======
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
+=======
+>>>>>>> c1fc115 ([Feat] 주문 요청)
 
 @Service
 @RequiredArgsConstructor
@@ -337,7 +344,7 @@ public class MenuService {
     }
 
     // menuId 공통 활용
-    private Menu getMenuOrException(String menuId) {
+    public Menu getMenuOrException(String menuId) {
         return menuRepository.findById(menuId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
     }

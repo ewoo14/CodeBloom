@@ -2,15 +2,21 @@ package com.sparta.project.domain;
 
 import jakarta.persistence.*;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c1fc115 ([Feat] 주문 요청)
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+<<<<<<< HEAD
 =======
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 >>>>>>> 0ac8d3c ([Style] Food -> Menu 이름 변경)
+=======
+>>>>>>> c1fc115 ([Feat] 주문 요청)
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,6 +26,9 @@ public class OrderMenu extends BaseEntity { // 주문-메뉴
 	@Id
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c1fc115 ([Feat] 주문 요청)
 	@GeneratedValue(strategy = GenerationType.UUID)
 	@Column(name="order_menu_id", length=36, nullable=false, updatable=false)
 =======
@@ -62,21 +71,31 @@ public class OrderMenu extends BaseEntity { // 주문-메뉴
 
 	@Builder
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public OrderMenu(Menu menu, Order order, Integer count) {
 =======
 	public OrderMenu(String orderMenuId, Menu menu, Order order, Integer count) {
 		this.orderMenuId = orderMenuId;
 >>>>>>> 0ac8d3c ([Style] Food -> Menu 이름 변경)
+=======
+	public OrderMenu(Menu menu, Order order, Integer count) {
+>>>>>>> c1fc115 ([Feat] 주문 요청)
 		this.menu = menu;
 		this.order = order;
 		this.count = count;
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c1fc115 ([Feat] 주문 요청)
 	public static OrderMenu create(Menu menu, Order order, Integer count) {
 		return OrderMenu.builder().menu(menu).order(order).count(count).build();
 	}
 
+<<<<<<< HEAD
 =======
 >>>>>>> 0ac8d3c ([Style] Food -> Menu 이름 변경)
+=======
+>>>>>>> c1fc115 ([Feat] 주문 요청)
 }

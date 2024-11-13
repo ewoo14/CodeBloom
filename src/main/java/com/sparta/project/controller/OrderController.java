@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
@@ -18,6 +19,22 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+=======
+package com.sparta.project.controller;
+
+import com.sparta.project.domain.enums.Role;
+import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.dto.order.OrderCreateRequest;
+import com.sparta.project.service.OrderService;
+import com.sparta.project.util.PermissionValidator;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+>>>>>>> c1fc115 ([Feat] 주문 요청)
 
 @RestController
 @RequiredArgsConstructor
@@ -27,6 +44,7 @@ public class OrderController {
     private final OrderService orderService;
     private final PermissionValidator permissionValidator;
 
+<<<<<<< HEAD
     // 자신의 주문내역 목록 조회(CUSTOMER)
     @GetMapping("/my")
     public ApiResponse<PageResponse<OrderResponse>> getMyOrders(
@@ -181,6 +199,8 @@ public class OrderController {
 //
 //    private final OrderService orderService;
 //
+=======
+>>>>>>> c1fc115 ([Feat] 주문 요청)
 //    // 자신의 주문내역 목록 조회(CUSTOMER)
 //    @GetMapping("/my")
 //    public ApiResponse<PageResponse<OrderResponse>> getMyOrders(
@@ -209,12 +229,13 @@ public class OrderController {
 //        return ApiResponse.success(PageResponse.of(orders));
 //    }
 //
-//    // 주문 요청(CUSTOMER, OWNER)
-//    @PostMapping
-//    public ApiResponse<OrderResponse> createOrder(@RequestBody OrderRequest orderRequest) {
-//        OrderResponse madeOrder = orderService.createOrder(orderRequest);
-//        return ApiResponse.success(madeOrder);
-//    }
+    // 주문 요청(CUSTOMER, OWNER)
+    @PostMapping
+    public ApiResponse<String> createOrder(@RequestBody @Validated OrderCreateRequest request,
+                                           Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name(), Role.OWNER.name());
+        return ApiResponse.success(orderService.createOrder(Long.parseLong(authentication.getName()), request));
+    }
 //
 //    // 주문 승인(OWNER)
 //    @PatchMapping("/{order_id}")
@@ -231,5 +252,9 @@ public class OrderController {
 //        orderService.deleteOrder(order_id);
 //        return ApiResponse.success();
 //    }
+<<<<<<< HEAD
 //}
 >>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
+=======
+}
+>>>>>>> c1fc115 ([Feat] 주문 요청)
