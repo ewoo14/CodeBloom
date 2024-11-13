@@ -45,6 +45,14 @@ public class StoreRequestService {
         storeService.createStore(StoreCreateData.from(storeRequest));
     }
 
+    @Transactional
+    public void rejectStoreRequest(long userId, String storeRequestId, String rejectionReason) {
+        StoreRequest storeRequest = getStoreRequestOrException(storeRequestId);
+        checkAlreadyChanged(storeRequest.getStatus(), StoreRequestStatus.REJECT);
+        storeRequest.reject(rejectionReason);
+        storeRequest.deleteBase(String.valueOf(userId));
+    }
+
     private void checkAlreadyChanged(StoreRequestStatus before, StoreRequestStatus change) {
         if(before==change) {
             throw new CodeBloomException(ErrorCode.ALREADY_PROCESSED);
