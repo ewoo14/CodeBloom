@@ -128,6 +128,7 @@ public class ReviewController {
     // 리뷰 작성(CUSTOMER)
     @PostMapping
 <<<<<<< HEAD
+<<<<<<< HEAD
     public ApiResponse<String> createReview(
             @Valid @RequestBody ReviewCreateRequest reviewCreateRequest,
             Authentication authentication) {
@@ -137,10 +138,14 @@ public class ReviewController {
         String review = reviewService.createReview(userId, reviewCreateRequest);
 =======
     public ApiResponse<ReviewResponse> createReview(
+=======
+    public ApiResponse<String> createReview(
+>>>>>>> ff9030a ([Feat] review 수정, 삭제 추가 및 생성과 수정 반환 형식 id만으로 변경)
             @Valid @RequestBody ReviewCreateRequest reviewCreateRequest,
             Authentication authentication) {
         log.info("리뷰 생성 요청 수신: {}", reviewCreateRequest);
         permissionValidator.checkPermission(authentication, "CUSTOMER");
+<<<<<<< HEAD
         ReviewResponse review = reviewService.createReview(reviewCreateRequest);
 >>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
         return ApiResponse.success(review);
@@ -164,6 +169,20 @@ public class ReviewController {
         permissionValidator.checkPermission(authentication, "CUSTOMER");
         ReviewResponse updatedReview = reviewService.updateReview(review_id, reviewUpdateRequest);
 >>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
+=======
+        String review = reviewService.createReview(reviewCreateRequest);
+        return ApiResponse.success(review);
+    }
+
+    // 리뷰 수정(CUSTOMER)
+    @PatchMapping("/{review_id}")
+    public ApiResponse<String> updateReview(
+            @PathVariable String review_id,
+            @RequestBody ReviewUpdateRequest reviewUpdateRequest,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "CUSTOMER");
+        String updatedReview = reviewService.updateReview(review_id, reviewUpdateRequest);
+>>>>>>> ff9030a ([Feat] review 수정, 삭제 추가 및 생성과 수정 반환 형식 id만으로 변경)
         return ApiResponse.success(updatedReview);
     }
 
@@ -172,6 +191,7 @@ public class ReviewController {
     public ApiResponse<Void> deleteReview(
             @PathVariable String review_id,
             Authentication authentication) {
+<<<<<<< HEAD
 <<<<<<< HEAD
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         reviewService.deleteReview(review_id, authentication);
@@ -328,5 +348,11 @@ public class ReviewController {
 //        return ApiResponse.success();
 //    }
 >>>>>>> 0ebca46 ([Feat] 리뷰 생성 및 조회 구현)
+=======
+        permissionValidator.checkPermission(authentication, "CUSTOMER");
+        reviewService.deleteReview(review_id, authentication);
+        return ApiResponse.success();
+    }
+>>>>>>> ff9030a ([Feat] review 수정, 삭제 추가 및 생성과 수정 반환 형식 id만으로 변경)
 }
 >>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)

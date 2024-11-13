@@ -25,10 +25,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.springframework.security.core.Authentication;
 =======
 import org.springframework.data.domain.Sort;
 >>>>>>> 0ebca46 ([Feat] 리뷰 생성 및 조회 구현)
+=======
+import org.springframework.security.core.Authentication;
+>>>>>>> ff9030a ([Feat] review 수정, 삭제 추가 및 생성과 수정 반환 형식 id만으로 변경)
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -159,7 +163,7 @@ public class ReviewService {
     }
 
     // 리뷰 작성
-    public ReviewResponse createReview(ReviewCreateRequest reviewCreateRequest) {
+    public String createReview(ReviewCreateRequest reviewCreateRequest) {
         log.info("리뷰 생성 요청 전 storeId: {} , orderId: {}",
                 reviewCreateRequest.storeId(), reviewCreateRequest.orderId());
         User user = userRepository.findById(reviewCreateRequest.userId())
@@ -179,7 +183,26 @@ public class ReviewService {
 
         reviewRepository.save(review);
         log.info("리뷰 생성 ID: {}", review.getReviewId());
-        return ReviewResponse.from(review);
+        return review.getReviewId();
+    }
+
+    // 리뷰 수정
+    public String updateReview(String reviewId,ReviewUpdateRequest reviewUpdateRequest) {
+        Review review = getReviewOrException(reviewId);
+
+        review.update(
+                reviewUpdateRequest.content(),
+                reviewUpdateRequest.score()
+        );
+        reviewRepository.save(review);
+        return review.getReviewId();
+    }
+
+    // 리뷰 삭제
+    public void deleteReview(String reviewId, Authentication authentication) {
+        Review review = getReviewOrException(reviewId);
+        review.deleteBase(authentication.getName());
+        reviewRepository.save(review);
     }
 
     // review_id 공통 활용
