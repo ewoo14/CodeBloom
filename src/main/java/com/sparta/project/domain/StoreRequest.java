@@ -53,8 +53,9 @@ public class StoreRequest extends BaseEntity { // 음식점 허가 요청
 		this.status = StoreRequestStatus.WAITING;
 	}
 
-	public void updateStatus(StoreRequestStatus status) {
-		this.status = status;
+	public void approve() {
+		this.status = StoreRequestStatus.APPROVE;
+	}
 
 	public void reject(String rejectionReason) {
 		this.status = StoreRequestStatus.REJECT;

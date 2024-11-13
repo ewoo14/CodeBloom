@@ -33,7 +33,7 @@ public class StoreRequestController {
     }
 
     @PostMapping("/{request_id}")
-    public ApiResponse<Void> updateStoreRequest(Authentication authentication,
+    public ApiResponse<Void> approveStoreRequest(Authentication authentication,
                                                 @PathVariable String request_id) {
         permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
         storeRequestService.approveStoreRequest(request_id);
