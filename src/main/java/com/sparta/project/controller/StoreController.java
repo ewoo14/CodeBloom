@@ -26,12 +26,11 @@ public class StoreController {
     // 자신의 음식점 조회(OWNER)
     @GetMapping("/my")
     public ApiResponse<PageResponse<StoreResponse>> getMyStores(
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
-            @RequestParam(value = "sortBy", required = false, defaultValue = "storeId") String sortBy,
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "5") int size,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.OWNER.name());
-        Page<StoreResponse> myStores = storeService.getMyStores(page, size, sortBy, Long.parseLong(authentication.getName()));
+        Page<StoreResponse> myStores = storeService.getMyStores(page, size, Long.parseLong(authentication.getName()));
         return ApiResponse.success(PageResponse.of(myStores));
     }
 
@@ -41,10 +40,9 @@ public class StoreController {
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "categoryId", required = false) String categoryId,
             @RequestParam(value = "menu", required = false) String menu,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
-            @RequestParam(value = "sortBy", required = false, defaultValue = "storeId") String sortBy) {
-        Page<StoreResponse> stores = storeService.getAllStores(name, categoryId, menu, page, size, sortBy);
+            @RequestParam(value = "page", defaultValue = "1") int page,
+            @RequestParam(value = "size", defaultValue = "5") int size) {
+        Page<StoreResponse> stores = storeService.getAllStores(name, categoryId, menu, page, size);
         return ApiResponse.success(PageResponse.of(stores));
     }
 
