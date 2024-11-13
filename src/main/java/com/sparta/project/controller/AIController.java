@@ -20,20 +20,24 @@ public class AIController {
     private final AIService aiService;
     private final PermissionValidator permissionValidator;
 
-    // 생성한 설명 목록 조회
+    // 생성한 설명 목록 조회(OWNER)
     @GetMapping("/menu-description")
     public ApiResponse<PageResponse<AIResponse>> getMenuDescriptions(
             @RequestParam Long userId,
             @RequestParam("page") int page,
             @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy) {
+            @RequestParam("sortBy") String sortBy,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "OWNER");
         Page<AIResponse> descriptions = aiService.getMenuDescriptions(userId, page, size, sortBy);
         return ApiResponse.success(PageResponse.of(descriptions));
     }
 
-    // 메뉴 설명 생성
+    // 메뉴 설명 생성(OWNER)
     @PostMapping("/menu-description")
-    public ApiResponse<AIResponse> createMenuDescription(@Valid @RequestBody AIRequest aiRequest, Authentication authentication) {
+    public ApiResponse<AIResponse> createMenuDescription(
+            @Valid @RequestBody AIRequest aiRequest,
+            Authentication authentication) {
         permissionValidator.checkPermission(authentication, "OWNER");
         AIResponse madeDescription = aiService.createMenuDescription(aiRequest);
         return ApiResponse.success(madeDescription);
