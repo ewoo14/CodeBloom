@@ -139,7 +139,7 @@ public enum ErrorCode {
 
     // AI
     AIDESCRIPTION_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 AI설명 정보가 존재하지 않습니다."),
-    RESPONSE_PARSING_ERROR(HttpStatus.BAD_REQUEST, "응답 파싱 오류가 발생했습니다."),
+    RESPONSE_PARSING_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "응답 파싱 오류가 발생했습니다."),
 
     // Location
     LOCATION_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 지역 정보가 존재하지 않습니다."),

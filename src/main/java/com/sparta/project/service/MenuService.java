@@ -134,6 +134,9 @@ public class MenuService {
     public MenuResponse getMenuById(String menuId) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e7b4e74 ([Fix] 파싱오류 변경)
         Menu menu = getMenuOrException(menuId);
         return MenuResponse.from(menu);
 =======
@@ -244,6 +247,7 @@ public class MenuService {
 =======
     public MenuResponse updateMenu(String menuId, MenuUpdateRequest menuUpdateRequest) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
         Menu menu = menuRepository.findById(menuId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
@@ -259,6 +263,9 @@ public class MenuService {
 =======
         Menu menu = findMenuById(menuId);
 >>>>>>> 1d1c51a ([Fix] MenuService&LocationService id 공통 검색 메서드 추가)
+=======
+        Menu menu = getMenuOrException(menuId);
+>>>>>>> e7b4e74 ([Fix] 파싱오류 변경)
         boolean exists = menuRepository.existsByName(menuUpdateRequest.name());
         if (exists) {
             throw new CodeBloomException(ErrorCode.MENU_ALREADY_EXIST);
@@ -280,6 +287,7 @@ public class MenuService {
 <<<<<<< HEAD
 <<<<<<< HEAD
     public void deleteMenu(String menuId, Authentication authentication) {
+<<<<<<< HEAD
 <<<<<<< HEAD
         Menu menu = getMenuOrException(menuId);
         menu.deleteBase(authentication.getName()); // is_deleted를 true로 변경
@@ -321,12 +329,15 @@ public class MenuService {
 >>>>>>> 679a9be ([Fix] 정적 팩토리 메서드 방식 적용)
 =======
         Menu menu = findMenuById(menuId);
+=======
+        Menu menu = getMenuOrException(menuId);
+>>>>>>> e7b4e74 ([Fix] 파싱오류 변경)
         menu.deleteBase(authentication.getName()); // is_deleted를 true로 변경
         menuRepository.save(menu);
     }
 
     // menuId 공통 활용
-    private Menu findMenuById(String menuId) {
+    private Menu getMenuOrException(String menuId) {
         return menuRepository.findById(menuId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
     }
