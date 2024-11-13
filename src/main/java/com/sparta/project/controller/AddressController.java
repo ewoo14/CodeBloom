@@ -40,7 +40,7 @@ public class AddressController {
 
     @GetMapping("/my/{address_id}")
     public ApiResponse<AddressResponse> getAddress(Authentication authentication,
-                                                       @PathVariable String address_id) {
+                                                   @PathVariable String address_id) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         AddressResponse response = addressService.getAddressBy(Long.parseLong(authentication.getName()), address_id);
         return ApiResponse.success(response);
