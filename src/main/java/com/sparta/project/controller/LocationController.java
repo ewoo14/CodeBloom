@@ -68,7 +68,9 @@ public class LocationController {
     public ApiResponse<PageResponse<LocationResponse>> getAllLocations(
             @RequestParam("page") int page,
             @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy) {
+            @RequestParam("sortBy") String sortBy,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
         Page<LocationResponse> responses = locationService.getAllLocations(page, size, sortBy);
         return ApiResponse.success(PageResponse.of(responses));
     }
@@ -76,8 +78,14 @@ public class LocationController {
     // 운영 지역 상세 조회(MANAGER, MASTER)
     @GetMapping("/{locationId}")
     public ApiResponse<LocationResponse> getLocation(
+<<<<<<< HEAD
             @PathVariable String locationId) {
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
+=======
+            @PathVariable String locationId,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
+>>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
         LocationResponse response = locationService.getLocation(locationId);
         return ApiResponse.success(response);
     }

@@ -1,5 +1,6 @@
 package com.sparta.project.service;
 
+<<<<<<< HEAD
 import com.sparta.project.domain.*;
 import com.sparta.project.dto.review.ReviewCreateRequest;
 import com.sparta.project.dto.review.ReviewUpdateRequest;
@@ -107,3 +108,7 @@ public class ReviewService {
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.REVIEW_NOT_FOUND));
     }
 }
+=======
+public class ReviewService {
+}
+>>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)

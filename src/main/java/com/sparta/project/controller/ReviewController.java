@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
@@ -21,6 +22,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
+=======
+package com.sparta.project.controller;
+
+import com.sparta.project.dto.review.ReviewCreateRequest;
+import com.sparta.project.dto.review.ReviewUpdateRequest;
+import com.sparta.project.dto.review.ReviewResponse;
+import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.dto.common.PageResponse;
+import com.sparta.project.service.ReviewService;
+import com.sparta.project.util.PermissionValidator;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+>>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,11 +45,18 @@ public class ReviewController {
 
     private final ReviewService reviewService;
     private final PermissionValidator permissionValidator;
+<<<<<<< HEAD
     private static final Logger log = LoggerFactory.getLogger(ReviewController.class);
 
     // 리뷰 상세 조회(ALL)
     @GetMapping("/{review_id}")
     public ApiResponse<ReviewResponse> getReviewById(@PathVariable String review_id) {
+=======
+
+    // 리뷰 상세 조회(ALL)
+    @GetMapping("/{review_id}")
+    public ApiResponse<ReviewResponse> getReviewById(@PathVariable Long review_id) {
+>>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
         ReviewResponse review = reviewService.getReviewById(review_id);
         return ApiResponse.success(review);
     }
@@ -44,6 +65,7 @@ public class ReviewController {
     @GetMapping("/my")
     public ApiResponse<PageResponse<ReviewResponse>> getMyReviews(
             @RequestParam Long userId,
+<<<<<<< HEAD
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
@@ -51,6 +73,14 @@ public class ReviewController {
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         Page<ReviewResponse> myReviews = reviewService.getMyReviews(userId, pageable);
+=======
+            @RequestParam("page") int page,
+            @RequestParam("size") int size,
+            @RequestParam("sortBy") String sortBy,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "CUSTOMER");
+        Page<ReviewResponse> myReviews = reviewService.getMyReviews(userId, page, size, sortBy);
+>>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
         return ApiResponse.success(PageResponse.of(myReviews));
     }
 
@@ -58,16 +88,24 @@ public class ReviewController {
     @GetMapping
     public ApiResponse<PageResponse<ReviewResponse>> getAllReviewsByStore(
             @RequestParam String storeId,
+<<<<<<< HEAD
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
             }) Pageable pageable) {
         Page<ReviewResponse> storeReviews = reviewService.getReviewsByStore(storeId, pageable);
+=======
+            @RequestParam("page") int page,
+            @RequestParam("size") int size,
+            @RequestParam("sortBy") String sortBy) {
+        Page<ReviewResponse> storeReviews = reviewService.getReviewsByStore(storeId, page, size, sortBy);
+>>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
         return ApiResponse.success(PageResponse.of(storeReviews));
     }
 
     // 리뷰 작성(CUSTOMER)
     @PostMapping
+<<<<<<< HEAD
     public ApiResponse<String> createReview(
             @Valid @RequestBody ReviewCreateRequest reviewCreateRequest,
             Authentication authentication) {
@@ -75,17 +113,33 @@ public class ReviewController {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         Long userId = Long.parseLong(authentication.getName());
         String review = reviewService.createReview(userId, reviewCreateRequest);
+=======
+    public ApiResponse<ReviewResponse> createReview(
+            @RequestBody ReviewCreateRequest reviewCreateRequest,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "CUSTOMER");
+        ReviewResponse review = reviewService.createReview(reviewCreateRequest);
+>>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
         return ApiResponse.success(review);
     }
 
     // 리뷰 수정(CUSTOMER)
     @PatchMapping("/{review_id}")
+<<<<<<< HEAD
     public ApiResponse<String> updateReview(
             @PathVariable String review_id,
             @NotNull @RequestBody ReviewUpdateRequest reviewUpdateRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         String updatedReview = reviewService.updateReview(review_id, reviewUpdateRequest);
+=======
+    public ApiResponse<ReviewResponse> updateReview(
+            @PathVariable String review_id,
+            @RequestBody ReviewUpdateRequest reviewUpdateRequest,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "CUSTOMER");
+        ReviewResponse updatedReview = reviewService.updateReview(review_id, reviewUpdateRequest);
+>>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
         return ApiResponse.success(updatedReview);
     }
 
@@ -94,6 +148,7 @@ public class ReviewController {
     public ApiResponse<Void> deleteReview(
             @PathVariable String review_id,
             Authentication authentication) {
+<<<<<<< HEAD
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         reviewService.deleteReview(review_id, authentication);
         return ApiResponse.success();
@@ -225,3 +280,10 @@ public class ReviewController {
 //    }
 //}
 >>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
+=======
+        permissionValidator.checkPermission(authentication, "CUSTOMER");
+        reviewService.deleteReview(review_id);
+        return ApiResponse.success();
+    }
+}
+>>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
