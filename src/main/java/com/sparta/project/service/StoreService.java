@@ -4,7 +4,6 @@ import com.sparta.project.domain.Store;
 import com.sparta.project.dto.store.StoreCreateData;
 import com.sparta.project.dto.store.StoreResponse;
 import com.sparta.project.dto.store.StoreUpdateRequest;
-import com.sparta.project.dto.store.StoreUpdateResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.StoreRepository;
@@ -38,7 +37,7 @@ public class StoreService {
     }
 
     @Transactional
-    public StoreUpdateResponse updateStore(String storeId, StoreUpdateRequest request) {
+    public String updateStore(String storeId, StoreUpdateRequest request) {
         Store store = getStoreOrException(storeId);
 
         store.update(request.storeName(),
@@ -46,7 +45,7 @@ public class StoreService {
                 request.locationId() != null ? storeLocationService.getStoreLocationOrException(request.locationId()) : null,
                 request.categoryId() != null ? storeCategoryService.getStoreCategoryOrException(request.categoryId()) : null);
 
-        return StoreUpdateResponse.from(store);
+        return storeId;
     }
 
     @Transactional

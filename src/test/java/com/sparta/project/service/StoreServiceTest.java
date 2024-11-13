@@ -7,7 +7,6 @@ import com.sparta.project.domain.User;
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.store.StoreResponse;
 import com.sparta.project.dto.store.StoreUpdateRequest;
-import com.sparta.project.dto.store.StoreUpdateResponse;
 import com.sparta.project.repository.LocationRepository;
 import com.sparta.project.repository.StoreCategoryRepository;
 import com.sparta.project.repository.StoreRepository;
@@ -86,12 +85,13 @@ class StoreServiceTest {
         StoreUpdateRequest storeUpdateRequest =
                 new StoreUpdateRequest("나쁜양식점", null, null, storeCategory2.getStoreCategoryId());
         // when
-        StoreUpdateResponse storeUpdateResponse = storeService.updateStore(store.getStoreId(), storeUpdateRequest);
+        String storeId = storeService.updateStore(store.getStoreId(), storeUpdateRequest);
 
         // then
-        assertThat(storeUpdateResponse).isNotNull();
-        assertThat(storeUpdateResponse.storeName()).isEqualTo(storeNameForUpdate);
-        assertThat(storeUpdateResponse.storeCategoryId()).isEqualTo(storeCategory2.getStoreCategoryId());
+        Store updated = storeRepository.findById(storeId).get();
+        assertThat(updated).isNotNull();
+        assertThat(updated.getName()).isEqualTo(storeNameForUpdate);
+        assertThat(updated.getStoreCategory().getName()).isEqualTo("양식");
     }
 
     @DisplayName("storeId 와 userId를 받아서 ")
