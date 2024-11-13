@@ -33,20 +33,15 @@ public abstract class BaseEntity {
     private LocalDateTime deletedAt;
 
     @CreatedBy
-    @Column(name="created_by", length=10)
+    @Column(name="created_by", length=2048)
     private String createdBy;
 
     @LastModifiedBy
-    @Column(name="updated_by", length=10)
+    @Column(name="updated_by", length=2048)
     private String updatedBy;
 
-    @Column(name="deleted_by", length=10)
+    @Column(name="deleted_by", length=2048)
     private String deletedBy;
-
-    /*
-    createdBy와 updatedBy는 스프링 시큐리티 부분이 구현되면 AuditorAware 구현체를 사용하는 방법으로 구현하겠습니다.
-    참고: https://javacpro.tistory.com/85
-     */
 
     public void deleteBase(String username) {
         this.isDeleted = true;
