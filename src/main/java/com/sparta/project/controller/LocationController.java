@@ -43,6 +43,7 @@ public class LocationController {
     // 운영 지역 전체 조회(MANAGER, MASTER)
     @GetMapping("/all")
     public ApiResponse<PageResponse<LocationResponse>> getAllLocations(
+<<<<<<< HEAD
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
@@ -69,6 +70,11 @@ public class LocationController {
             @RequestParam("page") int page,
             @RequestParam("size") int size,
             @RequestParam("sortBy") String sortBy,
+=======
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @RequestParam(value = "sortBy", required = false, defaultValue = "name") String sortBy,
+>>>>>>> 94ce7b1 ([Fix] 각 컨트롤러 RequestParam 조건 추가)
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
         Page<LocationResponse> responses = locationService.getAllLocations(page, size, sortBy);

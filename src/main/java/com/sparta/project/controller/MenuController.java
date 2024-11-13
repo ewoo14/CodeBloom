@@ -61,6 +61,7 @@ public class MenuController {
     @GetMapping
     public ApiResponse<PageResponse<MenuResponse>> getAllMenus(
 <<<<<<< HEAD
+<<<<<<< HEAD
             @RequestParam(value = "storeId") String storeId,
             @RequestParam(value = "storeName") String storeName,
             @SortDefault.SortDefaults({
@@ -74,6 +75,13 @@ public class MenuController {
             @RequestParam("page") int page,
             @RequestParam("size") int size,
             @RequestParam("sortBy") String sortBy) {
+=======
+            @RequestParam(value = "storeId") String storeId,
+            @RequestParam(value = "storeName") String storeName,
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @RequestParam(value = "sortBy", required = false, defaultValue = "storeId") String sortBy) {
+>>>>>>> 94ce7b1 ([Fix] 각 컨트롤러 RequestParam 조건 추가)
         Page<MenuResponse> menus = menuService.getAllMenus(storeId, storeName, page, size, sortBy);
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
         return ApiResponse.success(PageResponse.of(menus));

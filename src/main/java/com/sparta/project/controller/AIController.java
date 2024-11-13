@@ -155,9 +155,9 @@ public class AIController {
     @GetMapping("/menu-description")
     public ApiResponse<PageResponse<AIResponse>> getMenuDescriptions(
             @RequestParam Long userId,
-            @RequestParam("page") int page,
-            @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy,
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @RequestParam(value = "sortBy", required = false, defaultValue = "userId") String sortBy,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "OWNER");
         Page<AIResponse> descriptions = aiService.getMenuDescriptions(userId, page, size, sortBy);

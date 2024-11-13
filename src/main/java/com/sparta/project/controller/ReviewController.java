@@ -76,6 +76,7 @@ public class ReviewController {
     public ApiResponse<PageResponse<ReviewResponse>> getMyReviews(
             @RequestParam Long userId,
 <<<<<<< HEAD
+<<<<<<< HEAD
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
@@ -87,6 +88,11 @@ public class ReviewController {
             @RequestParam("page") int page,
             @RequestParam("size") int size,
             @RequestParam("sortBy") String sortBy,
+=======
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @RequestParam(value = "sortBy", required = false, defaultValue = "userId") String sortBy,
+>>>>>>> 94ce7b1 ([Fix] 각 컨트롤러 RequestParam 조건 추가)
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "CUSTOMER");
         Page<ReviewResponse> myReviews = reviewService.getMyReviews(userId, page, size, sortBy);
@@ -99,6 +105,7 @@ public class ReviewController {
     public ApiResponse<PageResponse<ReviewResponse>> getAllReviewsByStore(
             @RequestParam String storeId,
 <<<<<<< HEAD
+<<<<<<< HEAD
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
@@ -108,6 +115,11 @@ public class ReviewController {
             @RequestParam("page") int page,
             @RequestParam("size") int size,
             @RequestParam("sortBy") String sortBy) {
+=======
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @RequestParam(value = "sortBy", required = false, defaultValue = "storeId") String sortBy) {
+>>>>>>> 94ce7b1 ([Fix] 각 컨트롤러 RequestParam 조건 추가)
         Page<ReviewResponse> storeReviews = reviewService.getReviewsByStore(storeId, page, size, sortBy);
 >>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
         return ApiResponse.success(PageResponse.of(storeReviews));
