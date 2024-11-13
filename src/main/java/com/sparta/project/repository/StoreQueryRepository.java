@@ -125,7 +125,14 @@ public class StoreQueryRepository {
         booleanBuilder.and(eqStoreCategory(storeCategory));
         booleanBuilder.and(likeName(name));
         booleanBuilder.and(likeMenu(menu));
+<<<<<<< HEAD
 >>>>>>> 6c799da ([Feat] 음식점 조회용 querydsl 미완)
+=======
+        booleanBuilder.and(isNotDeleted());
+        if (menu != null) {
+            booleanBuilder.and(isNotClosedMenu());
+        }
+>>>>>>> 051946c ([Feat] store.isDeleted 가 false 인것만, 조건 추가시 menu.isClosed 가 false 인것만 조회)
         return booleanBuilder;
     }
 
@@ -200,5 +207,13 @@ public class StoreQueryRepository {
         }
         return QMenu.menu.name.like("%" + menu + "%");
 >>>>>>> ecac4ce ([Feat] 음식점 목록 조회 기능)
+    }
+
+    private BooleanExpression isNotDeleted() {
+        return store.isDeleted.isFalse();
+    }
+
+    private BooleanExpression isNotClosedMenu() {
+        return QMenu.menu.isClosed.isFalse();
     }
 }
