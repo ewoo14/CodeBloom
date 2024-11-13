@@ -34,6 +34,12 @@ public class User extends BaseEntity { // 유저
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    public void update(String username, String password, String nickname) {
+        if(username!=null) this.username = username;
+        if(password!=null) this.password = password;
+        if(nickname!=null) this.nickname = nickname;
+    }
+
     @Builder
     private User(String username, String password, String nickname, Role role) {
         this.username = username;

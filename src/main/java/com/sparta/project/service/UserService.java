@@ -5,6 +5,7 @@ import com.sparta.project.config.jwt.JwtUtil;
 import com.sparta.project.domain.User;
 import com.sparta.project.dto.user.UserLoginRequest;
 import com.sparta.project.dto.user.UserSignupRequest;
+import com.sparta.project.dto.user.UserUpdateRequest;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.UserRepository;
@@ -44,6 +45,16 @@ public class UserService {
             throw new CodeBloomException(ErrorCode.INVALID_PASSWORD);
         }
         return jwtUtil.generateToken(String.valueOf(user.getUserId()), user.getRole());
+    }
+
+    @Transactional
+    public void updateUser(long userId, final UserUpdateRequest request) {
+        User user = getUserOrException(userId);
+        user.update(
+                request.username(),
+                (request.password()!=null)?passwordEncoder.encode(request.password()):null,
+                request.nickname()
+        );
     }
 
 }
