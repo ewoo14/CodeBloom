@@ -64,13 +64,19 @@ public class StoreRequest extends BaseEntity { // 음식점 허가 요청
 		this.status = StoreRequestStatus.WAITING;
 	}
 
+<<<<<<< HEAD
 	public void approve() {
 		this.status = StoreRequestStatus.APPROVE;
 	}
+=======
+	public void updateStatus(StoreRequestStatus status) {
+		this.status = status;
+>>>>>>> eb1dc2e ([Feat] 음식점 생성 요청 반려 API)
 
 	public void reject(String rejectionReason) {
 		this.status = StoreRequestStatus.REJECT;
 		this.rejectionReason = rejectionReason;
+<<<<<<< HEAD
 	}
 
 	public void updateInfo(String name, String description, String address, StoreCategory category, Location location) {
@@ -79,6 +85,8 @@ public class StoreRequest extends BaseEntity { // 음식점 허가 요청
 		if (address!=null) this.address = address;
 		if (category!=null) this.storeCategory = category;
 		if (location!=null) this.location = location;
+=======
+>>>>>>> eb1dc2e ([Feat] 음식점 생성 요청 반려 API)
 	}
 
 	@Builder

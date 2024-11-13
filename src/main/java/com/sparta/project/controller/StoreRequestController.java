@@ -31,8 +31,10 @@ import com.sparta.project.dto.storerequest.StoreCreateRequest;
 import com.sparta.project.service.StoreRequestService;
 import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -93,6 +95,9 @@ public class StoreRequestController {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> eb1dc2e ([Feat] 음식점 생성 요청 반려 API)
     // 음식점 생성 요청 반려(MANAGER, MASTER)
     @DeleteMapping("/{request_id}")
     public ApiResponse<Void> rejectStoreRequest(Authentication authentication,
@@ -102,6 +107,7 @@ public class StoreRequestController {
         storeRequestService.rejectStoreRequest(Long.parseLong(authentication.getName()), request_id, rejectionReason);
         return ApiResponse.success();
     }
+<<<<<<< HEAD
 
     // 자신의 음식점 생성 요청 상세 조회(OWNER)
     @GetMapping("/my/{request_id}")
@@ -249,6 +255,8 @@ public class StoreRequestController {
 //        storeRequestService.deleteStoreRequest(request_id);
 //        return ApiResponse.success();
 //    }
+=======
+>>>>>>> eb1dc2e ([Feat] 음식점 생성 요청 반려 API)
 
 >>>>>>> f50415c ([Feat] 가게 요청 승인 API)
 //

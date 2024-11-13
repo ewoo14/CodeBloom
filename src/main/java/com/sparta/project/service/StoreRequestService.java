@@ -99,6 +99,7 @@ public class StoreRequestService {
         storeRequest.deleteBase(String.valueOf(userId));
     }
 
+<<<<<<< HEAD
     @Transactional(readOnly = true)
     public StoreRequestResponse getStoreRequestBy(long userId, String storeRequestId, boolean isAdmin) {
         StoreRequest storeRequest = getStoreRequestOrException(storeRequestId);
@@ -130,6 +131,8 @@ public class StoreRequestService {
                 .map(StoreRequestAdminResponse::from);
     }
 
+=======
+>>>>>>> eb1dc2e ([Feat] 음식점 생성 요청 반려 API)
     private void checkAlreadyChanged(StoreRequestStatus before, StoreRequestStatus change) {
         if(before==change) {
             throw new CodeBloomException(ErrorCode.ALREADY_PROCESSED);
