@@ -39,13 +39,20 @@ public class AddressService {
     public void updateAddress(long userId, String addressId, AddressUpdateRequest request) {
         User user = userService.getUserOrException(userId);
         Address address = getAddressOrException(addressId);
-        checkAddressOwner(user, address.getUser());
+        checkAddressOwner(userId, address.getUser().getUserId());
         if(request.isDefault() && alreadyExistDefault(user)) {
             changeDefaultAddress(user);
         }
         address.update(request.city(), request.district(), request.streetName(),
                 request.streetNumber(), request.detail(), request.isDefault()
         );
+    }
+
+    @Transactional
+    public void deleteAddress(long userId, String addressId) {
+        Address address = getAddressOrException(addressId);
+        checkAddressOwner(userId, address.getUser().getUserId());
+        address.deleteBase(String.valueOf(userId));
     }
 
     private boolean overMaxAddress(final User user) {
@@ -61,8 +68,8 @@ public class AddressService {
         defaultAddress.updateDefault(false);
     }
 
-    private void checkAddressOwner(User requestUser, User ownerUser) {
-        if(requestUser != ownerUser) {
+    private void checkAddressOwner(long requestUserId, long ownerUserId) {
+        if(requestUserId != ownerUserId) {
             throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
         }
     }

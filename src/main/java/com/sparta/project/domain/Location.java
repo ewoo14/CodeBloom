@@ -11,8 +11,8 @@ import lombok.*;
 public class Location extends BaseEntity { // 지역
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "location_id", length = 36, nullable = false, updatable = false)
+    @GeneratedValue(strategy=GenerationType.UUID)
+    @Column(name="location_id", length=36, nullable=false, updatable=false)
     private String locationId;
 
     @Column(name = "name", length = 20, nullable = false) // 이름
@@ -32,5 +32,14 @@ public class Location extends BaseEntity { // 지역
                 .name(name)
                 .description(description)
                 .build();
+    }
+
+    public void update(String name, String description) {
+        if (name != null) {
+            this.name = name;
+        }
+        if (description != null) {
+            this.description = description;
+        }
     }
 }

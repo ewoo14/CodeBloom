@@ -1,8 +1,8 @@
 package com.sparta.project.domain;
 
+import com.sparta.project.util.UuidGenerator;
 import jakarta.persistence.*;
 import lombok.*;
-import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -11,6 +11,7 @@ import java.util.UUID;
 @Table(name="p_ai")
 public class Ai extends BaseEntity { // 채팅 기록
 	@Id
+	@GeneratedValue(strategy=GenerationType.UUID)
 	@Column(name="ai_id", length=36, nullable=false, updatable=false)
 	private String aiId;
 
@@ -26,7 +27,6 @@ public class Ai extends BaseEntity { // 채팅 기록
 
 	@Builder
 	private Ai(User user, String question, String answer) {
-		this.aiId = UUID.randomUUID().toString();
 		this.user = user;
 		this.question = question;
 		this.answer = answer;

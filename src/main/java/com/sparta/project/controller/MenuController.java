@@ -6,10 +6,12 @@ import com.sparta.project.dto.menu.MenuResponse;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.service.MenuService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import com.sparta.project.util.PermissionValidator;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class MenuController {
 
     private final MenuService menuService;
+    private final PermissionValidator permissionValidator;
 
     // 음식점 메뉴 조회(ALL)
     @GetMapping
@@ -40,9 +43,10 @@ public class MenuController {
     // 메뉴 추가(OWNER, MANAGER, MASTER)
     @PostMapping
     public ApiResponse<MenuResponse> createMenu(
-            @RequestBody MenuCreateRequest menuCreateRequest,
+            @Valid @RequestBody MenuCreateRequest menuCreateRequest,
             Authentication authentication) {
-        MenuResponse newMenu = menuService.createMenu(menuCreateRequest, authentication);
+        permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
+        MenuResponse newMenu = menuService.createMenu(menuCreateRequest);
         return ApiResponse.success(newMenu);
     }
 
@@ -50,9 +54,10 @@ public class MenuController {
     @PatchMapping("/{menu_id}")
     public ApiResponse<MenuResponse> updateMenu(
             @PathVariable String menu_id,
-            @RequestBody MenuUpdateRequest menuUpdateRequest,
+            @Valid @RequestBody MenuUpdateRequest menuUpdateRequest,
             Authentication authentication) {
-        MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest, authentication);
+        permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
+        MenuResponse updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest);
         return ApiResponse.success(updatedMenu);
     }
 
@@ -61,6 +66,7 @@ public class MenuController {
     public ApiResponse<Void> deleteMenu(
             @PathVariable String menu_id,
             Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
         menuService.deleteMenu(menu_id, authentication);
         return ApiResponse.success();
     }
