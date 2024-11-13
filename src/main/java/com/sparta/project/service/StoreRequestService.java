@@ -21,7 +21,7 @@ public class StoreRequestService {
     private final UserService userService;
     private final StoreService storeService;
     private final StoreCategoryService categoryService;
-    private final StoreLocationService locationService;
+    private final LocationService locationService;
     private final StoreRequestRepository storeRequestRepository;
 
     @Transactional
@@ -33,7 +33,7 @@ public class StoreRequestService {
         storeRequestRepository.save(StoreRequest.create(
                 request.name(), request.description(), request.address(), user,
                 categoryService.getStoreCategoryOrException(request.storeCategoryId()),
-                locationService.getStoreLocationOrException(request.locationId())
+                locationService.getLocationOrException(request.locationId())
         ));
     }
 

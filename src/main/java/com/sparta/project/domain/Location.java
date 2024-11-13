@@ -1,9 +1,7 @@
 package com.sparta.project.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.sparta.project.util.UuidGenerator;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Getter
@@ -14,6 +12,7 @@ import lombok.*;
 public class Location extends BaseEntity { // 지역
 
     @Id
+    @GeneratedValue(strategy=GenerationType.UUID)
     @Column(name="location_id", length=36, nullable=false, updatable=false)
     private String locationId;
 
@@ -24,10 +23,24 @@ public class Location extends BaseEntity { // 지역
     private String description;
 
     @Builder
-    public Location(String locationId, String name, String description) {
-        this.locationId = locationId;
+    public Location(String name, String description) {
         this.name = name;
         this.description = description;
     }
 
+    public static Location create(String name, String description) {
+        return Location.builder()
+                .name(name)
+                .description(description)
+                .build();
+    }
+
+    public void update(String name, String description) {
+        if (name != null) {
+            this.name = name;
+        }
+        if (description != null) {
+            this.description = description;
+        }
+    }
 }
