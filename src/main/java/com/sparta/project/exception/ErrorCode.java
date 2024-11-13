@@ -69,6 +69,9 @@ public enum ErrorCode {
     // Review
     REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 리뷰 정보가 존재하지 않습니다."),
 
+    // Review
+    REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 리뷰 정보가 존재하지 않습니다."),
+
     // Menu
     MENU_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 메뉴 정보가 존재하지 않습니다."),
     MENU_ALREADY_EXIST(HttpStatus.CONFLICT, "메뉴가 이미 존재합니다."),

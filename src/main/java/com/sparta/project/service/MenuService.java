@@ -1,6 +1,9 @@
 package com.sparta.project.service;
 
+<<<<<<< HEAD
 import com.querydsl.core.types.dsl.BooleanExpression;
+=======
+>>>>>>> 0ebca46 ([Feat] 리뷰 생성 및 조회 구현)
 import com.sparta.project.domain.Menu;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -11,6 +14,7 @@ import com.sparta.project.domain.QMenu;
 >>>>>>> 9863864 ([Fix] Menu Service 메서드별 테스트 완성)
 import com.sparta.project.domain.Store;
 import com.sparta.project.dto.menu.MenuCreateRequest;
+<<<<<<< HEAD
 import com.sparta.project.dto.menu.MenuUpdateRequest;
 =======
 =======
@@ -22,7 +26,10 @@ import com.sparta.project.dto.menu.MenuRequest;
 import com.sparta.project.dto.menu.MenuCreateRequest;
 >>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
 import com.sparta.project.dto.menu.MenuResponse;
+=======
+>>>>>>> 0ebca46 ([Feat] 리뷰 생성 및 조회 구현)
 import com.sparta.project.dto.menu.MenuUpdateRequest;
+import com.sparta.project.dto.menu.MenuResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.MenuRepository;
@@ -31,6 +38,9 @@ import com.sparta.project.repository.MenuRepository;
 import com.sparta.project.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0ebca46 ([Feat] 리뷰 생성 및 조회 구현)
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.data.domain.Page;
@@ -104,7 +114,12 @@ public class MenuService {
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
     // 모든 메뉴 조회
     @Transactional(readOnly = true)
+<<<<<<< HEAD
     public Page<MenuResponse> getAllMenus(String storeId, String storeName, Pageable pageable) {
+=======
+    public Page<MenuResponse> getAllMenus(String storeId, String storeName, int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by(sortBy));
+>>>>>>> 0ebca46 ([Feat] 리뷰 생성 및 조회 구현)
         QMenu qMenu = QMenu.menu;
         // storeId : 전체일치, storeName : 부분일치
         BooleanExpression predicate = qMenu.store.storeId.eq(storeId)
