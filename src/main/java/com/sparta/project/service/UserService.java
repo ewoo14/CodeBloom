@@ -28,7 +28,9 @@ public class UserService {
 
     @Transactional
     public void createUser(final UserSignupRequest request) {
-        // TODO : 유효성 검사 필요
+        if(userRepository.existsByUsername(request.username())) {
+            throw new CodeBloomException(ErrorCode.DUPLICATE_USERNAME);
+        }
         userRepository.save(User.create(
                 request.username(), passwordEncoder.encode(request.password()),
                 request.nickname(), request.role())

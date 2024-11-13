@@ -20,6 +20,7 @@ public enum ErrorCode {
 
     // User
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 유저 정보가 존재하지 않습니다."),
+    DUPLICATE_USERNAME(HttpStatus.CONFLICT, "유저 이름이 이미 존재합니다."),
 
     // Address
     ADDRESS_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 배송지 정보가 존재하지 않습니다."),
