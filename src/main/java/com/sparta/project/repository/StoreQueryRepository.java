@@ -19,11 +19,16 @@ import lombok.extern.slf4j.Slf4j;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.sparta.project.domain.QStore;
+import com.sparta.project.domain.QMenu;
 import com.sparta.project.domain.Store;
 import com.sparta.project.domain.StoreCategory;
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
+<<<<<<< HEAD
 >>>>>>> 6c799da ([Feat] 음식점 조회용 querydsl 미완)
+=======
+import lombok.extern.slf4j.Slf4j;
+>>>>>>> ecac4ce ([Feat] 음식점 목록 조회 기능)
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -31,6 +36,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 import static com.sparta.project.domain.QStore.store;
 
@@ -43,6 +49,14 @@ import static com.sparta.project.domain.QStore.store;
  * QueryDSL 사용 리포지토리
  * */
 >>>>>>> 6c799da ([Feat] 음식점 조회용 querydsl 미완)
+=======
+import static com.sparta.project.domain.QStore.store;
+
+/**
+ * QueryDSL 사용 리포지토리
+ * */
+@Slf4j
+>>>>>>> ecac4ce ([Feat] 음식점 목록 조회 기능)
 @Repository
 @RequiredArgsConstructor
 public class StoreQueryRepository {
@@ -67,13 +81,15 @@ public class StoreQueryRepository {
                                       Pageable pageable) {
 
         BooleanBuilder booleanBuilder = toBooleanBuilder(storeCategory, name, menu);
-        List<Store> contents = queryFactory.selectFrom(QStore.store)
+        List<Store> contents = queryFactory.selectFrom(store)
+                .leftJoin(QMenu.menu).on(store.storeId.eq(QMenu.menu.store.storeId))
                 .where(booleanBuilder)
 >>>>>>> 6c799da ([Feat] 음식점 조회용 querydsl 미완)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         JPAQuery<Long> count = queryFactory.select(store.countDistinct())
                 .from(store)
@@ -82,6 +98,11 @@ public class StoreQueryRepository {
         JPAQuery<Long> count = queryFactory.select(QStore.store.count())
                 .from(QStore.store)
 >>>>>>> 6c799da ([Feat] 음식점 조회용 querydsl 미완)
+=======
+        JPAQuery<Long> count = queryFactory.select(store.count())
+                .from(store)
+                .leftJoin(QMenu.menu).on(store.storeId.eq(QMenu.menu.store.storeId))
+>>>>>>> ecac4ce ([Feat] 음식점 목록 조회 기능)
                 .where(booleanBuilder);
 
         return PageableExecutionUtils.getPage(contents, pageable, count::fetchOne);
@@ -109,6 +130,7 @@ public class StoreQueryRepository {
     }
 
     private BooleanExpression eqStoreCategory(StoreCategory storeCategory) {
+<<<<<<< HEAD
 <<<<<<< HEAD
         return storeCategory != null ? store.storeCategory.eq(storeCategory) : null;
     }
@@ -157,16 +179,26 @@ public class StoreQueryRepository {
         };
 =======
         return storeCategory != null ? QStore.store.storeCategory.eq(storeCategory) : null;
+=======
+        return storeCategory != null ? store.storeCategory.eq(storeCategory) : null;
+>>>>>>> ecac4ce ([Feat] 음식점 목록 조회 기능)
     }
 
     private BooleanExpression likeName(String name) {
         String condition = name == null ? "" :name;
-        return QStore.store.name.like("%" + condition + "%");
+        return store.name.like("%" + condition + "%");
     }
 
     private BooleanExpression likeMenu(String menu) {
+<<<<<<< HEAD
         String condition = menu == null ? "" :menu;
         return QStore.store.name.like("%" + condition + "%");
 >>>>>>> 6c799da ([Feat] 음식점 조회용 querydsl 미완)
+=======
+        if (StringUtils.isBlank(menu)) {
+            return null; // menu가 null이거나 빈 문자열일 경우 조건 무시
+        }
+        return QMenu.menu.name.like("%" + menu + "%");
+>>>>>>> ecac4ce ([Feat] 음식점 목록 조회 기능)
     }
 }

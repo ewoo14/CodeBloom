@@ -5,8 +5,11 @@ import com.sparta.project.domain.Store;
 import com.sparta.project.domain.StoreCategory;
 import com.sparta.project.domain.User;
 import com.sparta.project.domain.enums.Role;
+<<<<<<< HEAD
 import com.sparta.project.repository.storecategory.StoreCategoryRepository;
 import com.sparta.project.repository.user.UserRepository;
+=======
+>>>>>>> ecac4ce ([Feat] 음식점 목록 조회 기능)
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
