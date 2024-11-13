@@ -34,6 +34,12 @@ public class StoreCategoryService {
         storeCategory.update(request.name(), request.description());
     }
 
+    @Transactional
+    public void deleteStoreCategory(String userId, String categoryId) {
+        StoreCategory storeCategory = getStoreCategoryOrException(categoryId);
+        storeCategory.deleteBase(userId);
+    }
+
     private void checkNameDuplication(String newName) {
         if(storeCategoryRepository.existsByName(newName)) {
             throw new CodeBloomException(ErrorCode.CATEGORY_ALREADY_EXIST);
