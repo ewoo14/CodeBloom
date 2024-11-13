@@ -25,7 +25,9 @@ public class LocationController {
     public ApiResponse<PageResponse<LocationResponse>> getAllLocations(
             @RequestParam("page") int page,
             @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy) {
+            @RequestParam("sortBy") String sortBy,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
         Page<LocationResponse> responses = locationService.getAllLocations(page, size, sortBy);
         return ApiResponse.success(PageResponse.of(responses));
     }
@@ -33,7 +35,9 @@ public class LocationController {
     // 운영 지역 상세 조회(MANAGER, MASTER)
     @GetMapping("/{locationId}")
     public ApiResponse<LocationResponse> getLocation(
-            @PathVariable String locationId) {
+            @PathVariable String locationId,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
         LocationResponse response = locationService.getLocation(locationId);
         return ApiResponse.success(response);
     }
