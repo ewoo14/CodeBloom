@@ -62,7 +62,8 @@ public class ReviewController {
             Authentication authentication) {
         log.info("리뷰 생성 요청 수신: {}", reviewCreateRequest);
         permissionValidator.checkPermission(authentication, "CUSTOMER");
-        String review = reviewService.createReview(reviewCreateRequest);
+        Long userId = Long.parseLong(authentication.getName());
+        String review = reviewService.createReview(userId, reviewCreateRequest);
         return ApiResponse.success(review);
     }
 
