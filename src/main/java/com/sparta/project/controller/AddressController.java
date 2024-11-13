@@ -2,6 +2,7 @@ package com.sparta.project.controller;
 
 
 import com.sparta.project.domain.enums.Role;
+import com.sparta.project.dto.address.AddressAdminResponse;
 import com.sparta.project.dto.address.AddressCreateRequest;
 import com.sparta.project.dto.address.AddressResponse;
 import com.sparta.project.dto.address.AddressUpdateRequest;
@@ -44,6 +45,15 @@ public class AddressController {
         AddressResponse response = addressService.getAddressBy(Long.parseLong(authentication.getName()), address_id);
         return ApiResponse.success(response);
     }
+
+    @GetMapping("/{address_id}")
+    public ApiResponse<AddressAdminResponse> getAdminAddress(Authentication authentication,
+                                                             @PathVariable String address_id) {
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
+        AddressAdminResponse response = addressService.getAdminAddressBy(address_id);
+        return ApiResponse.success(response);
+    }
+
     @PatchMapping("/{address_id}")
     public ApiResponse<Void> updateAddress(Authentication authentication,
                                            @PathVariable String address_id,

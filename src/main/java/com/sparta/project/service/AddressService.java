@@ -3,6 +3,7 @@ package com.sparta.project.service;
 
 import com.sparta.project.domain.Address;
 import com.sparta.project.domain.User;
+import com.sparta.project.dto.address.AddressAdminResponse;
 import com.sparta.project.dto.address.AddressCreateRequest;
 import com.sparta.project.dto.address.AddressResponse;
 import com.sparta.project.dto.address.AddressUpdateRequest;
@@ -45,6 +46,13 @@ public class AddressService {
         }
         return AddressResponse.from(address);
     }
+
+    @Transactional(readOnly = true)
+    public AddressAdminResponse getAdminAddressBy(String addressId) {
+        Address address = getAddressOrException(addressId);
+        return AddressAdminResponse.from(address);
+    }
+
     @Transactional
     public void updateAddress(long userId, String addressId, AddressUpdateRequest request) {
         User user = userService.getUserOrException(userId);
