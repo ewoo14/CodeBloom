@@ -62,6 +62,7 @@ public class AddressService {
         return AddressResponse.from(address);
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     @Transactional(readOnly = true)
     public Page<AddressAdminResponse> getAllAddresses(
@@ -72,6 +73,8 @@ public class AddressService {
         return addressRepository.findAddressesWith(pageable, targetUserId, city, isDeleted)
                 .map(AddressAdminResponse::from);
     }
+=======
+>>>>>>> 251cce7 ([Feat] 관리자용 배송지 상세 조회 API)
 
     @Transactional(readOnly = true)
     public AddressAdminResponse getAdminAddressBy(String addressId) {
@@ -79,7 +82,10 @@ public class AddressService {
         return AddressAdminResponse.from(address);
     }
 
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 251cce7 ([Feat] 관리자용 배송지 상세 조회 API)
     @Transactional
 >>>>>>> 94c9f8b ([Feat] 유저 배송지 상세 조회 API)
     public void updateAddress(long userId, String addressId, AddressUpdateRequest request) {

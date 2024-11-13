@@ -49,6 +49,7 @@ package com.sparta.project.controller;
 
 
 import com.sparta.project.domain.enums.Role;
+import com.sparta.project.dto.address.AddressAdminResponse;
 import com.sparta.project.dto.address.AddressCreateRequest;
 import com.sparta.project.dto.address.AddressResponse;
 import com.sparta.project.dto.address.AddressUpdateRequest;
@@ -127,6 +128,7 @@ public class AddressController {
         return ApiResponse.success(response);
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
     // 전체 유저의 배송지 목록 조회 (MANAGER, MASTER)
     @GetMapping("")
@@ -145,6 +147,8 @@ public class AddressController {
         Page<AddressAdminResponse> result = addressService.getAllAddresses(pageable, userId, city, isDeleted);
         return ApiResponse.success(PageResponse.of(result));
     }
+=======
+>>>>>>> 251cce7 ([Feat] 관리자용 배송지 상세 조회 API)
 
     @GetMapping("/{address_id}")
     public ApiResponse<AddressAdminResponse> getAdminAddress(Authentication authentication,
@@ -154,8 +158,11 @@ public class AddressController {
         return ApiResponse.success(response);
     }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 94c9f8b ([Feat] 유저 배송지 상세 조회 API)
+=======
+>>>>>>> 251cce7 ([Feat] 관리자용 배송지 상세 조회 API)
     @PatchMapping("/{address_id}")
     public ApiResponse<Void> updateAddress(Authentication authentication,
                                            @PathVariable String address_id,
