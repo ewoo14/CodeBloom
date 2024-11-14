@@ -7,6 +7,7 @@ import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.service.LocationService;
 import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -23,9 +24,11 @@ public class LocationController {
     // 운영 지역 전체 조회(MANAGER, MASTER)
     @GetMapping("/all")
     public ApiResponse<PageResponse<LocationResponse>> getAllLocations(
-            @RequestParam("page") int page,
-            @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy) {
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @RequestParam(value = "sortBy", required = false, defaultValue = "name") String sortBy,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
         Page<LocationResponse> responses = locationService.getAllLocations(page, size, sortBy);
         return ApiResponse.success(PageResponse.of(responses));
     }
@@ -33,29 +36,31 @@ public class LocationController {
     // 운영 지역 상세 조회(MANAGER, MASTER)
     @GetMapping("/{locationId}")
     public ApiResponse<LocationResponse> getLocation(
-            @PathVariable String locationId) {
+            @PathVariable String locationId,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
         LocationResponse response = locationService.getLocation(locationId);
         return ApiResponse.success(response);
     }
 
     // 운영 지역 생성(MANAGER, MASTER)
     @PostMapping
-    public ApiResponse<LocationResponse> createLocation(
+    public ApiResponse<String> createLocation(
             @Valid @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
-        LocationResponse response = locationService.createLocation(locationRequest);
+        String response = locationService.createLocation(locationRequest);
         return ApiResponse.success(response);
     }
 
     // 운영 지역 수정(MANAGER, MASTER)
     @PatchMapping("/{locationId}")
-    public ApiResponse<LocationResponse> updateLocation(
+    public ApiResponse<String> updateLocation(
             @PathVariable String locationId,
-            @Valid @RequestBody LocationRequest locationRequest,
+            @NotNull @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
-        LocationResponse response = locationService.updateLocation(locationId, locationRequest);
+        String response = locationService.updateLocation(locationId, locationRequest);
         return ApiResponse.success(response);
     }
 
