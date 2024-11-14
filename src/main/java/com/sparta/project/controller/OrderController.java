@@ -259,18 +259,20 @@ public class OrderController {
         return ApiResponse.success(order);
     }
 
-    //
-//    // 고객의 주문내역 목록 조회(OWNER, MANAGER, MASTER)
-//    @GetMapping("/users")
-//    public ApiResponse<PageResponse<OrderResponse>> getAllOrdersByUser(
-//            @RequestParam Long userId,
-//            @RequestParam("page") int page,
-//            @RequestParam("size") int size,
-//            @RequestParam("sortBy") String sortBy) {
-//        Page<OrderResponse> orders = orderService.getAllOrdersByUser(userId, page, size, sortBy);
-//        return ApiResponse.success(PageResponse.of(orders));
-//    }
-//
+
+    // 고객의 주문내역 목록 조회(OWNER, MANAGER, MASTER)
+    @GetMapping("/users")
+    public ApiResponse<PageResponse<OrderResponse>> getAllOrdersByUser(
+            @RequestParam("userId") Long userId,
+            @PageableDefault(size = 5)
+            @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            Pageable pageable,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.OWNER.name(), Role.MANAGER.name(), Role.MASTER.name());
+        Page<OrderResponse> orders = orderService.getAllOrdersByUser(pageable, userId);
+        return ApiResponse.success(PageResponse.of(orders));
+    }
+
     // 주문 요청(CUSTOMER, OWNER)
     @PostMapping
     public ApiResponse<String> createOrder(@RequestBody @Valid OrderCreateRequest request,

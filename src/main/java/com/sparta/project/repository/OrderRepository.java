@@ -44,5 +44,10 @@ public interface OrderRepository extends JpaRepository<Order, String> {
     // store 가 null 인 경우 모든 거 반환
     @Query("SELECT o FROM Order o WHERE (:store IS NULL OR o.store = :store)")
     Page<Order> findAllByStoreNullable(@Param("store") Store store, Pageable pageable);
+<<<<<<< HEAD
 >>>>>>> 6336dc6 ([Feat] 자신의 주문내역 목록 조회)
+=======
+
+    Page<Order> findAllByUser(User user, Pageable pageable);
+>>>>>>> 9d9d1b7 ([Feat] 고객의 주문내역 목록 조회)
 }

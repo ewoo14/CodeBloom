@@ -255,5 +255,14 @@ public class OrderService {
         return orderRepository.findAllByStoreNullable(store, pageable)
                 .map(OrderResponse::from);
     }
+<<<<<<< HEAD
 >>>>>>> 6336dc6 ([Feat] 자신의 주문내역 목록 조회)
+=======
+
+    public Page<OrderResponse> getAllOrdersByUser(Pageable pageable, Long userId) {
+        User user = userService.getUserOrException(userId);
+        return orderRepository.findAllByUser(user, pageable)
+                .map(OrderResponse::from);
+    }
+>>>>>>> 9d9d1b7 ([Feat] 고객의 주문내역 목록 조회)
 }
