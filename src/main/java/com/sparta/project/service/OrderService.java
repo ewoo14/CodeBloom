@@ -66,6 +66,13 @@ public class OrderService {
         return order.getOrderId();
     }
 
+    @Transactional
+    public String deleteOrder(String orderId) {
+        Order order = getOrderOrException(orderId);
+        order.cancel();
+        return order.getOrderId();
+    }
+
     public Order getOrderOrException(String orderId) {
         return orderRepository.findById(orderId).orElseThrow(() ->
                 new CodeBloomException(ErrorCode.ORDER_NOT_FOUND));

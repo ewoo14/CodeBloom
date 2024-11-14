@@ -58,4 +58,41 @@ class OrderTest {
         assertThatThrownBy(() -> order.approve()).isInstanceOf(CodeBloomException.class);
     }
 
+    @DisplayName("status를 CANCELED로 변경한다.")
+    @Test
+    void cancel() {
+        // given
+        Order order = Order.create(user, address, store, OrderType.ONLINE, 50000, "천천히 갖다 주세요.");
+
+        // when
+        order.cancel();
+
+        // then
+        assertThat(order.getStatus()).isEqualTo(OrderStatus.CANCELED);
+    }
+
+    @DisplayName("이미 취소된 주문은 예외를 반환한다.")
+    @Test
+    void cancelWhenAlreadyCanceled() {
+        // given
+        Order order = Order.create(user, address, store, OrderType.ONLINE, 50000, "천천히 갖다 주세요.");
+        order.cancel();
+
+        // when & then
+        assertThatThrownBy(() -> order.cancel())
+                .isInstanceOf(CodeBloomException.class);
+    }
+
+    @DisplayName("이미 승인된 주문은 취소할 때 예외를 반환한다.")
+    @Test
+    void cancelWhenAlreadyApproved() {
+        // given
+        Order order = Order.create(user, address, store, OrderType.ONLINE, 50000, "천천히 갖다 주세요.");
+        order.approve();
+
+        // when & then
+        assertThatThrownBy(() -> order.cancel())
+                .isInstanceOf(CodeBloomException.class);
+    }
+
 }

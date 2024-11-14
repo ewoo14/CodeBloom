@@ -64,10 +64,11 @@ public class OrderController {
         return ApiResponse.success(orderId);
     }
 
-//    // 주문 취소(CUSTOMER, OWNER)
-//    @DeleteMapping("/{order_id}")
-//    public ApiResponse<Void> deleteOrder(@PathVariable Long order_id) {
-//        orderService.deleteOrder(order_id);
-//        return ApiResponse.success();
-//    }
+    // 주문 취소(CUSTOMER, OWNER)
+    @DeleteMapping("/{order_id}")
+    public ApiResponse<String> deleteOrder(@PathVariable("order_id") String order_id, Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name(), Role.OWNER.name());
+        String orderId = orderService.deleteOrder(order_id);
+        return ApiResponse.success(orderId);
+    }
 }

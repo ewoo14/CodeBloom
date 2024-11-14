@@ -75,8 +75,13 @@ public class Order extends BaseEntity { // 주문
     }
 
     public void approve() {
-        if (this.status != OrderStatus.WAITING) throw new CodeBloomException(ErrorCode.INVALID_ORDER_STATUS_CHANGE);
+        if (this.status != OrderStatus.WAITING) throw new CodeBloomException(ErrorCode.CANNOT_APPROVE_ORDER);
         this.status = OrderStatus.APPROVED;
+    }
+
+    public void cancel() {
+        if (this.status != OrderStatus.WAITING) throw new CodeBloomException(ErrorCode.CANNOT_CANCEL_ORDER);
+        this.status = OrderStatus.CANCELED;
     }
 
 }
