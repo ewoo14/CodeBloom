@@ -57,4 +57,9 @@ public class UserService {
         );
     }
 
+    @Transactional
+    public void withdraw(long userId) {
+        User user = getUserOrException(userId);
+        user.deleteBase(String.valueOf(userId));
+    }
 }

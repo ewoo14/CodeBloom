@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,12 +47,18 @@ public class UserController {
         return ApiResponse.success();
     }
 
+    // 회원 탈퇴 (CUSTOMER, OWNER)
+    @DeleteMapping("/withdraw")
+    public ApiResponse<Void> delete(Authentication authentication) {
+        userService.withdraw(Long.parseLong(authentication.getName()));
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name(), Role.OWNER.name());
+        return ApiResponse.success();
+    }
+
+
 }
 
 
-
-
-//
 //    // 전체 유저 조회(MANAGER, MASTER)
 //    @GetMapping
 //    public ApiResponse<PageResponse<UserResponse>> getAllUsers(
@@ -72,10 +79,4 @@ public class UserController {
 //        return ApiResponse.success(userInfo);
 //    }
 //
-//    // 회원 탈퇴(ALL)
-//    @DeleteMapping("/{user_id}")
-//    public ApiResponse<Void> deleteUser(@PathVariable Long user_id) {
-//        userService.deleteUser(user_id);
-//        return ApiResponse.success();
-//    }
 //}
