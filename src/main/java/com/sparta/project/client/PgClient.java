@@ -12,7 +12,12 @@ public class PgClient {
      * 로그를 찍고 true를 반환하도록 함
      * */
     public boolean requestPayment(Payment payment) {
-        log.info("Requesting payment for payment {}", payment);
+        log.info("결재 요청 중... 결재 정보: {}", payment);
+        return true;
+    }
+
+    public boolean cancelPayment(Payment payment) {
+        log.info("결재 취소 중... 결재 정보: {}", payment);
         return true;
     }
 }
