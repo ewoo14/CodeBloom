@@ -32,6 +32,7 @@ import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.service.ReviewService;
 import com.sparta.project.util.PermissionValidator;
+import jakarta.validation.constraints.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import jakarta.validation.Valid;
@@ -183,7 +184,7 @@ public class ReviewController {
     @PatchMapping("/{review_id}")
     public ApiResponse<String> updateReview(
             @PathVariable String review_id,
-            @RequestBody ReviewUpdateRequest reviewUpdateRequest,
+            @NotNull @RequestBody ReviewUpdateRequest reviewUpdateRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "CUSTOMER");
         String updatedReview = reviewService.updateReview(review_id, reviewUpdateRequest);

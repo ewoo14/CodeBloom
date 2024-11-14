@@ -24,6 +24,7 @@ import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.service.LocationService;
 import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
@@ -141,7 +142,7 @@ public class LocationController {
     @PatchMapping("/{locationId}")
     public ApiResponse<String> updateLocation(
             @PathVariable String locationId,
-            @Valid @RequestBody LocationRequest locationRequest,
+            @NotNull @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
         String response = locationService.updateLocation(locationId, locationRequest);

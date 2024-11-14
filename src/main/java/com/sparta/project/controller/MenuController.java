@@ -31,6 +31,7 @@ import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.service.MenuService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -136,10 +137,14 @@ public class MenuController {
     public ApiResponse<String> updateMenu(
             @PathVariable String menu_id,
 <<<<<<< HEAD
+<<<<<<< HEAD
             @NotNull @RequestBody MenuUpdateRequest menuUpdateRequest,
 =======
             @RequestBody MenuUpdateRequest menuUpdateRequest,
 >>>>>>> bd91820 ([Fix] 업데이트 Request에는 Valid 어노테이션 삭제)
+=======
+            @NotNull @RequestBody MenuUpdateRequest menuUpdateRequest,
+>>>>>>> 8abd7a0 ([Fix] 업데이트 시 `@NotNull` 어노테이션 추가)
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.OWNER.name(), Role.MANAGER.name(), Role.MASTER.name());
         String updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest);
