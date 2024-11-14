@@ -62,4 +62,14 @@ public class UserService {
         User user = getUserOrException(userId);
         user.deleteBase(String.valueOf(userId));
     }
+
+    @Transactional
+    public void deleteUser(long adminId, long userId) {
+        User user = getUserOrException(userId);
+        if(user.getIsDeleted()) {
+            throw new CodeBloomException(ErrorCode.ALREADY_PROCESSED);
+        }
+        user.deleteBase(String.valueOf(adminId));
+    }
+
 }
