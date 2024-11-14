@@ -83,6 +83,7 @@ public class UserService {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     @Transactional(readOnly = true)
     public UserResponse getUserById(long userId, boolean isAdmin) {
         User user = getUserOrException(userId);
@@ -101,11 +102,14 @@ public class UserService {
                 .map(UserAdminResponse::from);
     }
 
+=======
+>>>>>>> 9ab9550 ([Feat] 회원 탈퇴 API)
     @Transactional
     public void withdraw(long userId) {
         User user = getUserOrException(userId);
         user.deleteBase(String.valueOf(userId));
     }
+<<<<<<< HEAD
 
     @Transactional
     public void deleteUser(long adminId, long userId) {
@@ -148,4 +152,6 @@ public class UserService {
 >>>>>>> 4bb355b ([Feat] 로그인 API)
 =======
 >>>>>>> a74bec8 ([Feat] 유저 정보 수정 API)
+=======
+>>>>>>> 9ab9550 ([Feat] 회원 탈퇴 API)
 }
