@@ -1,4 +1,4 @@
-package com.sparta.project.repository;
+package com.sparta.project.repository.storerequest;
 
 import com.sparta.project.domain.StoreRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
