@@ -23,7 +23,8 @@ import com.sparta.project.domain.Payment;
 import com.sparta.project.domain.User;
 import com.sparta.project.domain.enums.OrderType;
 import com.sparta.project.domain.enums.Role;
-import com.sparta.project.dto.payment.PaymentCreateResponse;
+import com.sparta.project.dto.payment.PaymentResponse;
+import com.sparta.project.dto.payment.PaymentRequest;
 import com.sparta.project.repository.OrderRepository;
 import com.sparta.project.repository.PaymentRepository;
 import com.sparta.project.repository.UserRepository;
@@ -118,6 +119,7 @@ class PaymentServiceTest {
     @Test
     void createPayment_Success() {
         // given
+<<<<<<< HEAD
         String orderId = testOrder.getOrderId();
         String type = "CARD";
         int paymentPrice = 10000;
@@ -130,10 +132,26 @@ class PaymentServiceTest {
 >>>>>>> 07367c2 (결제 기능 Controller)
 =======
 >>>>>>> 1bccd96 ([Feat] 주문자 정보와 결제자 정보가 일치 않으면 USER_ORDER_MISMATCH 예외 발생)
+=======
+        String orderId;
+        String type;
+        int paymentPrice;
+        String pgName;
+
+        PaymentRequest paymentRequest = new PaymentRequest(
+                orderId = testOrder.getOrderId(),
+                type = "CARD",
+                paymentPrice = 10000,
+                pgName = "TOSS"
+        );
+
+
+>>>>>>> cb54b05 ([Feat] 결제 내역 목록 조회 메서드 3개 구현 및 결제 요청 수정)
 
         when(pgClient.requestPayment(any(Payment.class))).thenReturn(true);
 
         // when
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -151,6 +169,9 @@ class PaymentServiceTest {
 =======
         PaymentCreateResponse response = paymentService.createPayment(orderId, type, paymentPrice, pgName, testUser.getUserId());
 >>>>>>> 6db7bcf ([Fix] TestDataRunner.java 삭제, PaymentServiceTest 디버깅)
+=======
+        PaymentResponse response = paymentService.createPayment(paymentRequest, testUser.getUserId());
+>>>>>>> cb54b05 ([Feat] 결제 내역 목록 조회 메서드 3개 구현 및 결제 요청 수정)
 
         // then
         assertThat(response).isNotNull();
