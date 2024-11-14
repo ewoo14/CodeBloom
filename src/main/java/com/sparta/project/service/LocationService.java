@@ -17,12 +17,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class LocationService {
 
     private final LocationRepository locationRepository;
 
     // 운영 지역 전체 조회
+    @Transactional(readOnly = true)
     public Page<LocationResponse> getAllLocations(int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page - 1, size, Sort.by(sortBy));
         Page<Location> locations = locationRepository.findAll(pageable);
@@ -30,12 +30,14 @@ public class LocationService {
     }
 
     // 운영 지역 상세 조회
+    @Transactional(readOnly = true)
     public LocationResponse getLocation(String locationId) {
         Location location = getLocationOrException(locationId);
         return LocationResponse.from(location);
     }
 
     // 운영 지역 생성
+    @Transactional
     public String createLocation(LocationRequest locationRequest) {
         boolean exists = locationRepository.existsByName(locationRequest.locationName());
         if (exists) {
@@ -47,6 +49,7 @@ public class LocationService {
     }
 
     // 운영 지역 수정
+    @Transactional
     public String updateLocation(String locationId, LocationRequest locationRequest) {
         Location location = getLocationOrException(locationId);
         boolean exists = locationRepository.existsByName(locationRequest.locationName());
@@ -59,6 +62,7 @@ public class LocationService {
     }
 
     // 운영 지역 삭제
+    @Transactional
     public void deleteLocation(String locationId, Authentication authentication) {
         Location location = getLocationOrException(locationId);
         location.deleteBase(authentication.getName());
