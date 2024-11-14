@@ -100,4 +100,10 @@ public class OrderService {
         return orderRepository.findAllByStoreNullable(store, pageable)
                 .map(OrderResponse::from);
     }
+
+    public Page<OrderResponse> getAllOrdersByUser(Pageable pageable, Long userId) {
+        User user = userService.getUserOrException(userId);
+        return orderRepository.findAllByUser(user, pageable)
+                .map(OrderResponse::from);
+    }
 }
