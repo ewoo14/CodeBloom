@@ -83,6 +83,12 @@ public class AddressService {
 >>>>>>> 251cce7 ([Feat] 관리자용 배송지 상세 조회 API)
 
     @Transactional(readOnly = true)
+    public Page<AddressAdminResponse> getAllAddresses(Pageable pageable, Long targetUserId, Boolean isDeleted) {
+        return addressRepository.findAddressesWith(pageable, targetUserId, isDeleted)
+                .map(AddressAdminResponse::from);
+    }
+
+    @Transactional(readOnly = true)
     public AddressAdminResponse getAdminAddressBy(String addressId) {
         Address address = getAddressOrException(addressId);
         return AddressAdminResponse.from(address);
