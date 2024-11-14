@@ -110,6 +110,9 @@ public class UserService {
         user.deleteBase(String.valueOf(userId));
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0d2cb8a ([Feat] 회원 삭제 API)
 
     @Transactional
     public void deleteUser(long adminId, long userId) {
@@ -120,6 +123,7 @@ public class UserService {
         user.deleteBase(String.valueOf(adminId));
     }
 
+<<<<<<< HEAD
 =======
     private final TokenProvider tokenProvider;
 =======
@@ -154,4 +158,6 @@ public class UserService {
 >>>>>>> a74bec8 ([Feat] 유저 정보 수정 API)
 =======
 >>>>>>> 9ab9550 ([Feat] 회원 탈퇴 API)
+=======
+>>>>>>> 0d2cb8a ([Feat] 회원 삭제 API)
 }
