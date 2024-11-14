@@ -7,10 +7,13 @@ import com.sparta.project.domain.enums.Role;
 import com.sparta.project.domain.enums.StoreRequestStatus;
 import com.sparta.project.dto.store.StoreCreateData;
 import com.sparta.project.dto.storerequest.StoreCreateRequest;
+import com.sparta.project.dto.storerequest.StoreRequestAdminResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
-import com.sparta.project.repository.StoreRequestRepository;
+import com.sparta.project.repository.storerequest.StoreRequestRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,6 +54,16 @@ public class StoreRequestService {
         checkAlreadyChanged(storeRequest.getStatus(), StoreRequestStatus.REJECT);
         storeRequest.reject(rejectionReason);
         storeRequest.deleteBase(String.valueOf(userId));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<StoreRequestAdminResponse> getAllStoreRequests(
+            Pageable pageable,
+            String categoryId,
+            StoreRequestStatus status,
+            String storeName) {
+        return storeRequestRepository.findStoreRequestsWith(pageable, categoryId, status, storeName)
+                .map(StoreRequestAdminResponse::from);
     }
 
     private void checkAlreadyChanged(StoreRequestStatus before, StoreRequestStatus change) {
