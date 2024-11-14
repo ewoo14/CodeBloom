@@ -15,4 +15,9 @@ public class PgClient {
         log.info("결재 요청 중... 결재 정보: {}", payment);
         return true;
     }
+
+    public boolean cancelPayment(Payment payment) {
+        log.info("결재 취소 중... 결재 정보: {}", payment);
+        return true;
+    }
 }

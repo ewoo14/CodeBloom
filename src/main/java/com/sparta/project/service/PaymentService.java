@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -81,13 +82,32 @@ public class PaymentService {
         Payment payment = Payment.create(order, user, PaymentType.of(paymentRequest.type()),
                 paymentRequest.paymentPrice(), PgName.of(paymentRequest.pgName()));
 
-        boolean isSuccess = pgClient.requestPayment(payment);
-
-        if (!isSuccess) {
+        // 외부 결제 시스템에서 결제 승인 요청
+        if (!pgClient.requestPayment(payment)) {
             throw new CodeBloomException(ErrorCode.PAYMENT_FAILED);
         }
 
         return PaymentResponse.from(paymentRepository.save(payment));
+    }
+
+    // 결제 취소
+    @Transactional
+    public void deletePayment(String paymentId, Authentication authentication) {
+        Payment payment = paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new CodeBloomException(ErrorCode.PAYMENT_NOT_FOUND));
+
+        // 결제 취소 요청자 검증 (승인 요청자와 같은지 확인)
+        if (payment.getUser().getUserId() != Long.parseLong(authentication.getName())) {
+            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
+        }
+
+        // 외부 결제 시스템에서 결제 취소 요청
+        if (!pgClient.cancelPayment(payment)) {
+            throw new CodeBloomException(ErrorCode.PAYMENT_CANCELLATION_FAILED);
+        }
+
+        payment.deleteBase(authentication.getName());
+        paymentRepository.save(payment);
     }
 
     // 주문 정보와 고객 일치 검증

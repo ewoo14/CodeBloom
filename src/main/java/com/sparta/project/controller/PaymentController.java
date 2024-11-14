@@ -1,5 +1,6 @@
 package com.sparta.project.controller;
 
+import com.sparta.project.client.PgClient;
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.payment.PaymentRequest;
 import com.sparta.project.dto.payment.PaymentResponse;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/payments")
 public class PaymentController {
 
+    private final PgClient pgClient;
     private final PaymentService paymentService;
     private final PermissionValidator permissionValidator;
 
@@ -80,11 +82,14 @@ public class PaymentController {
         PaymentResponse response = paymentService.createPayment(paymentRequest, userId);
         return ApiResponse.success(response);
     }
-//
-//    // 결제 취소(CUSTOMER)
-//    @DeleteMapping("/{payment_id}")
-//    public ApiResponse<Void> deletePayment(@PathVariable String payment_id) {
-//        paymentService.deletePayment(payment_id);
-//        return ApiResponse.success();
-//    }
+
+    // 결제 취소(CUSTOMER)
+    @DeleteMapping("/{payment_id}")
+    public ApiResponse<Void> deletePayment(
+            @PathVariable String payment_id,
+            Authentication authentication)  {
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
+        paymentService.deletePayment(payment_id, authentication);
+        return ApiResponse.success();
+    }
 }
