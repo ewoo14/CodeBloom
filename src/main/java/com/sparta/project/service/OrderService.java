@@ -11,6 +11,8 @@ import com.sparta.project.repository.OrderMenuRepository;
 import com.sparta.project.repository.OrderRepository;
 import com.sparta.project.util.PermissionValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -88,5 +90,14 @@ public class OrderService {
     public Order getOrderOrException(String orderId) {
         return orderRepository.findById(orderId).orElseThrow(() ->
                 new CodeBloomException(ErrorCode.ORDER_NOT_FOUND));
+    }
+
+    public Page<OrderResponse> getMyOrders(Pageable pageable, String storeId) {
+        Store store = null;
+        if (storeId != null) {
+            store = storeService.getStoreOrException(storeId);
+        }
+        return orderRepository.findAllByStoreNullable(store, pageable)
+                .map(OrderResponse::from);
     }
 }
