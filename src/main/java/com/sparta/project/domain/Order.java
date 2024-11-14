@@ -79,9 +79,10 @@ public class Order extends BaseEntity { // 주문
         this.status = OrderStatus.APPROVED;
     }
 
-    public void cancel() {
+    public void cancel(Long userId) {
         if (this.status != OrderStatus.WAITING) throw new CodeBloomException(ErrorCode.CANNOT_CANCEL_ORDER);
         this.status = OrderStatus.CANCELED;
+        deleteBase(String.valueOf(userId));
     }
 
 }
