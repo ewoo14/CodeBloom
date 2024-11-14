@@ -89,6 +89,7 @@ public enum ErrorCode {
     UNSUPPORTED_PG_NAME(HttpStatus.BAD_REQUEST, "지원하지 않는 PG사입니다."),
     PAYMENT_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "결제가 실패하였습니다." ),
 <<<<<<< HEAD
+<<<<<<< HEAD
     PAYMENT_CANCELLATION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "결제 취소가 실패하였습니다."),
     PAYMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 결제 정보가 존재하지 않습니다.")
 =======
@@ -209,6 +210,9 @@ public enum ErrorCode {
 =======
 >>>>>>> 9863864 ([Fix] Menu Service 메서드별 테스트 완성)
 =======
+=======
+    PAYMENT_CANCELLATION_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "결제 취소가 실패하였습니다."),
+>>>>>>> 8bd1fd3 ([Feat] 결제 취소 API 구현)
     PAYMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 결제 정보가 존재하지 않습니다.")
 
     ;
