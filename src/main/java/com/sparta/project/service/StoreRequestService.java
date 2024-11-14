@@ -41,8 +41,16 @@ public class StoreRequestService {
     public void approveStoreRequest(String storeRequestId) {
         StoreRequest storeRequest = getStoreRequestOrException(storeRequestId);
         checkAlreadyChanged(storeRequest.getStatus(), StoreRequestStatus.APPROVE);
-        storeRequest.updateStatus(StoreRequestStatus.APPROVE);
+        storeRequest.approve();
         storeService.createStore(StoreCreateData.from(storeRequest));
+    }
+
+    @Transactional
+    public void rejectStoreRequest(long userId, String storeRequestId, String rejectionReason) {
+        StoreRequest storeRequest = getStoreRequestOrException(storeRequestId);
+        checkAlreadyChanged(storeRequest.getStatus(), StoreRequestStatus.REJECT);
+        storeRequest.reject(rejectionReason);
+        storeRequest.deleteBase(String.valueOf(userId));
     }
 
     private void checkAlreadyChanged(StoreRequestStatus before, StoreRequestStatus change) {
