@@ -1,6 +1,6 @@
 package com.sparta.project.service;
 
-import com.sparta.project.domain.Location;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.sparta.project.domain.Menu;
 import com.sparta.project.domain.QMenu;
 import com.sparta.project.domain.Store;
@@ -12,13 +12,12 @@ import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.MenuRepository;
 import com.sparta.project.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.querydsl.core.types.dsl.BooleanExpression;
 
 @Service
 @RequiredArgsConstructor
@@ -97,7 +96,7 @@ public class MenuService {
     }
 
     // menuId 공통 활용
-    private Menu getMenuOrException(String menuId) {
+    public Menu getMenuOrException(String menuId) {
         return menuRepository.findById(menuId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
     }
