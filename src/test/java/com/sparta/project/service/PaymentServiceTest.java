@@ -6,7 +6,8 @@ import com.sparta.project.domain.Payment;
 import com.sparta.project.domain.User;
 import com.sparta.project.domain.enums.OrderType;
 import com.sparta.project.domain.enums.Role;
-import com.sparta.project.dto.payment.PaymentCreateResponse;
+import com.sparta.project.dto.payment.PaymentResponse;
+import com.sparta.project.dto.payment.PaymentRequest;
 import com.sparta.project.repository.OrderRepository;
 import com.sparta.project.repository.PaymentRepository;
 import com.sparta.project.repository.UserRepository;
@@ -58,15 +59,24 @@ class PaymentServiceTest {
     @Test
     void createPayment_Success() {
         // given
-        String orderId = testOrder.getOrderId();
-        String type = "CARD";
-        int paymentPrice = 10000;
-        String pgName = "TOSS";
+        String orderId;
+        String type;
+        int paymentPrice;
+        String pgName;
+
+        PaymentRequest paymentRequest = new PaymentRequest(
+                orderId = testOrder.getOrderId(),
+                type = "CARD",
+                paymentPrice = 10000,
+                pgName = "TOSS"
+        );
+
+
 
         when(pgClient.requestPayment(any(Payment.class))).thenReturn(true);
 
         // when
-        PaymentCreateResponse response = paymentService.createPayment(orderId, type, paymentPrice, pgName, testUser.getUserId());
+        PaymentResponse response = paymentService.createPayment(paymentRequest, testUser.getUserId());
 
         // then
         assertThat(response).isNotNull();

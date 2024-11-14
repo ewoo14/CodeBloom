@@ -4,6 +4,7 @@ import com.sparta.project.domain.*;
 import com.sparta.project.domain.enums.OrderType;
 import com.sparta.project.dto.order.OrderCreateRequest;
 import com.sparta.project.dto.order.OrderMenuInfo;
+import com.sparta.project.dto.order.OrderResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.OrderMenuRepository;
@@ -76,6 +77,11 @@ public class OrderService {
         permissionValidator.checkOrderCancelPermission(order, userId);
         order.cancel(userId);
         return order.getOrderId();
+
+    public OrderResponse getOrderById(String orderId, long userId) {
+        Order order = getOrderOrException(orderId);
+        checkOrderOwner(userId, order.getUser().getUserId());
+        return OrderResponse.from(order);
     }
 
     public Order getOrderOrException(String orderId) {

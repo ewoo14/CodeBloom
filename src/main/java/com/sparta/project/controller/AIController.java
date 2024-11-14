@@ -1,5 +1,6 @@
 package com.sparta.project.controller;
 
+import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.ai.AIRequest;
 import com.sparta.project.dto.ai.AIResponse;
 import com.sparta.project.dto.common.ApiResponse;
@@ -20,21 +21,25 @@ public class AIController {
     private final AIService aiService;
     private final PermissionValidator permissionValidator;
 
-    // 생성한 설명 목록 조회
+    // 생성한 설명 목록 조회(OWNER)
     @GetMapping("/menu-description")
     public ApiResponse<PageResponse<AIResponse>> getMenuDescriptions(
             @RequestParam Long userId,
-            @RequestParam("page") int page,
-            @RequestParam("size") int size,
-            @RequestParam("sortBy") String sortBy) {
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @RequestParam(value = "sortBy", required = false, defaultValue = "userId") String sortBy,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.OWNER.name());
         Page<AIResponse> descriptions = aiService.getMenuDescriptions(userId, page, size, sortBy);
         return ApiResponse.success(PageResponse.of(descriptions));
     }
 
-    // 메뉴 설명 생성
+    // 메뉴 설명 생성(OWNER)
     @PostMapping("/menu-description")
-    public ApiResponse<AIResponse> createMenuDescription(@Valid @RequestBody AIRequest aiRequest, Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "OWNER");
+    public ApiResponse<AIResponse> createMenuDescription(
+            @Valid @RequestBody AIRequest aiRequest,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.OWNER.name());
         AIResponse madeDescription = aiService.createMenuDescription(aiRequest);
         return ApiResponse.success(madeDescription);
     }
