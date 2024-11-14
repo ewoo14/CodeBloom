@@ -54,8 +54,10 @@ import com.sparta.project.dto.address.AddressCreateRequest;
 import com.sparta.project.dto.address.AddressResponse;
 import com.sparta.project.dto.address.AddressUpdateRequest;
 import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.dto.common.ListResponse;
 import com.sparta.project.service.AddressService;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -65,6 +67,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -97,12 +100,16 @@ public class AddressController {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 05451ad ([Feat] 자신의 배송지 목록 조회 API)
     @GetMapping("/my")
     public ApiResponse<ListResponse<AddressResponse>> getUserAddresses(Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         List<AddressResponse> responses = addressService.getUserAddresses(Long.parseLong(authentication.getName()));
         return ApiResponse.success(ListResponse.of(responses));
     }
+<<<<<<< HEAD
 =======
     @PatchMapping("/{address_id}")
     public ApiResponse<Void> updateAddress(Authentication authentication,
@@ -113,6 +120,8 @@ public class AddressController {
     }
 
 >>>>>>> c2e8bda ([Feat] 배송지 수정 API)
+=======
+>>>>>>> 05451ad ([Feat] 자신의 배송지 목록 조회 API)
 
     // 로그인 된 유저의 자신의 배송지 조회 (CUSTOMER)
     @GetMapping("/my/{address_id}")

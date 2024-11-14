@@ -42,6 +42,9 @@ public class AddressService {
 
     @Transactional(readOnly = true)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 05451ad ([Feat] 자신의 배송지 목록 조회 API)
     public List<AddressResponse> getUserAddresses(final long userId) {
         User user = userService.getUserOrException(userId);
         return addressRepository.findAllByUserAndIsDeleted(user, null)
@@ -51,8 +54,11 @@ public class AddressService {
     }
 
     @Transactional(readOnly = true)
+<<<<<<< HEAD
 =======
 >>>>>>> 94c9f8b ([Feat] 유저 배송지 상세 조회 API)
+=======
+>>>>>>> 05451ad ([Feat] 자신의 배송지 목록 조회 API)
     public AddressResponse getAddressBy(long userId, String addressId) {
         Address address = getAddressOrException(addressId);
         checkAddressOwner(userId, address.getUser().getUserId());
@@ -83,11 +89,14 @@ public class AddressService {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 251cce7 ([Feat] 관리자용 배송지 상세 조회 API)
     @Transactional
 >>>>>>> 94c9f8b ([Feat] 유저 배송지 상세 조회 API)
+=======
+>>>>>>> 05451ad ([Feat] 자신의 배송지 목록 조회 API)
     public void updateAddress(long userId, String addressId, AddressUpdateRequest request) {
         User user = userService.getUserOrException(userId);
         Address address = getAddressOrException(addressId);
@@ -105,6 +114,9 @@ public class AddressService {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 05451ad ([Feat] 자신의 배송지 목록 조회 API)
     public void deleteAddress(long userId, String addressId) {
         Address address = getAddressOrException(addressId);
         checkAddressOwner(userId, address.getUser().getUserId());
