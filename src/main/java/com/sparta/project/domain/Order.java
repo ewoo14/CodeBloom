@@ -21,6 +21,8 @@ import org.hibernate.annotations.OnDeleteAction;
 =======
 >>>>>>> 054108d (결제 기능 구현 Service)
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -207,7 +209,17 @@ public class Order extends BaseEntity { // 주문
     }
 
     public void cancel(Long userId) {
-        if (this.status != OrderStatus.WAITING) throw new CodeBloomException(ErrorCode.CANNOT_CANCEL_ORDER);
+        if (this.status != OrderStatus.WAITING) {
+            throw new CodeBloomException(ErrorCode.CANNOT_CANCEL_ORDER);
+        }
+
+        LocalDateTime now = LocalDateTime.now();
+        Duration duration = Duration.between(this.getCreatedAt(), now);
+
+        if (duration.toMinutes() > 5) {
+            throw new CodeBloomException(ErrorCode.ORDER_CANCELLATION_TIME_EXPIRED);
+        }
+
         this.status = OrderStatus.CANCELED;
         deleteBase(String.valueOf(userId));
     }

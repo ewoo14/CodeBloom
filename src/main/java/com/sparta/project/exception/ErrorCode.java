@@ -135,6 +135,7 @@ public enum ErrorCode {
     UNSUPPORTED_ORDER_TYPE(HttpStatus.BAD_REQUEST, "지원하지 않는 주문 방식입니다."),
     CANNOT_APPROVE_ORDER(HttpStatus.BAD_REQUEST, "승인할 수 없는 주문 상태입니다."),
     CANNOT_CANCEL_ORDER(HttpStatus.BAD_REQUEST, "취소할 수 없는 주문 상태입니다."),
+    ORDER_CANCELLATION_TIME_EXPIRED(HttpStatus.BAD_REQUEST, "주문한 지 5분이 지나면 취소할 수 없습니다."),
 
     // Menu
     MENU_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 메뉴 정보가 존재하지 않습니다."),
