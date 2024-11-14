@@ -7,6 +7,9 @@ import com.sparta.project.domain.enums.OrderType;
 import com.sparta.project.dto.order.OrderCreateRequest;
 import com.sparta.project.dto.order.OrderMenuInfo;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 23b4e98 ([Feat] 주문 상세 조회)
 import com.sparta.project.dto.order.OrderResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
@@ -96,6 +99,7 @@ public class OrderService {
                 .sum();
     }
 
+<<<<<<< HEAD
     @Transactional
     public String approveOrder(String orderId, Long userId) {
         Order order = getOrderOrException(orderId);
@@ -119,6 +123,20 @@ public class OrderService {
         return OrderResponse.from(order);
     }
 
+=======
+    public OrderResponse getOrderById(String orderId, long userId) {
+        Order order = getOrderOrException(orderId);
+        checkOrderOwner(userId, order.getUser().getUserId());
+        return OrderResponse.from(order);
+    }
+
+    private void checkOrderOwner(long requestUserId, long ownerUserId) {
+        if (requestUserId != ownerUserId) {
+            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
+        }
+    }
+
+>>>>>>> 23b4e98 ([Feat] 주문 상세 조회)
     public Order getOrderOrException(String orderId) {
         return orderRepository.findById(orderId).orElseThrow(() ->
                 new CodeBloomException(ErrorCode.ORDER_NOT_FOUND));
