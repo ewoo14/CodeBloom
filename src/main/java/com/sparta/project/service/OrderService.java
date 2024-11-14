@@ -77,10 +77,11 @@ public class OrderService {
         permissionValidator.checkOrderCancelPermission(order, userId);
         order.cancel(userId);
         return order.getOrderId();
+    }
 
     public OrderResponse getOrderById(String orderId, long userId) {
         Order order = getOrderOrException(orderId);
-        checkOrderOwner(userId, order.getUser().getUserId());
+        permissionValidator.checkOrderOwner(userId, order.getUser().getUserId());
         return OrderResponse.from(order);
     }
 

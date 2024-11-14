@@ -43,4 +43,10 @@ public class PermissionValidator {
         return userId.equals(order.getUser().getUserId());
     }
 
+    public void checkOrderOwner(Long userId, Long ownerId) {
+        if (!userId.equals(ownerId)) {
+            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
+        }
+    }
+
 }
