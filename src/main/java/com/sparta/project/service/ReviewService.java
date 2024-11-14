@@ -101,7 +101,6 @@ public class ReviewService {
     public void deleteReview(String reviewId, Authentication authentication) {
         Review review = getReviewOrException(reviewId);
         review.deleteBase(authentication.getName());
-        reviewRepository.save(review);
     }
 
     // review_id 공통 활용
