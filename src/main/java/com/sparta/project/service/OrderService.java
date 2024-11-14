@@ -34,6 +34,7 @@ import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.OrderMenuRepository;
 import com.sparta.project.repository.OrderRepository;
+import com.sparta.project.util.PermissionValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -156,6 +157,7 @@ public class OrderService {
 >>>>>>> c1fc115 ([Feat] 주문 요청)
     private final OrderRepository orderRepository;
     private final OrderMenuRepository orderMenuRepository;
+    private final PermissionValidator permissionValidator;
 
     @Transactional
     public String createOrder(Long userId, OrderCreateRequest request) {
@@ -194,24 +196,18 @@ public class OrderService {
     @Transactional
     public String approveOrder(String orderId, Long userId) {
         Order order = getOrderOrException(orderId);
-        checkStoreOwner(order.getStore().getOwner().getUserId(), userId);
+        permissionValidator.checkOrderApprovePermission(order, userId);
         order.approve();
         return order.getOrderId();
     }
 
+    // 주문 취소와 삭제는 같은 개념
     @Transactional
     public String cancelOrder(String orderId, Long userId) {
         Order order = getOrderOrException(orderId);
-        checkStoreOwner(order.getStore().getOwner().getUserId(), userId);
-        order.cancel();
+        permissionValidator.checkOrderCancelPermission(order, userId);
+        order.cancel(userId);
         return order.getOrderId();
-    }
-
-    // 주문을 승인, 취소하는 사람이 가게 주인이 맞는지
-    private void checkStoreOwner(long requestUserId, long ownerUserId) {
-        if (requestUserId != ownerUserId) {
-            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
-        }
     }
 
     public Order getOrderOrException(String orderId) {
