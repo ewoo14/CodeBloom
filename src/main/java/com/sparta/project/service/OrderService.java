@@ -192,17 +192,26 @@ public class OrderService {
     }
 
     @Transactional
-    public String updateOrderStatus(String orderId) {
+    public String approveOrder(String orderId, Long userId) {
         Order order = getOrderOrException(orderId);
+        checkStoreOwner(order.getStore().getOwner().getUserId(), userId);
         order.approve();
         return order.getOrderId();
     }
 
     @Transactional
-    public String deleteOrder(String orderId) {
+    public String cancelOrder(String orderId, Long userId) {
         Order order = getOrderOrException(orderId);
+        checkStoreOwner(order.getStore().getOwner().getUserId(), userId);
         order.cancel();
         return order.getOrderId();
+    }
+
+    // 주문을 승인, 취소하는 사람이 가게 주인이 맞는지
+    private void checkStoreOwner(long requestUserId, long ownerUserId) {
+        if (requestUserId != ownerUserId) {
+            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
+        }
     }
 
     public Order getOrderOrException(String orderId) {
