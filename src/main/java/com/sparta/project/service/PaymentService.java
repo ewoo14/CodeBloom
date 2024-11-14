@@ -6,6 +6,7 @@ import com.sparta.project.client.PgClient;
 import com.sparta.project.domain.*;
 import com.sparta.project.domain.enums.PaymentType;
 import com.sparta.project.domain.enums.PgName;
+<<<<<<< HEAD
 import com.sparta.project.dto.payment.PaymentRequest;
 import com.sparta.project.dto.payment.PaymentResponse;
 import com.sparta.project.exception.CodeBloomException;
@@ -123,11 +124,14 @@ import com.sparta.project.domain.*;
 import com.sparta.project.domain.enums.PaymentType;
 import com.sparta.project.domain.enums.PgName;
 
+=======
+>>>>>>> 55dcd96 ([Feat] 자신의 가게 결제 내역 목록 조회 추가)
 import com.sparta.project.dto.payment.PaymentRequest;
 import com.sparta.project.dto.payment.PaymentResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.PaymentRepository;
+import com.sparta.project.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -144,6 +148,7 @@ public class PaymentService {
     private final OrderService orderService;
     private final PaymentRepository paymentRepository;
     private final PgClient pgClient;
+    private final StoreRepository storeRepository;
 
     // 자신의 결제 내역 목록 조회
     @Transactional(readOnly = true)
@@ -151,6 +156,19 @@ public class PaymentService {
         Pageable pageable = PageRequest.of(page - 1, size, Sort.by(sortBy));
         QPayment qPayment = QPayment.payment;
         BooleanExpression predicate = qPayment.user.userId.eq(userId);
+        return paymentRepository.findAll(predicate, pageable)
+                .map(PaymentResponse::from);
+    }
+
+    // OWNER의 가게 결제 내역 조회
+    @Transactional(readOnly = true)
+    public Page<PaymentResponse> getMyStorePayments(Long userId, int page, int size, String sortBy) {
+        Store store = storeRepository.findByOwnerUserId(userId)
+                .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
+
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by(sortBy));
+        QPayment qPayment = QPayment.payment;
+        BooleanExpression predicate = qPayment.order.store.storeId.eq(store.getStoreId());
         return paymentRepository.findAll(predicate, pageable)
                 .map(PaymentResponse::from);
     }

@@ -42,11 +42,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface StoreRepository extends JpaRepository<Store, String> {
 <<<<<<< HEAD
 >>>>>>> 9863864 ([Fix] Menu Service 메서드별 테스트 완성)
 =======
     Page<Store> findAllByOwner(User owner, Pageable pageable);
+<<<<<<< HEAD
 >>>>>>> 580d264 ([Feat] 자신의 가게 목록 조회)
+=======
+    Optional<Store> findByOwnerUserId(Long userId);
+>>>>>>> 55dcd96 ([Feat] 자신의 가게 결제 내역 목록 조회 추가)
 }
