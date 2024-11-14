@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 =======
 package com.sparta.project.controller;
 
-import com.sparta.project.client.PgClient;
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.payment.PaymentRequest;
 import com.sparta.project.dto.payment.PaymentResponse;
@@ -50,7 +49,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/payments")
 public class PaymentController {
 
-    private final PgClient pgClient;
     private final PaymentService paymentService;
 <<<<<<< HEAD
 <<<<<<< HEAD

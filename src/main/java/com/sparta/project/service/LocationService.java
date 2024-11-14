@@ -166,8 +166,11 @@ public class LocationService {
     public void deleteLocation(String locationId, Authentication authentication) {
         Location location = getLocationOrException(locationId);
         location.deleteBase(authentication.getName());
+<<<<<<< HEAD
         locationRepository.save(location);
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
+=======
+>>>>>>> 469ffdf ([Refactor] deleteBase 메서드 밑 save문 삭제)
     }
 
     // location_id 공통 사용

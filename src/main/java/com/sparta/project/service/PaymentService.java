@@ -244,7 +244,6 @@ public class PaymentService {
         }
 
         payment.deleteBase(authentication.getName());
-        paymentRepository.save(payment);
     }
 
     // 주문 정보와 고객 일치 검증

@@ -325,6 +325,7 @@ public class MenuService {
 <<<<<<< HEAD
         Menu menu = getMenuOrException(menuId);
         menu.deleteBase(authentication.getName()); // is_deleted를 true로 변경
+<<<<<<< HEAD
     }
 
     // menuId 공통 활용
@@ -368,6 +369,8 @@ public class MenuService {
 >>>>>>> e7b4e74 ([Fix] 파싱오류 변경)
         menu.deleteBase(authentication.getName()); // is_deleted를 true로 변경
         menuRepository.save(menu);
+=======
+>>>>>>> 469ffdf ([Refactor] deleteBase 메서드 밑 save문 삭제)
     }
 
     // menuId 공통 활용
