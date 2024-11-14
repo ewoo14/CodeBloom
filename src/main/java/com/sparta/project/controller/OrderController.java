@@ -3,15 +3,13 @@ package com.sparta.project.controller;
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.order.OrderCreateRequest;
+import com.sparta.project.dto.order.OrderResponse;
 import com.sparta.project.service.OrderService;
 import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +19,7 @@ public class OrderController {
     private final OrderService orderService;
     private final PermissionValidator permissionValidator;
 
-//    // 자신의 주문내역 목록 조회(CUSTOMER)
+    //    // 자신의 주문내역 목록 조회(CUSTOMER)
 //    @GetMapping("/my")
 //    public ApiResponse<PageResponse<OrderResponse>> getMyOrders(
 //            @RequestParam("page") int page,
@@ -31,13 +29,16 @@ public class OrderController {
 //        return ApiResponse.success(PageResponse.of(orders));
 //    }
 //
-//    // 주문내역 상세 조회(CUSTOMER)
-//    @GetMapping("/{order_id}")
-//    public ApiResponse<OrderResponse> getOrderById(@PathVariable String order_id) {
-//        OrderResponse order = orderService.getOrderById(order_id);
-//        return ApiResponse.success(order);
-//    }
-//
+    // 주문내역 상세 조회(CUSTOMER)
+    @GetMapping("/{order_id}")
+    public ApiResponse<OrderResponse> getOrderById(@PathVariable("order_id") String order_id,
+                                                   Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
+        OrderResponse order = orderService.getOrderById(order_id, Long.parseLong(authentication.getName()));
+        return ApiResponse.success(order);
+    }
+
+    //
 //    // 고객의 주문내역 목록 조회(OWNER, MANAGER, MASTER)
 //    @GetMapping("/users")
 //    public ApiResponse<PageResponse<OrderResponse>> getAllOrdersByUser(
