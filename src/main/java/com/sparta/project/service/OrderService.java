@@ -226,6 +226,15 @@ public class OrderService {
         permissionValidator.checkOrderCancelPermission(order, userId);
         order.cancel(userId);
         return order.getOrderId();
+<<<<<<< HEAD
+=======
+    }
+
+    public OrderResponse getOrderById(String orderId, long userId) {
+        Order order = getOrderOrException(orderId);
+        permissionValidator.checkOrderOwner(userId, order.getUser().getUserId());
+        return OrderResponse.from(order);
+>>>>>>> 4fb049a ([Build] 깃허브에 pull 당긴 후 컴파일 에러 생기는 거 해결)
     }
 
     public Order getOrderOrException(String orderId) {

@@ -49,5 +49,14 @@ public class PermissionValidator {
         return userId.equals(order.getUser().getUserId());
     }
 
+<<<<<<< HEAD:src/main/java/com/sparta/project/permission/PermissionValidator.java
 >>>>>>> 2bce782 ([Fix] 주문 승인의 경우 OWNER 만 가능하므로, CUSTOMER, 다른 가게 주인은 승인하지 못하도록 수정):src/main/java/com/sparta/project/util/PermissionValidator.java
+=======
+    public void checkOrderOwner(Long userId, Long ownerId) {
+        if (!userId.equals(ownerId)) {
+            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
+        }
+    }
+
+>>>>>>> 4fb049a ([Build] 깃허브에 pull 당긴 후 컴파일 에러 생기는 거 해결):src/main/java/com/sparta/project/util/PermissionValidator.java
 }
