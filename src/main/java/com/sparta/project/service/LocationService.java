@@ -66,7 +66,6 @@ public class LocationService {
     public void deleteLocation(String locationId, Authentication authentication) {
         Location location = getLocationOrException(locationId);
         location.deleteBase(authentication.getName());
-        locationRepository.save(location);
     }
 
     // location_id 공통 사용

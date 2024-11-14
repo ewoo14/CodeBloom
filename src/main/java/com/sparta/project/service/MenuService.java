@@ -94,7 +94,6 @@ public class MenuService {
     public void deleteMenu(String menuId, Authentication authentication) {
         Menu menu = getMenuOrException(menuId);
         menu.deleteBase(authentication.getName()); // is_deleted를 true로 변경
-        menuRepository.save(menu);
     }
 
     // menuId 공통 활용

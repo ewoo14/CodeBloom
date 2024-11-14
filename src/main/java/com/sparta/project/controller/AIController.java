@@ -1,5 +1,6 @@
 package com.sparta.project.controller;
 
+import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.ai.AIRequest;
 import com.sparta.project.dto.ai.AIResponse;
 import com.sparta.project.dto.common.ApiResponse;
@@ -28,7 +29,7 @@ public class AIController {
             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
             @RequestParam(value = "sortBy", required = false, defaultValue = "userId") String sortBy,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "OWNER");
+        permissionValidator.checkPermission(authentication, Role.OWNER.name());
         Page<AIResponse> descriptions = aiService.getMenuDescriptions(userId, page, size, sortBy);
         return ApiResponse.success(PageResponse.of(descriptions));
     }
@@ -38,7 +39,7 @@ public class AIController {
     public ApiResponse<AIResponse> createMenuDescription(
             @Valid @RequestBody AIRequest aiRequest,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "OWNER");
+        permissionValidator.checkPermission(authentication, Role.OWNER.name());
         AIResponse madeDescription = aiService.createMenuDescription(aiRequest);
         return ApiResponse.success(madeDescription);
     }

@@ -1,5 +1,6 @@
 package com.sparta.project.controller;
 
+import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.review.ReviewCreateRequest;
 import com.sparta.project.dto.review.ReviewUpdateRequest;
 import com.sparta.project.dto.review.ReviewResponse;
@@ -40,7 +41,7 @@ public class ReviewController {
             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
             @RequestParam(value = "sortBy", required = false, defaultValue = "userId") String sortBy,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "CUSTOMER");
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         Page<ReviewResponse> myReviews = reviewService.getMyReviews(userId, page, size, sortBy);
         return ApiResponse.success(PageResponse.of(myReviews));
     }
@@ -62,7 +63,7 @@ public class ReviewController {
             @Valid @RequestBody ReviewCreateRequest reviewCreateRequest,
             Authentication authentication) {
         log.info("리뷰 생성 요청 수신: {}", reviewCreateRequest);
-        permissionValidator.checkPermission(authentication, "CUSTOMER");
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         Long userId = Long.parseLong(authentication.getName());
         String review = reviewService.createReview(userId, reviewCreateRequest);
         return ApiResponse.success(review);
@@ -74,7 +75,7 @@ public class ReviewController {
             @PathVariable String review_id,
             @NotNull @RequestBody ReviewUpdateRequest reviewUpdateRequest,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "CUSTOMER");
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         String updatedReview = reviewService.updateReview(review_id, reviewUpdateRequest);
         return ApiResponse.success(updatedReview);
     }
@@ -84,7 +85,7 @@ public class ReviewController {
     public ApiResponse<Void> deleteReview(
             @PathVariable String review_id,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "CUSTOMER");
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         reviewService.deleteReview(review_id, authentication);
         return ApiResponse.success();
     }
