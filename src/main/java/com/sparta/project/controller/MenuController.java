@@ -135,7 +135,11 @@ public class MenuController {
 <<<<<<< HEAD
     public ApiResponse<String> updateMenu(
             @PathVariable String menu_id,
+<<<<<<< HEAD
             @NotNull @RequestBody MenuUpdateRequest menuUpdateRequest,
+=======
+            @RequestBody MenuUpdateRequest menuUpdateRequest,
+>>>>>>> bd91820 ([Fix] 업데이트 Request에는 Valid 어노테이션 삭제)
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.OWNER.name(), Role.MANAGER.name(), Role.MASTER.name());
         String updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest);
