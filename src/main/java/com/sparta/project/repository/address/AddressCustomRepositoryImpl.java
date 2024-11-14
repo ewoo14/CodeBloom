@@ -48,7 +48,7 @@ public class AddressCustomRepositoryImpl implements AddressCustomRepository {
     private BooleanBuilder toBooleanBuilder(Long userName, String city, Boolean isDeleted) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(eqUserId(userName));
-        booleanBuilder.and(eqCity(city));
+        booleanBuilder.and(likeCity(city));
         booleanBuilder.and(eqIsDeleted(isDeleted));
         return booleanBuilder;
     }
@@ -57,8 +57,8 @@ public class AddressCustomRepositoryImpl implements AddressCustomRepository {
         return userId != null ?  address.user.userId.eq(userId) : null;
     }
 
-    private BooleanExpression eqCity(String city) {
-        return city != null ?  address.city.eq(city) : null;
+    private BooleanExpression likeCity(String city) {
+        return address.city.like("%" + ((city!=null) ? city  : "") + "%");
     }
 
     private BooleanExpression eqIsDeleted(Boolean isDeleted) {
