@@ -6,20 +6,41 @@ import com.sparta.project.dto.store.StoreResponse;
 import com.sparta.project.dto.store.StoreUpdateRequest;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
+import com.sparta.project.repository.StoreQueryRepository;
 import com.sparta.project.repository.StoreRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class StoreService {
 
     private final UserService userService;
-    private final StoreLocationService storeLocationService;
+    private final LocationService locationService;
     private final StoreCategoryService storeCategoryService;
     private final StoreRepository storeRepository;
+    private final StoreQueryRepository storeQueryRepository;
+
+    public Page<StoreResponse> getMyStores(int page, int size, Long ownerId) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<Store> storePage = storeRepository.findAllByOwner(userService.getUserOrException(ownerId), pageable);
+        return storePage.map(StoreResponse::from);
+    }
+
+    public Page<StoreResponse> getAllStores(String storeName, String cagetoryId, String menu, int page, int size) {
+        Pageable pageable = PageRequest.of(page - 1, size);
+        Page<Store> storePage = storeQueryRepository.searchWithPage(
+                cagetoryId != null ? storeCategoryService.getStoreCategoryOrException(cagetoryId) : null,
+                storeName, menu, pageable);
+        return storePage.map(StoreResponse::from);
+    }
 
     public void createStore(final StoreCreateData data) {
         storeRepository.save(Store.create(
@@ -42,7 +63,7 @@ public class StoreService {
 
         store.update(request.storeName(),
                 request.description(),
-                request.locationId() != null ? storeLocationService.getStoreLocationOrException(request.locationId()) : null,
+                request.locationId() != null ? locationService.getLocationOrException(request.locationId()) : null,
                 request.categoryId() != null ? storeCategoryService.getStoreCategoryOrException(request.categoryId()) : null);
 
         return storeId;
