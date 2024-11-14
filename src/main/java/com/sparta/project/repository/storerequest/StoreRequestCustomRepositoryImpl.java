@@ -1,6 +1,5 @@
 package com.sparta.project.repository.storerequest;
 
-import static com.sparta.project.domain.QStore.store;
 import static com.sparta.project.domain.QStoreRequest.storeRequest;
 
 import com.querydsl.core.BooleanBuilder;
@@ -62,7 +61,7 @@ public class StoreRequestCustomRepositoryImpl implements StoreRequestCustomRepos
     }
 
     private BooleanExpression likeStoreName(String storeName) {
-        return store.name.like("%" + ((storeName!=null) ? storeName : "") + "%");
+        return storeRequest.name.like("%" + ((storeName!=null) ? storeName : "") + "%");
     }
 
     // Pageable 의 Sort 객체를 기반으로 QueryDSL OrderSpecifier 배열을 생성하는 메서드
