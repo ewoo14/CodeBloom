@@ -3,6 +3,7 @@ package com.sparta.project.service;
 import com.sparta.project.domain.*;
 import com.sparta.project.domain.enums.OrderType;
 import com.sparta.project.dto.order.OrderCreateRequest;
+import com.sparta.project.dto.order.OrderMenuInfo;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.OrderMenuRepository;
@@ -49,7 +50,7 @@ public class OrderService {
         return order.getOrderId();
     }
 
-    private int calculateTotalPrice(List<OrderCreateRequest.MenuInfo> menus) {
+    private int calculateTotalPrice(List<OrderMenuInfo> menus) {
         return menus.stream()
                 .mapToInt(menuInfo -> {
                     Menu menu = menuService.getMenuOrException(menuInfo.menuId());

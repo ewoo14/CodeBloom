@@ -5,9 +5,9 @@ import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.order.OrderCreateRequest;
 import com.sparta.project.service.OrderService;
 import com.sparta.project.util.PermissionValidator;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,7 +51,7 @@ public class OrderController {
 //
     // 주문 요청(CUSTOMER, OWNER)
     @PostMapping
-    public ApiResponse<String> createOrder(@RequestBody @Validated OrderCreateRequest request,
+    public ApiResponse<String> createOrder(@RequestBody @Valid OrderCreateRequest request,
                                            Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name(), Role.OWNER.name());
         return ApiResponse.success(orderService.createOrder(Long.parseLong(authentication.getName()), request));
