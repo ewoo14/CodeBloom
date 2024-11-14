@@ -60,9 +60,9 @@ public enum ErrorCode {
     UNSUPPORTED_PAYMENT_TYPE(HttpStatus.BAD_REQUEST, "지원하지 않는 결제 방식입니다."),
     UNSUPPORTED_PG_NAME(HttpStatus.BAD_REQUEST, "지원하지 않는 PG사입니다."),
     PAYMENT_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "결제가 실패하였습니다." ),
+    PAYMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 결제 정보가 존재하지 않습니다.")
 
     ;
-
 
     private final HttpStatus httpStatus;
     private final String message;
