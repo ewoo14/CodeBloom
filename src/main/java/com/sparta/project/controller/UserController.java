@@ -1,13 +1,18 @@
 package com.sparta.project.controller;
 
 
+import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.user.UserLoginRequest;
 import com.sparta.project.dto.user.UserSignupRequest;
 import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.dto.user.UserUpdateRequest;
 import com.sparta.project.service.UserService;
+import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UserController {
 
+    private final PermissionValidator  permissionValidator;
     private final UserService userService;
 
     @PostMapping("/signup")
@@ -32,41 +38,19 @@ public class UserController {
         return ApiResponse.success(Map.of("token", token));
     }
 
+    // 유저 정보 수정 (ALL)
+    @PatchMapping("")
+    public ApiResponse<Void> updateUser(Authentication authentication,
+                                        @Valid @RequestBody UserUpdateRequest request) {
+        userService.updateUser(Long.parseLong(authentication.getName()), request);
+        return ApiResponse.success();
+    }
+
 }
 
 
-//package com.sparta.project.controller;
-//
-//import com.sparta.project.dto.user.CreateUserRequest;
-//import com.sparta.project.dto.user.LoginUserRequest;
-//import com.sparta.project.dto.user.UpdateUserRequest;
-//import com.sparta.project.dto.user.UserResponse;
-//import com.sparta.project.dto.common.ApiResponse;
-//import com.sparta.project.dto.common.PageResponse;
-//import com.sparta.project.service.UserService;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.web.bind.annotation.*;
-//
-//@RestController
-//@RequiredArgsConstructor
-//@RequestMapping("/users")
-//public class UserController {
-//
-//    private final UserService userService;
-//
-//    // 회원가입(ALL)
-//    @PostMapping("/signup")
-//    public ApiResponse<UserResponse> signUp(@RequestBody CreateUserRequest createUserRequest) {
-//        UserResponse userResponse = userService.createUser(createUserRequest);
-//        return ApiResponse.success(userResponse);
-//    }
-//
-//    // 로그인(ALL)
-//    @PostMapping("/login")
-//    public ApiResponse<String> login(@RequestBody LoginUserRequest loginUserRequest) {
-//        String token = userService.loginUser(loginUserRequest);
-//        return ApiResponse.success(token);
-//    }
+
+
 //
 //    // 전체 유저 조회(MANAGER, MASTER)
 //    @GetMapping
@@ -86,15 +70,6 @@ public class UserController {
 //    public ApiResponse<UserResponse> getUserById(@PathVariable Long user_id) {
 //        UserResponse userInfo = userService.getUserById(user_id);
 //        return ApiResponse.success(userInfo);
-//    }
-//
-//    // 회원정보 수정(ALL)
-//    @PatchMapping("/{user_id}")
-//    public ApiResponse<UserResponse> updateUser(
-//            @PathVariable Long user_id,
-//            @RequestBody UpdateUserRequest updateUserRequest) {
-//        UserResponse updatedUser = userService.updateUser(user_id, updateUserRequest);
-//        return ApiResponse.success(updatedUser);
 //    }
 //
 //    // 회원 탈퇴(ALL)

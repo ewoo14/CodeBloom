@@ -21,18 +21,24 @@ public class User extends BaseEntity { // 유저
     @Column(name="user_id", nullable=false, updatable=false)
     private Long userId;
 
-    @Column(name="username", length=10, nullable=false) // 유저 고유 네임 (사용자 id)
+    @Column(name="username", length=2048, nullable=false) // 유저 고유 네임 (사용자 id)
     private String username;
 
-    @Column(name="password", length=255, nullable=false) // 비밀번호
+    @Column(name="password", length=2048, nullable=false) // 비밀번호
     private String password;
 
-    @Column(name="nickname", length=10) // 닉네임
+    @Column(name="nickname", length=2048) // 닉네임
     private String nickname;
 
     @Column(name="role", nullable=false) // 권한
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    public void update(String username, String password, String nickname) {
+        if(username!=null) this.username = username;
+        if(password!=null) this.password = password;
+        if(nickname!=null) this.nickname = nickname;
+    }
 
     @Builder
     private User(String username, String password, String nickname, Role role) {
@@ -50,7 +56,5 @@ public class User extends BaseEntity { // 유저
                 .role(role)
                 .build();
     }
-    // 만약 닉네임 초기값을 여기서 설정하고 싶다면, 파라미터에 nickname 지우고, this.nickname = "{defaultName}" 으로 설정하면 됩니다.
-    // 닉네임 초기값을 통일한다고 하면, @Builder.Default 활용해도 됩니다.
 
 }

@@ -49,8 +49,8 @@ public class GlobalControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ExceptionResponse methodArgumentNotValidException(final MethodArgumentNotValidException e){
-        log.error(String.format(ERROR_LOG, e.getParameter(), e.getMessage()));
-        return new ExceptionResponse("전달된 데이터에 오류가 있습니다.");
+        //log.error(String.format(ERROR_LOG, e.getParameter(), e.getStatusCode()));
+        return new ExceptionResponse(e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
     }
 
 }

@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -97,7 +98,7 @@ public class MenuService {
     }
 
     // menuId 공통 활용
-    private Menu getMenuOrException(String menuId) {
+    public Menu getMenuOrException(String menuId) {
         return menuRepository.findById(menuId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.MENU_NOT_FOUND));
     }
