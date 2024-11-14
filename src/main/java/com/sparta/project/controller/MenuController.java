@@ -24,6 +24,7 @@ import org.springframework.security.core.Authentication;
 =======
 package com.sparta.project.controller;
 
+import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.menu.MenuCreateRequest;
 import com.sparta.project.dto.menu.MenuUpdateRequest;
 import com.sparta.project.dto.menu.MenuResponse;
@@ -314,7 +315,7 @@ public class MenuController {
     public ApiResponse<Void> deleteMenu(
             @PathVariable String menu_id,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
+        permissionValidator.checkPermission(authentication, Role.OWNER.name(), Role.MANAGER.name(), Role.MASTER.name());
         menuService.deleteMenu(menu_id, authentication);
 >>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
         return ApiResponse.success();

@@ -1,6 +1,7 @@
 package com.sparta.project.controller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
@@ -17,6 +18,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 =======
+=======
+import com.sparta.project.domain.enums.Role;
+>>>>>>> 06c83a4 ([Refactor] 권한 설정시 Role 객체 사용으로 변경)
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.dto.location.LocationRequest;
 import com.sparta.project.dto.location.LocationResponse;
@@ -77,7 +81,7 @@ public class LocationController {
             @RequestParam(value = "sortBy", required = false, defaultValue = "name") String sortBy,
 >>>>>>> 94ce7b1 ([Fix] 각 컨트롤러 RequestParam 조건 추가)
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
         Page<LocationResponse> responses = locationService.getAllLocations(page, size, sortBy);
         return ApiResponse.success(PageResponse.of(responses));
     }
@@ -91,8 +95,12 @@ public class LocationController {
 =======
             @PathVariable String locationId,
             Authentication authentication) {
+<<<<<<< HEAD
         permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
 >>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
+=======
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
+>>>>>>> 06c83a4 ([Refactor] 권한 설정시 Role 객체 사용으로 변경)
         LocationResponse response = locationService.getLocation(locationId);
         return ApiResponse.success(response);
     }
@@ -133,7 +141,7 @@ public class LocationController {
 >>>>>>> c7f45b5 ([Fix] Location, Menu 생성 및 수정 메서드 반환 id만으로 통일)
             @Valid @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
         String response = locationService.createLocation(locationRequest);
         return ApiResponse.success(response);
     }
@@ -144,7 +152,7 @@ public class LocationController {
             @PathVariable String locationId,
             @NotNull @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
         String response = locationService.updateLocation(locationId, locationRequest);
         return ApiResponse.success(response);
     }
@@ -161,6 +169,7 @@ public class LocationController {
             Authentication authentication) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
 =======
         permissionValidator.checkPermission(authentication, "OWNER");
@@ -168,6 +177,9 @@ public class LocationController {
 =======
         permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
 >>>>>>> a76aa9b ([Fix] UUID DB 자동 할당 방식으로 변경)
+=======
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
+>>>>>>> 06c83a4 ([Refactor] 권한 설정시 Role 객체 사용으로 변경)
         locationService.deleteLocation(locationId, authentication);
         return ApiResponse.success();
     }

@@ -4,11 +4,15 @@ package com.sparta.project.controller;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.sparta.project.domain.enums.Role;
 =======
 package com.sparta.project.controller;
 
 >>>>>>> fea02e7 ([Feat] AI Dto 및 service 구현)
+=======
+import com.sparta.project.domain.enums.Role;
+>>>>>>> 06c83a4 ([Refactor] 권한 설정시 Role 객체 사용으로 변경)
 import com.sparta.project.dto.ai.AIRequest;
 import com.sparta.project.dto.ai.AIResponse;
 import com.sparta.project.dto.common.ApiResponse;
@@ -159,7 +163,7 @@ public class AIController {
             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
             @RequestParam(value = "sortBy", required = false, defaultValue = "userId") String sortBy,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "OWNER");
+        permissionValidator.checkPermission(authentication, Role.OWNER.name());
         Page<AIResponse> descriptions = aiService.getMenuDescriptions(userId, page, size, sortBy);
         return ApiResponse.success(PageResponse.of(descriptions));
     }
@@ -169,7 +173,7 @@ public class AIController {
     public ApiResponse<AIResponse> createMenuDescription(
             @Valid @RequestBody AIRequest aiRequest,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "OWNER");
+        permissionValidator.checkPermission(authentication, Role.OWNER.name());
         AIResponse madeDescription = aiService.createMenuDescription(aiRequest);
         return ApiResponse.success(madeDescription);
     }

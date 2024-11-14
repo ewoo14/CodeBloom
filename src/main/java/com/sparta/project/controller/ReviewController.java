@@ -25,6 +25,7 @@ import org.springframework.data.web.SortDefault;
 =======
 package com.sparta.project.controller;
 
+import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.review.ReviewCreateRequest;
 import com.sparta.project.dto.review.ReviewUpdateRequest;
 import com.sparta.project.dto.review.ReviewResponse;
@@ -95,7 +96,7 @@ public class ReviewController {
             @RequestParam(value = "sortBy", required = false, defaultValue = "userId") String sortBy,
 >>>>>>> 94ce7b1 ([Fix] 각 컨트롤러 RequestParam 조건 추가)
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "CUSTOMER");
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         Page<ReviewResponse> myReviews = reviewService.getMyReviews(userId, page, size, sortBy);
 >>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
         return ApiResponse.success(PageResponse.of(myReviews));
@@ -186,7 +187,7 @@ public class ReviewController {
             @PathVariable String review_id,
             @NotNull @RequestBody ReviewUpdateRequest reviewUpdateRequest,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "CUSTOMER");
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         String updatedReview = reviewService.updateReview(review_id, reviewUpdateRequest);
 >>>>>>> ff9030a ([Feat] review 수정, 삭제 추가 및 생성과 수정 반환 형식 id만으로 변경)
         return ApiResponse.success(updatedReview);
@@ -197,6 +198,7 @@ public class ReviewController {
     public ApiResponse<Void> deleteReview(
             @PathVariable String review_id,
             Authentication authentication) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
@@ -356,6 +358,9 @@ public class ReviewController {
 >>>>>>> 0ebca46 ([Feat] 리뷰 생성 및 조회 구현)
 =======
         permissionValidator.checkPermission(authentication, "CUSTOMER");
+=======
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
+>>>>>>> 06c83a4 ([Refactor] 권한 설정시 Role 객체 사용으로 변경)
         reviewService.deleteReview(review_id, authentication);
         return ApiResponse.success();
     }
