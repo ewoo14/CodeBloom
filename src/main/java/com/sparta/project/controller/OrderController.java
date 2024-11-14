@@ -24,12 +24,18 @@ package com.sparta.project.controller;
 
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.dto.order.OrderCreateRequest;
 import com.sparta.project.dto.order.OrderResponse;
 import com.sparta.project.service.OrderService;
 import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -53,6 +59,7 @@ public class OrderController {
     private final OrderService orderService;
     private final PermissionValidator permissionValidator;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -228,6 +235,21 @@ public class OrderController {
 //        return ApiResponse.success(PageResponse.of(orders));
 //    }
 //
+=======
+    // 자신의 주문내역 목록 조회(CUSTOMER)
+    @GetMapping("/my")
+    public ApiResponse<PageResponse<OrderResponse>> getMyOrders(
+            @RequestParam("storeId") String storeId,
+            @PageableDefault(size = 5)
+            @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            Pageable pageable,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
+        Page<OrderResponse> orders = orderService.getMyOrders(pageable, storeId);
+        return ApiResponse.success(PageResponse.of(orders));
+    }
+
+>>>>>>> 6336dc6 ([Feat] 자신의 주문내역 목록 조회)
     // 주문내역 상세 조회(CUSTOMER)
     @GetMapping("/{order_id}")
     public ApiResponse<OrderResponse> getOrderById(@PathVariable("order_id") String order_id,

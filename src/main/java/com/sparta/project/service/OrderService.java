@@ -39,6 +39,8 @@ import com.sparta.project.repository.OrderMenuRepository;
 import com.sparta.project.repository.OrderRepository;
 import com.sparta.project.util.PermissionValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -241,5 +243,17 @@ public class OrderService {
         return orderRepository.findById(orderId).orElseThrow(() ->
                 new CodeBloomException(ErrorCode.ORDER_NOT_FOUND));
     }
+<<<<<<< HEAD
 >>>>>>> 09c755a ([Refactor] OrderService 와 UserService의 getXxxOrException() 메서드 호출로 대체)
+=======
+
+    public Page<OrderResponse> getMyOrders(Pageable pageable, String storeId) {
+        Store store = null;
+        if (storeId != null) {
+            store = storeService.getStoreOrException(storeId);
+        }
+        return orderRepository.findAllByStoreNullable(store, pageable)
+                .map(OrderResponse::from);
+    }
+>>>>>>> 6336dc6 ([Feat] 자신의 주문내역 목록 조회)
 }

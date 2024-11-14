@@ -2,6 +2,7 @@ package com.sparta.project.repository;
 
 import com.sparta.project.domain.Order;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.sparta.project.domain.Store;
 import com.sparta.project.domain.User;
 import org.springframework.data.domain.Page;
@@ -26,8 +27,22 @@ public interface OrderRepository extends JpaRepository<Order, String> {
             Pageable pageable
     );
 =======
+=======
+import com.sparta.project.domain.Store;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+>>>>>>> 6336dc6 ([Feat] 자신의 주문내역 목록 조회)
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface OrderRepository extends JpaRepository<Order, String> {
+<<<<<<< HEAD
 >>>>>>> 054108d (결제 기능 구현 Service)
+=======
+
+    // store 가 null 인 경우 모든 거 반환
+    @Query("SELECT o FROM Order o WHERE (:store IS NULL OR o.store = :store)")
+    Page<Order> findAllByStoreNullable(@Param("store") Store store, Pageable pageable);
+>>>>>>> 6336dc6 ([Feat] 자신의 주문내역 목록 조회)
 }
