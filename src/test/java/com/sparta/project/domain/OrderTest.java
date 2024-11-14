@@ -59,6 +59,9 @@ class OrderTest {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c772cf7 ([Feat] 주문 취소)
     @DisplayName("status를 CANCELED로 변경한다.")
     @Test
     void cancel() {
@@ -66,7 +69,11 @@ class OrderTest {
         Order order = Order.create(user, address, store, OrderType.ONLINE, 50000, "천천히 갖다 주세요.");
 
         // when
+<<<<<<< HEAD
         order.cancel(user.getUserId());
+=======
+        order.cancel();
+>>>>>>> c772cf7 ([Feat] 주문 취소)
 
         // then
         assertThat(order.getStatus()).isEqualTo(OrderStatus.CANCELED);
@@ -77,10 +84,17 @@ class OrderTest {
     void cancelWhenAlreadyCanceled() {
         // given
         Order order = Order.create(user, address, store, OrderType.ONLINE, 50000, "천천히 갖다 주세요.");
+<<<<<<< HEAD
         order.cancel(user.getUserId());
 
         // when & then
         assertThatThrownBy(() -> order.cancel(user.getUserId()))
+=======
+        order.cancel();
+
+        // when & then
+        assertThatThrownBy(() -> order.cancel())
+>>>>>>> c772cf7 ([Feat] 주문 취소)
                 .isInstanceOf(CodeBloomException.class);
     }
 
@@ -92,10 +106,17 @@ class OrderTest {
         order.approve();
 
         // when & then
+<<<<<<< HEAD
         assertThatThrownBy(() -> order.cancel(user.getUserId()))
                 .isInstanceOf(CodeBloomException.class);
     }
 
 =======
 >>>>>>> 5c7a118 ([Feat] 주문 승인)
+=======
+        assertThatThrownBy(() -> order.cancel())
+                .isInstanceOf(CodeBloomException.class);
+    }
+
+>>>>>>> c772cf7 ([Feat] 주문 취소)
 }

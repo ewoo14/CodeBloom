@@ -255,6 +255,7 @@ public class OrderController {
         return ApiResponse.success(orderId);
     }
 
+<<<<<<< HEAD
 //    // 주문 취소(CUSTOMER, OWNER)
 //    @DeleteMapping("/{order_id}")
 //    public ApiResponse<Void> deleteOrder(@PathVariable Long order_id) {
@@ -265,5 +266,14 @@ public class OrderController {
 //}
 >>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
 =======
+=======
+    // 주문 취소(CUSTOMER, OWNER)
+    @DeleteMapping("/{order_id}")
+    public ApiResponse<String> deleteOrder(@PathVariable("order_id") String order_id, Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name(), Role.OWNER.name());
+        String orderId = orderService.deleteOrder(order_id);
+        return ApiResponse.success(orderId);
+    }
+>>>>>>> c772cf7 ([Feat] 주문 취소)
 }
 >>>>>>> c1fc115 ([Feat] 주문 요청)
