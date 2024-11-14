@@ -8,11 +8,17 @@ import com.sparta.project.dto.address.AddressResponse;
 import com.sparta.project.dto.address.AddressUpdateRequest;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.ListResponse;
+import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.service.AddressService;
 import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,6 +63,20 @@ public class AddressController {
         return ApiResponse.success(response);
     }
 
+    // 전체 유저의 배송지 목록 조회 (MANAGER, MASTER)
+    @GetMapping("")
+    public ApiResponse<PageResponse<AddressAdminResponse>> getAllAddresses(
+            Authentication authentication,
+            @PageableDefault(size = 5)
+            @SortDefault(sort = "createdAt", direction = Direction.DESC)
+            Pageable pageable,
+            @RequestParam(value = "userId", required = false) Long userId,
+            @RequestParam(value = "isDeleted", required = false) Boolean isDeleted) {
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
+        Page<AddressAdminResponse> result = addressService.getAllAddresses(pageable, userId, isDeleted);
+        return ApiResponse.success(PageResponse.of(result));
+    }
+
     @GetMapping("/{address_id}")
     public ApiResponse<AddressAdminResponse> getAdminAddress(Authentication authentication,
                                                              @PathVariable String address_id) {
@@ -80,16 +100,4 @@ public class AddressController {
         return ApiResponse.success();
     }
 
-
-// 배송지 목록 조회(CUSTOMER, MANAGER, MASTER)
-//    @GetMapping
-//    public ApiResponse<PageResponse<AddressResponse>> getAllAddresses(
-//            @RequestParam("page") int page,
-//            @RequestParam("size") int size,
-//            @RequestParam("sortBy") String sortBy) {
-//        Page<AddressResponse> addresses = addressService.getAllAddresses(page, size, sortBy);
-//        return ApiResponse.success(PageResponse.of(addresses));
-//    }
-//
-//
 }

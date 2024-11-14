@@ -12,6 +12,8 @@ import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.address.AddressRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,6 +57,12 @@ public class AddressService {
             throw new CodeBloomException(ErrorCode.ADDRESS_NOT_FOUND);
         }
         return AddressResponse.from(address);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<AddressAdminResponse> getAllAddresses(Pageable pageable, Long targetUserId, Boolean isDeleted) {
+        return addressRepository.findAddressesWith(pageable, targetUserId, isDeleted)
+                .map(AddressAdminResponse::from);
     }
 
     @Transactional(readOnly = true)
