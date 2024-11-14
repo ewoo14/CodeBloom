@@ -1,5 +1,6 @@
 package com.sparta.project.controller;
 
+import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.dto.location.LocationRequest;
 import com.sparta.project.dto.location.LocationResponse;
@@ -28,7 +29,7 @@ public class LocationController {
             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
             @RequestParam(value = "sortBy", required = false, defaultValue = "name") String sortBy,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
         Page<LocationResponse> responses = locationService.getAllLocations(page, size, sortBy);
         return ApiResponse.success(PageResponse.of(responses));
     }
@@ -38,7 +39,7 @@ public class LocationController {
     public ApiResponse<LocationResponse> getLocation(
             @PathVariable String locationId,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
         LocationResponse response = locationService.getLocation(locationId);
         return ApiResponse.success(response);
     }
@@ -48,7 +49,7 @@ public class LocationController {
     public ApiResponse<String> createLocation(
             @Valid @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
         String response = locationService.createLocation(locationRequest);
         return ApiResponse.success(response);
     }
@@ -59,7 +60,7 @@ public class LocationController {
             @PathVariable String locationId,
             @NotNull @RequestBody LocationRequest locationRequest,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
         String response = locationService.updateLocation(locationId, locationRequest);
         return ApiResponse.success(response);
     }
@@ -69,7 +70,7 @@ public class LocationController {
     public ApiResponse<Void> deleteLocation(
             @PathVariable String locationId,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "MANAGER", "MASTER");
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
         locationService.deleteLocation(locationId, authentication);
         return ApiResponse.success();
     }

@@ -1,5 +1,6 @@
 package com.sparta.project.controller;
 
+import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.menu.MenuCreateRequest;
 import com.sparta.project.dto.menu.MenuUpdateRequest;
 import com.sparta.project.dto.menu.MenuResponse;
@@ -46,7 +47,7 @@ public class MenuController {
     public ApiResponse<String> createMenu(
             @Valid @RequestBody MenuCreateRequest menuCreateRequest,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
+        permissionValidator.checkPermission(authentication, Role.OWNER.name(), Role.MANAGER.name(), Role.MASTER.name());
         String newMenu = menuService.createMenu(menuCreateRequest);
         return ApiResponse.success(newMenu);
     }
@@ -57,7 +58,7 @@ public class MenuController {
             @PathVariable String menu_id,
             @NotNull @RequestBody MenuUpdateRequest menuUpdateRequest,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
+        permissionValidator.checkPermission(authentication, Role.OWNER.name(), Role.MANAGER.name(), Role.MASTER.name());
         String updatedMenu = menuService.updateMenu(menu_id, menuUpdateRequest);
         return ApiResponse.success(updatedMenu);
     }
@@ -67,7 +68,7 @@ public class MenuController {
     public ApiResponse<Void> deleteMenu(
             @PathVariable String menu_id,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, "OWNER", "MANAGER", "MASTER");
+        permissionValidator.checkPermission(authentication, Role.OWNER.name(), Role.MANAGER.name(), Role.MASTER.name());
         menuService.deleteMenu(menu_id, authentication);
         return ApiResponse.success();
     }
