@@ -21,16 +21,29 @@ public class PaymentController {
     private final PaymentService paymentService;
     private final PermissionValidator permissionValidator;
 
-    // 자신의 결제 내역 목록 조회(CUSTOMER, OWNER)
+    // 자신의 결제 내역 목록 조회(CUSTOMER)
     @GetMapping("/my")
     public ApiResponse<PageResponse<PaymentResponse>> getMyPayments(
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
             @RequestParam(value = "sortBy", required = false, defaultValue = "createdAt") String sortBy,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name(), Role.OWNER.name());
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         Long userId = Long.parseLong(authentication.getName());
         Page<PaymentResponse> payments = paymentService.getPaymentsByUser(userId, page, size, sortBy);
+        return ApiResponse.success(PageResponse.of(payments));
+    }
+
+    // 자신의 가게 결제 내역 목록 조회(OWNER)
+    @GetMapping("/myStore")
+    public ApiResponse<PageResponse<PaymentResponse>> getMyStorePayments(
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @RequestParam(value = "sortBy", required = false, defaultValue = "createdAt") String sortBy,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.OWNER.name());
+        Long userId = Long.parseLong(authentication.getName());
+        Page<PaymentResponse> payments = paymentService.getMyStorePayments(userId, page, size, sortBy);
         return ApiResponse.success(PageResponse.of(payments));
     }
 
