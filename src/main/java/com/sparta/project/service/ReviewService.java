@@ -40,6 +40,7 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 @Service
 @RequiredArgsConstructor
 <<<<<<< HEAD
+<<<<<<< HEAD
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
@@ -130,6 +131,8 @@ public class ReviewService {
 >>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
 =======
 @Transactional
+=======
+>>>>>>> 93f8c68 ([Fix] 조회 메서드에 readOnly = true 추가)
 public class ReviewService {
 
     private final ReviewRepository reviewRepository;
@@ -139,12 +142,14 @@ public class ReviewService {
     private static final Logger log = LoggerFactory.getLogger(ReviewService.class);
 
     // 리뷰 상세 조회
+    @Transactional(readOnly = true)
     public ReviewResponse getReviewById(String reviewId) {
         Review review = getReviewOrException(reviewId);
         return ReviewResponse.from(review);
     }
 
     // 내 리뷰 목록 조회
+    @Transactional(readOnly = true)
     public Page<ReviewResponse> getMyReviews(Long userId, int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page - 1, size);
         QReview qReview = QReview.review;
@@ -154,6 +159,7 @@ public class ReviewService {
     }
 
     // 가게 리뷰 목록 조회
+    @Transactional(readOnly = true)
     public Page<ReviewResponse> getReviewsByStore(String storeId, int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page - 1, size);
         QReview qReview = QReview.review;
@@ -163,6 +169,7 @@ public class ReviewService {
     }
 
     // 리뷰 작성
+    @Transactional
     public String createReview(Long userId, ReviewCreateRequest reviewCreateRequest) {
         log.info("리뷰 생성 요청 전 storeId: {} , orderId: {}",
                 reviewCreateRequest.storeId(), reviewCreateRequest.orderId());
@@ -187,6 +194,7 @@ public class ReviewService {
     }
 
     // 리뷰 수정
+    @Transactional
     public String updateReview(String reviewId,ReviewUpdateRequest reviewUpdateRequest) {
         Review review = getReviewOrException(reviewId);
 
@@ -199,6 +207,7 @@ public class ReviewService {
     }
 
     // 리뷰 삭제
+    @Transactional
     public void deleteReview(String reviewId, Authentication authentication) {
         Review review = getReviewOrException(reviewId);
         review.deleteBase(authentication.getName());

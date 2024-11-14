@@ -18,18 +18,25 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 @Transactional
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
+=======
+>>>>>>> 93f8c68 ([Fix] 조회 메서드에 readOnly = true 추가)
 public class LocationService {
 
     private final LocationRepository locationRepository;
 
     // 운영 지역 전체 조회
 <<<<<<< HEAD
+<<<<<<< HEAD
     @Transactional(readOnly = true)
     public Page<LocationResponse> getAllLocations(Pageable pageable) {
 =======
+=======
+    @Transactional(readOnly = true)
+>>>>>>> 93f8c68 ([Fix] 조회 메서드에 readOnly = true 추가)
     public Page<LocationResponse> getAllLocations(int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page - 1, size, Sort.by(sortBy));
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
@@ -39,6 +46,9 @@ public class LocationService {
 
     // 운영 지역 상세 조회
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 93f8c68 ([Fix] 조회 메서드에 readOnly = true 추가)
     @Transactional(readOnly = true)
     public LocationResponse getLocation(String locationId) {
 <<<<<<< HEAD
@@ -65,6 +75,9 @@ public class LocationService {
     // 운영 지역 생성
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 93f8c68 ([Fix] 조회 메서드에 readOnly = true 추가)
     @Transactional
     public String createLocation(LocationRequest locationRequest) {
 =======
@@ -112,6 +125,7 @@ public class LocationService {
     }
 
     // 운영 지역 수정
+    @Transactional
     public String updateLocation(String locationId, LocationRequest locationRequest) {
 >>>>>>> c7f45b5 ([Fix] Location, Menu 생성 및 수정 메서드 반환 id만으로 통일)
         Location location = getLocationOrException(locationId);
@@ -129,6 +143,7 @@ public class LocationService {
 
     // 운영 지역 삭제
     @Transactional
+<<<<<<< HEAD
     public void deleteLocation(String locationId, Authentication authentication) {
         Location location = getLocationOrException(locationId);
         location.deleteBase(authentication.getName());
@@ -146,6 +161,8 @@ public class LocationService {
     }
 
     // 운영 지역 삭제
+=======
+>>>>>>> 93f8c68 ([Fix] 조회 메서드에 readOnly = true 추가)
     public void deleteLocation(String locationId, Authentication authentication) {
         Location location = getLocationOrException(locationId);
         location.deleteBase(authentication.getName());
