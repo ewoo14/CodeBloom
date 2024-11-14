@@ -60,7 +60,7 @@ public class OrderController {
             @PathVariable("order_id") String order_id,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.OWNER.name());
-        String orderId = orderService.updateOrderStatus(order_id);
+        String orderId = orderService.approveOrder(order_id, Long.parseLong(authentication.getName()));
         return ApiResponse.success(orderId);
     }
 
@@ -68,7 +68,7 @@ public class OrderController {
     @DeleteMapping("/{order_id}")
     public ApiResponse<String> deleteOrder(@PathVariable("order_id") String order_id, Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name(), Role.OWNER.name());
-        String orderId = orderService.deleteOrder(order_id);
+        String orderId = orderService.cancelOrder(order_id, Long.parseLong(authentication.getName()));
         return ApiResponse.success(orderId);
     }
 }
