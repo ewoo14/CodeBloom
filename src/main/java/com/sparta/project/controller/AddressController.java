@@ -71,9 +71,10 @@ public class AddressController {
             @SortDefault(sort = "createdAt", direction = Direction.DESC)
             Pageable pageable,
             @RequestParam(value = "userId", required = false) Long userId,
+            @RequestParam(value = "city", required = false) String city,
             @RequestParam(value = "isDeleted", required = false) Boolean isDeleted) {
         permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
-        Page<AddressAdminResponse> result = addressService.getAllAddresses(pageable, userId, isDeleted);
+        Page<AddressAdminResponse> result = addressService.getAllAddresses(pageable, userId, city, isDeleted);
         return ApiResponse.success(PageResponse.of(result));
     }
 

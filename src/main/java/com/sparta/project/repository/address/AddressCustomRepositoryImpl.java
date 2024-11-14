@@ -28,8 +28,9 @@ public class AddressCustomRepositoryImpl implements AddressCustomRepository {
     @Override
     public Page<Address> findAddressesWith(Pageable pageable,
                                            Long userId,
+                                           String city,
                                            Boolean isDeleted) {
-        BooleanBuilder booleanBuilder = toBooleanBuilder(userId, isDeleted);
+        BooleanBuilder booleanBuilder = toBooleanBuilder(userId, city, isDeleted);
         List<Address> results = queryFactory.selectFrom(address)
                 .where(booleanBuilder)
                 .orderBy(getOrderSpecifiers(pageable)) // Sort 적용
@@ -44,15 +45,20 @@ public class AddressCustomRepositoryImpl implements AddressCustomRepository {
         return PageableExecutionUtils.getPage(results, pageable, count::fetchOne);
     }
 
-    private BooleanBuilder toBooleanBuilder(Long userName, Boolean isDeleted) {
+    private BooleanBuilder toBooleanBuilder(Long userName, String city, Boolean isDeleted) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         booleanBuilder.and(eqUserId(userName));
+        booleanBuilder.and(eqCity(city));
         booleanBuilder.and(eqIsDeleted(isDeleted));
         return booleanBuilder;
     }
 
     private BooleanExpression eqUserId(Long userId) {
         return userId != null ?  address.user.userId.eq(userId) : null;
+    }
+
+    private BooleanExpression eqCity(String city) {
+        return city != null ?  address.city.eq(city) : null;
     }
 
     private BooleanExpression eqIsDeleted(Boolean isDeleted) {

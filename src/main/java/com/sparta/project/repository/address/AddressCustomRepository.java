@@ -6,5 +6,5 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface AddressCustomRepository {
-    Page<Address> findAddressesWith(Pageable pageable, Long userId, Boolean isDeleted);
+    Page<Address> findAddressesWith(Pageable pageable, Long userId, String city, Boolean isDeleted);
 }

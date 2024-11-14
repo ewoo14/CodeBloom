@@ -60,8 +60,12 @@ public class AddressService {
     }
 
     @Transactional(readOnly = true)
-    public Page<AddressAdminResponse> getAllAddresses(Pageable pageable, Long targetUserId, Boolean isDeleted) {
-        return addressRepository.findAddressesWith(pageable, targetUserId, isDeleted)
+    public Page<AddressAdminResponse> getAllAddresses(
+            Pageable pageable,
+            Long targetUserId,
+            String city,
+            Boolean isDeleted) {
+        return addressRepository.findAddressesWith(pageable, targetUserId, city, isDeleted)
                 .map(AddressAdminResponse::from);
     }
 
