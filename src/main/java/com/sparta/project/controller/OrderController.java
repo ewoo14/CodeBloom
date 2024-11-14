@@ -30,11 +30,15 @@ import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 >>>>>>> c1fc115 ([Feat] 주문 요청)
+=======
+import org.springframework.web.bind.annotation.*;
+>>>>>>> 5c7a118 ([Feat] 주문 승인)
 
 @RestController
 @RequiredArgsConstructor
@@ -44,6 +48,7 @@ public class OrderController {
     private final OrderService orderService;
     private final PermissionValidator permissionValidator;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     // 자신의 주문내역 목록 조회(CUSTOMER)
     @GetMapping("/my")
@@ -202,6 +207,9 @@ public class OrderController {
 =======
 >>>>>>> c1fc115 ([Feat] 주문 요청)
 //    // 자신의 주문내역 목록 조회(CUSTOMER)
+=======
+    //    // 자신의 주문내역 목록 조회(CUSTOMER)
+>>>>>>> 5c7a118 ([Feat] 주문 승인)
 //    @GetMapping("/my")
 //    public ApiResponse<PageResponse<OrderResponse>> getMyOrders(
 //            @RequestParam("page") int page,
@@ -236,16 +244,17 @@ public class OrderController {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name(), Role.OWNER.name());
         return ApiResponse.success(orderService.createOrder(Long.parseLong(authentication.getName()), request));
     }
-//
-//    // 주문 승인(OWNER)
-//    @PatchMapping("/{order_id}")
-//    public ApiResponse<OrderResponse> updateOrderStatus(
-//            @PathVariable String order_id,
-//            @RequestBody OrderRequest orderRequest) {
-//        OrderResponse updatedOrder = orderService.updateOrderStatus(order_id, orderRequest);
-//        return ApiResponse.success(updatedOrder);
-//    }
-//
+
+    // 주문 승인(OWNER)
+    @PatchMapping("/{order_id}")
+    public ApiResponse<String> updateOrderStatus(
+            @PathVariable("order_id") String order_id,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.OWNER.name());
+        String orderId = orderService.updateOrderStatus(order_id);
+        return ApiResponse.success(orderId);
+    }
+
 //    // 주문 취소(CUSTOMER, OWNER)
 //    @DeleteMapping("/{order_id}")
 //    public ApiResponse<Void> deleteOrder(@PathVariable Long order_id) {

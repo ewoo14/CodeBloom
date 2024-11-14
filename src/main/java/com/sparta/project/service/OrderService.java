@@ -191,6 +191,13 @@ public class OrderService {
                 .sum();
     }
 
+    @Transactional
+    public String updateOrderStatus(String orderId) {
+        Order order = getOrderOrException(orderId);
+        order.approve();
+        return order.getOrderId();
+    }
+
     public Order getOrderOrException(String orderId) {
         return orderRepository.findById(orderId).orElseThrow(() ->
                 new CodeBloomException(ErrorCode.ORDER_NOT_FOUND));

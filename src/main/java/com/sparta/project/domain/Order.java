@@ -31,10 +31,14 @@ import java.util.List;
 @Table(name = "p_order")
 public class Order extends BaseEntity { // 주문
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5c7a118 ([Feat] 주문 승인)
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "order_id", length = 36, nullable = false, updatable = false)
     private String orderId;
+<<<<<<< HEAD
 =======
 	@Id
 	@GeneratedValue(strategy = GenerationType.UUID)
@@ -60,11 +64,22 @@ public class Order extends BaseEntity { // 주문
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="address_id", nullable=false)
 	private Address address;
+=======
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="store_id", nullable=false)
-	private Store store;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id", nullable = false)
+    private Address address;
+>>>>>>> 5c7a118 ([Feat] 주문 승인)
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "store_id", nullable = false)
+    private Store store;
+
+<<<<<<< HEAD
 	@Column(name="type", nullable=false) // 주문 유형 (온라인/오프라인)
 	@Enumerated(EnumType.STRING)
 	private OrderType type;
@@ -141,33 +156,51 @@ public class Order extends BaseEntity { // 주문
         this.status = OrderStatus.CANCELED;
         deleteBase(String.valueOf(userId));
     }
+=======
+    @Column(name = "type", nullable = false) // 주문 유형 (온라인/오프라인)
+    @Enumerated(EnumType.STRING)
+    private OrderType type;
 
-	@Column(name="demand", length=50) // 요청 사항
-	private String demand;
+    @Column(name = "status", nullable = false) // 주문 상태 (대기/승인/취소)
+    @Enumerated(EnumType.STRING)
+    @ColumnDefault("'WAITING'")
+    private OrderStatus status;
 
-	@OneToMany(mappedBy="order")
-	private List<OrderMenu> orderMenus = new ArrayList<>();
+    @Column(name = "order_price", nullable = false) // 주문 가격
+    private Integer orderPrice;
+>>>>>>> 5c7a118 ([Feat] 주문 승인)
 
-	@Builder
-	private Order(User user, Address address, Store store, OrderType type, Integer orderPrice, String demand) {
-		this.user = user;
-		this.address = address;
-		this.store = store;
-		this.type = type;
-		this.status = OrderStatus.WAITING;
-		this.orderPrice = orderPrice;
-		this.demand = demand;
-	}
+    @Column(name = "demand", length = 50) // 요청 사항
+    private String demand;
 
-	public static Order create(User user, Address address, Store store, OrderType type, Integer orderPrice, String demand) {
-		return Order.builder()
-				.user(user)
-				.address(address)
-				.store(store)
-				.type(type)
-				.orderPrice(orderPrice)
-				.demand(demand)
-				.build();
-	}
+    @OneToMany(mappedBy = "order")
+    private List<OrderMenu> orderMenus = new ArrayList<>();
+
+    @Builder
+    private Order(User user, Address address, Store store, OrderType type, Integer orderPrice, String demand) {
+        this.user = user;
+        this.address = address;
+        this.store = store;
+        this.type = type;
+        this.status = OrderStatus.WAITING;
+        this.orderPrice = orderPrice;
+        this.demand = demand;
+    }
+
+    public static Order create(User user, Address address, Store store, OrderType type, Integer orderPrice, String demand) {
+        return Order.builder()
+                .user(user)
+                .address(address)
+                .store(store)
+                .type(type)
+                .orderPrice(orderPrice)
+                .demand(demand)
+                .build();
+    }
+
+    public void approve() {
+        if (this.status != OrderStatus.WAITING) throw new CodeBloomException(ErrorCode.INVALID_ORDER_STATUS_CHANGE);
+        this.status = OrderStatus.APPROVED;
+    }
 
 }

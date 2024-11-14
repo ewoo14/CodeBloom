@@ -58,6 +58,7 @@ class OrderTest {
         assertThatThrownBy(() -> order.approve()).isInstanceOf(CodeBloomException.class);
     }
 
+<<<<<<< HEAD
     @DisplayName("status를 CANCELED로 변경한다.")
     @Test
     void cancel() {
@@ -95,4 +96,6 @@ class OrderTest {
                 .isInstanceOf(CodeBloomException.class);
     }
 
+=======
+>>>>>>> 5c7a118 ([Feat] 주문 승인)
 }
