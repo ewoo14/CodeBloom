@@ -57,20 +57,22 @@ public class OrderController {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name(), Role.OWNER.name());
         return ApiResponse.success(orderService.createOrder(Long.parseLong(authentication.getName()), request));
     }
-//
-//    // 주문 승인(OWNER)
-//    @PatchMapping("/{order_id}")
-//    public ApiResponse<OrderResponse> updateOrderStatus(
-//            @PathVariable String order_id,
-//            @RequestBody OrderRequest orderRequest) {
-//        OrderResponse updatedOrder = orderService.updateOrderStatus(order_id, orderRequest);
-//        return ApiResponse.success(updatedOrder);
-//    }
-//
-//    // 주문 취소(CUSTOMER, OWNER)
-//    @DeleteMapping("/{order_id}")
-//    public ApiResponse<Void> deleteOrder(@PathVariable Long order_id) {
-//        orderService.deleteOrder(order_id);
-//        return ApiResponse.success();
-//    }
+
+    // 주문 승인(OWNER)
+    @PatchMapping("/{order_id}")
+    public ApiResponse<String> updateOrderStatus(
+            @PathVariable("order_id") String order_id,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.OWNER.name());
+        String orderId = orderService.approveOrder(order_id, Long.parseLong(authentication.getName()));
+        return ApiResponse.success(orderId);
+    }
+
+    // 주문 취소(CUSTOMER, OWNER)
+    @DeleteMapping("/{order_id}")
+    public ApiResponse<String> deleteOrder(@PathVariable("order_id") String order_id, Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name(), Role.OWNER.name());
+        String orderId = orderService.cancelOrder(order_id, Long.parseLong(authentication.getName()));
+        return ApiResponse.success(orderId);
+    }
 }
