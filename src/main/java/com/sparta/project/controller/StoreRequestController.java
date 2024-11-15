@@ -8,8 +8,16 @@ import com.sparta.project.domain.enums.Role;
 import com.sparta.project.domain.enums.StoreRequestStatus;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
+<<<<<<< HEAD
 import com.sparta.project.dto.storerequest.*;
 import com.sparta.project.permission.PermissionValidator;
+=======
+import com.sparta.project.dto.storerequest.StoreCreateRequest;
+import com.sparta.project.dto.storerequest.StoreRequestAdminResponse;
+import com.sparta.project.dto.storerequest.StoreRequestResponse;
+import com.sparta.project.dto.storerequest.StoreRequestUpdateRequest;
+import com.sparta.project.dto.storerequest.StoreRequestOwnerResponse;
+>>>>>>> d5585a5 ([Feat] 음식점 생성 요청 정보 상세 조회 API)
 import com.sparta.project.service.StoreRequestService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -142,6 +150,28 @@ public class StoreRequestController {
         return ApiResponse.success(result);
     }
 
+    // 자신의 음식점 생성 요청 상세 조회(OWNER)
+    @GetMapping("/my/{request_id}")
+    public ApiResponse<StoreRequestResponse> getOwnerStoreRequestById(Authentication authentication,
+                                                                      @PathVariable String request_id) {
+        permissionValidator.checkPermission(authentication, Role.OWNER.name());
+        StoreRequestResponse result = storeRequestService.getStoreRequestBy(
+                Long.parseLong(authentication.getName()), request_id, false
+        );
+        return ApiResponse.success(result);
+    }
+
+    // 음식점 생성 요청 상세 조회(MANAGER, MASTER)
+    @GetMapping("/{request_id}")
+    public ApiResponse<StoreRequestResponse> getStoreRequestById(Authentication authentication,
+                                                                 @PathVariable String request_id) {
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
+        StoreRequestResponse result = storeRequestService.getStoreRequestBy(
+                Long.parseLong(authentication.getName()), request_id, true
+        );
+        return ApiResponse.success(result);
+    }
+
     // 자신의 요청 목록 조회(OWNER)
     @GetMapping("/my")
     public ApiResponse<PageResponse<StoreRequestOwnerResponse>> getOwnerStoreRequests(
@@ -188,6 +218,7 @@ public class StoreRequestController {
         return ApiResponse.success(PageResponse.of(result));
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 import com.sparta.project.dto.storerequest.StoreRequestCreateRequest;
@@ -336,5 +367,7 @@ public class StoreRequestController {
 =======
 
 >>>>>>> f50415c ([Feat] 가게 요청 승인 API)
+=======
+>>>>>>> d5585a5 ([Feat] 음식점 생성 요청 정보 상세 조회 API)
 }
 >>>>>>> 4f6677d ([Feat] 가게 생성을 요청하는 기능)
