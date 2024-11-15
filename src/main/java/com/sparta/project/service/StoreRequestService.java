@@ -8,6 +8,7 @@ import com.sparta.project.domain.enums.StoreRequestStatus;
 import com.sparta.project.dto.store.StoreCreateData;
 import com.sparta.project.dto.storerequest.StoreCreateRequest;
 import com.sparta.project.dto.storerequest.StoreRequestAdminResponse;
+import com.sparta.project.dto.storerequest.StoreRequestUpdateRequest;
 import com.sparta.project.dto.storerequest.StoreRequestUserResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
@@ -31,14 +32,28 @@ public class StoreRequestService {
     @Transactional
     public void createStoreRequest(final long userId, final StoreCreateRequest request) {
         User user = userService.getUserOrException(userId);
-        if(user.getRole()!= Role.OWNER) {
-            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
-        }
+
         storeRequestRepository.save(StoreRequest.create(
                 request.name(), request.description(), request.address(), user,
                 categoryService.getStoreCategoryOrException(request.storeCategoryId()),
                 locationService.getLocationOrException(request.locationId())
         ));
+    }
+
+    @Transactional
+    public void updateStoreRequest(long userId, String storeRequestId, final StoreRequestUpdateRequest request) {
+        StoreRequest storeRequest = getStoreRequestOrException(storeRequestId);
+        if(storeRequest.getOwner().getUserId() != userId) {
+            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
+        }
+        if(storeRequest.getStatus() != StoreRequestStatus.WAITING) {
+            throw new CodeBloomException(ErrorCode.STORE_REQUEST_UNABLE_MODIFY);
+        }
+        storeRequest.updateInfo(
+                request.name(), request.description(), request.address(),
+                (request.categoryId()!=null)?categoryService.getStoreCategoryOrException(request.categoryId()):null,
+                (request.locationId()!=null)?locationService.getLocationOrException(request.locationId()):null
+        );
     }
 
     @Transactional
