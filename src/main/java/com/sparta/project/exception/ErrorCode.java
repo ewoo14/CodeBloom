@@ -29,6 +29,7 @@ public enum ErrorCode {
 
     // Store-request
     STORE_REQUEST_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 가게 요청 정보가 존재하지 않습니다."),
+    STORE_REQUEST_UNABLE_MODIFY(HttpStatus.BAD_REQUEST, "승인 대기 상태의 요청만 수정 가능합니다."),
 
     // Store-category
     CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 카테고리 정보가 존재하지 않습니다."),
