@@ -6,11 +6,13 @@ import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.dto.storerequest.StoreCreateRequest;
 import com.sparta.project.dto.storerequest.StoreRequestAdminResponse;
+import com.sparta.project.dto.storerequest.StoreRequestUpdateRequest;
 import com.sparta.project.dto.storerequest.StoreRequestUserResponse;
 import com.sparta.project.service.StoreRequestService;
 import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +22,7 @@ import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,7 +42,18 @@ public class StoreRequestController {
     @PostMapping
     public ApiResponse<Void> createStoreRequest(Authentication authentication,
                                                 @Valid @RequestBody StoreCreateRequest request) {
+        permissionValidator.checkPermission(authentication, Role.OWNER.name());
         storeRequestService.createStoreRequest(Long.parseLong(authentication.getName()), request);
+        return ApiResponse.success();
+    }
+
+    // 음식점 생성 요청 수정 (OWNER)
+    @PatchMapping("/{request_id}")
+    public ApiResponse<Void> updateStoreRequest(Authentication authentication,
+                                                @PathVariable String request_id,
+                                                @NotNull @RequestBody StoreRequestUpdateRequest request) {
+        permissionValidator.checkPermission(authentication, Role.OWNER.name());
+        storeRequestService.updateStoreRequest(Long.parseLong(authentication.getName()), request_id, request);
         return ApiResponse.success();
     }
 
