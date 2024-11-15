@@ -5,7 +5,9 @@ import com.sparta.project.config.jwt.JwtUtil;
 import com.sparta.project.domain.User;
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.user.UserAdminResponse;
+import com.sparta.project.dto.user.UserBasicResponse;
 import com.sparta.project.dto.user.UserLoginRequest;
+import com.sparta.project.dto.user.UserResponse;
 import com.sparta.project.dto.user.UserSignupRequest;
 import com.sparta.project.dto.user.UserUpdateRequest;
 import com.sparta.project.exception.CodeBloomException;
@@ -59,6 +61,14 @@ public class UserService {
                 (request.password()!=null)?passwordEncoder.encode(request.password()):null,
                 request.nickname()
         );
+    }
+
+    @Transactional(readOnly = true)
+    public UserResponse getUserById(long userId, boolean isAdmin) {
+        User user = getUserOrException(userId);
+        return (isAdmin)
+                ? UserAdminResponse.from(user)
+                : UserBasicResponse.from(user);
     }
 
     @Transactional(readOnly = true)

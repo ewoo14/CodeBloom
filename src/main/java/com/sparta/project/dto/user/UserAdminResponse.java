@@ -16,7 +16,7 @@ public record UserAdminResponse(
         String updatedBy,
         LocalDateTime deletedAt,
         String deletedBy
-) {
+)  implements UserResponse {
     public static UserAdminResponse from(final User user) {
         return new UserAdminResponse(
                 user.getUserId(),
