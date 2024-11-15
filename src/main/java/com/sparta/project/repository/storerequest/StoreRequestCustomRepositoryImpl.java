@@ -30,10 +30,23 @@ public class StoreRequestCustomRepositoryImpl implements StoreRequestCustomRepos
                                                     String categoryId,
                                                     StoreRequestStatus status,
                                                     String storeName) {
-        BooleanBuilder booleanBuilder = toBooleanBuilder(categoryId, status, storeName);
+        BooleanBuilder booleanBuilder = toBooleanBuilder(categoryId, status, storeName, null);
+        return getStoreRequests(pageable, booleanBuilder);
+    }
+
+    @Override
+    public Page<StoreRequest> findUserStoreRequestsWith(Pageable pageable,
+                                                        Long userId,
+                                                        StoreRequestStatus status,
+                                                        String storeName) {
+        BooleanBuilder booleanBuilder = toBooleanBuilder(null, status, storeName, userId);
+        return getStoreRequests(pageable, booleanBuilder);
+    }
+
+    private Page<StoreRequest> getStoreRequests(Pageable pageable, BooleanBuilder booleanBuilder) {
         List<StoreRequest> results = queryFactory.selectFrom(storeRequest)
                 .where(booleanBuilder)
-                .orderBy(getOrderSpecifiers(pageable)) // Sort 적용
+                .orderBy(getOrderSpecifiers(pageable))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
@@ -43,13 +56,20 @@ public class StoreRequestCustomRepositoryImpl implements StoreRequestCustomRepos
         return PageableExecutionUtils.getPage(results, pageable, count::fetchOne);
     }
 
-
-    private BooleanBuilder toBooleanBuilder(String categoryId, StoreRequestStatus status, String storeName) {
+    private BooleanBuilder toBooleanBuilder(String categoryId,
+                                            StoreRequestStatus status,
+                                            String storeName,
+                                            Long userId) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
+        booleanBuilder.and(eqUserId(userId));
         booleanBuilder.and(eqCategoryId(categoryId));
         booleanBuilder.and(eqStatus(status));
         booleanBuilder.and(likeStoreName(storeName));
         return booleanBuilder;
+    }
+
+    private BooleanExpression eqUserId(Long userId) {
+        return userId != null ?  storeRequest.owner.userId.eq(userId) : null;
     }
 
     private BooleanExpression eqCategoryId(String categoryId) {

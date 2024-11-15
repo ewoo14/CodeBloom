@@ -7,5 +7,9 @@ import org.springframework.data.domain.Pageable;
 
 public interface StoreRequestCustomRepository {
     Page<StoreRequest> findStoreRequestsWith(
-            Pageable pageable, String categoryId, StoreRequestStatus status, String storeName);
+            Pageable pageable, String categoryId, StoreRequestStatus status, String storeName
+    );
+    Page<StoreRequest> findUserStoreRequestsWith(
+            Pageable pageable, Long userId, StoreRequestStatus status, String storeName
+    );
 }
