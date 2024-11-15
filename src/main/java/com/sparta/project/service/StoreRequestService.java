@@ -8,6 +8,7 @@ import com.sparta.project.domain.enums.StoreRequestStatus;
 import com.sparta.project.dto.store.StoreCreateData;
 import com.sparta.project.dto.storerequest.StoreCreateRequest;
 import com.sparta.project.dto.storerequest.StoreRequestAdminResponse;
+import com.sparta.project.dto.storerequest.StoreRequestUserResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.storerequest.StoreRequestRepository;
@@ -54,6 +55,16 @@ public class StoreRequestService {
         checkAlreadyChanged(storeRequest.getStatus(), StoreRequestStatus.REJECT);
         storeRequest.reject(rejectionReason);
         storeRequest.deleteBase(String.valueOf(userId));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<StoreRequestUserResponse> getAllUserStoreRequests(
+            long userId,
+            Pageable pageable,
+            StoreRequestStatus status,
+            String storeName) {
+        return storeRequestRepository.findUserStoreRequestsWith(pageable, userId, status, storeName)
+                .map(StoreRequestUserResponse::from);
     }
 
     @Transactional(readOnly = true)
