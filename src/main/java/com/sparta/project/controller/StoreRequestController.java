@@ -6,6 +6,7 @@ import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.dto.storerequest.StoreCreateRequest;
 import com.sparta.project.dto.storerequest.StoreRequestAdminResponse;
+import com.sparta.project.dto.storerequest.StoreRequestUserResponse;
 import com.sparta.project.service.StoreRequestService;
 import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
@@ -60,6 +61,22 @@ public class StoreRequestController {
         return ApiResponse.success();
     }
 
+    // 자신의 요청 목록 조회(OWNER)
+    @GetMapping("/my")
+    public ApiResponse<PageResponse<StoreRequestUserResponse>> getMyStoreRequests(
+            Authentication authentication,
+            @PageableDefault(size = 5)
+            @SortDefault(sort = "createdAt", direction = Direction.DESC)
+            Pageable pageable,
+            @RequestParam(value = "status", required = false) StoreRequestStatus status,
+            @RequestParam(value = "storeName", required = false) String storeName ) {
+        permissionValidator.checkPermission(authentication, Role.OWNER.name());
+        Page<StoreRequestUserResponse> result = storeRequestService.getAllUserStoreRequests(
+                Long.parseLong(authentication.getName()), pageable, status, storeName
+        );
+        return ApiResponse.success(PageResponse.of(result));
+    }
+
     // 음식점 생성 요청 목록 조회(MANAGER, MASTER)
     @GetMapping
     public ApiResponse<PageResponse<StoreRequestAdminResponse>> getAllStoreRequests(
@@ -78,17 +95,6 @@ public class StoreRequestController {
     }
 
 
-//
-//    // 자신의 요청 목록 조회(OWNER)
-//    @GetMapping("/my")
-//    public ApiResponse<PageResponse<StoreRequestResponse>> getMyStoreRequests(
-//            @RequestParam("page") int page,
-//            @RequestParam("size") int size,
-//            @RequestParam("sortBy") String sortBy) {
-//        Page<StoreRequestResponse> myRequests = storeRequestService.getMyStoreRequests(page, size, sortBy);
-//        return ApiResponse.success(PageResponse.of(myRequests));
-//    }
-//
 //    // 음식점 생성 요청 상세 조회(OWNER)
 //    @GetMapping("/my/{request_id}")
 //    public ApiResponse<PageResponse<StoreRequestResponse>> getStoreRequestById(
