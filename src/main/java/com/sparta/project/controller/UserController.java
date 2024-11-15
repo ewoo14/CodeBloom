@@ -4,7 +4,9 @@ package com.sparta.project.controller;
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.dto.user.UserAdminResponse;
+import com.sparta.project.dto.user.UserBasicResponse;
 import com.sparta.project.dto.user.UserLoginRequest;
+import com.sparta.project.dto.user.UserResponse;
 import com.sparta.project.dto.user.UserSignupRequest;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.user.UserUpdateRequest;
@@ -34,7 +36,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/users")
 public class UserController {
 
-    private final PermissionValidator  permissionValidator;
+    private final PermissionValidator permissionValidator;
     private final UserService userService;
 
     @PostMapping("/signup")
@@ -60,8 +62,8 @@ public class UserController {
     // 회원 탈퇴 (CUSTOMER, OWNER)
     @DeleteMapping("/withdraw")
     public ApiResponse<Void> delete(Authentication authentication) {
-        userService.withdraw(Long.parseLong(authentication.getName()));
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name(), Role.OWNER.name());
+        userService.withdraw(Long.parseLong(authentication.getName()));
         return ApiResponse.success();
     }
 
@@ -72,6 +74,22 @@ public class UserController {
         permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
         userService.deleteUser(Long.parseLong(authentication.getName()), user_id);
         return ApiResponse.success();
+    }
+
+    // 자신의 정보 조회 (ALL)
+    @GetMapping("/my")
+    public ApiResponse<UserResponse> getUser(Authentication authentication) {
+        UserResponse result = userService.getUserById(Long.parseLong(authentication.getName()), false);
+        return ApiResponse.success(result);
+    }
+
+    // 회원 정보 조회 (MANAGER, MASTER)
+    @GetMapping("/{user_id}")
+    public ApiResponse<UserResponse> getUserById(Authentication authentication,
+                                                      @PathVariable Long user_id) {
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
+        UserResponse result = userService.getUserById(user_id, true);
+        return ApiResponse.success(result);
     }
 
     // 전체 유저 조회 (MANAGER, MASTER)
@@ -91,12 +109,3 @@ public class UserController {
 
 }
 
-
-//    // 유저 단건 조회(MANAGER, MASTER)
-//    @GetMapping("/{user_id}")
-//    public ApiResponse<UserResponse> getUserById(@PathVariable Long user_id) {
-//        UserResponse userInfo = userService.getUserById(user_id);
-//        return ApiResponse.success(userInfo);
-//    }
-//
-//}
