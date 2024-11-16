@@ -260,7 +260,7 @@ public class OrderController {
     }
 
 
-    // 고객의 주문내역 목록 조회(OWNER, MANAGER, MASTER)
+    // 고객의 주문내역 목록 조회(MANAGER, MASTER)
     @GetMapping("/users")
     public ApiResponse<PageResponse<OrderResponse>> getAllOrdersByUser(
             @RequestParam("userId") Long userId,
@@ -268,8 +268,23 @@ public class OrderController {
             @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
             Pageable pageable,
             Authentication authentication) {
-        permissionValidator.checkPermission(authentication, Role.OWNER.name(), Role.MANAGER.name(), Role.MASTER.name());
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
         Page<OrderResponse> orders = orderService.getAllOrdersByUser(pageable, userId);
+        return ApiResponse.success(PageResponse.of(orders));
+    }
+
+    // 가게의 주문내역 목록 조회(OWNER) - customerId 쿼리 파라미터로
+    @GetMapping("/owners/stores/{storeId}")
+    public ApiResponse<PageResponse<OrderResponse>> getStoreOrders(
+            @PathVariable("storeId") String storeId,
+            @RequestParam(value = "customerId", required = false) Long customerId,
+            @PageableDefault(size = 5)
+            @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            Pageable pageable,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.OWNER.name());
+        Page<OrderResponse> orders
+                = orderService.getStoreOrders(pageable, storeId, customerId, Long.parseLong(authentication.getName()));
         return ApiResponse.success(PageResponse.of(orders));
     }
 

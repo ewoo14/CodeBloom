@@ -252,7 +252,7 @@ public class OrderService {
         Store store = storeId != null ? storeService.getStoreOrException(storeId) : null;
 
         return orderRepository
-                .findAllByStoreNullableAndUser(store, user, pageable)
+                .findAllByOptionalStoreAndUser(store, user, pageable)
                 .map(OrderResponse::from);
     }
 <<<<<<< HEAD
@@ -264,5 +264,22 @@ public class OrderService {
         return orderRepository.findAllByUser(user, pageable)
                 .map(OrderResponse::from);
     }
+<<<<<<< HEAD
 >>>>>>> 9d9d1b7 ([Feat] 고객의 주문내역 목록 조회)
+=======
+
+    public Page<OrderResponse> getStoreOrders(Pageable pageable, String storeId, Long customerId, Long ownerId) {
+        Store store = storeService.getStoreOrException(storeId);
+
+        // store가 owner의 것이 맞는지 체크
+        permissionValidator.checkStoreOwnerPermission(store, ownerId);
+
+        // store 와 customer를 모두 만족하는 order
+        return orderRepository
+                .findByStoreAndOptionalUser(store,
+                        customerId != null ? userService.getUserOrException(customerId) : null,
+                        pageable)
+                .map(OrderResponse::from);
+    }
+>>>>>>> 2041153 ([Fix] 고객의 주문내역 목록 조회, 가게의 주문내역 목록 조회)
 }
