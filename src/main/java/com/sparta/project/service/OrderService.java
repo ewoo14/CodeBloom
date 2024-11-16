@@ -248,11 +248,8 @@ public class OrderService {
 =======
 
     public Page<OrderResponse> getMyOrders(Pageable pageable, String storeId) {
-        Store store = null;
-        if (storeId != null) {
-            store = storeService.getStoreOrException(storeId);
-        }
-        return orderRepository.findAllByStoreNullable(store, pageable)
+        return orderRepository
+                .findAllByStoreNullable(storeId != null ? storeService.getStoreOrException(storeId) : null, pageable)
                 .map(OrderResponse::from);
     }
 <<<<<<< HEAD
