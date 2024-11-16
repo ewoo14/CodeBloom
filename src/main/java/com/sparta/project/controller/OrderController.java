@@ -28,7 +28,7 @@ public class OrderController {
     // 자신의 주문내역 목록 조회(CUSTOMER)
     @GetMapping("/my")
     public ApiResponse<PageResponse<OrderResponse>> getMyOrders(
-            @RequestParam("storeId") String storeId,
+            @RequestParam(value = "storeId", required = false) String storeId,
             @PageableDefault(size = 5)
             @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
             Pageable pageable,
