@@ -245,7 +245,7 @@ public class OrderController {
             Pageable pageable,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
-        Page<OrderResponse> orders = orderService.getMyOrders(pageable, storeId);
+        Page<OrderResponse> orders = orderService.getMyOrders(pageable, storeId, Long.parseLong(authentication.getName()));
         return ApiResponse.success(PageResponse.of(orders));
     }
 

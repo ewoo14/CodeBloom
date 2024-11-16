@@ -247,9 +247,12 @@ public class OrderService {
 >>>>>>> 09c755a ([Refactor] OrderService 와 UserService의 getXxxOrException() 메서드 호출로 대체)
 =======
 
-    public Page<OrderResponse> getMyOrders(Pageable pageable, String storeId) {
+    public Page<OrderResponse> getMyOrders(Pageable pageable, String storeId, Long userId) {
+        User user = userService.getUserOrException(userId); // 사용자를 가져오는 메서드 (예시)
+        Store store = storeId != null ? storeService.getStoreOrException(storeId) : null;
+
         return orderRepository
-                .findAllByStoreNullable(storeId != null ? storeService.getStoreOrException(storeId) : null, pageable)
+                .findAllByStoreNullableAndUser(store, user, pageable)
                 .map(OrderResponse::from);
     }
 <<<<<<< HEAD
