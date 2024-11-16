@@ -9,12 +9,16 @@ import com.sparta.project.dto.address.AddressResponse;
 import com.sparta.project.dto.address.AddressUpdateRequest;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
-import com.sparta.project.repository.AddressRepository;
+import com.sparta.project.repository.address.AddressRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AddressService {
 
@@ -22,7 +26,6 @@ public class AddressService {
     private final AddressRepository addressRepository;
 
 
-    @Transactional
     public void createAddress(final long userId, final AddressCreateRequest request) {
         User user = userService.getUserOrException(userId);
         if(overMaxAddress(user)) {
@@ -38,6 +41,15 @@ public class AddressService {
     }
 
     @Transactional(readOnly = true)
+    public List<AddressResponse> getUserAddresses(final long userId) {
+        User user = userService.getUserOrException(userId);
+        return addressRepository.findAllByUserAndIsDeleted(user, null)
+                .stream()
+                .map(AddressResponse::from)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
     public AddressResponse getAddressBy(long userId, String addressId) {
         Address address = getAddressOrException(addressId);
         checkAddressOwner(userId, address.getUser().getUserId());
@@ -48,12 +60,21 @@ public class AddressService {
     }
 
     @Transactional(readOnly = true)
+    public Page<AddressAdminResponse> getAllAddresses(
+            Pageable pageable,
+            Long targetUserId,
+            String city,
+            Boolean isDeleted) {
+        return addressRepository.findAddressesWith(pageable, targetUserId, city, isDeleted)
+                .map(AddressAdminResponse::from);
+    }
+
+    @Transactional(readOnly = true)
     public AddressAdminResponse getAdminAddressBy(String addressId) {
         Address address = getAddressOrException(addressId);
         return AddressAdminResponse.from(address);
     }
 
-    @Transactional
     public void updateAddress(long userId, String addressId, AddressUpdateRequest request) {
         User user = userService.getUserOrException(userId);
         Address address = getAddressOrException(addressId);
@@ -66,7 +87,6 @@ public class AddressService {
         );
     }
 
-    @Transactional
     public void deleteAddress(long userId, String addressId) {
         Address address = getAddressOrException(addressId);
         checkAddressOwner(userId, address.getUser().getUserId());

@@ -62,6 +62,14 @@ public class StoreRequest extends BaseEntity { // 음식점 허가 요청
 		this.rejectionReason = rejectionReason;
 	}
 
+	public void updateInfo(String name, String description, String address, StoreCategory category, Location location) {
+		if (name!=null) this.name = name;
+		if (description!=null) this.description = description;
+		if (address!=null) this.address = address;
+		if (category!=null) this.storeCategory = category;
+		if (location!=null) this.location = location;
+	}
+
 	@Builder
 	private StoreRequest(String id, String name, String description, String address, User owner, StoreCategory category, Location location) {
 		this.storeRequestId = id;

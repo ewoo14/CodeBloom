@@ -10,7 +10,7 @@ import com.sparta.project.dto.payment.PaymentResponse;
 import com.sparta.project.dto.payment.PaymentRequest;
 import com.sparta.project.repository.OrderRepository;
 import com.sparta.project.repository.PaymentRepository;
-import com.sparta.project.repository.UserRepository;
+import com.sparta.project.repository.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -8,11 +8,11 @@ import com.sparta.project.dto.ai.AIResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.AIRepository;
-import com.sparta.project.repository.UserRepository;
+
+import com.sparta.project.repository.user.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.*;
 import org.springframework.http.*;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;

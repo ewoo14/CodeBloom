@@ -7,10 +7,15 @@ import com.sparta.project.domain.enums.Role;
 import com.sparta.project.domain.enums.StoreRequestStatus;
 import com.sparta.project.dto.store.StoreCreateData;
 import com.sparta.project.dto.storerequest.StoreCreateRequest;
+import com.sparta.project.dto.storerequest.StoreRequestAdminResponse;
+import com.sparta.project.dto.storerequest.StoreRequestUpdateRequest;
+import com.sparta.project.dto.storerequest.StoreRequestUserResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
-import com.sparta.project.repository.StoreRequestRepository;
+import com.sparta.project.repository.storerequest.StoreRequestRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,14 +32,28 @@ public class StoreRequestService {
     @Transactional
     public void createStoreRequest(final long userId, final StoreCreateRequest request) {
         User user = userService.getUserOrException(userId);
-        if(user.getRole()!= Role.OWNER) {
-            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
-        }
+
         storeRequestRepository.save(StoreRequest.create(
                 request.name(), request.description(), request.address(), user,
                 categoryService.getStoreCategoryOrException(request.storeCategoryId()),
                 locationService.getLocationOrException(request.locationId())
         ));
+    }
+
+    @Transactional
+    public void updateStoreRequest(long userId, String storeRequestId, final StoreRequestUpdateRequest request) {
+        StoreRequest storeRequest = getStoreRequestOrException(storeRequestId);
+        if(storeRequest.getOwner().getUserId() != userId) {
+            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
+        }
+        if(storeRequest.getStatus() != StoreRequestStatus.WAITING) {
+            throw new CodeBloomException(ErrorCode.STORE_REQUEST_UNABLE_MODIFY);
+        }
+        storeRequest.updateInfo(
+                request.name(), request.description(), request.address(),
+                (request.categoryId()!=null)?categoryService.getStoreCategoryOrException(request.categoryId()):null,
+                (request.locationId()!=null)?locationService.getLocationOrException(request.locationId()):null
+        );
     }
 
     @Transactional
@@ -51,6 +70,26 @@ public class StoreRequestService {
         checkAlreadyChanged(storeRequest.getStatus(), StoreRequestStatus.REJECT);
         storeRequest.reject(rejectionReason);
         storeRequest.deleteBase(String.valueOf(userId));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<StoreRequestUserResponse> getAllUserStoreRequests(
+            long userId,
+            Pageable pageable,
+            StoreRequestStatus status,
+            String storeName) {
+        return storeRequestRepository.findUserStoreRequestsWith(pageable, userId, status, storeName)
+                .map(StoreRequestUserResponse::from);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<StoreRequestAdminResponse> getAllStoreRequests(
+            Pageable pageable,
+            String categoryId,
+            StoreRequestStatus status,
+            String storeName) {
+        return storeRequestRepository.findStoreRequestsWith(pageable, categoryId, status, storeName)
+                .map(StoreRequestAdminResponse::from);
     }
 
     private void checkAlreadyChanged(StoreRequestStatus before, StoreRequestStatus change) {

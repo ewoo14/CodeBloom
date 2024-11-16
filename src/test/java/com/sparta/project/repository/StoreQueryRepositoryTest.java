@@ -5,6 +5,7 @@ import com.sparta.project.domain.Store;
 import com.sparta.project.domain.StoreCategory;
 import com.sparta.project.domain.User;
 import com.sparta.project.domain.enums.Role;
+import com.sparta.project.repository.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

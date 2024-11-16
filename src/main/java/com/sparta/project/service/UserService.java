@@ -3,13 +3,19 @@ package com.sparta.project.service;
 
 import com.sparta.project.config.jwt.JwtUtil;
 import com.sparta.project.domain.User;
+import com.sparta.project.domain.enums.Role;
+import com.sparta.project.dto.user.UserAdminResponse;
+import com.sparta.project.dto.user.UserBasicResponse;
 import com.sparta.project.dto.user.UserLoginRequest;
+import com.sparta.project.dto.user.UserResponse;
 import com.sparta.project.dto.user.UserSignupRequest;
 import com.sparta.project.dto.user.UserUpdateRequest;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
-import com.sparta.project.repository.UserRepository;
+import com.sparta.project.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,6 +61,24 @@ public class UserService {
                 (request.password()!=null)?passwordEncoder.encode(request.password()):null,
                 request.nickname()
         );
+    }
+
+    @Transactional(readOnly = true)
+    public UserResponse getUserById(long userId, boolean isAdmin) {
+        User user = getUserOrException(userId);
+        return (isAdmin)
+                ? UserAdminResponse.from(user)
+                : UserBasicResponse.from(user);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<UserAdminResponse> getAllUsersBy(
+            Pageable pageable,
+            String username,
+            Role role,
+            Boolean isDeleted ) {
+        return userRepository.findUserWith(pageable, username, role, isDeleted)
+                .map(UserAdminResponse::from);
     }
 
     @Transactional

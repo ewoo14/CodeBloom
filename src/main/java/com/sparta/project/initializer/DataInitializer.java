@@ -1,6 +1,6 @@
 //package com.sparta.project.initializer;
 //
-//import com.sparta.project.repository.UserRepository;
+//import com.sparta.project.repository.user.UserRepository;
 //import org.springframework.boot.CommandLineRunner;
 //import org.springframework.stereotype.Component;
 //import org.springframework.security.crypto.password.PasswordEncoder;

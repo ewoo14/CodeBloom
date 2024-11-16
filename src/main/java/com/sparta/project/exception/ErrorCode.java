@@ -13,6 +13,7 @@ public enum ErrorCode {
 
     // Util
     ALREADY_PROCESSED(HttpStatus.CONFLICT, "이미 처리된 요청입니다."),
+    UNSUPPORTED_SORT_TYPE(HttpStatus.BAD_REQUEST, "지원하지 않는 정렬 방식입니다."),
 
     // UNAUTHORIZED & FORBIDDEN
     FORBIDDEN_ACCESS(HttpStatus.FORBIDDEN, "접근 권한이 존재하지 않습니다."),
@@ -28,6 +29,7 @@ public enum ErrorCode {
 
     // Store-request
     STORE_REQUEST_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 가게 요청 정보가 존재하지 않습니다."),
+    STORE_REQUEST_UNABLE_MODIFY(HttpStatus.BAD_REQUEST, "승인 대기 상태의 요청만 수정 가능합니다."),
 
     // Store-category
     CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND, "일치하는 카테고리 정보가 존재하지 않습니다."),

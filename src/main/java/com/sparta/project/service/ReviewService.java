@@ -9,7 +9,7 @@ import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.OrderRepository;
 import com.sparta.project.repository.ReviewRepository;
 import com.sparta.project.repository.StoreRepository;
-import com.sparta.project.repository.UserRepository;
+import com.sparta.project.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
