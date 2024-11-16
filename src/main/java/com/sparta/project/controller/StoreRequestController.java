@@ -6,8 +6,9 @@ import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.dto.storerequest.StoreCreateRequest;
 import com.sparta.project.dto.storerequest.StoreRequestAdminResponse;
+import com.sparta.project.dto.storerequest.StoreRequestResponse;
 import com.sparta.project.dto.storerequest.StoreRequestUpdateRequest;
-import com.sparta.project.dto.storerequest.StoreRequestUserResponse;
+import com.sparta.project.dto.storerequest.StoreRequestOwnerResponse;
 import com.sparta.project.service.StoreRequestService;
 import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
@@ -75,9 +76,31 @@ public class StoreRequestController {
         return ApiResponse.success();
     }
 
+    // 자신의 음식점 생성 요청 상세 조회(OWNER)
+    @GetMapping("/my/{request_id}")
+    public ApiResponse<StoreRequestResponse> getOwnerStoreRequestById(Authentication authentication,
+                                                                      @PathVariable String request_id) {
+        permissionValidator.checkPermission(authentication, Role.OWNER.name());
+        StoreRequestResponse result = storeRequestService.getStoreRequestBy(
+                Long.parseLong(authentication.getName()), request_id, false
+        );
+        return ApiResponse.success(result);
+    }
+
+    // 음식점 생성 요청 상세 조회(MANAGER, MASTER)
+    @GetMapping("/{request_id}")
+    public ApiResponse<StoreRequestResponse> getStoreRequestById(Authentication authentication,
+                                                                 @PathVariable String request_id) {
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
+        StoreRequestResponse result = storeRequestService.getStoreRequestBy(
+                Long.parseLong(authentication.getName()), request_id, true
+        );
+        return ApiResponse.success(result);
+    }
+
     // 자신의 요청 목록 조회(OWNER)
     @GetMapping("/my")
-    public ApiResponse<PageResponse<StoreRequestUserResponse>> getMyStoreRequests(
+    public ApiResponse<PageResponse<StoreRequestOwnerResponse>> getOwnerStoreRequests(
             Authentication authentication,
             @PageableDefault(size = 5)
             @SortDefault(sort = "createdAt", direction = Direction.DESC)
@@ -85,7 +108,7 @@ public class StoreRequestController {
             @RequestParam(value = "status", required = false) StoreRequestStatus status,
             @RequestParam(value = "storeName", required = false) String storeName ) {
         permissionValidator.checkPermission(authentication, Role.OWNER.name());
-        Page<StoreRequestUserResponse> result = storeRequestService.getAllUserStoreRequests(
+        Page<StoreRequestOwnerResponse> result = storeRequestService.getAllUserStoreRequests(
                 Long.parseLong(authentication.getName()), pageable, status, storeName
         );
         return ApiResponse.success(PageResponse.of(result));
@@ -107,28 +130,5 @@ public class StoreRequestController {
         );
         return ApiResponse.success(PageResponse.of(result));
     }
-
-
-//    // 음식점 생성 요청 상세 조회(OWNER)
-//    @GetMapping("/my/{request_id}")
-//    public ApiResponse<PageResponse<StoreRequestResponse>> getStoreRequestById(
-//            @PathVariable String request_id,
-//            @RequestParam("size") int size,
-//            @RequestParam("sortBy") String sortBy) {
-//        Page<StoreRequestResponse> myRequest = storeRequestService.getStoreRequestById(request_id, page, size, sortBy);
-//        return ApiResponse.success(PageResponse.of(myRequest));
-//    }
-//
-//    // 음식점 생성 요청 상세 조회(MANAGER, MASTER)
-//    @GetMapping("/{request_id}")
-//    public ApiResponse<PageResponse<StoreRequestResponse>> getStoreRequestById(
-//            @PathVariable String request_id,
-//            @RequestParam("size") int size,
-//            @RequestParam("sortBy") String sortBy) {
-//        Page<StoreRequestResponse> storeRequest = storeRequestService.getStoreRequestById(request_id, page, size, sortBy);
-//        return ApiResponse.success(PageResponse.of(storeRequest));
-//    }
-//
-//
 
 }
