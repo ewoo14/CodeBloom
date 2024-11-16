@@ -12,8 +12,8 @@ import org.springframework.data.repository.query.Param;
 public interface OrderRepository extends JpaRepository<Order, String> {
 
     // store 가 null 인 경우 모든 거 반환
-    @Query("SELECT o FROM Order o WHERE (:store IS NULL OR o.store = :store)")
-    Page<Order> findAllByStoreNullable(@Param("store") Store store, Pageable pageable);
+    @Query("SELECT o FROM Order o WHERE (:store IS NULL OR o.store = :store) AND o.user = :user")
+    Page<Order> findAllByStoreNullableAndUser(@Param("store") Store store, @Param("user") User user, Pageable pageable);
 
     Page<Order> findAllByUser(User user, Pageable pageable);
 }
