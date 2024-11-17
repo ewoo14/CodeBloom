@@ -4,6 +4,7 @@ package com.sparta.project.controller;
 <<<<<<< HEAD
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.common.ApiResponse;
+<<<<<<< HEAD
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.dto.location.LocationRequest;
 import com.sparta.project.dto.location.LocationResponse;
@@ -21,12 +22,13 @@ import org.springframework.data.web.SortDefault;
 =======
 import com.sparta.project.domain.enums.Role;
 >>>>>>> 06c83a4 ([Refactor] 권한 설정시 Role 객체 사용으로 변경)
+=======
+>>>>>>> 72c1305 ([Refactor] OrderValidator로 주문쪽 검증 분리)
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.dto.location.LocationRequest;
 import com.sparta.project.dto.location.LocationResponse;
-import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.permission.PermissionValidator;
 import com.sparta.project.service.LocationService;
-import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;

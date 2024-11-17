@@ -30,16 +30,20 @@ package com.sparta.project.controller;
 
 
 import com.sparta.project.domain.enums.Role;
+<<<<<<< HEAD
 import com.sparta.project.dto.user.UserLoginRequest;
 import com.sparta.project.dto.user.UserSignupRequest;
+=======
+>>>>>>> 72c1305 ([Refactor] OrderValidator로 주문쪽 검증 분리)
 import com.sparta.project.dto.common.ApiResponse;
-import com.sparta.project.dto.user.UserUpdateRequest;
+import com.sparta.project.dto.common.PageResponse;
+import com.sparta.project.dto.user.*;
+import com.sparta.project.permission.PermissionValidator;
 import com.sparta.project.service.UserService;
-import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
-import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,6 +52,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 >>>>>>> 2470ae3 ([Feat] 회원가입 API)
+=======
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+>>>>>>> 72c1305 ([Refactor] OrderValidator로 주문쪽 검증 분리)
 
 @RestController
 @RequiredArgsConstructor

@@ -26,18 +26,18 @@ import org.springframework.data.web.SortDefault;
 package com.sparta.project.controller;
 
 import com.sparta.project.domain.enums.Role;
-import com.sparta.project.dto.review.ReviewCreateRequest;
-import com.sparta.project.dto.review.ReviewUpdateRequest;
-import com.sparta.project.dto.review.ReviewResponse;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
+import com.sparta.project.dto.review.ReviewCreateRequest;
+import com.sparta.project.dto.review.ReviewResponse;
+import com.sparta.project.dto.review.ReviewUpdateRequest;
+import com.sparta.project.permission.PermissionValidator;
 import com.sparta.project.service.ReviewService;
-import com.sparta.project.util.PermissionValidator;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 >>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
 import org.springframework.security.core.Authentication;

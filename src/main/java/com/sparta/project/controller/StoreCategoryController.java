@@ -18,6 +18,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.*;
 =======
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,6 +29,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 >>>>>>> ec2081e ([Feat] 가게 카테고리 삭제 API)
+=======
+import org.springframework.web.bind.annotation.*;
+>>>>>>> 72c1305 ([Refactor] OrderValidator로 주문쪽 검증 분리)
 
 @RestController
 @RequiredArgsConstructor

@@ -9,6 +9,7 @@ import com.sparta.project.domain.enums.StoreRequestStatus;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.sparta.project.dto.storerequest.*;
 import com.sparta.project.permission.PermissionValidator;
 =======
@@ -18,6 +19,10 @@ import com.sparta.project.dto.storerequest.StoreRequestResponse;
 import com.sparta.project.dto.storerequest.StoreRequestUpdateRequest;
 import com.sparta.project.dto.storerequest.StoreRequestOwnerResponse;
 >>>>>>> d5585a5 ([Feat] 음식점 생성 요청 정보 상세 조회 API)
+=======
+import com.sparta.project.dto.storerequest.*;
+import com.sparta.project.permission.PermissionValidator;
+>>>>>>> 72c1305 ([Refactor] OrderValidator로 주문쪽 검증 분리)
 import com.sparta.project.service.StoreRequestService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -30,6 +35,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+<<<<<<< HEAD
 =======
 package com.sparta.project.controller;
 
@@ -59,6 +65,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 >>>>>>> 4f6677d ([Feat] 가게 생성을 요청하는 기능)
+=======
+>>>>>>> 72c1305 ([Refactor] OrderValidator로 주문쪽 검증 분리)
 
 
 @RestController
@@ -102,11 +110,14 @@ public class StoreRequestController {
     @PostMapping("/{request_id}")
     public ApiResponse<Void> approveStoreRequest(Authentication authentication,
                                                  @PathVariable String request_id) {
+<<<<<<< HEAD
 =======
     @PostMapping("/{request_id}")
     public ApiResponse<Void> updateStoreRequest(Authentication authentication,
                                                 @PathVariable String request_id) {
 >>>>>>> f50415c ([Feat] 가게 요청 승인 API)
+=======
+>>>>>>> 72c1305 ([Refactor] OrderValidator로 주문쪽 검증 분리)
         permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
         storeRequestService.approveStoreRequest(request_id);
         return ApiResponse.success();

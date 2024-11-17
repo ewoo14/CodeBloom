@@ -1,13 +1,25 @@
+<<<<<<< HEAD
+<<<<<<<< HEAD:src/main/java/com/sparta/project/permission/PermissionValidator.java
 <<<<<<< HEAD:src/main/java/com/sparta/project/permission/PermissionValidator.java
 package com.sparta.project.permission;
 =======
 package com.sparta.project.util;
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지):src/main/java/com/sparta/project/util/PermissionValidator.java
+========
+package com.sparta.project.permission;
+>>>>>>>> 72c1305 ([Refactor] OrderValidator로 주문쪽 검증 분리):src/main/java/com/sparta/project/permission/OrderValidator.java
 
 import com.sparta.project.domain.Order;
 import com.sparta.project.domain.Store;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
+<<<<<<<< HEAD:src/main/java/com/sparta/project/permission/PermissionValidator.java
+=======
+package com.sparta.project.permission;
+
+import com.sparta.project.exception.CodeBloomException;
+import com.sparta.project.exception.ErrorCode;
+>>>>>>> 72c1305 ([Refactor] OrderValidator로 주문쪽 검증 분리)
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
@@ -25,9 +37,15 @@ public class PermissionValidator {
             throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
         }
     }
+<<<<<<< HEAD
 <<<<<<< HEAD:src/main/java/com/sparta/project/permission/PermissionValidator.java
 =======
+========
+import org.springframework.stereotype.Component;
+>>>>>>>> 72c1305 ([Refactor] OrderValidator로 주문쪽 검증 분리):src/main/java/com/sparta/project/permission/OrderValidator.java
 
+@Component
+public class OrderValidator {
 
     public void checkOrderApprovePermission(Order order, Long userId) {
         if (!isStoreOwner(order.getStore(), userId)) {
@@ -63,6 +81,11 @@ public class PermissionValidator {
             throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
         }
     }
+<<<<<<<< HEAD:src/main/java/com/sparta/project/permission/PermissionValidator.java
 
 >>>>>>> 4fb049a ([Build] 깃허브에 pull 당긴 후 컴파일 에러 생기는 거 해결):src/main/java/com/sparta/project/util/PermissionValidator.java
+========
+>>>>>>>> 72c1305 ([Refactor] OrderValidator로 주문쪽 검증 분리):src/main/java/com/sparta/project/permission/OrderValidator.java
+=======
+>>>>>>> 72c1305 ([Refactor] OrderValidator로 주문쪽 검증 분리)
 }

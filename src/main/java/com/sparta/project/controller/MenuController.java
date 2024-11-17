@@ -25,11 +25,12 @@ import org.springframework.security.core.Authentication;
 package com.sparta.project.controller;
 
 import com.sparta.project.domain.enums.Role;
-import com.sparta.project.dto.menu.MenuCreateRequest;
-import com.sparta.project.dto.menu.MenuUpdateRequest;
-import com.sparta.project.dto.menu.MenuResponse;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
+import com.sparta.project.dto.menu.MenuCreateRequest;
+import com.sparta.project.dto.menu.MenuResponse;
+import com.sparta.project.dto.menu.MenuUpdateRequest;
+import com.sparta.project.permission.PermissionValidator;
 import com.sparta.project.service.MenuService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -42,7 +43,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 =======
 >>>>>>> 5c260d6 ([Fix] MenuRequest 객체 분리 & 권한 로직 추가 & UUID 수도 부여)
 import org.springframework.web.bind.annotation.*;
-import com.sparta.project.util.PermissionValidator;
 
 @RestController
 @RequiredArgsConstructor

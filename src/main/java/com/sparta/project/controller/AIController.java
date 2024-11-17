@@ -18,6 +18,7 @@ import com.sparta.project.dto.ai.AIResponse;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.sparta.project.permission.PermissionValidator;
 import com.sparta.project.service.AIService;
 import jakarta.validation.Valid;
@@ -33,8 +34,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Arrays;
 
 =======
+=======
+import com.sparta.project.permission.PermissionValidator;
+>>>>>>> 72c1305 ([Refactor] OrderValidator로 주문쪽 검증 분리)
 import com.sparta.project.service.AIService;
-import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

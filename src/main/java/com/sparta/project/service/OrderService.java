@@ -14,6 +14,7 @@ import com.sparta.project.dto.order.OrderResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.permission.OrderValidator;
+<<<<<<< HEAD
 import com.sparta.project.repository.OrderMenuRepository;
 import com.sparta.project.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,9 +36,10 @@ import com.sparta.project.dto.order.OrderCreateRequest;
 >>>>>>> 5f50f91 ([Refactor] 피드백 반영)
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
+=======
+>>>>>>> 72c1305 ([Refactor] OrderValidator로 주문쪽 검증 분리)
 import com.sparta.project.repository.OrderMenuRepository;
 import com.sparta.project.repository.OrderRepository;
-import com.sparta.project.util.PermissionValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -177,7 +179,7 @@ public class OrderService {
 >>>>>>> c1fc115 ([Feat] 주문 요청)
     private final OrderRepository orderRepository;
     private final OrderMenuRepository orderMenuRepository;
-    private final PermissionValidator permissionValidator;
+    private final OrderValidator orderValidator;
 
     @Transactional
     public String createOrder(Long userId, OrderCreateRequest request) {
@@ -216,7 +218,7 @@ public class OrderService {
     @Transactional
     public String approveOrder(String orderId, Long userId) {
         Order order = getOrderOrException(orderId);
-        permissionValidator.checkOrderApprovePermission(order, userId);
+        orderValidator.checkOrderApprovePermission(order, userId);
         order.approve();
         return order.getOrderId();
     }
@@ -225,7 +227,7 @@ public class OrderService {
     @Transactional
     public String cancelOrder(String orderId, Long userId) {
         Order order = getOrderOrException(orderId);
-        permissionValidator.checkOrderCancelPermission(order, userId);
+        orderValidator.checkOrderCancelPermission(order, userId);
         order.cancel(userId);
         return order.getOrderId();
 <<<<<<< HEAD
@@ -234,7 +236,7 @@ public class OrderService {
 
     public OrderResponse getOrderById(String orderId, long userId) {
         Order order = getOrderOrException(orderId);
-        permissionValidator.checkOrderOwner(userId, order.getUser().getUserId());
+        orderValidator.checkOrderOwner(userId, order.getUser().getUserId());
         return OrderResponse.from(order);
 >>>>>>> 4fb049a ([Build] 깃허브에 pull 당긴 후 컴파일 에러 생기는 거 해결)
     }
@@ -272,7 +274,7 @@ public class OrderService {
         Store store = storeService.getStoreOrException(storeId);
 
         // store가 owner의 것이 맞는지 체크
-        permissionValidator.checkStoreOwnerPermission(store, ownerId);
+        orderValidator.checkStoreOwnerPermission(store, ownerId);
 
         // store 와 customer를 모두 만족하는 order
         return orderRepository
