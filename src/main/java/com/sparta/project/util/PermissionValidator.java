@@ -35,12 +35,24 @@ public class PermissionValidator {
         }
     }
 
-    public boolean isStoreOwner(Store store, Long userId) {
+    public void checkStoreOwnerPermission(Store store, Long userId) {
+        if (!isStoreOwner(store, userId)) {
+            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
+        }
+    }
+
+    private boolean isStoreOwner(Store store, Long userId) {
         return userId.equals(store.getOwner().getUserId());
     }
 
-    public boolean isOrderCustomer(Order order, Long userId) {
+    private boolean isOrderCustomer(Order order, Long userId) {
         return userId.equals(order.getUser().getUserId());
+    }
+
+    public void checkOrderOwner(Long userId, Long ownerId) {
+        if (!userId.equals(ownerId)) {
+            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
+        }
     }
 
 }

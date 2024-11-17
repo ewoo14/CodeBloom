@@ -11,6 +11,8 @@ import com.sparta.project.repository.OrderMenuRepository;
 import com.sparta.project.repository.OrderRepository;
 import com.sparta.project.util.PermissionValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,15 +79,45 @@ public class OrderService {
         permissionValidator.checkOrderCancelPermission(order, userId);
         order.cancel(userId);
         return order.getOrderId();
+    }
 
     public OrderResponse getOrderById(String orderId, long userId) {
         Order order = getOrderOrException(orderId);
-        checkOrderOwner(userId, order.getUser().getUserId());
+        permissionValidator.checkOrderOwner(userId, order.getUser().getUserId());
         return OrderResponse.from(order);
     }
 
     public Order getOrderOrException(String orderId) {
         return orderRepository.findById(orderId).orElseThrow(() ->
                 new CodeBloomException(ErrorCode.ORDER_NOT_FOUND));
+    }
+
+    public Page<OrderResponse> getMyOrders(Pageable pageable, String storeId, Long userId) {
+        User user = userService.getUserOrException(userId); // 사용자를 가져오는 메서드 (예시)
+        Store store = storeId != null ? storeService.getStoreOrException(storeId) : null;
+
+        return orderRepository
+                .findAllByOptionalStoreAndUser(store, user, pageable)
+                .map(OrderResponse::from);
+    }
+
+    public Page<OrderResponse> getAllOrdersByUser(Pageable pageable, Long userId) {
+        User user = userService.getUserOrException(userId);
+        return orderRepository.findAllByUser(user, pageable)
+                .map(OrderResponse::from);
+    }
+
+    public Page<OrderResponse> getStoreOrders(Pageable pageable, String storeId, Long customerId, Long ownerId) {
+        Store store = storeService.getStoreOrException(storeId);
+
+        // store가 owner의 것이 맞는지 체크
+        permissionValidator.checkStoreOwnerPermission(store, ownerId);
+
+        // store 와 customer를 모두 만족하는 order
+        return orderRepository
+                .findByStoreAndOptionalUser(store,
+                        customerId != null ? userService.getUserOrException(customerId) : null,
+                        pageable)
+                .map(OrderResponse::from);
     }
 }
