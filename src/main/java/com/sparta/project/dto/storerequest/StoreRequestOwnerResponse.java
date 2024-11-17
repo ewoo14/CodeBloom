@@ -6,27 +6,27 @@ import com.sparta.project.domain.enums.StoreRequestStatus;
 import java.time.LocalDateTime;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public record StoreRequestUserResponse(
+public record StoreRequestOwnerResponse(
         String storeRequestId,
-        StoreRequestStatus status,
         String name,
         String description,
-        String rejectionReason,
         String storeCategoryId,
         String locationId,
+        StoreRequestStatus status,
+        String rejectionReason,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
         LocalDateTime rejectedAt
-) {
-    public static StoreRequestUserResponse from(StoreRequest storeRequest) {
-        return new StoreRequestUserResponse(
+) implements StoreRequestResponse {
+    public static StoreRequestOwnerResponse from(StoreRequest storeRequest) {
+        return new StoreRequestOwnerResponse(
                 storeRequest.getStoreRequestId(),
-                storeRequest.getStatus(),
                 storeRequest.getName(),
                 storeRequest.getDescription(),
-                storeRequest.getRejectionReason(),
                 storeRequest.getStoreCategory().getStoreCategoryId(),
                 storeRequest.getLocation().getLocationId(),
+                storeRequest.getStatus(),
+                storeRequest.getRejectionReason(),
                 storeRequest.getCreatedAt(),
                 storeRequest.getUpdatedAt(),
                 storeRequest.getDeletedAt()

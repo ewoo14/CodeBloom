@@ -3,13 +3,13 @@ package com.sparta.project.service;
 
 import com.sparta.project.domain.StoreRequest;
 import com.sparta.project.domain.User;
-import com.sparta.project.domain.enums.Role;
 import com.sparta.project.domain.enums.StoreRequestStatus;
 import com.sparta.project.dto.store.StoreCreateData;
 import com.sparta.project.dto.storerequest.StoreCreateRequest;
 import com.sparta.project.dto.storerequest.StoreRequestAdminResponse;
+import com.sparta.project.dto.storerequest.StoreRequestResponse;
 import com.sparta.project.dto.storerequest.StoreRequestUpdateRequest;
-import com.sparta.project.dto.storerequest.StoreRequestUserResponse;
+import com.sparta.project.dto.storerequest.StoreRequestOwnerResponse;
 import com.sparta.project.exception.CodeBloomException;
 import com.sparta.project.exception.ErrorCode;
 import com.sparta.project.repository.storerequest.StoreRequestRepository;
@@ -73,13 +73,24 @@ public class StoreRequestService {
     }
 
     @Transactional(readOnly = true)
-    public Page<StoreRequestUserResponse> getAllUserStoreRequests(
+    public StoreRequestResponse getStoreRequestBy(long userId, String storeRequestId, boolean isAdmin) {
+        StoreRequest storeRequest = getStoreRequestOrException(storeRequestId);
+        if(!isAdmin && storeRequest.getOwner().getUserId() != userId) {
+            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
+        }
+        return (isAdmin)
+                ? StoreRequestAdminResponse.from(storeRequest)
+                : StoreRequestOwnerResponse.from(storeRequest);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<StoreRequestOwnerResponse> getAllUserStoreRequests(
             long userId,
             Pageable pageable,
             StoreRequestStatus status,
             String storeName) {
         return storeRequestRepository.findUserStoreRequestsWith(pageable, userId, status, storeName)
-                .map(StoreRequestUserResponse::from);
+                .map(StoreRequestOwnerResponse::from);
     }
 
     @Transactional(readOnly = true)

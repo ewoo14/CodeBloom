@@ -10,10 +10,10 @@ public record StoreRequestAdminResponse(
         StoreRequestStatus status,
         String name,
         String description,
-        String rejectionReason,
         String storeCategoryId,
         String locationId,
         Long ownerId,
+        String rejectionReason,
         Boolean isDeleted,
         LocalDateTime createdAt,
         String createdBy,
@@ -21,17 +21,17 @@ public record StoreRequestAdminResponse(
         String updatedBy,
         LocalDateTime deletedAt,
         String deletedBy
-) {
+) implements StoreRequestResponse {
     public static StoreRequestAdminResponse from(final StoreRequest storeRequest) {
         return new StoreRequestAdminResponse(
                 storeRequest.getStoreRequestId(),
                 storeRequest.getStatus(),
                 storeRequest.getName(),
                 storeRequest.getDescription(),
-                storeRequest.getRejectionReason(),
                 storeRequest.getStoreCategory().getStoreCategoryId(),
                 storeRequest.getLocation().getLocationId(),
                 storeRequest.getOwner().getUserId(),
+                storeRequest.getRejectionReason(),
                 storeRequest.getIsDeleted(),
                 storeRequest.getCreatedAt(),
                 storeRequest.getCreatedBy(),

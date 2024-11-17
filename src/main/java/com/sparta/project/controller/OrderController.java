@@ -2,12 +2,18 @@ package com.sparta.project.controller;
 
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.dto.order.OrderCreateRequest;
 import com.sparta.project.dto.order.OrderResponse;
 import com.sparta.project.service.OrderService;
 import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,16 +25,19 @@ public class OrderController {
     private final OrderService orderService;
     private final PermissionValidator permissionValidator;
 
-    //    // 자신의 주문내역 목록 조회(CUSTOMER)
-//    @GetMapping("/my")
-//    public ApiResponse<PageResponse<OrderResponse>> getMyOrders(
-//            @RequestParam("page") int page,
-//            @RequestParam("size") int size,
-//            @RequestParam("sortBy") String sortBy) {
-//        Page<OrderResponse> orders = orderService.getMyOrders(page, size, sortBy);
-//        return ApiResponse.success(PageResponse.of(orders));
-//    }
-//
+    // 자신의 주문내역 목록 조회(CUSTOMER)
+    @GetMapping("/my")
+    public ApiResponse<PageResponse<OrderResponse>> getMyOrders(
+            @RequestParam(value = "storeId", required = false) String storeId,
+            @PageableDefault(size = 5)
+            @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            Pageable pageable,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
+        Page<OrderResponse> orders = orderService.getMyOrders(pageable, storeId, Long.parseLong(authentication.getName()));
+        return ApiResponse.success(PageResponse.of(orders));
+    }
+
     // 주문내역 상세 조회(CUSTOMER)
     @GetMapping("/{order_id}")
     public ApiResponse<OrderResponse> getOrderById(@PathVariable("order_id") String order_id,
@@ -38,18 +47,35 @@ public class OrderController {
         return ApiResponse.success(order);
     }
 
-    //
-//    // 고객의 주문내역 목록 조회(OWNER, MANAGER, MASTER)
-//    @GetMapping("/users")
-//    public ApiResponse<PageResponse<OrderResponse>> getAllOrdersByUser(
-//            @RequestParam Long userId,
-//            @RequestParam("page") int page,
-//            @RequestParam("size") int size,
-//            @RequestParam("sortBy") String sortBy) {
-//        Page<OrderResponse> orders = orderService.getAllOrdersByUser(userId, page, size, sortBy);
-//        return ApiResponse.success(PageResponse.of(orders));
-//    }
-//
+
+    // 고객의 주문내역 목록 조회(MANAGER, MASTER)
+    @GetMapping("/users")
+    public ApiResponse<PageResponse<OrderResponse>> getAllOrdersByUser(
+            @RequestParam("userId") Long userId,
+            @PageableDefault(size = 5)
+            @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            Pageable pageable,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
+        Page<OrderResponse> orders = orderService.getAllOrdersByUser(pageable, userId);
+        return ApiResponse.success(PageResponse.of(orders));
+    }
+
+    // 가게의 주문내역 목록 조회(OWNER) - customerId 쿼리 파라미터로
+    @GetMapping("/owners/stores/{storeId}")
+    public ApiResponse<PageResponse<OrderResponse>> getStoreOrders(
+            @PathVariable("storeId") String storeId,
+            @RequestParam(value = "customerId", required = false) Long customerId,
+            @PageableDefault(size = 5)
+            @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            Pageable pageable,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.OWNER.name());
+        Page<OrderResponse> orders
+                = orderService.getStoreOrders(pageable, storeId, customerId, Long.parseLong(authentication.getName()));
+        return ApiResponse.success(PageResponse.of(orders));
+    }
+
     // 주문 요청(CUSTOMER, OWNER)
     @PostMapping
     public ApiResponse<String> createOrder(@RequestBody @Valid OrderCreateRequest request,
