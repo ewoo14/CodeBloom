@@ -2,6 +2,7 @@ package com.sparta.project.repository;
 
 import com.querydsl.core.BooleanBuilder;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.ComparableExpressionBase;
@@ -16,12 +17,18 @@ import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 =======
+=======
+import com.querydsl.core.types.OrderSpecifier;
+>>>>>>> ec21a81 ([Fix] OrderSpecifier로 정렬 조건 추가)
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.sparta.project.domain.QMenu;
 import com.sparta.project.domain.Store;
 import com.sparta.project.domain.StoreCategory;
+import com.sparta.project.exception.CodeBloomException;
+import com.sparta.project.exception.ErrorCode;
 import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 <<<<<<< HEAD
@@ -54,7 +61,7 @@ import static com.sparta.project.domain.QStore.store;
 
 /**
  * QueryDSL 사용 리포지토리
- * */
+ */
 @Slf4j
 >>>>>>> ecac4ce ([Feat] 음식점 목록 조회 기능)
 @Repository
@@ -64,6 +71,7 @@ public class StoreQueryRepository {
 
     // todo 동적 정렬 조건 주기
     public Page<Store> searchWithPage(StoreCategory storeCategory,
+<<<<<<< HEAD
 <<<<<<< HEAD
                                       String storeName,
                                       String menuName,
@@ -78,17 +86,27 @@ public class StoreQueryRepository {
 =======
                                       String name,
                                       String menu,
+=======
+                                      String storeName,
+                                      String menuName,
+>>>>>>> ec21a81 ([Fix] OrderSpecifier로 정렬 조건 추가)
                                       Pageable pageable) {
 
-        BooleanBuilder booleanBuilder = toBooleanBuilder(storeCategory, name, menu);
-        List<Store> contents = queryFactory.selectFrom(store)
+        BooleanBuilder booleanBuilder = toBooleanBuilder(storeCategory, storeName, menuName);
+        List<Store> contents = queryFactory.selectDistinct(store)
+                .from(store)
                 .leftJoin(QMenu.menu).on(store.storeId.eq(QMenu.menu.store.storeId))
                 .where(booleanBuilder)
+<<<<<<< HEAD
 >>>>>>> 6c799da ([Feat] 음식점 조회용 querydsl 미완)
+=======
+                .orderBy(getOrderSpecifiers(pageable)) // Sort 적용
+>>>>>>> ec21a81 ([Fix] OrderSpecifier로 정렬 조건 추가)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         JPAQuery<Long> count = queryFactory.select(store.countDistinct())
@@ -100,6 +118,9 @@ public class StoreQueryRepository {
 >>>>>>> 6c799da ([Feat] 음식점 조회용 querydsl 미완)
 =======
         JPAQuery<Long> count = queryFactory.select(store.count())
+=======
+        JPAQuery<Long> count = queryFactory.select(store.countDistinct())
+>>>>>>> ec21a81 ([Fix] OrderSpecifier로 정렬 조건 추가)
                 .from(store)
                 .leftJoin(QMenu.menu).on(store.storeId.eq(QMenu.menu.store.storeId))
 >>>>>>> ecac4ce ([Feat] 음식점 목록 조회 기능)
@@ -109,6 +130,7 @@ public class StoreQueryRepository {
 
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     private BooleanBuilder toBooleanBuilder(StoreCategory storeCategory, String storeName, String menuName) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -128,8 +150,15 @@ public class StoreQueryRepository {
 <<<<<<< HEAD
 >>>>>>> 6c799da ([Feat] 음식점 조회용 querydsl 미완)
 =======
+=======
+    private BooleanBuilder toBooleanBuilder(StoreCategory storeCategory, String storeName, String menuName) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        booleanBuilder.and(eqStoreCategory(storeCategory));
+        booleanBuilder.and(likeStoreName(storeName));
+        booleanBuilder.and(likeMenuName(menuName));
+>>>>>>> ec21a81 ([Fix] OrderSpecifier로 정렬 조건 추가)
         booleanBuilder.and(isNotDeleted());
-        if (menu != null) {
+        if (menuName != null) {
             booleanBuilder.and(isNotClosedMenu());
         }
 >>>>>>> 051946c ([Feat] store.isDeleted 가 false 인것만, 조건 추가시 menu.isClosed 가 false 인것만 조회)
@@ -144,6 +173,7 @@ public class StoreQueryRepository {
 
     private BooleanExpression likeStoreName(String storeName) {
         String condition = storeName == null ? "" : storeName;
+<<<<<<< HEAD
         return store.name.like("%" + condition + "%");
     }
 
@@ -207,6 +237,16 @@ public class StoreQueryRepository {
         }
         return QMenu.menu.name.like("%" + menu + "%");
 >>>>>>> ecac4ce ([Feat] 음식점 목록 조회 기능)
+=======
+        return store.name.like("%" + condition + "%");
+    }
+
+    private BooleanExpression likeMenuName(String menuName) {
+        if (StringUtils.isBlank(menuName)) {
+            return null; // menu가 null이거나 빈 문자열일 경우 조건 무시
+        }
+        return QMenu.menu.name.like("%" + menuName + "%");
+>>>>>>> ec21a81 ([Fix] OrderSpecifier로 정렬 조건 추가)
     }
 
     private BooleanExpression isNotDeleted() {
@@ -215,5 +255,28 @@ public class StoreQueryRepository {
 
     private BooleanExpression isNotClosedMenu() {
         return QMenu.menu.isClosed.isFalse();
+    }
+
+    // Pageable 의 Sort 객체를 기반으로 QueryDSL OrderSpecifier 배열을 생성하는 메서드
+    private OrderSpecifier<?>[] getOrderSpecifiers(Pageable pageable) {
+        return pageable.getSort().stream()
+                .map(order -> {
+                    ComparableExpressionBase<?> sortPath = getSortPath(order.getProperty());
+                    return new OrderSpecifier<>(
+                            order.isAscending()
+                                    ? com.querydsl.core.types.Order.ASC
+                                    : com.querydsl.core.types.Order.DESC,
+                            sortPath);
+                })
+                .toArray(OrderSpecifier[]::new);
+    }
+
+    // 정렬 기준
+    private ComparableExpressionBase<?> getSortPath(String property) {
+        return switch (property) {
+            case "createdAt" -> store.createdAt;
+            case "name" -> store.name;
+            default -> throw new CodeBloomException(ErrorCode.UNSUPPORTED_SORT_TYPE);
+        };
     }
 }

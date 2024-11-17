@@ -135,11 +135,10 @@ public class StoreService {
         return storePage.map(StoreResponse::from);
     }
 
-    public Page<StoreResponse> getAllStores(String storeName, String cagetoryId, String menu, int page, int size) {
-        Pageable pageable = PageRequest.of(page - 1, size);
+    public Page<StoreResponse> getAllStores(String storeName, String cagetoryId, String menuName, Pageable pageable) {
         Page<Store> storePage = storeQueryRepository.searchWithPage(
                 cagetoryId != null ? storeCategoryService.getStoreCategoryOrException(cagetoryId) : null,
-                storeName, menu, pageable);
+                storeName, menuName, pageable);
         return storePage.map(StoreResponse::from);
     }
 

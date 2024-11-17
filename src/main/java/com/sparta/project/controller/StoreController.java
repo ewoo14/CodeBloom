@@ -43,7 +43,14 @@ import org.springframework.web.bind.annotation.RestController;
 =======
 =======
 import org.springframework.data.domain.Page;
+<<<<<<< HEAD
 >>>>>>> ecac4ce ([Feat] 음식점 목록 조회 기능)
+=======
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
+>>>>>>> ec21a81 ([Fix] OrderSpecifier로 정렬 조건 추가)
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 >>>>>>> 5bd2e4b ([Feat] 음식점 정보 수정 완료)
@@ -229,9 +236,10 @@ public class StoreController {
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "categoryId", required = false) String categoryId,
             @RequestParam(value = "menu", required = false) String menu,
-            @RequestParam(value = "page", defaultValue = "1") int page,
-            @RequestParam(value = "size", defaultValue = "5") int size) {
-        Page<StoreResponse> stores = storeService.getAllStores(name, categoryId, menu, page, size);
+            @PageableDefault(size = 5)
+            @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            Pageable pageable) {
+        Page<StoreResponse> stores = storeService.getAllStores(name, categoryId, menu, pageable);
         return ApiResponse.success(PageResponse.of(stores));
     }
 
