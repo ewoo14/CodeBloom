@@ -18,7 +18,7 @@ public class StoreScoreScheduler {
     private final ReviewRepository reviewRepository;
     private final StoreRepository storeRepository;
 
-    //@Scheduled(fixedRate = 60 * 1000) // 1분마다 실행
+    // @Scheduled(fixedRate = 60 * 1000) // 1분마다 실행
     @Scheduled(fixedRate = 60 * 60 * 1000) // 1시간마다 실행
     @Transactional
     public void updateStoreScores() {

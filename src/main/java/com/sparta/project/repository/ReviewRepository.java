@@ -7,6 +7,6 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.query.Param;
 
 public interface ReviewRepository extends JpaRepository<Review, String>, QuerydslPredicateExecutor<Review> {
-    @Query("SELECT AVG(CAST(r.score AS double)) FROM Review r WHERE r.store.storeId = :storeId AND r.isDeleted = false")
+    @Query("SELECT ROUND(AVG(CAST(r.score AS double)), 1) FROM Review r WHERE r.store.storeId = :storeId AND r.isDeleted = false")
     Double calculateAverageScoreByStoreId(@Param("storeId") String storeId);
 }
