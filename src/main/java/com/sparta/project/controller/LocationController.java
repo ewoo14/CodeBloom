@@ -1,12 +1,12 @@
 package com.sparta.project.controller;
 
 import com.sparta.project.domain.enums.Role;
+import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
 import com.sparta.project.dto.location.LocationRequest;
 import com.sparta.project.dto.location.LocationResponse;
-import com.sparta.project.dto.common.ApiResponse;
+import com.sparta.project.permission.PermissionValidator;
 import com.sparta.project.service.LocationService;
-import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;

@@ -4,13 +4,9 @@ import com.sparta.project.domain.enums.Role;
 import com.sparta.project.domain.enums.StoreRequestStatus;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
-import com.sparta.project.dto.storerequest.StoreCreateRequest;
-import com.sparta.project.dto.storerequest.StoreRequestAdminResponse;
-import com.sparta.project.dto.storerequest.StoreRequestResponse;
-import com.sparta.project.dto.storerequest.StoreRequestUpdateRequest;
-import com.sparta.project.dto.storerequest.StoreRequestOwnerResponse;
+import com.sparta.project.dto.storerequest.*;
+import com.sparta.project.permission.PermissionValidator;
 import com.sparta.project.service.StoreRequestService;
-import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,15 +17,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -60,7 +48,7 @@ public class StoreRequestController {
 
     @PostMapping("/{request_id}")
     public ApiResponse<Void> approveStoreRequest(Authentication authentication,
-                                                @PathVariable String request_id) {
+                                                 @PathVariable String request_id) {
         permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
         storeRequestService.approveStoreRequest(request_id);
         return ApiResponse.success();
@@ -106,7 +94,7 @@ public class StoreRequestController {
             @SortDefault(sort = "createdAt", direction = Direction.DESC)
             Pageable pageable,
             @RequestParam(value = "status", required = false) StoreRequestStatus status,
-            @RequestParam(value = "storeName", required = false) String storeName ) {
+            @RequestParam(value = "storeName", required = false) String storeName) {
         permissionValidator.checkPermission(authentication, Role.OWNER.name());
         Page<StoreRequestOwnerResponse> result = storeRequestService.getAllUserStoreRequests(
                 Long.parseLong(authentication.getName()), pageable, status, storeName
