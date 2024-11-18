@@ -2,6 +2,7 @@ package com.sparta.project.service;
 
 import com.sparta.project.client.PgClient;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.sparta.project.domain.*;
 import com.sparta.project.domain.enums.OrderType;
 import com.sparta.project.domain.enums.Role;
@@ -21,15 +22,29 @@ import org.junit.jupiter.api.DisplayName;
 import com.sparta.project.domain.Order;
 import com.sparta.project.domain.Payment;
 import com.sparta.project.domain.User;
+=======
+import com.sparta.project.domain.*;
+>>>>>>> 5c88e02 ([Refactor] PaymentServiceTest에 테스트 케이스 추가)
 import com.sparta.project.domain.enums.OrderType;
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.payment.PaymentResponse;
 import com.sparta.project.dto.payment.PaymentRequest;
+import com.sparta.project.exception.CodeBloomException;
+import com.sparta.project.repository.LocationRepository;
 import com.sparta.project.repository.OrderRepository;
 import com.sparta.project.repository.PaymentRepository;
+<<<<<<< HEAD
 import com.sparta.project.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 >>>>>>> 3c3b367 (서비스 테스트)
+=======
+import com.sparta.project.repository.StoreRepository;
+import com.sparta.project.repository.address.AddressRepository;
+import com.sparta.project.repository.storecategory.StoreCategoryRepository;
+import com.sparta.project.repository.user.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+>>>>>>> 5c88e02 ([Refactor] PaymentServiceTest에 테스트 케이스 추가)
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,9 +56,13 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 =======
 >>>>>>> 3c3b367 (서비스 테스트)
+=======
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+>>>>>>> 5c88e02 ([Refactor] PaymentServiceTest에 테스트 케이스 추가)
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -65,6 +84,9 @@ class PaymentServiceTest {
     UserRepository userRepository;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5c88e02 ([Refactor] PaymentServiceTest에 테스트 케이스 추가)
     @Autowired
     AddressRepository addressRepository;
 
@@ -77,8 +99,11 @@ class PaymentServiceTest {
     @Autowired
     StoreRepository storeRepository;
 
+<<<<<<< HEAD
 =======
 >>>>>>> 3c3b367 (서비스 테스트)
+=======
+>>>>>>> 5c88e02 ([Refactor] PaymentServiceTest에 테스트 케이스 추가)
     @MockBean
     PgClient pgClient;
 
@@ -90,6 +115,9 @@ class PaymentServiceTest {
         testUser = createUser("griotold");
         userRepository.save(testUser);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5c88e02 ([Refactor] PaymentServiceTest에 테스트 케이스 추가)
         Address address = createAddress(testUser);
         addressRepository.save(address);
         StoreCategory storeCategory = StoreCategory.create("중식", "중식 상세 설명");
@@ -99,6 +127,7 @@ class PaymentServiceTest {
         Store store = createStore(testUser, storeCategory, location);
         storeRepository.save(store);
         testOrder = createOrder(testUser, address, store);
+<<<<<<< HEAD
         orderRepository.save(testOrder);
     }
     @DisplayName("결제 성공")
@@ -113,12 +142,15 @@ class PaymentServiceTest {
         );
 =======
         testOrder = createOrder(testUser); // Order 객체 생성 로직 추가
+=======
+>>>>>>> 5c88e02 ([Refactor] PaymentServiceTest에 테스트 케이스 추가)
         orderRepository.save(testOrder);
     }
-
+    @DisplayName("결제 성공")
     @Test
-    void createPayment_Success() {
+    void createPayment_success() {
         // given
+<<<<<<< HEAD
 <<<<<<< HEAD
         String orderId = testOrder.getOrderId();
         String type = "CARD";
@@ -138,16 +170,21 @@ class PaymentServiceTest {
         int paymentPrice;
         String pgName;
 
+=======
+>>>>>>> 5c88e02 ([Refactor] PaymentServiceTest에 테스트 케이스 추가)
         PaymentRequest paymentRequest = new PaymentRequest(
-                orderId = testOrder.getOrderId(),
-                type = "CARD",
-                paymentPrice = 10000,
-                pgName = "TOSS"
+                testOrder.getOrderId(),
+                "CARD",
+                10000,
+                "TOSS"
         );
 
+<<<<<<< HEAD
 
 >>>>>>> cb54b05 ([Feat] 결제 내역 목록 조회 메서드 3개 구현 및 결제 요청 수정)
 
+=======
+>>>>>>> 5c88e02 ([Refactor] PaymentServiceTest에 테스트 케이스 추가)
         when(pgClient.requestPayment(any(Payment.class))).thenReturn(true);
 
         // when
@@ -182,6 +219,9 @@ class PaymentServiceTest {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5c88e02 ([Refactor] PaymentServiceTest에 테스트 케이스 추가)
     @DisplayName("없는 주문을 결제하려고하면 결제 실패한다.")
     @Test
     void createPayment_fail_1() {
@@ -283,13 +323,19 @@ class PaymentServiceTest {
                 .hasMessage("지원하지 않는 PG사입니다.");
     }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 3c3b367 (서비스 테스트)
+=======
+>>>>>>> 5c88e02 ([Refactor] PaymentServiceTest에 테스트 케이스 추가)
     private User createUser(String username) {
         return User.create(username, "1234", "닉네임", Role.CUSTOMER);
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5c88e02 ([Refactor] PaymentServiceTest에 테스트 케이스 추가)
     private Order createOrder(User user, Address address, Store store) {
         return Order.create(user, address, store, OrderType.ONLINE, 10_000, "요구사항");
     }
@@ -300,6 +346,7 @@ class PaymentServiceTest {
 
     private Store createStore(User user, StoreCategory storeCategory, Location location) {
         return Store.create("중식당1", "중식당1 상세", "주소지", user, storeCategory, location);
+<<<<<<< HEAD
 =======
     private Order createOrder(User user) {
 <<<<<<< HEAD
@@ -308,5 +355,7 @@ class PaymentServiceTest {
 =======
         return Order.create(user, null, null, OrderType.ONLINE, 10_000, "요구사항");
 >>>>>>> 6db7bcf ([Fix] TestDataRunner.java 삭제, PaymentServiceTest 디버깅)
+=======
+>>>>>>> 5c88e02 ([Refactor] PaymentServiceTest에 테스트 케이스 추가)
     }
 }

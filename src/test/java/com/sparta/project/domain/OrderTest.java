@@ -70,10 +70,14 @@ class OrderTest {
 
         // when
 <<<<<<< HEAD
+<<<<<<< HEAD
         order.cancel(user.getUserId());
 =======
         order.cancel();
 >>>>>>> c772cf7 ([Feat] 주문 취소)
+=======
+        order.cancel(user.getUserId());
+>>>>>>> 5c88e02 ([Refactor] PaymentServiceTest에 테스트 케이스 추가)
 
         // then
         assertThat(order.getStatus()).isEqualTo(OrderStatus.CANCELED);
@@ -85,6 +89,7 @@ class OrderTest {
         // given
         Order order = Order.create(user, address, store, OrderType.ONLINE, 50000, "천천히 갖다 주세요.");
 <<<<<<< HEAD
+<<<<<<< HEAD
         order.cancel(user.getUserId());
 
         // when & then
@@ -95,6 +100,12 @@ class OrderTest {
         // when & then
         assertThatThrownBy(() -> order.cancel())
 >>>>>>> c772cf7 ([Feat] 주문 취소)
+=======
+        order.cancel(user.getUserId());
+
+        // when & then
+        assertThatThrownBy(() -> order.cancel(user.getUserId()))
+>>>>>>> 5c88e02 ([Refactor] PaymentServiceTest에 테스트 케이스 추가)
                 .isInstanceOf(CodeBloomException.class);
     }
 
@@ -107,6 +118,7 @@ class OrderTest {
 
         // when & then
 <<<<<<< HEAD
+<<<<<<< HEAD
         assertThatThrownBy(() -> order.cancel(user.getUserId()))
                 .isInstanceOf(CodeBloomException.class);
     }
@@ -115,6 +127,9 @@ class OrderTest {
 >>>>>>> 5c7a118 ([Feat] 주문 승인)
 =======
         assertThatThrownBy(() -> order.cancel())
+=======
+        assertThatThrownBy(() -> order.cancel(user.getUserId()))
+>>>>>>> 5c88e02 ([Refactor] PaymentServiceTest에 테스트 케이스 추가)
                 .isInstanceOf(CodeBloomException.class);
     }
 

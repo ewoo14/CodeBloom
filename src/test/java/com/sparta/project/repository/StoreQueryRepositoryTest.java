@@ -6,6 +6,9 @@ import com.sparta.project.domain.StoreCategory;
 import com.sparta.project.domain.User;
 import com.sparta.project.domain.enums.Role;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5c88e02 ([Refactor] PaymentServiceTest에 테스트 케이스 추가)
 import com.sparta.project.repository.storecategory.StoreCategoryRepository;
 import com.sparta.project.repository.user.UserRepository;
 =======
