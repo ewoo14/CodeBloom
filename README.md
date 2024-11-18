@@ -39,7 +39,7 @@
 ![image](https://github.com/user-attachments/assets/0142f7b6-b47b-4dbc-bc60-5ccb139473d4)
 
 ## ⚙️ Infra
-인프라 사진 넣어주세요
+![image](https://github.com/user-attachments/assets/bbbdcad0-b90a-4a65-8271-c5002611d1a0)
 
 
 ## 🗂 Folder Architecture
