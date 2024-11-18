@@ -66,6 +66,7 @@ public class StoreController {
     private final PermissionValidator permissionValidator;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // 자신의 음식점 조회(OWNER)
     @GetMapping("/my")
     public ApiResponse<PageResponse<StoreResponse>> getMyStores(
@@ -218,6 +219,8 @@ public class StoreController {
 //
 =======
 
+=======
+>>>>>>> 2bc3122 ([Minor] @SortDefault 에 updatedAt 도 추가)
     // 자신의 음식점 조회(OWNER)
     @GetMapping("/my")
     public ApiResponse<PageResponse<StoreResponse>> getMyStores(
@@ -238,6 +241,7 @@ public class StoreController {
             @RequestParam(value = "menu", required = false) String menu,
             @PageableDefault(size = 5)
             @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
             Pageable pageable) {
         Page<StoreResponse> stores = storeService.getAllStores(name, categoryId, menu, pageable);
         return ApiResponse.success(PageResponse.of(stores));
