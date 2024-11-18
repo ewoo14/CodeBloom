@@ -26,7 +26,6 @@ public class StoreController {
     private final StoreService storeService;
     private final PermissionValidator permissionValidator;
 
-
     // 자신의 음식점 조회(OWNER)
     @GetMapping("/my")
     public ApiResponse<PageResponse<StoreResponse>> getMyStores(
@@ -46,6 +45,7 @@ public class StoreController {
             @RequestParam(value = "menu", required = false) String menu,
             @PageableDefault(size = 5)
             @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
             Pageable pageable) {
         Page<StoreResponse> stores = storeService.getAllStores(name, categoryId, menu, pageable);
         return ApiResponse.success(PageResponse.of(stores));
