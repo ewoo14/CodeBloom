@@ -111,6 +111,7 @@ public class StoreQueryRepository {
     private ComparableExpressionBase<?> getSortPath(String property) {
         return switch (property) {
             case "createdAt" -> store.createdAt;
+            case "updatedAt" -> store.updatedAt;
             case "name" -> store.name;
             default -> throw new CodeBloomException(ErrorCode.UNSUPPORTED_SORT_TYPE);
         };
