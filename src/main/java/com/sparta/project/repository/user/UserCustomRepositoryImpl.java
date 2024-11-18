@@ -78,6 +78,7 @@ public class UserCustomRepositoryImpl implements UserCustomRepository {
         return switch (property) {
             case "username" -> user.username;
             case "createdAt" -> user.createdAt;
+            case "updatedAt" -> user.updatedAt;
             default -> throw new CodeBloomException(ErrorCode.UNSUPPORTED_SORT_TYPE);
         };
     }

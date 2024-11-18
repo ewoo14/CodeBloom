@@ -103,6 +103,7 @@ public class StoreRequestCustomRepositoryImpl implements StoreRequestCustomRepos
         return switch (property) {
             case "userId" -> storeRequest.owner.userId;
             case "createdAt" -> storeRequest.createdAt;
+            case "updatedAt" -> storeRequest.updatedAt;
             default -> throw new CodeBloomException(ErrorCode.UNSUPPORTED_SORT_TYPE);
         };
     }

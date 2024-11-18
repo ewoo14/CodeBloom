@@ -90,8 +90,11 @@ public class StoreRequestController {
     @GetMapping("/my")
     public ApiResponse<PageResponse<StoreRequestOwnerResponse>> getOwnerStoreRequests(
             Authentication authentication,
-            @PageableDefault(size = 5)
-            @SortDefault(sort = "createdAt", direction = Direction.DESC)
+            @PageableDefault(size = 10)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "createdAt", direction = Direction.DESC),
+                    @SortDefault(sort = "updatedAt", direction = Direction.DESC)
+            })
             Pageable pageable,
             @RequestParam(value = "status", required = false) StoreRequestStatus status,
             @RequestParam(value = "storeName", required = false) String storeName) {
@@ -106,8 +109,11 @@ public class StoreRequestController {
     @GetMapping
     public ApiResponse<PageResponse<StoreRequestAdminResponse>> getAllStoreRequests(
             Authentication authentication,
-            @PageableDefault(size = 5)
-            @SortDefault(sort = "createdAt", direction = Direction.DESC)
+            @PageableDefault(size = 10)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "createdAt", direction = Direction.DESC),
+                    @SortDefault(sort = "updatedAt", direction = Direction.DESC)
+            })
             Pageable pageable,
             @RequestParam(value = "categoryId", required = false) String categoryId,
             @RequestParam(value = "status", required = false) StoreRequestStatus status,

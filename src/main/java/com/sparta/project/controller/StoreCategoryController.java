@@ -66,8 +66,11 @@ public class StoreCategoryController {
     @GetMapping
     public ApiResponse<PageResponse<StoreCategoryResponse>> getAllStoreCategories(
             Authentication authentication,
-            @PageableDefault(size = 5)
-            @SortDefault(sort = "createdAt", direction = Direction.DESC)
+            @PageableDefault(size = 10)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "createdAt", direction = Direction.DESC),
+                    @SortDefault(sort = "updatedAt", direction = Direction.DESC)
+            })
             Pageable pageable,
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "isDeleted", required = false) Boolean isDeleted) {
