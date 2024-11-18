@@ -1,11 +1,12 @@
 package com.sparta.project.controller;
 
 import com.sparta.project.domain.enums.Role;
-import com.sparta.project.dto.menu.MenuCreateRequest;
-import com.sparta.project.dto.menu.MenuUpdateRequest;
-import com.sparta.project.dto.menu.MenuResponse;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
+import com.sparta.project.dto.menu.MenuCreateRequest;
+import com.sparta.project.dto.menu.MenuResponse;
+import com.sparta.project.dto.menu.MenuUpdateRequest;
+import com.sparta.project.permission.PermissionValidator;
 import com.sparta.project.service.MenuService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import com.sparta.project.util.PermissionValidator;
 
 @RestController
 @RequiredArgsConstructor

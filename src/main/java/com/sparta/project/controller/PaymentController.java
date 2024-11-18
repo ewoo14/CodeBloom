@@ -1,12 +1,12 @@
 package com.sparta.project.controller;
 
 import com.sparta.project.domain.enums.Role;
-import com.sparta.project.dto.payment.PaymentRequest;
-import com.sparta.project.dto.payment.PaymentResponse;
 import com.sparta.project.dto.common.ApiResponse;
 import com.sparta.project.dto.common.PageResponse;
+import com.sparta.project.dto.payment.PaymentRequest;
+import com.sparta.project.dto.payment.PaymentResponse;
+import com.sparta.project.permission.PermissionValidator;
 import com.sparta.project.service.PaymentService;
-import com.sparta.project.util.PermissionValidator;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -85,7 +85,7 @@ public class PaymentController {
     @DeleteMapping("/{payment_id}")
     public ApiResponse<Void> deletePayment(
             @PathVariable String payment_id,
-            Authentication authentication)  {
+            Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         paymentService.deletePayment(payment_id, authentication);
         return ApiResponse.success();
