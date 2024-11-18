@@ -29,7 +29,6 @@ public class LocationController {
     // 운영 지역 전체 조회(MANAGER, MASTER)
     @GetMapping("/all")
     public ApiResponse<PageResponse<LocationResponse>> getAllLocations(
-            @PageableDefault(size = 5)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)

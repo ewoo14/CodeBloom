@@ -28,7 +28,6 @@ public class PaymentController {
     // 자신의 결제 내역 목록 조회(CUSTOMER)
     @GetMapping("/my")
     public ApiResponse<PageResponse<PaymentResponse>> getMyPayments(
-            @PageableDefault(size = 5)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
@@ -43,7 +42,6 @@ public class PaymentController {
     // 자신의 가게 결제 내역 목록 조회(OWNER)
     @GetMapping("/myStore")
     public ApiResponse<PageResponse<PaymentResponse>> getMyStorePayments(
-            @PageableDefault(size = 5)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
@@ -59,7 +57,6 @@ public class PaymentController {
     @GetMapping
     public ApiResponse<PageResponse<PaymentResponse>> getAllPayments(
             @RequestParam String storeId,
-            @PageableDefault(size = 5)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)

@@ -32,7 +32,6 @@ public class MenuController {
     public ApiResponse<PageResponse<MenuResponse>> getAllMenus(
             @RequestParam(value = "storeId") String storeId,
             @RequestParam(value = "storeName") String storeName,
-            @PageableDefault(size = 5)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)

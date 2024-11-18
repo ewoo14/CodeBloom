@@ -41,7 +41,6 @@ public class ReviewController {
     @GetMapping("/my")
     public ApiResponse<PageResponse<ReviewResponse>> getMyReviews(
             @RequestParam Long userId,
-            @PageableDefault(size = 5)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
@@ -56,7 +55,6 @@ public class ReviewController {
     @GetMapping
     public ApiResponse<PageResponse<ReviewResponse>> getAllReviewsByStore(
             @RequestParam String storeId,
-            @PageableDefault(size = 5)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
