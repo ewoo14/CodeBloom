@@ -51,6 +51,7 @@ public class LocationController {
     @GetMapping("/all")
     public ApiResponse<PageResponse<LocationResponse>> getAllLocations(
 <<<<<<< HEAD
+<<<<<<< HEAD
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
@@ -58,6 +59,13 @@ public class LocationController {
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
         Page<LocationResponse> responses = locationService.getAllLocations(pageable);
+=======
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
+        Page<LocationResponse> responses = locationService.getAllLocations(page, size);
+>>>>>>> 67fd97f ([Fix] 기본 정렬 방식 "생성일", "수정일" 내림차순 적용)
         return ApiResponse.success(PageResponse.of(responses));
     }
 

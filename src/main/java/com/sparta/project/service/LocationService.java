@@ -32,6 +32,7 @@ public class LocationService {
 <<<<<<< HEAD
 <<<<<<< HEAD
     @Transactional(readOnly = true)
+<<<<<<< HEAD
     public Page<LocationResponse> getAllLocations(Pageable pageable) {
 =======
 =======
@@ -40,6 +41,11 @@ public class LocationService {
     public Page<LocationResponse> getAllLocations(int page, int size, String sortBy) {
         Pageable pageable = PageRequest.of(page - 1, size, Sort.by(sortBy));
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
+=======
+    public Page<LocationResponse> getAllLocations(int page, int size) {
+        Sort sort = Sort.by(Sort.Order.desc("createdAt"), Sort.Order.desc("updatedAt"));
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
+>>>>>>> 67fd97f ([Fix] 기본 정렬 방식 "생성일", "수정일" 내림차순 적용)
         Page<Location> locations = locationRepository.findAll(pageable);
         return locations.map(LocationResponse::from);
     }

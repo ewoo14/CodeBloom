@@ -81,11 +81,16 @@ public class MenuController {
             @RequestParam(value = "storeId") String storeId,
             @RequestParam(value = "storeName") String storeName,
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+<<<<<<< HEAD
             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
             @RequestParam(value = "sortBy", required = false, defaultValue = "storeId") String sortBy) {
 >>>>>>> 94ce7b1 ([Fix] 각 컨트롤러 RequestParam 조건 추가)
         Page<MenuResponse> menus = menuService.getAllMenus(storeId, storeName, page, size, sortBy);
 >>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
+=======
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size) {
+        Page<MenuResponse> menus = menuService.getAllMenus(storeId, storeName, page, size);
+>>>>>>> 67fd97f ([Fix] 기본 정렬 방식 "생성일", "수정일" 내림차순 적용)
         return ApiResponse.success(PageResponse.of(menus));
     }
 

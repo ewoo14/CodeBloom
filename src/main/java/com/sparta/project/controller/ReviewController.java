@@ -93,12 +93,18 @@ public class ReviewController {
 =======
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+<<<<<<< HEAD
             @RequestParam(value = "sortBy", required = false, defaultValue = "userId") String sortBy,
 >>>>>>> 94ce7b1 ([Fix] 각 컨트롤러 RequestParam 조건 추가)
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         Page<ReviewResponse> myReviews = reviewService.getMyReviews(userId, page, size, sortBy);
 >>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
+=======
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
+        Page<ReviewResponse> myReviews = reviewService.getMyReviews(userId, page, size);
+>>>>>>> 67fd97f ([Fix] 기본 정렬 방식 "생성일", "수정일" 내림차순 적용)
         return ApiResponse.success(PageResponse.of(myReviews));
     }
 
@@ -119,11 +125,16 @@ public class ReviewController {
             @RequestParam("sortBy") String sortBy) {
 =======
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+<<<<<<< HEAD
             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
             @RequestParam(value = "sortBy", required = false, defaultValue = "storeId") String sortBy) {
 >>>>>>> 94ce7b1 ([Fix] 각 컨트롤러 RequestParam 조건 추가)
         Page<ReviewResponse> storeReviews = reviewService.getReviewsByStore(storeId, page, size, sortBy);
 >>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
+=======
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size) {
+        Page<ReviewResponse> storeReviews = reviewService.getReviewsByStore(storeId, page, size);
+>>>>>>> 67fd97f ([Fix] 기본 정렬 방식 "생성일", "수정일" 내림차순 적용)
         return ApiResponse.success(PageResponse.of(storeReviews));
     }
 

@@ -234,11 +234,10 @@ public class PaymentController {
     public ApiResponse<PageResponse<PaymentResponse>> getMyPayments(
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
-            @RequestParam(value = "sortBy", required = false, defaultValue = "createdAt") String sortBy,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         Long userId = Long.parseLong(authentication.getName());
-        Page<PaymentResponse> payments = paymentService.getPaymentsByUser(userId, page, size, sortBy);
+        Page<PaymentResponse> payments = paymentService.getPaymentsByUser(userId, page, size);
         return ApiResponse.success(PageResponse.of(payments));
     }
 
@@ -247,11 +246,10 @@ public class PaymentController {
     public ApiResponse<PageResponse<PaymentResponse>> getMyStorePayments(
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
-            @RequestParam(value = "sortBy", required = false, defaultValue = "createdAt") String sortBy,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.OWNER.name());
         Long userId = Long.parseLong(authentication.getName());
-        Page<PaymentResponse> payments = paymentService.getMyStorePayments(userId, page, size, sortBy);
+        Page<PaymentResponse> payments = paymentService.getMyStorePayments(userId, page, size);
         return ApiResponse.success(PageResponse.of(payments));
     }
 
