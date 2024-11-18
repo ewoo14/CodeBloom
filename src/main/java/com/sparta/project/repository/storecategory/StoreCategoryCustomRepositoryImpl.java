@@ -75,6 +75,7 @@ public class StoreCategoryCustomRepositoryImpl implements StoreCategoryCustomRep
         return switch (property) {
             case "categoryName" -> storeCategory.name;
             case "createdAt" -> storeCategory.createdAt;
+            case "updatedAt" -> storeCategory.updatedAt;
             default -> throw new CodeBloomException(ErrorCode.UNSUPPORTED_SORT_TYPE);
         };
     }

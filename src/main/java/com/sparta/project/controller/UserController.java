@@ -84,8 +84,11 @@ public class UserController {
     @GetMapping
     public ApiResponse<PageResponse<UserAdminResponse>> getAllUsers(
             Authentication authentication,
-            @PageableDefault(size = 5)
-            @SortDefault(sort = "createdAt", direction = Direction.DESC)
+            @PageableDefault(size = 10)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "createdAt", direction = Direction.DESC),
+                    @SortDefault(sort = "updatedAt", direction = Direction.DESC)
+            })
             Pageable pageable,
             @RequestParam(value = "username", required = false) String username,
             @RequestParam(value = "role", required = false) Role role,

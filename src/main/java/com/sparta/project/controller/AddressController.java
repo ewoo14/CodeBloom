@@ -60,8 +60,11 @@ public class AddressController {
     @GetMapping("")
     public ApiResponse<PageResponse<AddressAdminResponse>> getAllAddresses(
             Authentication authentication,
-            @PageableDefault(size = 5)
-            @SortDefault(sort = "createdAt", direction = Direction.DESC)
+            @PageableDefault(size = 10)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "createdAt", direction = Direction.DESC),
+                    @SortDefault(sort = "updatedAt", direction = Direction.DESC)
+            })
             Pageable pageable,
             @RequestParam(value = "userId", required = false) Long userId,
             @RequestParam(value = "city", required = false) String city,

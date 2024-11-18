@@ -84,6 +84,7 @@ public class AddressCustomRepositoryImpl implements AddressCustomRepository {
         return switch (property) {
             case "userId" -> address.user.userId;
             case "createdAt" -> address.createdAt;
+            case "updatedAt" -> address.updatedAt;
             default -> throw new CodeBloomException(ErrorCode.UNSUPPORTED_SORT_TYPE);
         };
     }
