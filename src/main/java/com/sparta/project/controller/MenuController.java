@@ -70,6 +70,7 @@ public class MenuController {
 <<<<<<< HEAD
             @RequestParam(value = "storeId") String storeId,
             @RequestParam(value = "storeName") String storeName,
+<<<<<<< HEAD
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
@@ -98,6 +99,8 @@ public class MenuController {
 >>>>>>> 67fd97f ([Fix] 기본 정렬 방식 "생성일", "수정일" 내림차순 적용)
 =======
             @PageableDefault(size = 5)
+=======
+>>>>>>> 8801afa ([Fix] `@PageableDefault` 삭제)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)

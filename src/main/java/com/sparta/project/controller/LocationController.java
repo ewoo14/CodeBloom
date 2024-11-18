@@ -56,9 +56,12 @@ public class LocationController {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             @PageableDefault(size = 5)
 >>>>>>> 24d45f6 ([Fix] 정렬 어노테이션 사용으로 변경)
+=======
+>>>>>>> 8801afa ([Fix] `@PageableDefault` 삭제)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
