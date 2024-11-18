@@ -31,6 +31,7 @@ public class OrderController {
             @RequestParam(value = "storeId", required = false) String storeId,
             @PageableDefault(size = 5)
             @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
             Pageable pageable,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
@@ -54,6 +55,7 @@ public class OrderController {
             @RequestParam("userId") Long userId,
             @PageableDefault(size = 5)
             @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
             Pageable pageable,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
@@ -68,6 +70,7 @@ public class OrderController {
             @RequestParam(value = "customerId", required = false) Long customerId,
             @PageableDefault(size = 5)
             @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
+            @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
             Pageable pageable,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.OWNER.name());
