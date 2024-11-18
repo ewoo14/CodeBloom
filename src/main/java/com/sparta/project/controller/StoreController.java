@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -43,7 +42,6 @@ public class StoreController {
             @RequestParam(value = "name", required = false) String name,
             @RequestParam(value = "categoryId", required = false) String categoryId,
             @RequestParam(value = "menu", required = false) String menu,
-            @PageableDefault(size = 5)
             @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
             @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
             Pageable pageable) {
