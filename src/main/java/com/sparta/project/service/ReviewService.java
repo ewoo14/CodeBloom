@@ -40,8 +40,7 @@ public class ReviewService {
 
     // 내 리뷰 목록 조회
     @Transactional(readOnly = true)
-    public Page<ReviewResponse> getMyReviews(Long userId, int page, int size, String sortBy) {
-        Pageable pageable = PageRequest.of(page - 1, size);
+    public Page<ReviewResponse> getMyReviews(Long userId, Pageable pageable) {
         QReview qReview = QReview.review;
         BooleanExpression predicate = qReview.user.userId.eq(userId);
         return reviewRepository.findAll(predicate, pageable)
@@ -50,8 +49,7 @@ public class ReviewService {
 
     // 가게 리뷰 목록 조회
     @Transactional(readOnly = true)
-    public Page<ReviewResponse> getReviewsByStore(String storeId, int page, int size, String sortBy) {
-        Pageable pageable = PageRequest.of(page - 1, size);
+    public Page<ReviewResponse> getReviewsByStore(String storeId, Pageable pageable) {
         QReview qReview = QReview.review;
         BooleanExpression predicate = qReview.store.storeId.eq(storeId);
         return reviewRepository.findAll(predicate, pageable)
