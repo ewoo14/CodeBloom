@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +28,6 @@ public class OrderController {
     @GetMapping("/my")
     public ApiResponse<PageResponse<OrderResponse>> getMyOrders(
             @RequestParam(value = "storeId", required = false) String storeId,
-            @PageableDefault(size = 5)
             @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
             @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
             Pageable pageable,
@@ -53,7 +51,6 @@ public class OrderController {
     @GetMapping("/users")
     public ApiResponse<PageResponse<OrderResponse>> getAllOrdersByUser(
             @RequestParam("userId") Long userId,
-            @PageableDefault(size = 5)
             @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
             @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
             Pageable pageable,
@@ -68,7 +65,6 @@ public class OrderController {
     public ApiResponse<PageResponse<OrderResponse>> getStoreOrders(
             @PathVariable("storeId") String storeId,
             @RequestParam(value = "customerId", required = false) Long customerId,
-            @PageableDefault(size = 5)
             @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC)
             @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
             Pageable pageable,
