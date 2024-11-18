@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,8 +41,9 @@ public class ReviewService {
 
     // 내 리뷰 목록 조회
     @Transactional(readOnly = true)
-    public Page<ReviewResponse> getMyReviews(Long userId, int page, int size, String sortBy) {
-        Pageable pageable = PageRequest.of(page - 1, size);
+    public Page<ReviewResponse> getMyReviews(Long userId, int page, int size) {
+        Sort sort = Sort.by(Sort.Order.desc("createdAt"), Sort.Order.desc("updatedAt"));
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
         QReview qReview = QReview.review;
         BooleanExpression predicate = qReview.user.userId.eq(userId);
         return reviewRepository.findAll(predicate, pageable)
@@ -50,8 +52,9 @@ public class ReviewService {
 
     // 가게 리뷰 목록 조회
     @Transactional(readOnly = true)
-    public Page<ReviewResponse> getReviewsByStore(String storeId, int page, int size, String sortBy) {
-        Pageable pageable = PageRequest.of(page - 1, size);
+    public Page<ReviewResponse> getReviewsByStore(String storeId, int page, int size) {
+        Sort sort = Sort.by(Sort.Order.desc("createdAt"), Sort.Order.desc("updatedAt"));
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
         QReview qReview = QReview.review;
         BooleanExpression predicate = qReview.store.storeId.eq(storeId);
         return reviewRepository.findAll(predicate, pageable)

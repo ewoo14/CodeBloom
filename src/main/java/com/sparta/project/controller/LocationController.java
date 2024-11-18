@@ -27,10 +27,9 @@ public class LocationController {
     public ApiResponse<PageResponse<LocationResponse>> getAllLocations(
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
-            @RequestParam(value = "sortBy", required = false, defaultValue = "name") String sortBy,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
-        Page<LocationResponse> responses = locationService.getAllLocations(page, size, sortBy);
+        Page<LocationResponse> responses = locationService.getAllLocations(page, size);
         return ApiResponse.success(PageResponse.of(responses));
     }
 

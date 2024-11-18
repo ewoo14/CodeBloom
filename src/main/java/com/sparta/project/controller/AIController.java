@@ -27,10 +27,9 @@ public class AIController {
             @RequestParam Long userId,
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
-            @RequestParam(value = "sortBy", required = false, defaultValue = "userId") String sortBy,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.OWNER.name());
-        Page<AIResponse> descriptions = aiService.getMenuDescriptions(userId, page, size, sortBy);
+        Page<AIResponse> descriptions = aiService.getMenuDescriptions(userId, page, size);
         return ApiResponse.success(PageResponse.of(descriptions));
     }
 

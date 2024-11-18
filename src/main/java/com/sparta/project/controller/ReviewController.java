@@ -39,10 +39,9 @@ public class ReviewController {
             @RequestParam Long userId,
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
-            @RequestParam(value = "sortBy", required = false, defaultValue = "userId") String sortBy,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
-        Page<ReviewResponse> myReviews = reviewService.getMyReviews(userId, page, size, sortBy);
+        Page<ReviewResponse> myReviews = reviewService.getMyReviews(userId, page, size);
         return ApiResponse.success(PageResponse.of(myReviews));
     }
 
@@ -51,9 +50,8 @@ public class ReviewController {
     public ApiResponse<PageResponse<ReviewResponse>> getAllReviewsByStore(
             @RequestParam String storeId,
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
-            @RequestParam(value = "sortBy", required = false, defaultValue = "storeId") String sortBy) {
-        Page<ReviewResponse> storeReviews = reviewService.getReviewsByStore(storeId, page, size, sortBy);
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size) {
+        Page<ReviewResponse> storeReviews = reviewService.getReviewsByStore(storeId, page, size);
         return ApiResponse.success(PageResponse.of(storeReviews));
     }
 

@@ -23,8 +23,9 @@ public class LocationService {
 
     // 운영 지역 전체 조회
     @Transactional(readOnly = true)
-    public Page<LocationResponse> getAllLocations(int page, int size, String sortBy) {
-        Pageable pageable = PageRequest.of(page - 1, size, Sort.by(sortBy));
+    public Page<LocationResponse> getAllLocations(int page, int size) {
+        Sort sort = Sort.by(Sort.Order.desc("createdAt"), Sort.Order.desc("updatedAt"));
+        Pageable pageable = PageRequest.of(page - 1, size, sort);
         Page<Location> locations = locationRepository.findAll(pageable);
         return locations.map(LocationResponse::from);
     }

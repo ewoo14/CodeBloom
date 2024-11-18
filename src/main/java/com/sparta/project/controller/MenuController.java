@@ -29,9 +29,8 @@ public class MenuController {
             @RequestParam(value = "storeId") String storeId,
             @RequestParam(value = "storeName") String storeName,
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
-            @RequestParam(value = "sortBy", required = false, defaultValue = "storeId") String sortBy) {
-        Page<MenuResponse> menus = menuService.getAllMenus(storeId, storeName, page, size, sortBy);
+            @RequestParam(value = "size", required = false, defaultValue = "5") int size) {
+        Page<MenuResponse> menus = menuService.getAllMenus(storeId, storeName, page, size);
         return ApiResponse.success(PageResponse.of(menus));
     }
 
