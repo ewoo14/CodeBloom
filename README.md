@@ -27,6 +27,7 @@
 
 ## 🛠️ Skills
 - Java 17
+<<<<<<< HEAD
 - Gradle
 - Spring Boot 3.3.5
 - Spring Data JPA
@@ -34,17 +35,27 @@
 - GitHub
 - AWS EC2
 - AWS RDS
+=======
+- Spring Boot 3.3.5
+- PostgreSQL
+- Gradle
+- GitHub
+>>>>>>> 2bfa25b ([Docs] README.md 작성)
 
 ## 🖼 ERD
 ![image](https://github.com/user-attachments/assets/0142f7b6-b47b-4dbc-bc60-5ccb139473d4)
 
 ## ⚙️ Infra
+<<<<<<< HEAD
 ![image](https://github.com/user-attachments/assets/bbbdcad0-b90a-4a65-8271-c5002611d1a0)
 
 ## 📃 API  Docs
 
 [⛓ API 명세서 링크 ](https://www.notion.so/teamsparta/208c6c8959ca45b394152c0020429ad1?v=0892402299ee444db27d63b0c7c47d36&pvs=4)
 
+=======
+인프라 사진 넣어주세요
+>>>>>>> 2bfa25b ([Docs] README.md 작성)
 
 
 ## 🗂 Folder Architecture
