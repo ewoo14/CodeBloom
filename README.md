@@ -53,9 +53,12 @@
 
 [⛓ API 명세서 링크 ](https://www.notion.so/teamsparta/208c6c8959ca45b394152c0020429ad1?v=0892402299ee444db27d63b0c7c47d36&pvs=4)
 
+<<<<<<< HEAD
 =======
 인프라 사진 넣어주세요
 >>>>>>> 2bfa25b ([Docs] README.md 작성)
+=======
+>>>>>>> bbb198c ([Docs] README API 명세서 링크 추가)
 
 
 ## 🗂 Folder Architecture
