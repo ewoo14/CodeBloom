@@ -27,10 +27,13 @@
 
 ## 🛠️ Skills
 - Java 17
-- Spring Boot 3.3.5
-- PostgreSQL
 - Gradle
+- Spring Boot 3.3.5
+- Spring Data JPA
+- PostgreSQL
 - GitHub
+- AWS EC2
+- AWS RDS
 
 ## 🖼 ERD
 ![image](https://github.com/user-attachments/assets/0142f7b6-b47b-4dbc-bc60-5ccb139473d4)
