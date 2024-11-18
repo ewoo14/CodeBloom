@@ -9,6 +9,7 @@ import com.sparta.project.dto.store.StoreResponse;
 import com.sparta.project.dto.store.StoreUpdateRequest;
 import com.sparta.project.repository.LocationRepository;
 import com.sparta.project.repository.StoreRepository;
+import com.sparta.project.repository.storecategory.StoreCategoryRepository;
 import com.sparta.project.repository.user.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

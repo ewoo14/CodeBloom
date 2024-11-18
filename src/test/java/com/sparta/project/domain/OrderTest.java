@@ -65,7 +65,7 @@ class OrderTest {
         Order order = Order.create(user, address, store, OrderType.ONLINE, 50000, "천천히 갖다 주세요.");
 
         // when
-        order.cancel();
+        order.cancel(user.getUserId());
 
         // then
         assertThat(order.getStatus()).isEqualTo(OrderStatus.CANCELED);
@@ -76,10 +76,10 @@ class OrderTest {
     void cancelWhenAlreadyCanceled() {
         // given
         Order order = Order.create(user, address, store, OrderType.ONLINE, 50000, "천천히 갖다 주세요.");
-        order.cancel();
+        order.cancel(user.getUserId());
 
         // when & then
-        assertThatThrownBy(() -> order.cancel())
+        assertThatThrownBy(() -> order.cancel(user.getUserId()))
                 .isInstanceOf(CodeBloomException.class);
     }
 
@@ -91,7 +91,7 @@ class OrderTest {
         order.approve();
 
         // when & then
-        assertThatThrownBy(() -> order.cancel())
+        assertThatThrownBy(() -> order.cancel(user.getUserId()))
                 .isInstanceOf(CodeBloomException.class);
     }
 
