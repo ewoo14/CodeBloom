@@ -30,9 +30,7 @@ public class MenuService {
 
     // 모든 메뉴 조회
     @Transactional(readOnly = true)
-    public Page<MenuResponse> getAllMenus(String storeId, String storeName, int page, int size) {
-        Sort sort = Sort.by(Sort.Order.desc("createdAt"), Sort.Order.desc("updatedAt"));
-        Pageable pageable = PageRequest.of(page - 1, size, sort);
+    public Page<MenuResponse> getAllMenus(String storeId, String storeName, Pageable pageable) {
         QMenu qMenu = QMenu.menu;
         // storeId : 전체일치, storeName : 부분일치
         BooleanExpression predicate = qMenu.store.storeId.eq(storeId)

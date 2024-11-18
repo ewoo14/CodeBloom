@@ -49,10 +49,8 @@ public class AIService {
 
     // 생성한 설명 목록 조회
     @Transactional(readOnly = true)
-    public Page<AIResponse> getMenuDescriptions(Long userId, int page, int size) {
+    public Page<AIResponse> getMenuDescriptions(Long userId, Pageable pageable) {
         QAi qAi = QAi.ai;
-        Sort sort = Sort.by(Sort.Order.desc("createdAt"), Sort.Order.desc("updatedAt"));
-        Pageable pageable = PageRequest.of(page - 1, size, sort);
 
         BooleanExpression predicate = qAi.user.userId.eq(userId);
         Page<Ai> results = aiRepository.findAll(predicate, pageable);

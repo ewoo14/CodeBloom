@@ -31,9 +31,7 @@ public class PaymentService {
 
     // 자신의 결제 내역 목록 조회
     @Transactional(readOnly = true)
-    public Page<PaymentResponse> getPaymentsByUser(Long userId, int page, int size) {
-        Sort sort = Sort.by(Sort.Order.desc("createdAt"), Sort.Order.desc("updatedAt"));
-        Pageable pageable = PageRequest.of(page - 1, size, sort);
+    public Page<PaymentResponse> getPaymentsByUser(Long userId, Pageable pageable) {
         QPayment qPayment = QPayment.payment;
         BooleanExpression predicate = qPayment.user.userId.eq(userId);
         return paymentRepository.findAll(predicate, pageable)
@@ -42,12 +40,10 @@ public class PaymentService {
 
     // OWNER의 가게 결제 내역 조회
     @Transactional(readOnly = true)
-    public Page<PaymentResponse> getMyStorePayments(Long userId, int page, int size) {
+    public Page<PaymentResponse> getMyStorePayments(Long userId, Pageable pageable) {
         Store store = storeRepository.findByOwnerUserId(userId)
                 .orElseThrow(() -> new CodeBloomException(ErrorCode.STORE_NOT_FOUND));
 
-        Sort sort = Sort.by(Sort.Order.desc("createdAt"), Sort.Order.desc("updatedAt"));
-        Pageable pageable = PageRequest.of(page - 1, size, sort);
         QPayment qPayment = QPayment.payment;
         BooleanExpression predicate = qPayment.order.store.storeId.eq(store.getStoreId());
         return paymentRepository.findAll(predicate, pageable)
@@ -56,8 +52,7 @@ public class PaymentService {
 
     // 가게 결제 내역 목록 조회
     @Transactional(readOnly = true)
-    public Page<PaymentResponse> getAllPayments(String storeId, int page, int size, String sortBy) {
-        Pageable pageable = PageRequest.of(page - 1, size, Sort.by(sortBy));
+    public Page<PaymentResponse> getAllPayments(String storeId, Pageable pageable) {
         QPayment qPayment = QPayment.payment;
         QOrder qOrder = QOrder.order;
         BooleanExpression predicate = qPayment.order.store.storeId.eq(storeId);

@@ -10,8 +10,14 @@ import com.sparta.project.service.AIService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
 
 @RestController
 @RequiredArgsConstructor
@@ -25,11 +31,14 @@ public class AIController {
     @GetMapping("/menu-description")
     public ApiResponse<PageResponse<AIResponse>> getMenuDescriptions(
             @RequestParam Long userId,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @PageableDefault(size = 5)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
+                    @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
+            }) Pageable pageable,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.OWNER.name());
-        Page<AIResponse> descriptions = aiService.getMenuDescriptions(userId, page, size);
+        Page<AIResponse> descriptions = aiService.getMenuDescriptions(userId, pageable);
         return ApiResponse.success(PageResponse.of(descriptions));
     }
 

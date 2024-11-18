@@ -11,6 +11,10 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,11 +29,14 @@ public class LocationController {
     // 운영 지역 전체 조회(MANAGER, MASTER)
     @GetMapping("/all")
     public ApiResponse<PageResponse<LocationResponse>> getAllLocations(
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @PageableDefault(size = 5)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
+                    @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
+            }) Pageable pageable,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
-        Page<LocationResponse> responses = locationService.getAllLocations(page, size);
+        Page<LocationResponse> responses = locationService.getAllLocations(pageable);
         return ApiResponse.success(PageResponse.of(responses));
     }
 
