@@ -209,15 +209,21 @@ public class StoreRequestController {
     public ApiResponse<PageResponse<StoreRequestAdminResponse>> getAllStoreRequests(
             Authentication authentication,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e058b9a ([Feat] 목록 조회 정렬 기준에 수정 일자 추가)
             @PageableDefault(size = 10)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Direction.DESC)
             })
+<<<<<<< HEAD
 =======
             @PageableDefault(size = 5)
             @SortDefault(sort = "createdAt", direction = Direction.DESC)
 >>>>>>> 66725a1 ([Feat] 음식점 생성 요청 목록 조회 API)
+=======
+>>>>>>> e058b9a ([Feat] 목록 조회 정렬 기준에 수정 일자 추가)
             Pageable pageable,
             @RequestParam(value = "categoryId", required = false) String categoryId,
             @RequestParam(value = "status", required = false) StoreRequestStatus status,
