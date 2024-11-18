@@ -27,9 +27,12 @@ import org.springframework.data.domain.Pageable;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import org.springframework.data.domain.Sort;
 >>>>>>> 67fd97f ([Fix] 기본 정렬 방식 "생성일", "수정일" 내림차순 적용)
+=======
+>>>>>>> 24d45f6 ([Fix] 정렬 어노테이션 사용으로 변경)
 import org.springframework.security.core.Authentication;
 =======
 import org.springframework.data.domain.Sort;
@@ -154,9 +157,7 @@ public class ReviewService {
 
     // 내 리뷰 목록 조회
     @Transactional(readOnly = true)
-    public Page<ReviewResponse> getMyReviews(Long userId, int page, int size) {
-        Sort sort = Sort.by(Sort.Order.desc("createdAt"), Sort.Order.desc("updatedAt"));
-        Pageable pageable = PageRequest.of(page - 1, size, sort);
+    public Page<ReviewResponse> getMyReviews(Long userId, Pageable pageable) {
         QReview qReview = QReview.review;
         BooleanExpression predicate = qReview.user.userId.eq(userId);
         return reviewRepository.findAll(predicate, pageable)
@@ -165,9 +166,7 @@ public class ReviewService {
 
     // 가게 리뷰 목록 조회
     @Transactional(readOnly = true)
-    public Page<ReviewResponse> getReviewsByStore(String storeId, int page, int size) {
-        Sort sort = Sort.by(Sort.Order.desc("createdAt"), Sort.Order.desc("updatedAt"));
-        Pageable pageable = PageRequest.of(page - 1, size, sort);
+    public Page<ReviewResponse> getReviewsByStore(String storeId, Pageable pageable) {
         QReview qReview = QReview.review;
         BooleanExpression predicate = qReview.store.storeId.eq(storeId);
         return reviewRepository.findAll(predicate, pageable)

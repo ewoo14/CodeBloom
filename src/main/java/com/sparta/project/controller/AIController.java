@@ -28,6 +28,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
+<<<<<<< HEAD
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,6 +46,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 >>>>>>> fea02e7 ([Feat] AI Dto 및 service 구현)
+=======
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+
+>>>>>>> 24d45f6 ([Fix] 정렬 어노테이션 사용으로 변경)
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/ai")
@@ -162,11 +170,14 @@ public class AIController {
     @GetMapping("/menu-description")
     public ApiResponse<PageResponse<AIResponse>> getMenuDescriptions(
             @RequestParam Long userId,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @PageableDefault(size = 5)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
+                    @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
+            }) Pageable pageable,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.OWNER.name());
-        Page<AIResponse> descriptions = aiService.getMenuDescriptions(userId, page, size);
+        Page<AIResponse> descriptions = aiService.getMenuDescriptions(userId, pageable);
         return ApiResponse.success(PageResponse.of(descriptions));
     }
 

@@ -39,7 +39,14 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+<<<<<<< HEAD
 >>>>>>> 426a1a2 ([Fix] Location, Review 권한 조정)
+=======
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
+>>>>>>> 24d45f6 ([Fix] 정렬 어노테이션 사용으로 변경)
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -79,10 +86,15 @@ public class ReviewController {
             @RequestParam Long userId,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            @PageableDefault(size = 5)
+>>>>>>> 24d45f6 ([Fix] 정렬 어노테이션 사용으로 변경)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
             }) Pageable pageable,
+<<<<<<< HEAD
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         Page<ReviewResponse> myReviews = reviewService.getMyReviews(userId, pageable);
@@ -105,6 +117,11 @@ public class ReviewController {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         Page<ReviewResponse> myReviews = reviewService.getMyReviews(userId, page, size);
 >>>>>>> 67fd97f ([Fix] 기본 정렬 방식 "생성일", "수정일" 내림차순 적용)
+=======
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
+        Page<ReviewResponse> myReviews = reviewService.getMyReviews(userId, pageable);
+>>>>>>> 24d45f6 ([Fix] 정렬 어노테이션 사용으로 변경)
         return ApiResponse.success(PageResponse.of(myReviews));
     }
 
@@ -114,11 +131,16 @@ public class ReviewController {
             @RequestParam String storeId,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            @PageableDefault(size = 5)
+>>>>>>> 24d45f6 ([Fix] 정렬 어노테이션 사용으로 변경)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
             }) Pageable pageable) {
         Page<ReviewResponse> storeReviews = reviewService.getReviewsByStore(storeId, pageable);
+<<<<<<< HEAD
 =======
             @RequestParam("page") int page,
             @RequestParam("size") int size,
@@ -135,6 +157,8 @@ public class ReviewController {
             @RequestParam(value = "size", required = false, defaultValue = "5") int size) {
         Page<ReviewResponse> storeReviews = reviewService.getReviewsByStore(storeId, page, size);
 >>>>>>> 67fd97f ([Fix] 기본 정렬 방식 "생성일", "수정일" 내림차순 적용)
+=======
+>>>>>>> 24d45f6 ([Fix] 정렬 어노테이션 사용으로 변경)
         return ApiResponse.success(PageResponse.of(storeReviews));
     }
 

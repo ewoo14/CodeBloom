@@ -33,6 +33,10 @@ import com.sparta.project.service.PaymentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 <<<<<<< HEAD
 import org.springframework.web.bind.annotation.PostMapping;
@@ -232,24 +236,30 @@ public class PaymentController {
     // 자신의 결제 내역 목록 조회(CUSTOMER)
     @GetMapping("/my")
     public ApiResponse<PageResponse<PaymentResponse>> getMyPayments(
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @PageableDefault(size = 5)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
+                    @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
+            }) Pageable pageable,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.CUSTOMER.name());
         Long userId = Long.parseLong(authentication.getName());
-        Page<PaymentResponse> payments = paymentService.getPaymentsByUser(userId, page, size);
+        Page<PaymentResponse> payments = paymentService.getPaymentsByUser(userId, pageable);
         return ApiResponse.success(PageResponse.of(payments));
     }
 
     // 자신의 가게 결제 내역 목록 조회(OWNER)
     @GetMapping("/myStore")
     public ApiResponse<PageResponse<PaymentResponse>> getMyStorePayments(
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
+            @PageableDefault(size = 5)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
+                    @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
+            }) Pageable pageable,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.OWNER.name());
         Long userId = Long.parseLong(authentication.getName());
-        Page<PaymentResponse> payments = paymentService.getMyStorePayments(userId, page, size);
+        Page<PaymentResponse> payments = paymentService.getMyStorePayments(userId, pageable);
         return ApiResponse.success(PageResponse.of(payments));
     }
 
@@ -257,12 +267,14 @@ public class PaymentController {
     @GetMapping
     public ApiResponse<PageResponse<PaymentResponse>> getAllPayments(
             @RequestParam String storeId,
-            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-            @RequestParam(value = "size", required = false, defaultValue = "5") int size,
-            @RequestParam(value = "sortBy", required = false, defaultValue = "createdAt") String sortBy,
+            @PageableDefault(size = 5)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
+                    @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
+            }) Pageable pageable,
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
-        Page<PaymentResponse> payments = paymentService.getAllPayments(storeId, page, size, sortBy);
+        Page<PaymentResponse> payments = paymentService.getAllPayments(storeId, pageable);
         return ApiResponse.success(PageResponse.of(payments));
     }
 

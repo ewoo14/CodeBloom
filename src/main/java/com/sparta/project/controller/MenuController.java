@@ -36,6 +36,10 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.security.core.Authentication;
 <<<<<<< HEAD
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -80,6 +84,7 @@ public class MenuController {
 =======
             @RequestParam(value = "storeId") String storeId,
             @RequestParam(value = "storeName") String storeName,
+<<<<<<< HEAD
             @RequestParam(value = "page", required = false, defaultValue = "1") int page,
 <<<<<<< HEAD
             @RequestParam(value = "size", required = false, defaultValue = "5") int size,
@@ -91,6 +96,14 @@ public class MenuController {
             @RequestParam(value = "size", required = false, defaultValue = "5") int size) {
         Page<MenuResponse> menus = menuService.getAllMenus(storeId, storeName, page, size);
 >>>>>>> 67fd97f ([Fix] 기본 정렬 방식 "생성일", "수정일" 내림차순 적용)
+=======
+            @PageableDefault(size = 5)
+            @SortDefault.SortDefaults({
+                    @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
+                    @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
+            }) Pageable pageable) {
+        Page<MenuResponse> menus = menuService.getAllMenus(storeId, storeName, pageable);
+>>>>>>> 24d45f6 ([Fix] 정렬 어노테이션 사용으로 변경)
         return ApiResponse.success(PageResponse.of(menus));
     }
 

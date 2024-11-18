@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
+<<<<<<< HEAD
 =======
 =======
 import com.sparta.project.domain.enums.Role;
@@ -34,6 +35,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 >>>>>>> 9425453 ([Feat] location 서비스 및 컨트롤러 작성, Menu 중복 방지)
+=======
+>>>>>>> 24d45f6 ([Fix] 정렬 어노테이션 사용으로 변경)
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,10 +55,15 @@ public class LocationController {
     public ApiResponse<PageResponse<LocationResponse>> getAllLocations(
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+            @PageableDefault(size = 5)
+>>>>>>> 24d45f6 ([Fix] 정렬 어노테이션 사용으로 변경)
             @SortDefault.SortDefaults({
                     @SortDefault(sort = "createdAt", direction = Sort.Direction.DESC),
                     @SortDefault(sort = "updatedAt", direction = Sort.Direction.DESC)
             }) Pageable pageable,
+<<<<<<< HEAD
             Authentication authentication) {
         permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
         Page<LocationResponse> responses = locationService.getAllLocations(pageable);
@@ -66,6 +74,11 @@ public class LocationController {
         permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
         Page<LocationResponse> responses = locationService.getAllLocations(page, size);
 >>>>>>> 67fd97f ([Fix] 기본 정렬 방식 "생성일", "수정일" 내림차순 적용)
+=======
+            Authentication authentication) {
+        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
+        Page<LocationResponse> responses = locationService.getAllLocations(pageable);
+>>>>>>> 24d45f6 ([Fix] 정렬 어노테이션 사용으로 변경)
         return ApiResponse.success(PageResponse.of(responses));
     }
 

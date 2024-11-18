@@ -116,6 +116,7 @@ public class MenuService {
     @Transactional(readOnly = true)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     public Page<MenuResponse> getAllMenus(String storeId, String storeName, Pageable pageable) {
 =======
     public Page<MenuResponse> getAllMenus(String storeId, String storeName, int page, int size, String sortBy) {
@@ -126,6 +127,9 @@ public class MenuService {
         Sort sort = Sort.by(Sort.Order.desc("createdAt"), Sort.Order.desc("updatedAt"));
         Pageable pageable = PageRequest.of(page - 1, size, sort);
 >>>>>>> 67fd97f ([Fix] 기본 정렬 방식 "생성일", "수정일" 내림차순 적용)
+=======
+    public Page<MenuResponse> getAllMenus(String storeId, String storeName, Pageable pageable) {
+>>>>>>> 24d45f6 ([Fix] 정렬 어노테이션 사용으로 변경)
         QMenu qMenu = QMenu.menu;
         // storeId : 전체일치, storeName : 부분일치
         BooleanExpression predicate = qMenu.store.storeId.eq(storeId)
