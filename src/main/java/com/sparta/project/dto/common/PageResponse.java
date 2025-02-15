@@ -16,12 +16,4 @@ public record PageResponse<T> (
                 page.getContent()
         );
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 6c799da ([Feat] 음식점 조회용 querydsl 미완)
-=======
-}
->>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)

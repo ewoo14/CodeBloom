@@ -39,12 +39,9 @@ application-test.yml
 ### VS Code ###
 .vscode/
 
-<<<<<<< HEAD
 ### http files ###
 *.http
 
-=======
->>>>>>> 5fcfbf6 ([Feat] menu dto와 service 코드 작성)
 ### Q Class ###
 # 특정 Q 클래스 무시
 /src/main/generated/com/sparta/project/domain/Q*.java

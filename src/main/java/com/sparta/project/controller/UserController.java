@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 package com.sparta.project.controller;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 
 import com.sparta.project.domain.enums.Role;
 import com.sparta.project.dto.common.ApiResponse;
@@ -23,52 +18,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-=======
-=======
->>>>>>> 9863864 ([Fix] Menu Service 메서드별 테스트 완성)
-package com.sparta.project.controller;
-
-
-import com.sparta.project.domain.enums.Role;
-<<<<<<< HEAD
-import com.sparta.project.dto.user.UserLoginRequest;
-import com.sparta.project.dto.user.UserSignupRequest;
-=======
->>>>>>> 72c1305 ([Refactor] OrderValidator로 주문쪽 검증 분리)
-import com.sparta.project.dto.common.ApiResponse;
-import com.sparta.project.dto.common.PageResponse;
-import com.sparta.project.dto.user.*;
-import com.sparta.project.permission.PermissionValidator;
-import com.sparta.project.service.UserService;
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-<<<<<<< HEAD
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
->>>>>>> 2470ae3 ([Feat] 회원가입 API)
-=======
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
->>>>>>> 72c1305 ([Refactor] OrderValidator로 주문쪽 검증 분리)
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     private final PermissionValidator permissionValidator;
-=======
-    private final PermissionValidator  permissionValidator;
->>>>>>> a74bec8 ([Feat] 유저 정보 수정 API)
     private final UserService userService;
 
     @PostMapping("/signup")
@@ -91,8 +47,6 @@ public class UserController {
         return ApiResponse.success();
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     // 회원 탈퇴 (CUSTOMER, OWNER)
     @DeleteMapping("/withdraw")
     public ApiResponse<Void> delete(Authentication authentication) {
@@ -144,162 +98,5 @@ public class UserController {
         return ApiResponse.success(PageResponse.of(result));
     }
 
-=======
->>>>>>> a74bec8 ([Feat] 유저 정보 수정 API)
-=======
-    // 회원 탈퇴 (CUSTOMER, OWNER)
-    @DeleteMapping("/withdraw")
-    public ApiResponse<Void> delete(Authentication authentication) {
-        userService.withdraw(Long.parseLong(authentication.getName()));
-        permissionValidator.checkPermission(authentication, Role.CUSTOMER.name(), Role.OWNER.name());
-        return ApiResponse.success();
-    }
-
-    // 회원 삭제 (MANAGER, MASTER)
-    @DeleteMapping("/{user_id}")
-    public ApiResponse<Void> deleteUser(Authentication authentication,
-                                        @PathVariable Long user_id) {
-        permissionValidator.checkPermission(authentication, Role.MANAGER.name(), Role.MASTER.name());
-        userService.deleteUser(Long.parseLong(authentication.getName()), user_id);
-        return ApiResponse.success();
-    }
-
->>>>>>> 9ab9550 ([Feat] 회원 탈퇴 API)
 }
 
-=======
-import com.sparta.project.dto.user.UserLoginRequest;
-import com.sparta.project.dto.user.UserRegisterRequest;
-import com.sparta.project.dto.user.UserUpdateRequest;
-import com.sparta.project.dto.user.UserResponse;
-=======
-import com.sparta.project.dto.UserLoginRequest;
-import com.sparta.project.dto.UserRegisterRequest;
-import com.sparta.project.dto.UserUpdateRequest;
-import com.sparta.project.dto.UserResponse;
->>>>>>> d0a8147 ([Fix] controller 내 dto 경로 수정)
-import com.sparta.project.service.UserService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
-
-<<<<<<< HEAD
-import java.util.List;
-
-@RestController
-@RequiredArgsConstructor
-@RequestMapping("/users")
-public class UserController {
-
-    private UserService userService;
-
-    // 회원가입
-    @PostMapping("/signup")
-    public UserResponse registerUser(@RequestBody UserRegisterRequest userRequest) {
-        return userService.registerUser(userRequest);
-    }
-
-    // 로그인
-    @PostMapping("/login")
-    public UserResponse login(@RequestBody UserLoginRequest loginRequest) {
-        return userService.login(loginRequest);
-    }
-
-    // 모든 회원 정보 불러오기
-    @GetMapping
-    public List<UserResponse> getAllUsers() {
-        return userService.getAllUsers();
-    }
-
-    // 회원정보 수정
-    @PatchMapping("/{user_id}")
-    public UserResponse updateUser(@PathVariable String user_id, @RequestBody UserUpdateRequest updateRequest) {
-        return userService.updateUser(user_id, updateRequest);
-    }
-
-    // 회원 탈퇴
-    @DeleteMapping("/{user_id}")
-    public void deleteUser(@PathVariable String user_id) {
-        userService.deleteUser(user_id);
-    }
-}
->>>>>>> c220516 ([Feat] : 컨트롤러 초안 작성)
-=======
-//package com.sparta.project.controller;
-//
-//import com.sparta.project.dto.user.CreateUserRequest;
-//import com.sparta.project.dto.user.LoginUserRequest;
-//import com.sparta.project.dto.user.UpdateUserRequest;
-//import com.sparta.project.dto.user.UserResponse;
-//import com.sparta.project.dto.common.ApiResponse;
-//import com.sparta.project.dto.common.PageResponse;
-//import com.sparta.project.service.UserService;
-//import lombok.RequiredArgsConstructor;
-//import org.springframework.web.bind.annotation.*;
-//
-//@RestController
-//@RequiredArgsConstructor
-//@RequestMapping("/users")
-//public class UserController {
-//
-//    private final UserService userService;
-//
-//    // 회원가입(ALL)
-//    @PostMapping("/signup")
-//    public ApiResponse<UserResponse> signUp(@RequestBody CreateUserRequest createUserRequest) {
-//        UserResponse userResponse = userService.createUser(createUserRequest);
-//        return ApiResponse.success(userResponse);
-//    }
-//
-//    // 로그인(ALL)
-//    @PostMapping("/login")
-//    public ApiResponse<String> login(@RequestBody LoginUserRequest loginUserRequest) {
-//        String token = userService.loginUser(loginUserRequest);
-//        return ApiResponse.success(token);
-//    }
-=======
-
-<<<<<<< HEAD
-
->>>>>>> a74bec8 ([Feat] 유저 정보 수정 API)
-//
-=======
->>>>>>> 9ab9550 ([Feat] 회원 탈퇴 API)
-//    // 전체 유저 조회(MANAGER, MASTER)
-//    @GetMapping
-//    public ApiResponse<PageResponse<UserResponse>> getAllUsers(
-//            @RequestParam("username") String username,
-//            @RequestParam("role") String role,
-//            @RequestParam("page") int page,
-//            @RequestParam("size") int size,
-//            @RequestParam("sortBy") String sortBy
-//    ) {
-//        Page<UserResponse> allUsers = userService.getAllUsers(username, role, page, size, sortBy);
-//        return ApiResponse.success(PageResponse.of(allUsers));
-//    }
-//
-//    // 유저 단건 조회(MANAGER, MASTER)
-//    @GetMapping("/{user_id}")
-//    public ApiResponse<UserResponse> getUserById(@PathVariable Long user_id) {
-//        UserResponse userInfo = userService.getUserById(user_id);
-//        return ApiResponse.success(userInfo);
-//    }
-//
-//}
->>>>>>> 5f194e3 ([Fix] AI명세서대로 컨트롤러 초안 수정)
-=======
-    private final UserService userService;
-
-    @PostMapping("/signup")
-    public ApiResponse<Void> signup(@Valid @RequestBody UserSignupRequest request) {
-        userService.createUser(request);
-        return ApiResponse.success();
-    }
-
-    @PostMapping("/login")
-    public ApiResponse<Map<String, String>> login(@Valid @RequestBody UserLoginRequest loginUserRequest) {
-        String token = userService.login(loginUserRequest);
-        return ApiResponse.success(Map.of("token", token));
-    }
-
-}
->>>>>>> 2470ae3 ([Feat] 회원가입 API)

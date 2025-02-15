@@ -48,7 +48,6 @@ public class StoreCategoryService {
         storeCategory.deleteBase(userId);
     }
 
-<<<<<<< HEAD
     @Transactional(readOnly = true)
     public Page<StoreCategoryResponse> getAllCategoriesBy(long userId,
                                                           Pageable pageable,
@@ -81,8 +80,6 @@ public class StoreCategoryService {
         return role == Role.MANAGER || role == Role.MASTER;
     }
 
-=======
->>>>>>> ec2081e ([Feat] 가게 카테고리 삭제 API)
     private void checkNameDuplication(String newName) {
         if(storeCategoryRepository.existsByName(newName)) {
             throw new CodeBloomException(ErrorCode.CATEGORY_ALREADY_EXIST);

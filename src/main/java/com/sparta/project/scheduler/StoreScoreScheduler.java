@@ -18,15 +18,7 @@ public class StoreScoreScheduler {
     private final ReviewRepository reviewRepository;
     private final StoreRepository storeRepository;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     // @Scheduled(fixedRate = 60 * 1000) // 1분마다 실행
-=======
-    //@Scheduled(fixedRate = 60 * 1000) // 1분마다 실행
->>>>>>> 4ed121a ([Feat] 평점 업데이트 - 1시간마다 스케쥴러 동작)
-=======
-    // @Scheduled(fixedRate = 60 * 1000) // 1분마다 실행
->>>>>>> abb6662 ([Fix] 평점을 계산할 때 소수점 두 번째 자리에서 반올림하여 "4.33333..." -> "4.3" 형태로 표현되도록 수정)
     @Scheduled(fixedRate = 60 * 60 * 1000) // 1시간마다 실행
     @Transactional
     public void updateStoreScores() {

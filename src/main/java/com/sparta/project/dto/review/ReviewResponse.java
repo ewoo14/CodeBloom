@@ -3,14 +3,7 @@ package com.sparta.project.dto.review;
 import com.sparta.project.domain.Review;
 
 import java.time.LocalDateTime;
-<<<<<<< HEAD
-<<<<<<< HEAD
 import java.time.format.DateTimeFormatter;
-=======
->>>>>>> df203c6 ([Feat] review dto 작성 완료)
-=======
-import java.time.format.DateTimeFormatter;
->>>>>>> 953ad15 ([Fix] DateTime을 String으로 포맷)
 
 public record ReviewResponse (
         String reviewId,

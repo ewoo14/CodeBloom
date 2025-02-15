@@ -11,10 +11,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-<<<<<<< HEAD
 import org.springframework.web.servlet.resource.NoResourceFoundException;
-=======
->>>>>>> 8a3e729 ([Feat] 커스텀 오류를 처리하는 핸들러 추가)
 
 @Slf4j
 @RestControllerAdvice
@@ -28,7 +25,6 @@ public class GlobalControllerAdvice {
         return ResponseEntity.status(e.getHttpStatus()).body(new ExceptionResponse(e.getMessage()));
     }
 
-<<<<<<< HEAD
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(NoResourceFoundException.class)
     public ExceptionResponse handleNoResourceFoundException(NoResourceFoundException e) {
@@ -56,7 +52,5 @@ public class GlobalControllerAdvice {
         //log.error(String.format(ERROR_LOG, e.getParameter(), e.getStatusCode()));
         return new ExceptionResponse(e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
     }
-=======
->>>>>>> 8a3e729 ([Feat] 커스텀 오류를 처리하는 핸들러 추가)
 
 }

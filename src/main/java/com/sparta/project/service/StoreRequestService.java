@@ -3,18 +3,10 @@ package com.sparta.project.service;
 
 import com.sparta.project.domain.StoreRequest;
 import com.sparta.project.domain.User;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> d5585a5 ([Feat] 음식점 생성 요청 정보 상세 조회 API)
 import com.sparta.project.domain.enums.StoreRequestStatus;
 import com.sparta.project.dto.store.StoreCreateData;
 import com.sparta.project.dto.storerequest.StoreCreateRequest;
 import com.sparta.project.dto.storerequest.StoreRequestAdminResponse;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> d5585a5 ([Feat] 음식점 생성 요청 정보 상세 조회 API)
 import com.sparta.project.dto.storerequest.StoreRequestResponse;
 import com.sparta.project.dto.storerequest.StoreRequestUpdateRequest;
 import com.sparta.project.dto.storerequest.StoreRequestOwnerResponse;
@@ -24,21 +16,6 @@ import com.sparta.project.repository.storerequest.StoreRequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-=======
-import com.sparta.project.domain.enums.Role;
-import com.sparta.project.dto.storerequest.StoreCreateRequest;
-=======
->>>>>>> 66725a1 ([Feat] 음식점 생성 요청 목록 조회 API)
-import com.sparta.project.exception.CodeBloomException;
-import com.sparta.project.exception.ErrorCode;
-import com.sparta.project.repository.storerequest.StoreRequestRepository;
-import lombok.RequiredArgsConstructor;
-<<<<<<< HEAD
->>>>>>> 4f6677d ([Feat] 가게 생성을 요청하는 기능)
-=======
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
->>>>>>> 66725a1 ([Feat] 음식점 생성 요청 목록 조회 API)
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,36 +24,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class StoreRequestService {
 
     private final UserService userService;
-<<<<<<< HEAD
     private final StoreService storeService;
     private final StoreCategoryService categoryService;
     private final LocationService locationService;
-<<<<<<< HEAD
-=======
-    private final StoreCategoryService categoryService;
-    private final StoreLocationService locationService;
->>>>>>> 4f6677d ([Feat] 가게 생성을 요청하는 기능)
-=======
->>>>>>> 38b9494 ([Fix] StoreLocationService 삭제 및 LocationService로의 통합)
     private final StoreRequestRepository storeRequestRepository;
 
     @Transactional
     public void createStoreRequest(final long userId, final StoreCreateRequest request) {
         User user = userService.getUserOrException(userId);
-<<<<<<< HEAD
-=======
-        if(user.getRole()!= Role.OWNER) {
-            throw new CodeBloomException(ErrorCode.FORBIDDEN_ACCESS);
-        }
->>>>>>> 4f6677d ([Feat] 가게 생성을 요청하는 기능)
 
         storeRequestRepository.save(StoreRequest.create(
                 request.name(), request.description(), request.address(), user,
                 categoryService.getStoreCategoryOrException(request.storeCategoryId()),
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 38b9494 ([Fix] StoreLocationService 삭제 및 LocationService로의 통합)
                 locationService.getLocationOrException(request.locationId())
         ));
     }
@@ -113,8 +72,6 @@ public class StoreRequestService {
         storeRequest.deleteBase(String.valueOf(userId));
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
     @Transactional(readOnly = true)
     public StoreRequestResponse getStoreRequestBy(long userId, String storeRequestId, boolean isAdmin) {
         StoreRequest storeRequest = getStoreRequestOrException(storeRequestId);
@@ -136,8 +93,6 @@ public class StoreRequestService {
                 .map(StoreRequestOwnerResponse::from);
     }
 
-=======
->>>>>>> 66725a1 ([Feat] 음식점 생성 요청 목록 조회 API)
     @Transactional(readOnly = true)
     public Page<StoreRequestAdminResponse> getAllStoreRequests(
             Pageable pageable,
@@ -148,11 +103,6 @@ public class StoreRequestService {
                 .map(StoreRequestAdminResponse::from);
     }
 
-<<<<<<< HEAD
-=======
->>>>>>> eb1dc2e ([Feat] 음식점 생성 요청 반려 API)
-=======
->>>>>>> 66725a1 ([Feat] 음식점 생성 요청 목록 조회 API)
     private void checkAlreadyChanged(StoreRequestStatus before, StoreRequestStatus change) {
         if(before==change) {
             throw new CodeBloomException(ErrorCode.ALREADY_PROCESSED);
@@ -162,11 +112,6 @@ public class StoreRequestService {
     private StoreRequest getStoreRequestOrException(String id) {
         return storeRequestRepository.findById(id).orElseThrow(()->
                 new CodeBloomException(ErrorCode.STORE_REQUEST_NOT_FOUND));
-=======
-                locationService.getStoreLocationOrException(request.locationId())
-        ));
-
->>>>>>> 4f6677d ([Feat] 가게 생성을 요청하는 기능)
     }
 
 }

@@ -41,10 +41,6 @@ public class AddressService {
     }
 
     @Transactional(readOnly = true)
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 05451ad ([Feat] 자신의 배송지 목록 조회 API)
     public List<AddressResponse> getUserAddresses(final long userId) {
         User user = userService.getUserOrException(userId);
         return addressRepository.findAllByUserAndIsDeleted(user, null)
@@ -54,11 +50,6 @@ public class AddressService {
     }
 
     @Transactional(readOnly = true)
-<<<<<<< HEAD
-=======
->>>>>>> 94c9f8b ([Feat] 유저 배송지 상세 조회 API)
-=======
->>>>>>> 05451ad ([Feat] 자신의 배송지 목록 조회 API)
     public AddressResponse getAddressBy(long userId, String addressId) {
         Address address = getAddressOrException(addressId);
         checkAddressOwner(userId, address.getUser().getUserId());
@@ -67,8 +58,6 @@ public class AddressService {
         }
         return AddressResponse.from(address);
     }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
     @Transactional(readOnly = true)
     public Page<AddressAdminResponse> getAllAddresses(
@@ -79,14 +68,6 @@ public class AddressService {
         return addressRepository.findAddressesWith(pageable, targetUserId, city, isDeleted)
                 .map(AddressAdminResponse::from);
     }
-=======
->>>>>>> 251cce7 ([Feat] 관리자용 배송지 상세 조회 API)
-
-    @Transactional(readOnly = true)
-    public Page<AddressAdminResponse> getAllAddresses(Pageable pageable, Long targetUserId, Boolean isDeleted) {
-        return addressRepository.findAddressesWith(pageable, targetUserId, isDeleted)
-                .map(AddressAdminResponse::from);
-    }
 
     @Transactional(readOnly = true)
     public AddressAdminResponse getAdminAddressBy(String addressId) {
@@ -94,23 +75,10 @@ public class AddressService {
         return AddressAdminResponse.from(address);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 251cce7 ([Feat] 관리자용 배송지 상세 조회 API)
-    @Transactional
->>>>>>> 94c9f8b ([Feat] 유저 배송지 상세 조회 API)
-=======
->>>>>>> 05451ad ([Feat] 자신의 배송지 목록 조회 API)
     public void updateAddress(long userId, String addressId, AddressUpdateRequest request) {
         User user = userService.getUserOrException(userId);
         Address address = getAddressOrException(addressId);
-<<<<<<< HEAD
         checkAddressOwner(userId, address.getUser().getUserId());
-=======
-        checkAddressOwner(user, address.getUser());
->>>>>>> a896d39 ([Refactor] 기존 배송지 변경하는 메서드 분리)
         if(request.isDefault() && alreadyExistDefault(user)) {
             changeDefaultAddress(user);
         }
@@ -119,20 +87,9 @@ public class AddressService {
         );
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 05451ad ([Feat] 자신의 배송지 목록 조회 API)
     public void deleteAddress(long userId, String addressId) {
         Address address = getAddressOrException(addressId);
         checkAddressOwner(userId, address.getUser().getUserId());
-=======
-    @Transactional
-    public void deleteAddress(long userId, String addressId) {
-        User user = userService.getUserOrException(userId);
-        Address address = getAddressOrException(addressId);
-        checkAddressOwner(user, address.getUser());
->>>>>>> 18c83f1 ([Feat] 배송지 삭제 API)
         address.deleteBase(String.valueOf(userId));
     }
 
